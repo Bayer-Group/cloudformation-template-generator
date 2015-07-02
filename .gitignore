@@ -1,0 +1,22 @@
+*.swp
+.idea
+
+*.class
+*.log
+
+# sbt specific
+.cache
+.history
+.lib/
+dist/*
+target/
+lib_managed/
+src_managed/
+project/boot/
+project/plugins/project/
+src/test/resources/cloud-config.generated
+src/test/resources/cloudformation-template-vpc-example.json.generated
+
+# Scala-IDE specific
+.scala_dependencies
+.worksheet

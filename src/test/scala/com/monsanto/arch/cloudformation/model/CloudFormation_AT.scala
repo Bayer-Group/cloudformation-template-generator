@@ -352,8 +352,8 @@ object StaxTemplate {
           )
         )
       ),
-    Path = "/",
-    Policies = Seq(
+    Path = Some("/"),
+    Policies = Some(Seq(
       Policy(
         PolicyName = "NAT_Takeover",
         PolicyDocument =
@@ -382,7 +382,7 @@ object StaxTemplate {
             )
           )
       )
-    )
+    ))
   )
 
   val publicSubnet1Param = CidrBlockParameter(

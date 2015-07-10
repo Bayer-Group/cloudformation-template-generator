@@ -5,7 +5,7 @@ val _name = "cloud-formation-template-generator"
 
 val _organization = "com.monsanto.arch"
 
-val _version = "1.0.1-SNAPSHOT"
+val _version = "1.0.2"
 
 name := _name
 

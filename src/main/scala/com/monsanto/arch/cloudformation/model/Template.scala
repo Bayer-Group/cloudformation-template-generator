@@ -6,6 +6,7 @@ import spray.json._
 import DefaultJsonProtocol._
 
 import scala.language.implicitConversions
+import scala.reflect.ClassTag
 
 /**
  * Created by Ryan Richt on 2/15/15
@@ -19,6 +20,14 @@ case class Template(
                     Outputs:     Option[Seq[Output[_]]],
                     AWSTemplateFormatVersion: String = "2010-09-09"
                    ){
+
+  def lookup[R <: Resource[R] : ClassTag ](name: String): R = {
+    if(Resources.isEmpty) throw new RuntimeException("You cannot lookup in a None map")
+    val candidates = Resources.get.filter{r => r.name == name}
+    if(candidates.length == 0) throw new RuntimeException(s"Resource name $name not found in template: ${this.Description} ")
+    if(candidates.length > 1) throw new RuntimeException(s"Name $name is not unique")
+    candidates.head.asInstanceOf[R]
+  }
 
   private def mergeOptionSeq[T](s1: Option[Seq[T]], s2: Option[Seq[T]]): Option[Seq[T]] =
     if(s1.isEmpty && s2.isEmpty) None

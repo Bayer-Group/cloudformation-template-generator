@@ -8,7 +8,36 @@ import DefaultJsonProtocol._
 import scala.language.implicitConversions
 
 /**
- * Created by Ryan Richt on 2/15/15
+ * Template is the container for all the elements of your
+ * [[http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html AWS CloudFormation]]
+ * [[http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html template]].
+ * {{{
+ *   // create the template
+ *   val simpleTemplate = Template(
+ *     AWSTemplateFormatVersion = "2010-09-09",
+ *     Description = "Simple S3 Bucket Template",
+ *     Resources = Some(
+ *       Seq(
+ *         `AWS::S3::Bucket`(
+ *           name = "S3Bucket",
+ *           BucketName = Some("UniqueBucketForSimpleTemplate")
+ *         )
+ *       )
+ *     ),
+ *     Parameters = None,
+ *     Conditions = None,
+ *     Mappings = None,
+ *     Outputs = None
+ *   )
+ * }}}
+ * @param Description See [[http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-description-structure.html description]]
+ * @param Parameters See [[http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/parameters-section-structure.html parameters]]
+ * @param Conditions See [[http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/conditions-section-structure.html conditionals]]
+ * @param Mappings See [[http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/mappings-section-structure.html mappings]]
+ * @param Resources See [[http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html resources]]
+ * @param Outputs See [[http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/outputs-section-structure.html outputs]]
+ * @param AWSTemplateFormatVersion See [[http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/format-version-structure.html version]]
+ *
  */
 case class Template(
                     Description: String,

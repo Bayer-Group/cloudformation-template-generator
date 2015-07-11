@@ -1,28 +1,17 @@
-import AssemblyKeys._
 import sbt.Keys._
 
-val _name = "cloud-formation-template-generator"
+name := "cloud-formation-template-generator"
 
-val _organization = "com.monsanto.arch"
-
-val _version = "1.0.1-SNAPSHOT"
-
-name := _name
-
-organization := _organization
-
-version := _version
-
-credentials += Credentials(Path.userHome / ".ivy2" / ".credentials")
-
-publishMavenStyle := true
+organization := "com.monsanto.arch"
 
 startYear := Some(2014)
 
-/* scala versions and options */
-scalaVersion := "2.11.6"
+// scala versions and options
+
+scalaVersion := "2.11.7"
 
 // These options will be used for *all* versions.
+
 scalacOptions ++= Seq(
   "-deprecation"
   ,"-unchecked"
@@ -37,6 +26,7 @@ scalacOptions ++= Seq(
 )
 
 // These language flags will be used only for 2.10.x.
+
 scalacOptions <++= scalaVersion map { sv =>
   if (sv startsWith "2.11") List(
     "-Xverify"
@@ -48,55 +38,33 @@ scalacOptions <++= scalaVersion map { sv =>
 
 javacOptions ++= Seq("-Xlint:unchecked", "-Xlint:deprecation")
 
-val akka = "2.3.9"
-val spray = "1.3.2"
+// dependencies
 
-/* dependencies */
 libraryDependencies ++= Seq (
-  "org.scala-lang.modules"     %% "scala-xml"                % "1.0.2"
-  ,"com.github.nscala-time"     %% "nscala-time"              % "1.2.0"
   // -- testing --
-  , "org.scalatest"             %% "scalatest"                % "2.2.1"  % "test"
-  // -- Logging --
-  ,"ch.qos.logback"              % "logback-classic"          % "1.1.2"
-  ,"com.typesafe.scala-logging" %% "scala-logging-slf4j"      % "2.1.2"
+   "org.scalatest"              %% "scalatest"                % "2.2.1"  % "test"
   // -- json --
-  ,"io.spray"                   %%  "spray-json"              % "1.3.1"
-  // -- config --
-  ,"com.typesafe"                % "config"                   % "1.2.1"
-  // -- file io --
-  ,"org.apache.commons"          % "commons-io"               % "1.3.2"
+  ,"io.spray"                   %%  "spray-json"              % "1.3.2"
 ).map(_.force())
-
-/* avoid duplicate slf4j bindings */
-libraryDependencies ~= { _.map(_.exclude("org.slf4j", "slf4j-jdk14")) }
 
 resolvers ++= Seq(
   "spray repo" at "http://repo.spray.io",
-  "splunk repo" at "http://splunk.artifactoryonline.com/splunk/ext-releases-local",
   Resolver.sonatypeRepo("releases"),
   Resolver.sonatypeRepo("snapshots")
 )
 
-// ScalaStyle
-org.scalastyle.sbt.ScalastylePlugin.Settings
+// for ghpages
 
-lazy val testScalaStyle = taskKey[Unit]("testScalaStyle")
+site.settings
 
-testScalaStyle := {
-  org.scalastyle.sbt.PluginKeys.scalastyle.toTask("").value
-}
+site.includeScaladoc()
 
-//(test in Test) <<= (test in Test) dependsOn testScalaStyle
+ghpages.settings
 
-val testSettings = Seq(
-  fork in Test := true
-)
+git.remoteRepo := "git@github.com:MonsantoCo/cloudformation-template-generator.git"
 
-testSettings
+// for bintray
 
-assemblySettings
+bintrayOrganization := Some("monsanto")
 
-test in assembly := {}
-
-fork in run := true
+licenses += ("BSD", url("http://opensource.org/licenses/BSD-3-Clause"))

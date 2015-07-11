@@ -13,8 +13,8 @@ write all AWS resources in JSON?
 ## Documentation
 
 See the
-[Scaladoc](http://monsantoco.github.io/cloudformation-template-generator/latest/api/)
-for detailed documentation and examples.
+[Scaladoc](http://monsantoco.github.io/cloudformation-template-generator/) for
+detailed documentation and examples.
 
 ### Components
 

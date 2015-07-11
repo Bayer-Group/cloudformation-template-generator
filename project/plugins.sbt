@@ -1,9 +1,7 @@
-addSbtPlugin("com.timushev.sbt" % "sbt-updates" % "0.1.6")
+addSbtPlugin("com.github.gseitz" % "sbt-release" % "1.0.0")
 
-addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "0.11.2")
+resolvers += "jgit-repo" at "http://download.eclipse.org/jgit/maven"
 
-addSbtPlugin("org.scalastyle" %% "scalastyle-sbt-plugin" % "0.4.0")
+addSbtPlugin("com.typesafe.sbt" % "sbt-ghpages" % "0.5.3")
 
-resolvers += "sonatype-releases" at "https://oss.sonatype.org/content/repositories/releases/"
-
-resolvers += Classpaths.sbtPluginReleases
+addSbtPlugin("me.lessis" % "bintray-sbt" % "0.3.0")

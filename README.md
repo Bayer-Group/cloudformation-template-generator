@@ -12,6 +12,12 @@ write all AWS resources in JSON?
 
 ## Documentation
 
+You must add the following resolver to your `build.sbt` to use this library.
+
+```scala
+resolvers ++= Seq(Resolver.jcenterRepo)
+```
+
 See the
 [Scaladoc](http://monsantoco.github.io/cloudformation-template-generator/) for
 detailed documentation and examples.
@@ -44,7 +50,10 @@ it to a file.
 - AWS::EC2::VolumeAttachment
 - AWS::ElasticLoadBalancing::LoadBalancer
 - AWS::IAM::AccessKey
+- AWS::IAM::Group
 - AWS::IAM::InstanceProfile
+- AWS::IAM::ManagedPolicy
+- AWS::IAM::Policy
 - AWS::IAM::Role
 - AWS::IAM::User
 - AWS::RDS::DBInstance::Engine

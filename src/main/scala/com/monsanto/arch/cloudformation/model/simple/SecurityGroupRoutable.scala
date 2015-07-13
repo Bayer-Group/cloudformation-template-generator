@@ -4,7 +4,6 @@ import com.monsanto.arch.cloudformation.model.{Token, ResourceRef, Template}
 import com.monsanto.arch.cloudformation.model.resource._
 import Builders._
 
-
 trait SecurityGroupRoutableMaker[R <: Resource[R]]{
 
   def withSG(r: R, sgr: ResourceRef[`AWS::EC2::SecurityGroup`]): R
@@ -33,8 +32,8 @@ object SecurityGroupRoutableMaker {
   }
 }
 
-case class SecurityGroupRoutable[R <: Resource[R]](resource: R, sg: `AWS::EC2::SecurityGroup`, extras: Option[Template] = None) {
-  def template = Template.fromResource(resource) ++ sg ++ extras.getOrElse(Template.EMPTY)
+case class SecurityGroupRoutable[R <: Resource[R]](resource: R, sg: `AWS::EC2::SecurityGroup`, extras: Option[Seq[Resource[_]]] = None) {
+  private[model] def resources: Seq[Resource[_]] = Seq(resource, sg) ++ extras.getOrElse( Seq.empty )
   def map[B](f: R => B): B = f(this.resource)
 }
 object SecurityGroupRoutable {
@@ -42,5 +41,5 @@ object SecurityGroupRoutable {
     implicitly[SecurityGroupRoutableMaker[R]].from(r)
 
   def from(launchConfigSGR: SecurityGroupRoutable[`AWS::AutoScaling::LaunchConfiguration`], asg: `AWS::AutoScaling::AutoScalingGroup`) =
-    SecurityGroupRoutable(asg, launchConfigSGR.sg, Some(launchConfigSGR.resource)) // TODO: this "extras" indirection is a bit trixie
+    SecurityGroupRoutable(asg, launchConfigSGR.sg, Some(Seq(launchConfigSGR.resource))) // TODO: this "extras" indirection is a bit trixie
 }

@@ -131,30 +131,18 @@ trait Subnet extends AvailabilityZone with Outputs {
       Tags = tagger(visibility.take(3).toLowerCase + "subnet" + ordinal, visibility)
     )
 
-  def withSubnet(visibility: String, ordinal: Int, cidr: Token[CidrBlock])
+  def withSubnet(name: String, cidr: Token[CidrBlock])
     (f: (`AWS::EC2::Subnet`) => Template)(implicit vpc: `AWS::EC2::VPC`, az: AZ): Template = {
 
-    def resourceName(viz: String) = viz match {
-      case "Public"    => "Pub"
-      case "Private"   => "Pri"
-      case "DBPrivate" => "DBPri"
-      case _           => ucFirst(visibility.take(3))
-    }
-
-    def tagName(viz: String) = viz match {
-      case "DBPrivate" => "Private"
-      case x           => x
-    }
-    val subName = resourceName(visibility) + "Subnet" + ordinal
     val sub = `AWS::EC2::Subnet`(
-      resourceName(visibility) + "Subnet" + ordinal,
+      name,
       VpcId = vpc,
       AvailabilityZone = az.zone,
       CidrBlock = cidr,
-      Tags = AmazonTag.fromName(subName)
+      Tags = AmazonTag.fromName(name)
     )
 
-    f(sub) ++ sub.andOutput(visibility + "Subnet" + ordinal,  visibility + " Subnet #" + ordinal)
+    f(sub) ++ sub.andOutput(name, name)
   }
 }
 

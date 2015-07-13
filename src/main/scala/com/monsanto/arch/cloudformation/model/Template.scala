@@ -17,16 +17,29 @@ case class Template(
                     Conditions:  Option[Seq[Condition]],
                     Mappings:    Option[Seq[Mapping[_]]],
                     Resources:   Option[Seq[Resource[_]]],
+                    Routables:   Option[Seq[SecurityGroupRoutable[_ <: Resource[_]]]] = None,
                     Outputs:     Option[Seq[Output[_]]],
                     AWSTemplateFormatVersion: String = "2010-09-09"
                    ){
 
-  def lookup[R <: Resource[R] : ClassTag ](name: String): R = {
+  def lookupResource[R <: Resource[R]](name: String): R = {
     if(Resources.isEmpty) throw new RuntimeException("You cannot lookup in a None map")
     val candidates = Resources.get.filter{r => r.name == name}
-    if(candidates.length == 0) throw new RuntimeException(s"Resource name $name not found in template: ${this.Description} ")
+
+    if(candidates.length == 0) throw new RuntimeException(s"Resource name $name not found in template: ${this.Description}")
     if(candidates.length > 1) throw new RuntimeException(s"Name $name is not unique")
+
     candidates.head.asInstanceOf[R]
+  }
+
+  def lookupRoutable[R <: Resource[R]](name: String): SecurityGroupRoutable[R] = {
+    if(Resources.isEmpty) throw new RuntimeException("You cannot lookup in a None map")
+    val candidates = Routables.get.filter{r => r.resource.name == name}
+
+    if(candidates.length == 0) throw new RuntimeException(s"Resource name $name not found in template: ${this.Description}")
+    if(candidates.length > 1) throw new RuntimeException(s"Name $name is not unique")
+
+    candidates.head.asInstanceOf[SecurityGroupRoutable[R]]
   }
 
   private def mergeOptionSeq[T](s1: Option[Seq[T]], s2: Option[Seq[T]]): Option[Seq[T]] =
@@ -39,13 +52,14 @@ case class Template(
     mergeOptionSeq(Conditions, t.Conditions ),
     mergeOptionSeq(Mappings,   t.Mappings   ),
     mergeOptionSeq(Resources,  t.Resources  ),
+    mergeOptionSeq(Routables,  t.Routables  ),
     mergeOptionSeq(Outputs,    t.Outputs    ),
     this.AWSTemplateFormatVersion
   )
 }
 object Template extends DefaultJsonProtocol {
 
-  val EMPTY = Template("", None, None, None, None, None)
+  val EMPTY = Template("", None, None, None, None, None, None)
 
   def collapse[R <: Resource[R]](rs: Seq[R]) = rs.foldLeft(Template.EMPTY)(_ ++ _)
 
@@ -71,7 +85,8 @@ object Template extends DefaultJsonProtocol {
     }
   }
 
-  implicit def fromResource[R <: Resource[R]](r: R): Template = Template("", None, None, None, Some(Seq(r)), None)
-  implicit def fromOutput(o: Output[_]): Template = Template("", None, None, None, None, Some(Seq(o)))
-  implicit def fromSecurityGroupRoutable[R <: Resource[R]](sgr: SecurityGroupRoutable[R]): Template = sgr.template
+  implicit def fromResource[R <: Resource[R]](r: R): Template = Template("", None, None, None, Some(Seq(r)), None, None)
+  implicit def fromOutput(o: Output[_]): Template = Template("", None, None, None, None, None, Some(Seq(o)))
+  implicit def fromSecurityGroupRoutable[R <: Resource[R]](sgr: SecurityGroupRoutable[R]): Template =
+    Template("", None, None, None, Some(sgr.resources), Some(Seq(sgr)), None)
 }

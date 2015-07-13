@@ -15,7 +15,7 @@ class TemplateLookupTest_UT extends FunSpec with Matchers {
 
       val template = Template.fromResource(expected)
 
-      assert(expected === template.lookup[`AWS::EC2::VPC`]("TestVPC"))
+      assert(expected === template.lookupResource[`AWS::EC2::VPC`]("TestVPC"))
     }
 
     it("Should throw exception when given the wrong type") {
@@ -28,7 +28,7 @@ class TemplateLookupTest_UT extends FunSpec with Matchers {
       val template = Template.fromResource(expected)
 
       intercept[ClassCastException] {
-        template.lookup[`AWS::EC2::Subnet`]("TestVPC")
+        template.lookupResource[`AWS::EC2::Subnet`]("TestVPC")
       }
     }
 
@@ -36,7 +36,7 @@ class TemplateLookupTest_UT extends FunSpec with Matchers {
       val template = Template.EMPTY
 
       intercept[RuntimeException] {
-        template.lookup[`AWS::EC2::Subnet`]("TestVPC")
+        template.lookupResource[`AWS::EC2::Subnet`]("TestVPC")
       }
     }
 
@@ -50,7 +50,7 @@ class TemplateLookupTest_UT extends FunSpec with Matchers {
       val template = Template.fromResource(otherThing)
 
       intercept[RuntimeException] {
-        template.lookup[`AWS::EC2::VPC`]("NoVPC")
+        template.lookupResource[`AWS::EC2::VPC`]("NoVPC")
       }
     }
 
@@ -64,7 +64,7 @@ class TemplateLookupTest_UT extends FunSpec with Matchers {
       val template = Template.fromResource(expected) ++ expected
 
       intercept[RuntimeException] {
-        template.lookup[`AWS::EC2::Subnet`]("TestVPC")
+        template.lookupResource[`AWS::EC2::Subnet`]("TestVPC")
       }
     }
   }

@@ -1,16 +1,28 @@
 # CloudFormation Template Generator
 
-## About
+Simple Scala DSL to create AWS CloudFormation (CFN) templates. The library
+allows for easier creation of the AWS CloudFormation JSON by writing Scala code
+to describe the AWS resources. Lets say we have a handful of CFN templates we
+want to maintain, and all of those templates use the same AMI. Instead of
+copying that information into all the templates, lets create an AMI component
+instead, and then load it into the actual templates.
 
-Simple Scala DSL to create AWS CloudFormation (CFN) templates. The library allows for easier creation of the AWS CloudFormation JSON by writing Scala code to describe the AWS resources. Lets say we have a handful of CFN templates we want to maintain, and all of those templates use the same AMI. Instead of copying that information into all the templates, lets create an AMI component instead, and then load it into the actual templates.
+**_Why not just write JSON?_**  Because, who in their right mind would want to
+write all AWS resources in JSON?
 
-## Why not just write JSON?
-Because, who in their right mind would want to write all AWS resources in JSON?
+## Documentation
 
-## Components
-Create a Template instanse of resources and check out VPCWriter to help write it to a file.
+See the
+[Scaladoc](http://monsantoco.github.io/cloudformation-template-generator/) for
+detailed documentation and examples.
 
-## Currently supported AWS resource types
+### Components
+
+Create a Template instance of resources and check out VPCWriter to help write
+it to a file.
+
+### Currently supported AWS resource types
+
 - AWS::AutoScaling::AutoScalingGroup
 - AWS::AutoScaling::LaunchConfiguration
 - AWS::AutoScaling::ScalingPolicy

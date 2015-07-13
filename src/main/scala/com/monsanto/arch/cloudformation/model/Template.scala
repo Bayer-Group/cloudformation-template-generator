@@ -9,7 +9,36 @@ import scala.language.implicitConversions
 import scala.reflect.ClassTag
 
 /**
- * Created by Ryan Richt on 2/15/15
+ * Template is the container for all the elements of your
+ * [[http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html AWS CloudFormation]]
+ * [[http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html template]].
+ * {{{
+ *   // create the template
+ *   val simpleTemplate = Template(
+ *     AWSTemplateFormatVersion = "2010-09-09",
+ *     Description = "Simple S3 Bucket Template",
+ *     Resources = Some(
+ *       Seq(
+ *         `AWS::S3::Bucket`(
+ *           name = "S3Bucket",
+ *           BucketName = Some("UniqueBucketForSimpleTemplate")
+ *         )
+ *       )
+ *     ),
+ *     Parameters = None,
+ *     Conditions = None,
+ *     Mappings = None,
+ *     Outputs = None
+ *   )
+ * }}}
+ * @param Description See [[http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-description-structure.html description]]
+ * @param Parameters See [[http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/parameters-section-structure.html parameters]]
+ * @param Conditions See [[http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/conditions-section-structure.html conditionals]]
+ * @param Mappings See [[http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/mappings-section-structure.html mappings]]
+ * @param Resources See [[http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html resources]]
+ * @param Outputs See [[http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/outputs-section-structure.html outputs]]
+ * @param AWSTemplateFormatVersion See [[http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/format-version-structure.html version]]
+ *
  */
 case class Template(
                     Description: String,
@@ -74,13 +103,13 @@ object Template extends DefaultJsonProtocol {
   implicit val format: JsonWriter[Template] = new JsonWriter[Template]{
     def write(p: Template) = {
       val fields = new collection.mutable.ListBuffer[(String, JsValue)]
-      fields ++= productElement2Field[String]("AWSTemplateFormatVersion", p, 6)
+      fields ++= productElement2Field[String]("AWSTemplateFormatVersion", p, 7)
       fields ++= productElement2Field[String]("Description", p, 0)
       if(p.Parameters.nonEmpty) fields ++= productElement2Field[Option[Seq[Parameter]]]("Parameters", p, 1)
       if(p.Conditions.nonEmpty) fields ++= productElement2Field[Option[Seq[Condition]]]("Conditions", p, 2)
       if(p.Mappings.nonEmpty) fields ++= productElement2Field[Option[Seq[Mapping[_]]]]("Mappings", p, 3)
       if(p.Resources.nonEmpty) fields ++= productElement2Field[Option[Seq[Resource[_]]]]("Resources", p, 4)
-      if(p.Outputs.nonEmpty) fields ++= productElement2Field[Option[Seq[Output[_]]]]("Outputs", p, 5)
+      if(p.Outputs.nonEmpty) fields ++= productElement2Field[Option[Seq[Output[_]]]]("Outputs", p, 6)
       JsObject(fields: _*)
     }
   }

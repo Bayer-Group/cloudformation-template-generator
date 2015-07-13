@@ -3,12 +3,18 @@ package com.monsanto.arch.cloudformation.model.resource
 import com.monsanto.arch.cloudformation.model._
 import spray.json._
 
+import scala.annotation.implicitNotFound
+
 /**
  * Created by Ryan Richt on 2/28/15
  */
 
-case class `AWS::IAM::InstanceProfile`(name: String, Path: String, Roles: Seq[Token[`AWS::IAM::Role`]],
-  override val Condition: Option[ConditionRef] = None) extends Resource[`AWS::IAM::InstanceProfile`]{
+case class `AWS::IAM::InstanceProfile`(
+  name:  String,
+  Path:  String,
+  Roles: Seq[ResourceRef[`AWS::IAM::Role`]],
+  override val Condition: Option[ConditionRef] = None
+  ) extends Resource[`AWS::IAM::InstanceProfile`]{
 
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
 }
@@ -19,7 +25,7 @@ object `AWS::IAM::InstanceProfile` extends DefaultJsonProtocol {
 case class `AWS::IAM::User`(
                             name: String,
                             Path: Option[Token[String]],
-                            Groups: Option[Seq[Token[String]]] = None,
+                            Groups: Option[Seq[ResourceRef[`AWS::IAM::Group`]]] = None,
                             override val Condition: Option[ConditionRef] = None)
   extends Resource[`AWS::IAM::User`]{
 
@@ -56,19 +62,39 @@ object AccessKeyStatus extends DefaultJsonProtocol{
     }
   }
 }
+
+case class `AWS::IAM::ManagedPolicy`(
+  name:           String,
+  PolicyDocument: PolicyDocument,
+  Description:    Option[String] = None,
+  Path:           Option[String] = None,
+  Groups:         Option[Seq[ResourceRef[`AWS::IAM::Group`]]] = None,
+  Roles:          Option[Seq[ResourceRef[`AWS::IAM::Group`]]] = None,
+  Users:          Option[Seq[ResourceRef[`AWS::IAM::Group`]]] = None,
+  override val Condition: Option[ConditionRef] = None
+  ) extends Resource[`AWS::IAM::ManagedPolicy`] {
+
+  def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
+}
+object `AWS::IAM::ManagedPolicy` extends DefaultJsonProtocol {
+  implicit val format: JsonFormat[`AWS::IAM::ManagedPolicy`] = jsonFormat8(`AWS::IAM::ManagedPolicy`.apply)
+}
+
 case class `AWS::IAM::Role`(
   name:                     String,
   AssumeRolePolicyDocument: PolicyDocument,
-  Policies:                 Seq[Policy],
-  Path:                     String,
+  ManagedPolicyArns:        Option[Seq[ResourceRef[`AWS::IAM::ManagedPolicy`]]] = None,
+  Path:                     Option[Token[String]] = None,
+  Policies:                 Option[Seq[Policy]] = None,
   override val Condition: Option[ConditionRef] = None
   ) extends Resource[`AWS::IAM::Role`]{
 
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
 }
 object `AWS::IAM::Role` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::IAM::Role`] = jsonFormat5(`AWS::IAM::Role`.apply)
+  implicit val format: JsonFormat[`AWS::IAM::Role`] = jsonFormat6(`AWS::IAM::Role`.apply)
 }
+
 case class PolicyStatement(
   Effect:    String,
   Principal: Option[PolicyPrincipal] = None,
@@ -77,6 +103,57 @@ case class PolicyStatement(
   )
 object PolicyStatement extends DefaultJsonProtocol {
   implicit val format: JsonFormat[PolicyStatement] = jsonFormat4(PolicyStatement.apply)
+}
+
+case class `AWS::IAM::Group`(
+  name:              String,
+  ManagedPolicyArns: Option[Seq[ResourceRef[`AWS::IAM::ManagedPolicy`]]] = None,
+  Path:              Option[Token[String]] = None,
+  Policies:          Option[Seq[Policy]] = None,
+  override val Condition: Option[ConditionRef] = None
+  ) extends Resource[`AWS::IAM::Group`]{
+  def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
+}
+object `AWS::IAM::Group` extends DefaultJsonProtocol {
+  implicit val format: JsonFormat[`AWS::IAM::Group`] = jsonFormat5(`AWS::IAM::Group`.apply)
+}
+
+@implicitNotFound("you can only specify one of Groups, Roles, or Users")
+trait ValidPolicyCombo[G,R,U]
+object ValidPolicyCombo {
+  implicit object onlyG extends ValidPolicyCombo[Some[Seq[ResourceRef[`AWS::IAM::Group`]]], None.type, None.type]
+  implicit object onlyR extends ValidPolicyCombo[None.type, Some[Seq[ResourceRef[`AWS::IAM::Role`]]], None.type]
+  implicit object onlyU extends ValidPolicyCombo[None.type, None.type, Some[Seq[ResourceRef[`AWS::IAM::User`]]]]
+}
+
+case class `AWS::IAM::Policy` private (
+  name:           String,
+  PolicyDocument: PolicyDocument,
+  PolicyName:     String,
+  Groups:         Option[Seq[ResourceRef[`AWS::IAM::Group`]]],
+  Roles:          Option[Seq[ResourceRef[`AWS::IAM::Role`]]],
+  Users:          Option[Seq[ResourceRef[`AWS::IAM::User`]]],
+  override val Condition: Option[ConditionRef] = None
+  ) extends Resource[`AWS::IAM::Policy`]{
+  def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
+}
+object `AWS::IAM::Policy` extends DefaultJsonProtocol {
+  implicit val format: JsonFormat[`AWS::IAM::Policy`] = jsonFormat7(`AWS::IAM::Policy`.apply)
+
+  def from[
+    G <: Option[Seq[ResourceRef[`AWS::IAM::Group`]]],
+    R <: Option[Seq[ResourceRef[`AWS::IAM::Role`]]],
+    U <: Option[Seq[ResourceRef[`AWS::IAM::User`]]]
+  ](
+    name:           String,
+    PolicyDocument: PolicyDocument,
+    PolicyName:     String,
+    Groups:         G,
+    Roles:          R,
+    Users:          U,
+    Condition: Option[ConditionRef] = None
+  )(implicit ev1: ValidPolicyCombo[G,R,U]) =
+    new `AWS::IAM::Policy`(name, PolicyDocument, PolicyName, Groups, Roles, Users, Condition)
 }
 
 // TODO: Make this not a string

@@ -69,7 +69,7 @@ class TemplateDoc_AT extends FunSpec with Matchers {
             gatewayToInternetResource ++
             publicRouteTableRoute
           val withinAZ = withAZ("us-east-1a") { implicit az =>
-            withSubnet("Public", 1, CidrBlock(10, 0, 0, 1, 24)) { implicit pubSubnet =>
+            withSubnet("PubSubnet1", CidrBlock(10, 0, 0, 1, 24)) { implicit pubSubnet =>
               val bastionName = "bastion"
               val bastion = ec2(
                 name = bastionName,
@@ -89,7 +89,7 @@ class TemplateDoc_AT extends FunSpec with Matchers {
                 ))
               )
               val sshToBastion = ParameterRef(allowSSHFromParameter) ->- 22 ->- bastion
-              bastion.template ++ bastion.map(_.withEIP("BastionEIP").andOutput("BastionEIP", "Bastion Host EIP")) ++
+              Template.fromSecurityGroupRoutable(bastion) ++ bastion.map(_.withEIP("BastionEIP").andOutput("BastionEIP", "Bastion Host EIP")) ++
                 Template.collapse(sshToBastion)
             }
           }

@@ -61,10 +61,10 @@ site.includeScaladoc()
 
 ghpages.settings
 
-git.remoteRepo := "git@github.com:MonsantoCo/cloudformation-template-generator.git"
+git.remoteRepo := "git@github.com:linuxfreakus/cloudformation-template-generator.git"
 
 // for bintray
 
-bintrayOrganization := Some("monsanto")
+//bintrayOrganization := Some("monsanto")
 
 licenses += ("BSD", url("http://opensource.org/licenses/BSD-3-Clause"))

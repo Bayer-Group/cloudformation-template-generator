@@ -93,7 +93,7 @@ object `AWS::Redshift::ClusterSecurityGroup` extends DefaultJsonProtocol {
 case class `AWS::Redshift::ClusterSecurityGroupIngress`(
     name: String,
     ClusterSecurityGroupName: Token[String],
-    CIDRIP: Option[Token[CidrBlock]] = None,
+    CIDRIP: Option[Token[String]] = None,
     EC2SecurityGroupName: Option[ResourceRef[`AWS::EC2::SecurityGroup`]] = None,
     EC2SecurityGroupOwnerId: Option[Token[String]] = None,
     override val Condition: Option[ConditionRef] = None)

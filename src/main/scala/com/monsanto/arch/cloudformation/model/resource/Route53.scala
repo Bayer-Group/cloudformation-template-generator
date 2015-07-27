@@ -85,7 +85,7 @@ object `AWS::Route53::RecordSet` extends DefaultJsonProtocol {
 
 case class `AWS::Route53::HostedZone`(
                                        name:                    String,
-                                       Name:                    String,
+                                       Name:                    Token[String],
                                        VPCs:                    Seq[HostedZoneVPC],
                                        HostedZoneConfig:        HostedZoneConfig,
                                        override val Condition:  Option[ConditionRef] = None

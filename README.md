@@ -62,6 +62,11 @@ it to a file.
 - AWS::RDS::DBParameterGroup
 - AWS::RDS::DBSecurityGroup
 - AWS::RDS::DBSubnetGroup
+- AWS::Redshift::Cluster
+- AWS::Redshift::ClusterSecurityGroup
+- AWS::Redshift::ClusterSecurityGroupIngress
+- AWS::Redshift::ClusterParameterGroup (along with helper RedshiftClusterParameter type)
+- AWS::Redshift::ClusterSubnetGroup
 - AWS::Route53::HostedZone
 - AWS::Route53::RecordSet
 - AWS::S3::Bucket

@@ -26,7 +26,6 @@ case class `AWS::AutoScaling::AutoScalingGroup`(
 }
 
 object `AWS::AutoScaling::AutoScalingGroup` extends DefaultJsonProtocol {
-  implicitly [JsonFormat[Option[Int]]]
   implicit val format: JsonFormat[`AWS::AutoScaling::AutoScalingGroup`] = jsonFormat13(`AWS::AutoScaling::AutoScalingGroup`.apply)
 }
 

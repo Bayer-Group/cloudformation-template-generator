@@ -156,6 +156,8 @@ object Token extends DefaultJsonProtocol {
   implicit def fromAny[R: JsonFormat](r: R): AnyToken[R] = AnyToken(r)
   implicit def fromOptionAny[R: JsonFormat](or: Option[R]): Option[AnyToken[R]] = or.map(r => Token.fromAny(r))
   implicit def fromString(s: String): StringToken = StringToken(s)
+  implicit def fromBoolean(s: Boolean): BooleanToken = BooleanToken(s)
+  implicit def fromInt(s: Int): IntToken = IntToken(s)
   implicit def fromFunction[R](f: AmazonFunctionCall[R]): FunctionCallToken[R] = FunctionCallToken[R](f)
   implicit def fromSome[R](oR: Some[R])(implicit ev1: R => Token[R]): Some[Token[R]] = oR.map(ev1).asInstanceOf[Some[Token[R]]]
   implicit def fromOption[R](oR: Option[R])(implicit ev1: R => Token[R]): Option[Token[R]] = oR.map(ev1)
@@ -170,6 +172,8 @@ object Token extends DefaultJsonProtocol {
       obj match {
         case a: AnyToken[R]          => a.value.toJson
         case s: StringToken          => s.value.toJson
+        case i: IntToken             => i.value.toJson
+        case b: BooleanToken         => b.value.toJson
         case s: UNSAFEToken[_]       => s.value.toJson
           // its OK to erase the return type of AmazonFunctionCalls b/c they are only used at compile time for checking
           // not for de/serialization logic or JSON representation
@@ -185,6 +189,8 @@ object Token extends DefaultJsonProtocol {
 }
 case class AnyToken[R : JsonFormat](value: R) extends Token[R]
 case class StringToken(value: String) extends Token[String]
+case class BooleanToken(value: Boolean) extends Token[Boolean]
+case class IntToken(value: Int) extends Token[Int]
 case class FunctionCallToken[R](call: AmazonFunctionCall[R]) extends Token[R]
 
 @deprecated("use ParameterRef or ResourceRef instead", "Feb 20 2015")

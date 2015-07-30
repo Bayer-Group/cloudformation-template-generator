@@ -28,23 +28,21 @@ object Resource extends DefaultJsonProtocol {
   implicit object seqFormat extends JsonWriter[Seq[Resource[_]]]{
 
     implicit object format extends JsonWriter[Resource[_]]{
+
       def write(obj: Resource[_]) = {
-
         val bar: obj.RR = obj.asInstanceOf[obj.RR]
-        val raw = bar._format.asInstanceOf[JsonFormat[obj.RR]].write(bar)
+        val raw = bar._format.asInstanceOf[JsonFormat[obj.RR]].write(bar).asJsObject
 
-        val mainFields = JsObject(raw.asJsObject.fields - "name" - "Condition" - "DependsOn")
-        val outputFields = mainFields.fields.get("Metadata") match {
-          case Some(meta) => Map("Type" -> JsString(obj.Type), "Metadata" -> meta, "Properties" -> JsObject(mainFields.fields - "Metadata"))
-          case None       => Map("Type" -> JsString(obj.Type),                     "Properties" -> mainFields)
-        }
+        val outputFields = Map(
+          "Type" -> JsString(obj.Type),
+          "Metadata" -> raw.fields.getOrElse("Metadata", JsNull),
+          "Properties" -> JsObject(raw.fields - "name" - "Metadata" - "UpdatePolicy" - "Condition" - "DependsOn"),
+          "UpdatePolicy" -> raw.fields.getOrElse("UpdatePolicy", JsNull),
+          "Condition" -> obj.Condition.map(_.toJson).getOrElse(JsNull),
+          "DependsOn" -> obj.DependsOn.map(dependencies => JsArray(dependencies.map(JsString(_)).toVector)).getOrElse(JsNull)
+        ).filter(_._2 != JsNull)
 
-        val fieldsPlusCondition = obj.Condition.foldLeft(outputFields){ case (fs, c) => fs + ("Condition" -> c.toJson) }
-        val fieldsPlusDependsOn = obj.DependsOn.foldLeft(fieldsPlusCondition) { case (flds, c) =>
-          flds + ("DependsOn" -> JsArray(c.map { str => JsString(str)}.toVector))
-        }
-        JsObject(fieldsPlusDependsOn)
-
+        JsObject(outputFields)
       }
     }
 

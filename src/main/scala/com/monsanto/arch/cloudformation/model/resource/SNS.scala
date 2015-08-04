@@ -12,11 +12,11 @@ object Subscription extends DefaultJsonProtocol {
 }
 
 case class `AWS::SNS::Topic`(
-                              name: String,
-                              DisplayName: Option[Token[String]],
-                              Subscription: Option[Seq[Token[Subscription]]],
-                              TopicName: Option[Token[String]],
-                              override val Condition: Option[ConditionRef] = None)
+  name: String,
+  DisplayName: Option[Token[String]],
+  Subscription: Option[Seq[Token[Subscription]]],
+  TopicName: Option[Token[String]],
+  override val Condition: Option[ConditionRef] = None)
   extends Resource[`AWS::SNS::Topic`] {
   def when(newCondition: Option[ConditionRef] = Condition) =
     new `AWS::SNS::Topic`(name, DisplayName, Subscription, TopicName, newCondition)
@@ -26,10 +26,10 @@ object `AWS::SNS::Topic` extends DefaultJsonProtocol {
 }
 
 case class `AWS::SNS::TopicPolicy`(
-                                    name: String,
-                                    PolicyDocument: PolicyDocument,
-                                    Topics: Seq[ResourceRef[`AWS::SNS::Topic`]],
-                                    override val Condition: Option[ConditionRef] = None)
+  name: String,
+  PolicyDocument: PolicyDocument,
+  Topics: Seq[ResourceRef[`AWS::SNS::Topic`]],
+  override val Condition: Option[ConditionRef] = None)
   extends Resource[`AWS::SNS::TopicPolicy`] {
   def when(newCondition: Option[ConditionRef] = Condition) =
     new `AWS::SNS::TopicPolicy`(name, PolicyDocument, Topics, newCondition)

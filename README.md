@@ -67,4 +67,4 @@ it to a file.
 - AWS::S3::Bucket
 - AWS::S3::BucketPolicy
 - AWS::SNS::Topic
-- AWS::SNS::Topic
+- AWS::SNS::TopicPolicy

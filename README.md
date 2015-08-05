@@ -66,3 +66,5 @@ it to a file.
 - AWS::Route53::RecordSet
 - AWS::S3::Bucket
 - AWS::S3::BucketPolicy
+- AWS::SNS::Topic
+- AWS::SNS::TopicPolicy

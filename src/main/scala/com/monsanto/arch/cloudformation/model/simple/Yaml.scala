@@ -44,7 +44,7 @@ object Yaml {
 
     def yaml(args: Any*): String = {
       sc.checkLengths(args)
-      build(sc.parts, args).mkString.trim
+      build(sc.parts, args).mkString.trim + "\n"
     }
   }
 

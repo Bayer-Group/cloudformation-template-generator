@@ -85,7 +85,7 @@ object ValidRouteCombo{
 class `AWS::EC2::Route` private (
                          val name:                 String,
                          val RouteTableId:         Token[ResourceRef[`AWS::EC2::RouteTable`]],
-                         val DestinationCidrBlock: CidrBlock,
+                         val DestinationCidrBlock: Token[CidrBlock],
                          val GatewayId:            Option[Token[ResourceRef[`AWS::EC2::InternetGateway`]]] = None,
                          val InstanceId:           Option[Token[ResourceRef[`AWS::EC2::Instance`]]] = None,
                          override val Condition: Option[ConditionRef] = None
@@ -129,7 +129,7 @@ object `AWS::EC2::Route` extends DefaultJsonProtocol {
   ](
     name:                         String,
     RouteTableId:                 Token[ResourceRef[`AWS::EC2::RouteTable`]],
-    DestinationCidrBlock:         CidrBlock,
+    DestinationCidrBlock:         Token[CidrBlock],
     GatewayId:                    G = None,
     InstanceId:                   I = None,
     Condition: Option[ConditionRef] = None

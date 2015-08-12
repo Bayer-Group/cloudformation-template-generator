@@ -90,3 +90,5 @@ NEW since the blog post, say you have a topology with subnets across multiple AZ
 - AWS::Route53::RecordSet
 - AWS::S3::Bucket
 - AWS::S3::BucketPolicy
+- AWS::SNS::Topic
+- AWS::SNS::TopicPolicy

@@ -47,7 +47,7 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <span class="name">Template</span><span class="params">(<span name="Description">Description: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="Parameters">Parameters: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<a href="Parameter.html" class="extype" name="com.monsanto.arch.cloudformation.model.Parameter">Parameter</a>]]</span>, <span name="Conditions">Conditions: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<a href="Condition.html" class="extype" name="com.monsanto.arch.cloudformation.model.Condition">Condition</a>]]</span>, <span name="Mappings">Mappings: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<a href="Mapping.html" class="extype" name="com.monsanto.arch.cloudformation.model.Mapping">Mapping</a>[_]]]</span>, <span name="Resources">Resources: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<a href="resource/Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a>[_]]]</span>, <span name="Outputs">Outputs: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<a href="Output.html" class="extype" name="com.monsanto.arch.cloudformation.model.Output">Output</a>[_]]]</span>, <span name="AWSTemplateFormatVersion">AWSTemplateFormatVersion: <span class="extype" name="scala.Predef.String">String</span> = <span class="symbol">&quot;2010-09-09&quot;</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <span class="name">Template</span><span class="params">(<span name="Description">Description: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="Parameters">Parameters: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<a href="Parameter.html" class="extype" name="com.monsanto.arch.cloudformation.model.Parameter">Parameter</a>]]</span>, <span name="Conditions">Conditions: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<a href="Condition.html" class="extype" name="com.monsanto.arch.cloudformation.model.Condition">Condition</a>]]</span>, <span name="Mappings">Mappings: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<a href="Mapping.html" class="extype" name="com.monsanto.arch.cloudformation.model.Mapping">Mapping</a>[_]]]</span>, <span name="Resources">Resources: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<a href="resource/Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a>[_]]]</span>, <span name="Routables">Routables: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<a href="simple/SecurityGroupRoutable.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroupRoutable">SecurityGroupRoutable</a>[_ &lt;: <a href="resource/Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a>[_]]]] = <span class="symbol">None</span></span>, <span name="Outputs">Outputs: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<a href="Output.html" class="extype" name="com.monsanto.arch.cloudformation.model.Output">Output</a>[_]]]</span>, <span name="AWSTemplateFormatVersion">AWSTemplateFormatVersion: <span class="extype" name="scala.Predef.String">String</span> = <span class="symbol">&quot;2010-09-09&quot;</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
       
@@ -109,7 +109,7 @@
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
               <ol><li name="com.monsanto.arch.cloudformation.model.Template#&lt;init&gt;" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="&lt;init&gt;(Description:String,Parameters:Option[Seq[com.monsanto.arch.cloudformation.model.Parameter]],Conditions:Option[Seq[com.monsanto.arch.cloudformation.model.Condition]],Mappings:Option[Seq[com.monsanto.arch.cloudformation.model.Mapping[_]]],Resources:Option[Seq[com.monsanto.arch.cloudformation.model.resource.Resource[_]]],Outputs:Option[Seq[com.monsanto.arch.cloudformation.model.Output[_]]],AWSTemplateFormatVersion:String):com.monsanto.arch.cloudformation.model.Template"></a>
+      <a id="&lt;init&gt;(Description:String,Parameters:Option[Seq[com.monsanto.arch.cloudformation.model.Parameter]],Conditions:Option[Seq[com.monsanto.arch.cloudformation.model.Condition]],Mappings:Option[Seq[com.monsanto.arch.cloudformation.model.Mapping[_]]],Resources:Option[Seq[com.monsanto.arch.cloudformation.model.resource.Resource[_]]],Routables:Option[Seq[com.monsanto.arch.cloudformation.model.simple.SecurityGroupRoutable[_&lt;:com.monsanto.arch.cloudformation.model.resource.Resource[_]]]],Outputs:Option[Seq[com.monsanto.arch.cloudformation.model.Output[_]]],AWSTemplateFormatVersion:String):com.monsanto.arch.cloudformation.model.Template"></a>
       <a id="&lt;init&gt;:Template"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -117,10 +117,10 @@
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">Template</span><span class="params">(<span name="Description">Description: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="Parameters">Parameters: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<a href="Parameter.html" class="extype" name="com.monsanto.arch.cloudformation.model.Parameter">Parameter</a>]]</span>, <span name="Conditions">Conditions: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<a href="Condition.html" class="extype" name="com.monsanto.arch.cloudformation.model.Condition">Condition</a>]]</span>, <span name="Mappings">Mappings: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<a href="Mapping.html" class="extype" name="com.monsanto.arch.cloudformation.model.Mapping">Mapping</a>[_]]]</span>, <span name="Resources">Resources: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<a href="resource/Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a>[_]]]</span>, <span name="Outputs">Outputs: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<a href="Output.html" class="extype" name="com.monsanto.arch.cloudformation.model.Output">Output</a>[_]]]</span>, <span name="AWSTemplateFormatVersion">AWSTemplateFormatVersion: <span class="extype" name="scala.Predef.String">String</span> = <span class="symbol">&quot;2010-09-09&quot;</span></span>)</span>
+        <span class="name">Template</span><span class="params">(<span name="Description">Description: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="Parameters">Parameters: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<a href="Parameter.html" class="extype" name="com.monsanto.arch.cloudformation.model.Parameter">Parameter</a>]]</span>, <span name="Conditions">Conditions: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<a href="Condition.html" class="extype" name="com.monsanto.arch.cloudformation.model.Condition">Condition</a>]]</span>, <span name="Mappings">Mappings: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<a href="Mapping.html" class="extype" name="com.monsanto.arch.cloudformation.model.Mapping">Mapping</a>[_]]]</span>, <span name="Resources">Resources: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<a href="resource/Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a>[_]]]</span>, <span name="Routables">Routables: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<a href="simple/SecurityGroupRoutable.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroupRoutable">SecurityGroupRoutable</a>[_ &lt;: <a href="resource/Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a>[_]]]] = <span class="symbol">None</span></span>, <span name="Outputs">Outputs: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<a href="Output.html" class="extype" name="com.monsanto.arch.cloudformation.model.Output">Output</a>[_]]]</span>, <span name="AWSTemplateFormatVersion">AWSTemplateFormatVersion: <span class="extype" name="scala.Predef.String">String</span> = <span class="symbol">&quot;2010-09-09&quot;</span></span>)</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.Template@&lt;init&gt;(Description:String,Parameters:Option[Seq[com.monsanto.arch.cloudformation.model.Parameter]],Conditions:Option[Seq[com.monsanto.arch.cloudformation.model.Condition]],Mappings:Option[Seq[com.monsanto.arch.cloudformation.model.Mapping[_]]],Resources:Option[Seq[com.monsanto.arch.cloudformation.model.resource.Resource[_]]],Outputs:Option[Seq[com.monsanto.arch.cloudformation.model.Output[_]]],AWSTemplateFormatVersion:String):com.monsanto.arch.cloudformation.model.Template" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.Template@&lt;init&gt;(Description:String,Parameters:Option[Seq[com.monsanto.arch.cloudformation.model.Parameter]],Conditions:Option[Seq[com.monsanto.arch.cloudformation.model.Condition]],Mappings:Option[Seq[com.monsanto.arch.cloudformation.model.Mapping[_]]],Resources:Option[Seq[com.monsanto.arch.cloudformation.model.resource.Resource[_]]],Routables:Option[Seq[com.monsanto.arch.cloudformation.model.simple.SecurityGroupRoutable[_&lt;:com.monsanto.arch.cloudformation.model.resource.Resource[_]]]],Outputs:Option[Seq[com.monsanto.arch.cloudformation.model.Output[_]]],AWSTemplateFormatVersion:String):com.monsanto.arch.cloudformation.model.Template" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -321,6 +321,23 @@
       </a>
     </span>
       <p class="shortcomment cmt">See <a href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html" target="_blank">resources</a></p>
+    </li><li name="com.monsanto.arch.cloudformation.model.Template#Routables" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Routables:Option[Seq[com.monsanto.arch.cloudformation.model.simple.SecurityGroupRoutable[_&lt;:com.monsanto.arch.cloudformation.model.resource.Resource[_]]]]"></a>
+      <a id="Routables:Option[Seq[SecurityGroupRoutable[_&lt;:Resource[_]]]]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">Routables</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<a href="simple/SecurityGroupRoutable.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroupRoutable">SecurityGroupRoutable</a>[_ &lt;: <a href="resource/Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a>[_]]]]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.Template@Routables:Option[Seq[com.monsanto.arch.cloudformation.model.simple.SecurityGroupRoutable[_&lt;:com.monsanto.arch.cloudformation.model.resource.Resource[_]]]]" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
     </li><li name="scala.Any#asInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="asInstanceOf[T0]:T0"></a>
       <a id="asInstanceOf[T0]:T0"></a>
@@ -435,6 +452,40 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li name="com.monsanto.arch.cloudformation.model.Template#lookupResource" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="lookupResource[R&lt;:com.monsanto.arch.cloudformation.model.resource.Resource[R]](name:String):R"></a>
+      <a id="lookupResource[R&lt;:Resource[R]](String):R"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">lookupResource</span><span class="tparams">[<span name="R">R &lt;: <a href="resource/Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a>[<span class="extype" name="com.monsanto.arch.cloudformation.model.Template.lookupResource.R">R</span>]</span>]</span><span class="params">(<span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <span class="extype" name="com.monsanto.arch.cloudformation.model.Template.lookupResource.R">R</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.Template@lookupResource[R&lt;:com.monsanto.arch.cloudformation.model.resource.Resource[R]](name:String):R" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.monsanto.arch.cloudformation.model.Template#lookupRoutable" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="lookupRoutable[R&lt;:com.monsanto.arch.cloudformation.model.resource.Resource[R]](name:String):com.monsanto.arch.cloudformation.model.simple.SecurityGroupRoutable[R]"></a>
+      <a id="lookupRoutable[R&lt;:Resource[R]](String):SecurityGroupRoutable[R]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">lookupRoutable</span><span class="tparams">[<span name="R">R &lt;: <a href="resource/Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a>[<span class="extype" name="com.monsanto.arch.cloudformation.model.Template.lookupRoutable.R">R</span>]</span>]</span><span class="params">(<span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="simple/SecurityGroupRoutable.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroupRoutable">SecurityGroupRoutable</a>[<span class="extype" name="com.monsanto.arch.cloudformation.model.Template.lookupRoutable.R">R</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.Template@lookupRoutable[R&lt;:com.monsanto.arch.cloudformation.model.resource.Resource[R]](name:String):com.monsanto.arch.cloudformation.model.simple.SecurityGroupRoutable[R]" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
     </li><li name="scala.AnyRef#ne" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ne(x$1:AnyRef):Boolean"></a>
       <a id="ne(AnyRef):Boolean"></a>

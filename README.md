@@ -12,39 +12,66 @@ write all AWS resources in JSON?
 
 ## Documentation
 
-See the intro blog post here: http://engineering.monsanto.com/2015/07/10/cloudformation-template-generator/
+See the intro [blog
+post](http://engineering.monsanto.com/2015/07/10/cloudformation-template-generator/).
 
-You must add the following resolver to your `build.sbt` to use this library.
+To use this library, you must add the following resolver
 
 ```scala
 resolvers ++= Seq(Resolver.jcenterRepo)
 ```
 
+and the dependency
+
+```scala
+libraryDependencies ++= Seq (
+  "com.monsanto.arch" %% "cloud-formation-template-generator" % "1.0.6"
+).map(_.force())
+```
+
+to your `build.sbt`.
+
 See the
 [Scaladoc](http://monsantoco.github.io/cloudformation-template-generator/) for
 detailed documentation and examples.
+
+**Note**: we are no longer using the git-flow develop/master branch paradigm.
+Please just branch off master and submit your PRs against it.
 
 ### Components
 
 Create a Template instance of resources and check out VPCWriter to help write
 it to a file.
 
+To use the fancier parts of the routing DSL, be sure to import
+`TransportProtocol._`.
+
 ### Misc Features
 
-NEW since the blog post, say you have a topology with subnets across multiple AZ's and you want to specify an autoscaling group that spans them, using our fancy Builders methods. Well this is cross-cutting, so its not strictly nested, so you can use an evil evil var, or now you can use our Template.lookupResource[R <: Resource[R]](name: String) method on previous template parts to extract resources by name. Note this will produce a generation-time error if you lookup something that does not exist or has the wrong type (unfortunately not a generation-time compiler error as most of our other features):
+NEW since the blog post, say you have a topology with subnets across multiple
+AZ's and you want to specify an autoscaling group that spans them, using our
+fancy Builders methods. Well this is cross-cutting, so its not strictly nested,
+so you can use an evil evil var, or now you can use our
+`Template.lookupResource[R <: Resource[R]](name: String)` method on previous
+template parts to extract resources by name. Note this will produce a
+generation-time error if you lookup something that does not exist or has the
+wrong type (unfortunately not a generation-time compiler error as most of our
+other features):
 
-    describe("Template Lookup") {
-      it("Should lookup resources with the correct type") {
+```scala
+describe("Template Lookup") {
+  it("Should lookup resources with the correct type") {
 
-        val expected = `AWS::EC2::VPC`(
-          name = "TestVPC",
-          CidrBlock = CidrBlock(0,0,0,0,0),
-          Tags = Seq.empty[AmazonTag]
-        )
-        val template = Template.fromResource(expected)
-      
-        assert(expected === template.lookupResource[`AWS::EC2::VPC`]("TestVPC"))
-    }
+    val expected = `AWS::EC2::VPC`(
+      name = "TestVPC",
+      CidrBlock = CidrBlock(0,0,0,0,0),
+      Tags = Seq.empty[AmazonTag]
+    )
+    val template = Template.fromResource(expected)
+  
+    assert(expected === template.lookupResource[`AWS::EC2::VPC`]("TestVPC"))
+}
+```
 
 ### Currently supported AWS resource types
 

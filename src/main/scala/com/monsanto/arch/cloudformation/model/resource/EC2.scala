@@ -33,26 +33,27 @@ object EC2MountPoint extends DefaultJsonProtocol {
 }
 
 case class `AWS::EC2::Instance`(
-  name:               String,
-  InstanceType:       Token[String],
-  KeyName:            Token[String],
-  SubnetId:           Token[ResourceRef[`AWS::EC2::Subnet`]],
-  ImageId:            Token[AMIId],
-  Tags:               Seq[AmazonTag],
-  SecurityGroupIds:   Seq[ResourceRef[`AWS::EC2::SecurityGroup`]] = Seq.empty[ResourceRef[`AWS::EC2::SecurityGroup`]],
-  Metadata:           Option[Map[String, String]] = None,
-  IamInstanceProfile: Option[Token[ResourceRef[`AWS::IAM::InstanceProfile`]]] = None,
-  SourceDestCheck:    Option[String] = None,
-  UserData:           Option[`Fn::Base64`] = None,
-  Monitoring:         Option[Boolean] = None,
-  Volumes:            Option[Seq[EC2MountPoint]] = None,
+  name:                  String,
+  InstanceType:          Token[String],
+  KeyName:               Token[String],
+  SubnetId:              Token[ResourceRef[`AWS::EC2::Subnet`]],
+  ImageId:               Token[AMIId],
+  Tags:                  Seq[AmazonTag],
+  SecurityGroupIds:      Seq[ResourceRef[`AWS::EC2::SecurityGroup`]] = Seq.empty[ResourceRef[`AWS::EC2::SecurityGroup`]],
+  Metadata:              Option[Map[String, String]] = None,
+  IamInstanceProfile:    Option[Token[ResourceRef[`AWS::IAM::InstanceProfile`]]] = None,
+  SourceDestCheck:       Option[String] = None,
+  UserData:              Option[`Fn::Base64`] = None,
+  Monitoring:            Option[Boolean] = None,
+  Volumes:               Option[Seq[EC2MountPoint]] = None,
+  DisableApiTermination: Option[String] = None,
   override val Condition: Option[ConditionRef] = None
   ) extends Resource[`AWS::EC2::Instance`]{
 
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
 }
 object `AWS::EC2::Instance` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::EC2::Instance`] = jsonFormat14(`AWS::EC2::Instance`.apply)
+  implicit val format: JsonFormat[`AWS::EC2::Instance`] = jsonFormat15(`AWS::EC2::Instance`.apply)
 }
 
 case class `AWS::EC2::InternetGateway`(name: String, Tags: Seq[AmazonTag],

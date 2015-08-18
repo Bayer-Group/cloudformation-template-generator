@@ -616,6 +616,7 @@ object StaxTemplate {
       ImageId = `Fn::FindInMap`[AMIId](MappingRef(awsNATAMIMapping), `AWS::Region`, "AMI"),
       SecurityGroupIds = Seq( ResourceRef(natSecGroupResource) ),
       Tags = standardTagsNoNetwork("nat" + number),
+      DisableApiTermination = Some("false"),
       UserData = Some(`Fn::Base64`(
         `Fn::Join`("",
           Seq[Token[String]](

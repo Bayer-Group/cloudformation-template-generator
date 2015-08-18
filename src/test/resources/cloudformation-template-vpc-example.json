@@ -1287,6 +1287,7 @@
           "Ref":"PubSubnet1"
         },
         "SourceDestCheck":"false",
+        "DisableApiTermination":"false",
         "ImageId":{
           "Fn::FindInMap":[
             "AWSNATAMI",
@@ -1405,6 +1406,7 @@
           "Ref":"PubSubnet2"
         },
         "SourceDestCheck":"false",
+        "DisableApiTermination":"false",
         "ImageId":{
           "Fn::FindInMap":[
             "AWSNATAMI",

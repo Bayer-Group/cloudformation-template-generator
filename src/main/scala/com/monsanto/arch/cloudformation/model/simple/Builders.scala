@@ -494,27 +494,28 @@ trait ElasticLoadBalancing {
       subnets:                  Seq[`AWS::EC2::Subnet`],
       healthCheckTarget:        String,
       condition:                Option[ConditionRef] = None,
-      scheme:                   Option[String] = None
+      scheme:                   Option[ELBScheme] = None,
+      loggingPolicy:            Option[ELBAccessLoggingPolicy] = None
     )(
-      listeners: Seq[Listener]
+      listeners: Seq[ELBListener]
     )(
-    healthCheck: HealthCheck = HealthCheck(
-      Target             = healthCheckTarget,
-      HealthyThreshold   = "3",
-      UnhealthyThreshold = "5",
-      Interval           = "30",
-      Timeout            = "5")
+      healthCheck: ELBHealthCheck = ELBHealthCheck(
+        Target             = healthCheckTarget,
+        HealthyThreshold   = "3",
+        UnhealthyThreshold = "5",
+        Interval           = "30",
+        Timeout            = "5")
     )(implicit vpc: `AWS::EC2::VPC`) =
-    SecurityGroupRoutable from `AWS::ElasticLoadBalancing::LoadBalancer`(
+    SecurityGroupRoutable from `AWS::ElasticLoadBalancing::LoadBalancer`.inVpc(
       name,
-      CrossZone      = true,
+      CrossZone      = Some(true),
       Scheme         = scheme,
-      SecurityGroups = Seq(),
+      SecurityGroups = None,
       Subnets        = subnets,
       Listeners      = listeners,
-      HealthCheck    = healthCheck,
+      HealthCheck    = Some(healthCheck),
       Policies       = None,
-      Tags           = AmazonTag.fromName(name),
+      Tags           = Some(AmazonTag.fromName(name)),
       Condition      = condition
     )
 
@@ -523,15 +524,17 @@ trait ElasticLoadBalancing {
       subnets:                  Seq[`AWS::EC2::Subnet`],
       healthCheckTarget:        String,
       condition:                Option[ConditionRef] = None,
-      scheme:                   Option[String] = None
+      scheme:                   Option[ELBScheme] = None,
+      loggingPolicy:            Option[ELBAccessLoggingPolicy] = None
     )(
-      listener: Listener
+      listener: ELBListener
     )(
-      healthCheck: HealthCheck = HealthCheck(
-      Target             = healthCheckTarget,
-      HealthyThreshold   = "3",
-      UnhealthyThreshold = "5",
-      Interval           = "30",
-      Timeout            = "5")
-    )(implicit vpc: `AWS::EC2::VPC`) = elbL(name, subnets, healthCheckTarget, condition, scheme)(Seq(listener))(healthCheck)
+      healthCheck: ELBHealthCheck = ELBHealthCheck(
+        Target             = healthCheckTarget,
+        HealthyThreshold   = "3",
+        UnhealthyThreshold = "5",
+        Interval           = "30",
+        Timeout            = "5")
+    )(implicit vpc: `AWS::EC2::VPC`) =
+      elbL(name, subnets, healthCheckTarget, condition, scheme, loggingPolicy)(Seq(listener))(healthCheck)
 }

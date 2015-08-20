@@ -1612,6 +1612,7 @@
     "RouterELB":{
       "Type":"AWS::ElasticLoadBalancing::LoadBalancer",
       "Properties":{
+        "AvailabilityZones": [],
         "CrossZone":true,
         "SecurityGroups":[
           { "Ref":"RouterELBSecurityGroup" }
@@ -1625,6 +1626,7 @@
             "LoadBalancerPort":"80",
             "InstancePort":"80",
             "Protocol":"HTTP",
+            "PolicyNames": [],
             "InstanceProtocol": "HTTP"
           }
         ],
@@ -1635,6 +1637,8 @@
           "Interval":"30",
           "Timeout":"5"
         },
+        "Policies": [],
+        "Instances": [],
         "Tags":[
           {
             "Key":"Name",

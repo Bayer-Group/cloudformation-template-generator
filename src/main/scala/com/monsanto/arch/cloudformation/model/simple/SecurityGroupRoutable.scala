@@ -22,16 +22,8 @@ object SecurityGroupRoutableMaker {
   }
 
   implicit object ELBMaker extends SecurityGroupRoutableMaker[`AWS::ElasticLoadBalancing::LoadBalancer`] {
-    def withSG(
-      r: `AWS::ElasticLoadBalancing::LoadBalancer`,
-      sgr: ResourceRef[`AWS::EC2::SecurityGroup`]
-    ): `AWS::ElasticLoadBalancing::LoadBalancer` = {
-      val sgs = r.SecurityGroups match {
-        case Some(sg) => sg :+ Token.fromAny(sgr)
-        case None     => Seq(Token.fromAny(sgr))
-      }
-      r.copy(SecurityGroups = Some(sgs))
-    }
+    def withSG(r: `AWS::ElasticLoadBalancing::LoadBalancer`, sgr: ResourceRef[`AWS::EC2::SecurityGroup`]): `AWS::ElasticLoadBalancing::LoadBalancer` =
+      r.copy(SecurityGroups = r.SecurityGroups :+ Token.fromAny(sgr))
   }
 
   implicit object AutoScalingLaunchMaker extends SecurityGroupRoutableMaker[`AWS::AutoScaling::LaunchConfiguration`] {

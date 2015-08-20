@@ -15,19 +15,19 @@ case class `AWS::ElasticLoadBalancing::LoadBalancer` private (
   Listeners:                 Seq[ELBListener],
   AccessLoggingPolicy:       Option[ELBAccessLoggingPolicy],
   AppCookieStickinessPolicy: Option[ELBAppCookieStickinessPolicy],
-  AvailabilityZones:         Option[Token[String]],
+  AvailabilityZones:         Seq[Token[String]],
   ConnectionDrainingPolicy:  Option[ELBConnectionDrainingPolicy],
   ConnectionSettings:        Option[ELBConnectionSettings],
   CrossZone:                 Option[Boolean],
   HealthCheck:               Option[ELBHealthCheck],
-  Instances:                 Option[Seq[Token[ResourceRef[`AWS::EC2::Instance`]]]],
+  Instances:                 Seq[Token[ResourceRef[`AWS::EC2::Instance`]]],
   LBCookieStickinessPolicy:  Option[ELBLBCookieStickinessPolicy],
   LoadBalancerName:          Option[Token[String]],
-  Policies:                  Option[Seq[ELBPolicy]],
+  Policies:                  Seq[ELBPolicy],
   Scheme:                    Option[ELBScheme],
-  SecurityGroups:            Option[Seq[Token[ResourceRef[`AWS::EC2::SecurityGroup`]]]],
-  Subnets:                   Option[Seq[Token[ResourceRef[`AWS::EC2::Subnet`]]]],
-  Tags:                      Option[Seq[AmazonTag]],
+  SecurityGroups:            Seq[Token[ResourceRef[`AWS::EC2::SecurityGroup`]]],
+  Subnets:                   Seq[Token[ResourceRef[`AWS::EC2::Subnet`]]],
+  Tags:                      Seq[AmazonTag],
   override val Condition:    Option[ConditionRef] = None
 ) extends Resource[`AWS::ElasticLoadBalancing::LoadBalancer`] {
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
@@ -60,26 +60,26 @@ object `AWS::ElasticLoadBalancing::LoadBalancer` extends DefaultJsonProtocol {
     name:                      String,
     Listeners:                 Seq[ELBListener],
     Subnets:                   Seq[Token[ResourceRef[`AWS::EC2::Subnet`]]],
-    AccessLoggingPolicy:       Option[ELBAccessLoggingPolicy]                             = None,
-    AppCookieStickinessPolicy: Option[ELBAppCookieStickinessPolicy]                       = None,
-    ConnectionDrainingPolicy:  Option[ELBConnectionDrainingPolicy]                        = None,
-    ConnectionSettings:        Option[ELBConnectionSettings]                              = None,
-    CrossZone:                 Option[Boolean]                                            = None,
-    HealthCheck:               Option[ELBHealthCheck]                                        = None,
-    Instances:                 Option[Seq[Token[ResourceRef[`AWS::EC2::Instance`]]]]      = None,
-    LBCookieStickinessPolicy:  Option[ELBLBCookieStickinessPolicy]                        = None,
-    LoadBalancerName:          Option[Token[String]]                                      = None,
-    Policies:                  Option[Seq[ELBPolicy]]                            = None,
-    Scheme:                    Option[ELBScheme]                                          = None,
-    SecurityGroups:            Option[Seq[Token[ResourceRef[`AWS::EC2::SecurityGroup`]]]] = None,
-    Tags:                      Option[Seq[AmazonTag]]                                     = None,
-    Condition:                 Option[ConditionRef]                                       = None
+    AccessLoggingPolicy:       Option[ELBAccessLoggingPolicy]                     = None,
+    AppCookieStickinessPolicy: Option[ELBAppCookieStickinessPolicy]               = None,
+    ConnectionDrainingPolicy:  Option[ELBConnectionDrainingPolicy]                = None,
+    ConnectionSettings:        Option[ELBConnectionSettings]                      = None,
+    CrossZone:                 Option[Boolean]                                    = None,
+    HealthCheck:               Option[ELBHealthCheck]                             = None,
+    Instances:                 Seq[Token[ResourceRef[`AWS::EC2::Instance`]]]      = Seq.empty,
+    LBCookieStickinessPolicy:  Option[ELBLBCookieStickinessPolicy]                = None,
+    LoadBalancerName:          Option[Token[String]]                              = None,
+    Policies:                  Seq[ELBPolicy]                                     = Seq.empty,
+    Scheme:                    Option[ELBScheme]                                  = None,
+    SecurityGroups:            Seq[Token[ResourceRef[`AWS::EC2::SecurityGroup`]]] = Seq.empty,
+    Tags:                      Seq[AmazonTag]                                     = Seq.empty,
+    Condition:                 Option[ConditionRef]                               = None
   ) = `AWS::ElasticLoadBalancing::LoadBalancer`(
     name = name,
     Listeners = Listeners,
     AccessLoggingPolicy = AccessLoggingPolicy,
     AppCookieStickinessPolicy = AppCookieStickinessPolicy,
-    AvailabilityZones = None,
+    AvailabilityZones = Seq.empty,
     ConnectionDrainingPolicy = ConnectionDrainingPolicy,
     ConnectionSettings = ConnectionSettings,
     CrossZone = CrossZone,
@@ -90,7 +90,7 @@ object `AWS::ElasticLoadBalancing::LoadBalancer` extends DefaultJsonProtocol {
     Policies = Policies,
     Scheme = Scheme,
     SecurityGroups = SecurityGroups,
-    Subnets = Some(Subnets),
+    Subnets = Subnets,
     Tags = Tags,
     Condition = Condition
   )
@@ -121,21 +121,21 @@ object `AWS::ElasticLoadBalancing::LoadBalancer` extends DefaultJsonProtocol {
   def noVpc(
     name:                      String,
     Listeners:                 Seq[ELBListener],
-    AccessLoggingPolicy:       Option[ELBAccessLoggingPolicy]                             = None,
-    AppCookieStickinessPolicy: Option[ELBAppCookieStickinessPolicy]                       = None,
-    AvailabilityZones:         Option[Token[String]]                                      = None,
-    ConnectionDrainingPolicy:  Option[ELBConnectionDrainingPolicy]                        = None,
-    ConnectionSettings:        Option[ELBConnectionSettings]                              = None,
-    CrossZone:                 Option[Boolean]                                            = None,
-    HealthCheck:               Option[ELBHealthCheck]                                        = None,
-    Instances:                 Option[Seq[Token[ResourceRef[`AWS::EC2::Instance`]]]]      = None,
-    LBCookieStickinessPolicy:  Option[ELBLBCookieStickinessPolicy]                        = None,
-    LoadBalancerName:          Option[Token[String]]                                      = None,
-    Policies:                  Option[Seq[ELBPolicy]]                            = None,
-    Scheme:                    Option[ELBScheme]                                          = None,
-    SecurityGroups:            Option[Seq[Token[ResourceRef[`AWS::EC2::SecurityGroup`]]]] = None,
-    Tags:                      Option[Seq[AmazonTag]]                                     = None,
-    Condition:                 Option[ConditionRef]                                       = None
+    AccessLoggingPolicy:       Option[ELBAccessLoggingPolicy]                     = None,
+    AppCookieStickinessPolicy: Option[ELBAppCookieStickinessPolicy]               = None,
+    AvailabilityZones:         Seq[Token[String]]                                 = Seq.empty,
+    ConnectionDrainingPolicy:  Option[ELBConnectionDrainingPolicy]                = None,
+    ConnectionSettings:        Option[ELBConnectionSettings]                      = None,
+    CrossZone:                 Option[Boolean]                                    = None,
+    HealthCheck:               Option[ELBHealthCheck]                             = None,
+    Instances:                 Seq[Token[ResourceRef[`AWS::EC2::Instance`]]]      = Seq.empty,
+    LBCookieStickinessPolicy:  Option[ELBLBCookieStickinessPolicy]                = None,
+    LoadBalancerName:          Option[Token[String]]                              = None,
+    Policies:                  Seq[ELBPolicy]                                     = Seq.empty,
+    Scheme:                    Option[ELBScheme]                                  = None,
+    SecurityGroups:            Seq[Token[ResourceRef[`AWS::EC2::SecurityGroup`]]] = Seq.empty,
+    Tags:                      Seq[AmazonTag]                                     = Seq.empty,
+    Condition:                 Option[ConditionRef]                               = None
   ) = `AWS::ElasticLoadBalancing::LoadBalancer`(
     name = name,
     Listeners = Listeners,
@@ -152,7 +152,7 @@ object `AWS::ElasticLoadBalancing::LoadBalancer` extends DefaultJsonProtocol {
     Policies = Policies,
     Scheme = Scheme,
     SecurityGroups = SecurityGroups,
-    Subnets = None,
+    Subnets = Seq.empty,
     Tags = Tags,
     Condition = Condition
   )
@@ -202,15 +202,35 @@ object ELBLBCookieStickinessPolicy extends DefaultJsonProtocol {
 }
 
 case class ELBListener(
-  LoadBalancerPort: String,
-  Protocol:         String,
   InstancePort:     String,
-  SSLCertificateId: Option[Token[String]],
-  InstanceProtocol: String = "HTTP",
-  PolicyNames:      Option[Seq[String]] = None
+  LoadBalancerPort: String,
+  Protocol:         ELBListenerProtocol,
+  InstanceProtocol: Option[ELBListenerProtocol] = Some(ELBListenerProtocol.HTTP),
+  PolicyNames:      Seq[String] = Seq.empty,
+  SSLCertificateId: Option[Token[String]]
 )
 object ELBListener extends DefaultJsonProtocol {
   implicit val format: JsonFormat[ELBListener] = jsonFormat6(ELBListener.apply)
+}
+
+sealed trait ELBListenerProtocol
+object ELBListenerProtocol extends DefaultJsonProtocol {
+  case object HTTP  extends ELBListenerProtocol
+  case object HTTPS extends ELBListenerProtocol
+  case object SSL   extends ELBListenerProtocol
+  case object TCP   extends ELBListenerProtocol
+
+  implicit val format: JsonFormat[ELBListenerProtocol] = new JsonFormat[ELBListenerProtocol] {
+    override def write(obj: ELBListenerProtocol)= JsString(obj.toString)
+    override def read(json: JsValue): ELBListenerProtocol = {
+      json.toString match {
+        case "HTTP"  => HTTP
+        case "HTTPS" => HTTPS
+        case "SSL"   => SSL
+        case "TCP"   => TCP
+      }
+    }
+  }
 }
 
 case class ELBHealthCheck(
@@ -228,8 +248,8 @@ case class ELBPolicy(
   PolicyName:        String,
   PolicyType:        String,
   Attributes:        Seq[NameValuePair],
-  InstancePorts:     Option[Seq[String]],
-  LoadBalancerPorts: Option[Seq[String]]
+  InstancePorts:     Seq[String],
+  LoadBalancerPorts: Seq[String]
 )
 object ELBPolicy extends DefaultJsonProtocol {
   implicit val format: JsonFormat[ELBPolicy] = jsonFormat5(ELBPolicy.apply)
@@ -242,15 +262,15 @@ object NameValuePair extends DefaultJsonProtocol {
 
 sealed trait ELBScheme
 object ELBScheme extends DefaultJsonProtocol {
-  case object Internal extends ELBScheme
-  case object InternetFacing extends ELBScheme
+  case object internal extends ELBScheme
+  case object `internet-facing` extends ELBScheme
 
   implicit val format: JsonFormat[ELBScheme] = new JsonFormat[ELBScheme] {
     override def write(obj: ELBScheme)= JsString(obj.toString)
     override def read(json: JsValue): ELBScheme = {
       json.toString match {
-        case "internal"  => Internal
-        case "internet-facing" => InternetFacing
+        case "internal"  => internal
+        case "internet-facing" => `internet-facing`
       }
     }
   }

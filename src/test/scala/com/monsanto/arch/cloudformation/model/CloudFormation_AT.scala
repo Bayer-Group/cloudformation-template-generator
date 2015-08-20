@@ -754,15 +754,14 @@ object StaxTemplate {
       ELBListener(
         LoadBalancerPort = "80",
         InstancePort = "80",
-        Protocol = "HTTP",
-        InstanceProtocol = "HTTP",
-        PolicyNames = None,
+        Protocol = ELBListenerProtocol.HTTP,
+        InstanceProtocol = Some(ELBListenerProtocol.HTTP),
         SSLCertificateId = None
       )
     ),
     Subnets = Seq(ResourceRef(pubSubnet1), ResourceRef(pubSubnet2)),
     CrossZone = Some(true),
-    SecurityGroups = Some(Seq(ResourceRef(routerELBSecGroupResource))),
+    SecurityGroups = Seq(ResourceRef(routerELBSecGroupResource)),
     HealthCheck = Some(ELBHealthCheck(
       Target = "HTTP:4001/version",
       HealthyThreshold = "3",
@@ -770,8 +769,7 @@ object StaxTemplate {
       Interval = "30",
       Timeout = "5"
     )),
-    Policies = None,
-    Tags = Some(standardTagsNoNetwork("router-elb"))
+    Tags = standardTagsNoNetwork("router-elb")
   )
 
   private val coreOSServerLaunchConfigResource = `AWS::AutoScaling::LaunchConfiguration`(

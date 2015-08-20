@@ -491,7 +491,7 @@ trait ElasticLoadBalancing {
 
   def elbL(
       name:                     String,
-      subnets:                  Seq[`AWS::EC2::Subnet`],
+      subnets:                  Seq[Token[ResourceRef[`AWS::EC2::Subnet`]]],
       healthCheckTarget:        String,
       condition:                Option[ConditionRef] = None,
       scheme:                   Option[ELBScheme] = None,
@@ -510,18 +510,16 @@ trait ElasticLoadBalancing {
       name,
       CrossZone      = Some(true),
       Scheme         = scheme,
-      SecurityGroups = None,
       Subnets        = subnets,
       Listeners      = listeners,
       HealthCheck    = Some(healthCheck),
-      Policies       = None,
-      Tags           = Some(AmazonTag.fromName(name)),
+      Tags           = AmazonTag.fromName(name),
       Condition      = condition
     )
 
   def elb(
       name:                     String,
-      subnets:                  Seq[`AWS::EC2::Subnet`],
+      subnets:                  Seq[Token[ResourceRef[`AWS::EC2::Subnet`]]],
       healthCheckTarget:        String,
       condition:                Option[ConditionRef] = None,
       scheme:                   Option[ELBScheme] = None,

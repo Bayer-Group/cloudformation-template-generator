@@ -96,8 +96,9 @@ object `AWS::ElasticLoadBalancing::LoadBalancer` extends DefaultJsonProtocol {
   )
 
   /**
-   * Create an ELB for EC2 Classic instances. It does not take the Subnets parameter, subnets are
-   * only available in VPCs.  The AvailabilityZones parameter is optional.
+   * Create an ELB for EC2 Classic instances. It does not take the Subnets or Scheme parameters, subnets are
+   * only available in VPCs and the scheme for non-VPC ELBs must be internet-facing.  The AvailabilityZones
+   * parameter is optional.
    *
    * @param name
    * @param Listeners
@@ -112,7 +113,6 @@ object `AWS::ElasticLoadBalancing::LoadBalancer` extends DefaultJsonProtocol {
    * @param LBCookieStickinessPolicy
    * @param LoadBalancerName
    * @param Policies
-   * @param Scheme
    * @param SecurityGroups
    * @param Tags
    * @param Condition
@@ -132,7 +132,6 @@ object `AWS::ElasticLoadBalancing::LoadBalancer` extends DefaultJsonProtocol {
     LBCookieStickinessPolicy:  Option[ELBLBCookieStickinessPolicy]                = None,
     LoadBalancerName:          Option[Token[String]]                              = None,
     Policies:                  Seq[ELBPolicy]                                     = Seq.empty,
-    Scheme:                    Option[ELBScheme]                                  = None,
     SecurityGroups:            Seq[Token[ResourceRef[`AWS::EC2::SecurityGroup`]]] = Seq.empty,
     Tags:                      Seq[AmazonTag]                                     = Seq.empty,
     Condition:                 Option[ConditionRef]                               = None
@@ -150,7 +149,7 @@ object `AWS::ElasticLoadBalancing::LoadBalancer` extends DefaultJsonProtocol {
     LBCookieStickinessPolicy = LBCookieStickinessPolicy,
     LoadBalancerName = LoadBalancerName,
     Policies = Policies,
-    Scheme = Scheme,
+    Scheme = Some(ELBScheme.`internet-facing`),
     SecurityGroups = SecurityGroups,
     Subnets = Seq.empty,
     Tags = Tags,

@@ -22,7 +22,7 @@ object SecurityGroupRoutableMaker {
   }
 
   implicit object ELBMaker extends SecurityGroupRoutableMaker[`AWS::ElasticLoadBalancing::LoadBalancer`] {
-    def withSG(r: `AWS::ElasticLoadBalancing::LoadBalancer`, sgr: ResourceRef[`AWS::EC2::SecurityGroup`]) =
+    def withSG(r: `AWS::ElasticLoadBalancing::LoadBalancer`, sgr: ResourceRef[`AWS::EC2::SecurityGroup`]): `AWS::ElasticLoadBalancing::LoadBalancer` =
       r.copy(SecurityGroups = r.SecurityGroups :+ Token.fromAny(sgr))
   }
 

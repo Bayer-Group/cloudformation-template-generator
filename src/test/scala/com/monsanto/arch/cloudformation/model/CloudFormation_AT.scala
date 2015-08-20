@@ -748,29 +748,27 @@ object StaxTemplate {
     )
   )
 
-  private val routerELBResource = `AWS::ElasticLoadBalancing::LoadBalancer`(
+  private val routerELBResource = `AWS::ElasticLoadBalancing::LoadBalancer`.inVpc(
     "RouterELB",
-    CrossZone = true,
-    SecurityGroups = Seq(ResourceRef(routerELBSecGroupResource)),
-    Subnets = Seq(ResourceRef(pubSubnet1), ResourceRef(pubSubnet2)),
     Listeners = Seq(
-      Listener(
+      ELBListener(
         LoadBalancerPort = "80",
         InstancePort = "80",
-        Protocol = "HTTP",
-        InstanceProtocol = "HTTP",
-        PolicyNames = None,
+        Protocol = ELBListenerProtocol.HTTP,
+        InstanceProtocol = Some(ELBListenerProtocol.HTTP),
         SSLCertificateId = None
       )
     ),
-    HealthCheck = HealthCheck(
+    Subnets = Seq(ResourceRef(pubSubnet1), ResourceRef(pubSubnet2)),
+    CrossZone = Some(true),
+    SecurityGroups = Seq(ResourceRef(routerELBSecGroupResource)),
+    HealthCheck = Some(ELBHealthCheck(
       Target = "HTTP:4001/version",
       HealthyThreshold = "3",
       UnhealthyThreshold = "5",
       Interval = "30",
       Timeout = "5"
-    ),
-    Policies = None,
+    )),
     Tags = standardTagsNoNetwork("router-elb")
   )
 

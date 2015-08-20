@@ -508,13 +508,14 @@ trait ElasticLoadBalancing {
     )(implicit vpc: `AWS::EC2::VPC`) =
     SecurityGroupRoutable from `AWS::ElasticLoadBalancing::LoadBalancer`.inVpc(
       name,
-      CrossZone      = Some(true),
-      Scheme         = scheme,
-      Subnets        = subnets,
-      Listeners      = listeners,
-      HealthCheck    = Some(healthCheck),
-      Tags           = AmazonTag.fromName(name),
-      Condition      = condition
+      CrossZone           = Some(true),
+      Scheme              = scheme,
+      Subnets             = subnets,
+      Listeners           = listeners,
+      HealthCheck         = Some(healthCheck),
+      Tags                = AmazonTag.fromName(name),
+      AccessLoggingPolicy = loggingPolicy,
+      Condition           = condition
     )
 
   def elb(

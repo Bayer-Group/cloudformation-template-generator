@@ -495,7 +495,7 @@ trait ElasticLoadBalancing {
       healthCheckTarget:        String,
       condition:                Option[ConditionRef] = None,
       scheme:                   Option[ELBScheme] = None,
-      loggingPolicy:            Option[ELBAccessLoggingPolicy] = None
+      loggingBucket:            Option[Token[ResourceRef[`AWS::S3::Bucket`]]] = None
     )(
       listeners: Seq[ELBListener]
     )(
@@ -514,7 +514,15 @@ trait ElasticLoadBalancing {
       Listeners           = listeners,
       HealthCheck         = Some(healthCheck),
       Tags                = AmazonTag.fromName(name),
-      AccessLoggingPolicy = loggingPolicy,
+      AccessLoggingPolicy = loggingBucket match {
+        case Some(b) => Some(ELBAccessLoggingPolicy(
+          Enabled         = true,
+          S3BucketName    = b,
+          EmitInterval    = Some(ELBLoggingEmitInterval.`60`),
+          S3BucketPrefix  = Some(s"elb/$name")
+        ))
+        case None    => None
+      },
       Condition           = condition
     )
 
@@ -524,7 +532,7 @@ trait ElasticLoadBalancing {
       healthCheckTarget:        String,
       condition:                Option[ConditionRef] = None,
       scheme:                   Option[ELBScheme] = None,
-      loggingPolicy:            Option[ELBAccessLoggingPolicy] = None
+      loggingBucket:            Option[Token[ResourceRef[`AWS::S3::Bucket`]]] = None
     )(
       listener: ELBListener
     )(
@@ -535,5 +543,5 @@ trait ElasticLoadBalancing {
         Interval           = "30",
         Timeout            = "5")
     )(implicit vpc: `AWS::EC2::VPC`) =
-      elbL(name, subnets, healthCheckTarget, condition, scheme, loggingPolicy)(Seq(listener))(healthCheck)
+      elbL(name, subnets, healthCheckTarget, condition, scheme, loggingBucket)(Seq(listener))(healthCheck)
 }

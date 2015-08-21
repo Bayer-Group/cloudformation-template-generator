@@ -162,11 +162,30 @@ object `AWS::ElasticLoadBalancing::LoadBalancer` extends DefaultJsonProtocol {
 case class ELBAccessLoggingPolicy(
   Enabled:        Boolean,
   S3BucketName:   Token[ResourceRef[`AWS::S3::Bucket`]],
-  EmitInterval:   Option[Int] = None,
-  S3BucketPrefix: Option[String] = None
+  EmitInterval:   Option[ELBLoggingEmitInterval] = None,
+  S3BucketPrefix: Option[Token[String]] = None
 )
 object ELBAccessLoggingPolicy extends DefaultJsonProtocol {
   implicit val format: JsonFormat[ELBAccessLoggingPolicy] = jsonFormat4(ELBAccessLoggingPolicy.apply)
+}
+
+sealed trait ELBLoggingEmitInterval
+object ELBLoggingEmitInterval extends DefaultJsonProtocol {
+  case object `5`  extends ELBLoggingEmitInterval
+  case object `60` extends ELBLoggingEmitInterval
+
+  implicit val format: JsonFormat[ELBLoggingEmitInterval] = new JsonFormat[ELBLoggingEmitInterval] {
+    override def write(obj: ELBLoggingEmitInterval): JsValue = obj match {
+      case `5`  => JsNumber(5)
+      case `60` => JsNumber(60)
+    }
+    override def read(json: JsValue): ELBLoggingEmitInterval = {
+      json.toString() match {
+        case "5"  => `5`
+        case "60" => `60`
+      }
+    }
+  }
 }
 
 case class ELBAppCookieStickinessPolicy(
@@ -205,8 +224,8 @@ case class ELBListener(
   LoadBalancerPort: String,
   Protocol:         ELBListenerProtocol,
   InstanceProtocol: Option[ELBListenerProtocol] = Some(ELBListenerProtocol.HTTP),
-  PolicyNames:      Seq[String] = Seq.empty,
-  SSLCertificateId: Option[Token[String]]
+  PolicyNames:      Seq[Token[String]] = Seq.empty,
+  SSLCertificateId: Option[Token[String]] = None
 )
 object ELBListener extends DefaultJsonProtocol {
   implicit val format: JsonFormat[ELBListener] = jsonFormat6(ELBListener.apply)
@@ -244,7 +263,7 @@ object ELBHealthCheck extends DefaultJsonProtocol {
 }
 
 case class ELBPolicy(
-  PolicyName:        String,
+  PolicyName:        Token[String],
   PolicyType:        String,
   Attributes:        Seq[NameValuePair],
   InstancePorts:     Seq[String],

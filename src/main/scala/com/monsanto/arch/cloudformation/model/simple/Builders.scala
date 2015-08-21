@@ -495,7 +495,7 @@ trait ElasticLoadBalancing {
       healthCheckTarget:        String,
       condition:                Option[ConditionRef] = None,
       scheme:                   Option[ELBScheme] = None,
-      loggingPolicy:            Option[ELBAccessLoggingPolicy] = None
+      loggingBucket:            Option[Token[ResourceRef[`AWS::S3::Bucket`]]] = None
     )(
       listeners: Seq[ELBListener]
     )(
@@ -508,13 +508,22 @@ trait ElasticLoadBalancing {
     )(implicit vpc: `AWS::EC2::VPC`) =
     SecurityGroupRoutable from `AWS::ElasticLoadBalancing::LoadBalancer`.inVpc(
       name,
-      CrossZone      = Some(true),
-      Scheme         = scheme,
-      Subnets        = subnets,
-      Listeners      = listeners,
-      HealthCheck    = Some(healthCheck),
-      Tags           = AmazonTag.fromName(name),
-      Condition      = condition
+      CrossZone           = Some(true),
+      Scheme              = scheme,
+      Subnets             = subnets,
+      Listeners           = listeners,
+      HealthCheck         = Some(healthCheck),
+      Tags                = AmazonTag.fromName(name),
+      AccessLoggingPolicy = loggingBucket match {
+        case Some(b) => Some(ELBAccessLoggingPolicy(
+          Enabled         = true,
+          S3BucketName    = b,
+          EmitInterval    = Some(ELBLoggingEmitInterval.`60`),
+          S3BucketPrefix  = Some(s"elb/$name")
+        ))
+        case None    => None
+      },
+      Condition           = condition
     )
 
   def elb(
@@ -523,7 +532,7 @@ trait ElasticLoadBalancing {
       healthCheckTarget:        String,
       condition:                Option[ConditionRef] = None,
       scheme:                   Option[ELBScheme] = None,
-      loggingPolicy:            Option[ELBAccessLoggingPolicy] = None
+      loggingBucket:            Option[Token[ResourceRef[`AWS::S3::Bucket`]]] = None
     )(
       listener: ELBListener
     )(
@@ -534,5 +543,5 @@ trait ElasticLoadBalancing {
         Interval           = "30",
         Timeout            = "5")
     )(implicit vpc: `AWS::EC2::VPC`) =
-      elbL(name, subnets, healthCheckTarget, condition, scheme, loggingPolicy)(Seq(listener))(healthCheck)
+      elbL(name, subnets, healthCheckTarget, condition, scheme, loggingBucket)(Seq(listener))(healthCheck)
 }

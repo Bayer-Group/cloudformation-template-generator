@@ -1,6 +1,6 @@
 package com.monsanto.arch.cloudformation.model.resource
 
-import com.monsanto.arch.cloudformation.model.{ConditionRef, Token}
+import com.monsanto.arch.cloudformation.model.{ResourceRef, ConditionRef, Token}
 import spray.json._
 
 /**
@@ -113,8 +113,8 @@ object `AWS::S3::BucketPolicy` extends DefaultJsonProtocol {
   implicit val format: JsonFormat[`AWS::S3::BucketPolicy`] = jsonFormat4(`AWS::S3::BucketPolicy`.apply)
 }
 
-case class S3LoggingConfiguration(DestinationBucketName: Option[`AWS::S3::Bucket`] = None,
-                                  LogFilePrefix:         Option[String] = None)
+case class S3LoggingConfiguration(DestinationBucketName: Option[Token[ResourceRef[`AWS::S3::Bucket`]]] = None,
+                                  LogFilePrefix:         Option[Token[String]] = None)
 object S3LoggingConfiguration extends DefaultJsonProtocol {
   implicit val format: JsonFormat[S3LoggingConfiguration] = jsonFormat2(S3LoggingConfiguration.apply)
 }

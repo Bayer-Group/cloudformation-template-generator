@@ -47,11 +47,14 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: AWS$colon$colonElasticLoadBalancing$colon$colonLoadBalancer" class="name">AWS::ElasticLoadBalancing::LoadBalancer</span><span class="params">(<span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="CrossZone">CrossZone: <span class="extype" name="scala.Boolean">Boolean</span></span>, <span name="SecurityGroups">SecurityGroups: <span class="extype" name="scala.Seq">Seq</span>[<a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<a href="../ResourceRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ResourceRef">ResourceRef</a>[<a href="AWS$colon$colonEC2$colon$colonSecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::EC2::SecurityGroup">AWS::EC2::SecurityGroup</a>]]]</span>, <span name="Subnets">Subnets: <span class="extype" name="scala.Seq">Seq</span>[<a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<a href="../ResourceRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ResourceRef">ResourceRef</a>[<a href="AWS$colon$colonEC2$colon$colonSubnet.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::EC2::Subnet">AWS::EC2::Subnet</a>]]]</span>, <span name="Listeners">Listeners: <span class="extype" name="scala.Seq">Seq</span>[<a href="Listener.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Listener">Listener</a>]</span>, <span name="HealthCheck">HealthCheck: <a href="HealthCheck.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.HealthCheck">HealthCheck</a></span>, <span name="Policies">Policies: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<a href="LoadBalancerPolicy.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.LoadBalancerPolicy">LoadBalancerPolicy</a>]]</span>, <span name="Tags">Tags: <span class="extype" name="scala.Seq">Seq</span>[<a href="AmazonTag.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AmazonTag">AmazonTag</a>]</span>, <span name="Scheme">Scheme: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">None</span></span>, <span name="Condition">Condition: <span class="extype" name="scala.Option">Option</span>[<a href="../ConditionRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ConditionRef">ConditionRef</a>] = <span class="symbol">None</span></span>)</span><span class="result"> extends <a href="Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a>[<a href="" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::ElasticLoadBalancing::LoadBalancer">AWS::ElasticLoadBalancing::LoadBalancer</a>] with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <span title="gt4s: AWS$colon$colonElasticLoadBalancing$colon$colonLoadBalancer" class="name">AWS::ElasticLoadBalancing::LoadBalancer</span><span class="result"> extends <a href="Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a>[<a href="" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::ElasticLoadBalancing::LoadBalancer">AWS::ElasticLoadBalancing::LoadBalancer</a>] with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Created by Ryan Richt on 2/28/15
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>The AvailabilityZones and Subnets properties are mutually exclusive, with the latter
+being used for ELBs within VPCs.  Therefore, the default constructor is private and
+methods on the companion object are used to safely construct the resource.  See
+http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-elb.html
 </p></div><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
           <div class="superTypes hiddenContent"><span class="extype" name="scala.Serializable">Serializable</span>, <span class="extype" name="java.io.Serializable">Serializable</span>, <span class="extype" name="scala.Product">Product</span>, <span class="extype" name="scala.Equals">Equals</span>, <a href="Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a>[<a href="" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::ElasticLoadBalancing::LoadBalancer">AWS::ElasticLoadBalancing::LoadBalancer</a>], <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
@@ -89,27 +92,7 @@
 
       <div id="template">
         <div id="allMembers">
-        <div id="constructors" class="members">
-              <h3>Instance Constructors</h3>
-              <ol><li name="com.monsanto.arch.cloudformation.model.resource.AWS::ElasticLoadBalancing::LoadBalancer#&lt;init&gt;" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="&lt;init&gt;(name:String,CrossZone:Boolean,SecurityGroups:Seq[com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::EC2::SecurityGroup]]],Subnets:Seq[com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::EC2::Subnet]]],Listeners:Seq[com.monsanto.arch.cloudformation.model.resource.Listener],HealthCheck:com.monsanto.arch.cloudformation.model.resource.HealthCheck,Policies:Option[Seq[com.monsanto.arch.cloudformation.model.resource.LoadBalancerPolicy]],Tags:Seq[com.monsanto.arch.cloudformation.model.resource.AmazonTag],Scheme:Option[String],Condition:Option[com.monsanto.arch.cloudformation.model.ConditionRef]):com.monsanto.arch.cloudformation.model.resource.AWS::ElasticLoadBalancing::LoadBalancer"></a>
-      <a id="&lt;init&gt;:AWS::ElasticLoadBalancing::LoadBalancer"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">new</span>
-      </span>
-      <span class="symbol">
-        <span title="gt4s: AWS$colon$colonElasticLoadBalancing$colon$colonLoadBalancer" class="name">AWS::ElasticLoadBalancing::LoadBalancer</span><span class="params">(<span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="CrossZone">CrossZone: <span class="extype" name="scala.Boolean">Boolean</span></span>, <span name="SecurityGroups">SecurityGroups: <span class="extype" name="scala.Seq">Seq</span>[<a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<a href="../ResourceRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ResourceRef">ResourceRef</a>[<a href="AWS$colon$colonEC2$colon$colonSecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::EC2::SecurityGroup">AWS::EC2::SecurityGroup</a>]]]</span>, <span name="Subnets">Subnets: <span class="extype" name="scala.Seq">Seq</span>[<a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<a href="../ResourceRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ResourceRef">ResourceRef</a>[<a href="AWS$colon$colonEC2$colon$colonSubnet.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::EC2::Subnet">AWS::EC2::Subnet</a>]]]</span>, <span name="Listeners">Listeners: <span class="extype" name="scala.Seq">Seq</span>[<a href="Listener.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Listener">Listener</a>]</span>, <span name="HealthCheck">HealthCheck: <a href="HealthCheck.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.HealthCheck">HealthCheck</a></span>, <span name="Policies">Policies: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<a href="LoadBalancerPolicy.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.LoadBalancerPolicy">LoadBalancerPolicy</a>]]</span>, <span name="Tags">Tags: <span class="extype" name="scala.Seq">Seq</span>[<a href="AmazonTag.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AmazonTag">AmazonTag</a>]</span>, <span name="Scheme">Scheme: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">None</span></span>, <span name="Condition">Condition: <span class="extype" name="scala.Option">Option</span>[<a href="../ConditionRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ConditionRef">ConditionRef</a>] = <span class="symbol">None</span></span>)</span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonElasticLoadBalancing$colon$colonLoadBalancer@&lt;init&gt;(name:String,CrossZone:Boolean,SecurityGroups:Seq[com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::EC2::SecurityGroup]]],Subnets:Seq[com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::EC2::Subnet]]],Listeners:Seq[com.monsanto.arch.cloudformation.model.resource.Listener],HealthCheck:com.monsanto.arch.cloudformation.model.resource.HealthCheck,Policies:Option[Seq[com.monsanto.arch.cloudformation.model.resource.LoadBalancerPolicy]],Tags:Seq[com.monsanto.arch.cloudformation.model.resource.AmazonTag],Scheme:Option[String],Condition:Option[com.monsanto.arch.cloudformation.model.ConditionRef]):com.monsanto.arch.cloudformation.model.resource.AWS::ElasticLoadBalancing::LoadBalancer" title="Permalink" target="_top">
-        <img src="../../../../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      
-    </li></ol>
-            </div>
+        
 
         <div id="types" class="types members">
               <h3>Type Members</h3>
@@ -188,6 +171,57 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="com.monsanto.arch.cloudformation.model.resource.AWS::ElasticLoadBalancing::LoadBalancer#AccessLoggingPolicy" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="AccessLoggingPolicy:Option[com.monsanto.arch.cloudformation.model.resource.ELBAccessLoggingPolicy]"></a>
+      <a id="AccessLoggingPolicy:Option[ELBAccessLoggingPolicy]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">AccessLoggingPolicy</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<a href="ELBAccessLoggingPolicy.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.ELBAccessLoggingPolicy">ELBAccessLoggingPolicy</a>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonElasticLoadBalancing$colon$colonLoadBalancer@AccessLoggingPolicy:Option[com.monsanto.arch.cloudformation.model.resource.ELBAccessLoggingPolicy]" title="Permalink" target="_top">
+        <img src="../../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.monsanto.arch.cloudformation.model.resource.AWS::ElasticLoadBalancing::LoadBalancer#AppCookieStickinessPolicy" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="AppCookieStickinessPolicy:Option[com.monsanto.arch.cloudformation.model.resource.ELBAppCookieStickinessPolicy]"></a>
+      <a id="AppCookieStickinessPolicy:Option[ELBAppCookieStickinessPolicy]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">AppCookieStickinessPolicy</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<a href="ELBAppCookieStickinessPolicy.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.ELBAppCookieStickinessPolicy">ELBAppCookieStickinessPolicy</a>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonElasticLoadBalancing$colon$colonLoadBalancer@AppCookieStickinessPolicy:Option[com.monsanto.arch.cloudformation.model.resource.ELBAppCookieStickinessPolicy]" title="Permalink" target="_top">
+        <img src="../../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.monsanto.arch.cloudformation.model.resource.AWS::ElasticLoadBalancing::LoadBalancer#AvailabilityZones" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="AvailabilityZones:Seq[com.monsanto.arch.cloudformation.model.Token[String]]"></a>
+      <a id="AvailabilityZones:Seq[Token[String]]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">AvailabilityZones</span><span class="result">: <span class="extype" name="scala.Seq">Seq</span>[<a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonElasticLoadBalancing$colon$colonLoadBalancer@AvailabilityZones:Seq[com.monsanto.arch.cloudformation.model.Token[String]]" title="Permalink" target="_top">
+        <img src="../../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
     </li><li name="com.monsanto.arch.cloudformation.model.resource.AWS::ElasticLoadBalancing::LoadBalancer#Condition" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="Condition:Option[com.monsanto.arch.cloudformation.model.ConditionRef]"></a>
       <a id="Condition:Option[ConditionRef]"></a>
@@ -205,19 +239,53 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::ElasticLoadBalancing::LoadBalancer">AWS::ElasticLoadBalancing::LoadBalancer</a> → <a href="Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a></dd></dl></div>
-    </li><li name="com.monsanto.arch.cloudformation.model.resource.AWS::ElasticLoadBalancing::LoadBalancer#CrossZone" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="CrossZone:Boolean"></a>
-      <a id="CrossZone:Boolean"></a>
+    </li><li name="com.monsanto.arch.cloudformation.model.resource.AWS::ElasticLoadBalancing::LoadBalancer#ConnectionDrainingPolicy" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ConnectionDrainingPolicy:Option[com.monsanto.arch.cloudformation.model.resource.ELBConnectionDrainingPolicy]"></a>
+      <a id="ConnectionDrainingPolicy:Option[ELBConnectionDrainingPolicy]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">CrossZone</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">ConnectionDrainingPolicy</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<a href="ELBConnectionDrainingPolicy.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.ELBConnectionDrainingPolicy">ELBConnectionDrainingPolicy</a>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonElasticLoadBalancing$colon$colonLoadBalancer@CrossZone:Boolean" title="Permalink" target="_top">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonElasticLoadBalancing$colon$colonLoadBalancer@ConnectionDrainingPolicy:Option[com.monsanto.arch.cloudformation.model.resource.ELBConnectionDrainingPolicy]" title="Permalink" target="_top">
+        <img src="../../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.monsanto.arch.cloudformation.model.resource.AWS::ElasticLoadBalancing::LoadBalancer#ConnectionSettings" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ConnectionSettings:Option[com.monsanto.arch.cloudformation.model.resource.ELBConnectionSettings]"></a>
+      <a id="ConnectionSettings:Option[ELBConnectionSettings]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">ConnectionSettings</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<a href="ELBConnectionSettings.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.ELBConnectionSettings">ELBConnectionSettings</a>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonElasticLoadBalancing$colon$colonLoadBalancer@ConnectionSettings:Option[com.monsanto.arch.cloudformation.model.resource.ELBConnectionSettings]" title="Permalink" target="_top">
+        <img src="../../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.monsanto.arch.cloudformation.model.resource.AWS::ElasticLoadBalancing::LoadBalancer#CrossZone" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="CrossZone:Option[Boolean]"></a>
+      <a id="CrossZone:Option[Boolean]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">CrossZone</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Boolean">Boolean</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonElasticLoadBalancing$colon$colonLoadBalancer@CrossZone:Option[Boolean]" title="Permalink" target="_top">
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -240,69 +308,120 @@
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a></dd></dl></div>
     </li><li name="com.monsanto.arch.cloudformation.model.resource.AWS::ElasticLoadBalancing::LoadBalancer#HealthCheck" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="HealthCheck:com.monsanto.arch.cloudformation.model.resource.HealthCheck"></a>
-      <a id="HealthCheck:HealthCheck"></a>
+      <a id="HealthCheck:Option[com.monsanto.arch.cloudformation.model.resource.ELBHealthCheck]"></a>
+      <a id="HealthCheck:Option[ELBHealthCheck]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">HealthCheck</span><span class="result">: <a href="HealthCheck.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.HealthCheck">HealthCheck</a></span>
+        <span class="name">HealthCheck</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<a href="ELBHealthCheck.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.ELBHealthCheck">ELBHealthCheck</a>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonElasticLoadBalancing$colon$colonLoadBalancer@HealthCheck:com.monsanto.arch.cloudformation.model.resource.HealthCheck" title="Permalink" target="_top">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonElasticLoadBalancing$colon$colonLoadBalancer@HealthCheck:Option[com.monsanto.arch.cloudformation.model.resource.ELBHealthCheck]" title="Permalink" target="_top">
+        <img src="../../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.monsanto.arch.cloudformation.model.resource.AWS::ElasticLoadBalancing::LoadBalancer#Instances" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Instances:Seq[com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::EC2::Instance]]]"></a>
+      <a id="Instances:Seq[Token[ResourceRef[AWS::EC2::Instance]]]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">Instances</span><span class="result">: <span class="extype" name="scala.Seq">Seq</span>[<a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<a href="../ResourceRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ResourceRef">ResourceRef</a>[<a href="AWS$colon$colonEC2$colon$colonInstance.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::EC2::Instance">AWS::EC2::Instance</a>]]]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonElasticLoadBalancing$colon$colonLoadBalancer@Instances:Seq[com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::EC2::Instance]]]" title="Permalink" target="_top">
+        <img src="../../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.monsanto.arch.cloudformation.model.resource.AWS::ElasticLoadBalancing::LoadBalancer#LBCookieStickinessPolicy" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="LBCookieStickinessPolicy:Option[com.monsanto.arch.cloudformation.model.resource.ELBLBCookieStickinessPolicy]"></a>
+      <a id="LBCookieStickinessPolicy:Option[ELBLBCookieStickinessPolicy]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">LBCookieStickinessPolicy</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<a href="ELBLBCookieStickinessPolicy.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.ELBLBCookieStickinessPolicy">ELBLBCookieStickinessPolicy</a>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonElasticLoadBalancing$colon$colonLoadBalancer@LBCookieStickinessPolicy:Option[com.monsanto.arch.cloudformation.model.resource.ELBLBCookieStickinessPolicy]" title="Permalink" target="_top">
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
     </li><li name="com.monsanto.arch.cloudformation.model.resource.AWS::ElasticLoadBalancing::LoadBalancer#Listeners" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="Listeners:Seq[com.monsanto.arch.cloudformation.model.resource.Listener]"></a>
-      <a id="Listeners:Seq[Listener]"></a>
+      <a id="Listeners:Seq[com.monsanto.arch.cloudformation.model.resource.ELBListener]"></a>
+      <a id="Listeners:Seq[ELBListener]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">Listeners</span><span class="result">: <span class="extype" name="scala.Seq">Seq</span>[<a href="Listener.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Listener">Listener</a>]</span>
+        <span class="name">Listeners</span><span class="result">: <span class="extype" name="scala.Seq">Seq</span>[<a href="ELBListener.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.ELBListener">ELBListener</a>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonElasticLoadBalancing$colon$colonLoadBalancer@Listeners:Seq[com.monsanto.arch.cloudformation.model.resource.Listener]" title="Permalink" target="_top">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonElasticLoadBalancing$colon$colonLoadBalancer@Listeners:Seq[com.monsanto.arch.cloudformation.model.resource.ELBListener]" title="Permalink" target="_top">
+        <img src="../../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.monsanto.arch.cloudformation.model.resource.AWS::ElasticLoadBalancing::LoadBalancer#LoadBalancerName" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="LoadBalancerName:Option[com.monsanto.arch.cloudformation.model.Token[String]]"></a>
+      <a id="LoadBalancerName:Option[Token[String]]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">LoadBalancerName</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonElasticLoadBalancing$colon$colonLoadBalancer@LoadBalancerName:Option[com.monsanto.arch.cloudformation.model.Token[String]]" title="Permalink" target="_top">
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
     </li><li name="com.monsanto.arch.cloudformation.model.resource.AWS::ElasticLoadBalancing::LoadBalancer#Policies" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="Policies:Option[Seq[com.monsanto.arch.cloudformation.model.resource.LoadBalancerPolicy]]"></a>
-      <a id="Policies:Option[Seq[LoadBalancerPolicy]]"></a>
+      <a id="Policies:Seq[com.monsanto.arch.cloudformation.model.resource.ELBPolicy]"></a>
+      <a id="Policies:Seq[ELBPolicy]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">Policies</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<a href="LoadBalancerPolicy.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.LoadBalancerPolicy">LoadBalancerPolicy</a>]]</span>
+        <span class="name">Policies</span><span class="result">: <span class="extype" name="scala.Seq">Seq</span>[<a href="ELBPolicy.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.ELBPolicy">ELBPolicy</a>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonElasticLoadBalancing$colon$colonLoadBalancer@Policies:Option[Seq[com.monsanto.arch.cloudformation.model.resource.LoadBalancerPolicy]]" title="Permalink" target="_top">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonElasticLoadBalancing$colon$colonLoadBalancer@Policies:Seq[com.monsanto.arch.cloudformation.model.resource.ELBPolicy]" title="Permalink" target="_top">
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
     </li><li name="com.monsanto.arch.cloudformation.model.resource.AWS::ElasticLoadBalancing::LoadBalancer#Scheme" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="Scheme:Option[String]"></a>
-      <a id="Scheme:Option[String]"></a>
+      <a id="Scheme:Option[com.monsanto.arch.cloudformation.model.resource.ELBScheme]"></a>
+      <a id="Scheme:Option[ELBScheme]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">Scheme</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>
+        <span class="name">Scheme</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<a href="ELBScheme.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.ELBScheme">ELBScheme</a>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonElasticLoadBalancing$colon$colonLoadBalancer@Scheme:Option[String]" title="Permalink" target="_top">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonElasticLoadBalancing$colon$colonLoadBalancer@Scheme:Option[com.monsanto.arch.cloudformation.model.resource.ELBScheme]" title="Permalink" target="_top">
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>

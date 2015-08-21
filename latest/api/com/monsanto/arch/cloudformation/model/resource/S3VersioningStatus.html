@@ -1,9 +1,9 @@
 <!DOCTYPE html >
 <html>
         <head>
-          <title>Listener - com.monsanto.arch.cloudformation.model.resource.Listener</title>
-          <meta name="description" content="Listener - com.monsanto.arch.cloudformation.model.resource.Listener" />
-          <meta name="keywords" content="Listener com.monsanto.arch.cloudformation.model.resource.Listener" />
+          <title>S3VersioningStatus - com.monsanto.arch.cloudformation.model.resource.S3VersioningStatus</title>
+          <meta name="description" content="S3VersioningStatus - com.monsanto.arch.cloudformation.model.resource.S3VersioningStatus" />
+          <meta name="keywords" content="S3VersioningStatus com.monsanto.arch.cloudformation.model.resource.S3VersioningStatus" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../../../../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
@@ -16,7 +16,7 @@
       <script type="text/javascript">
          if(top === self) {
             var url = '../../../../../../index.html';
-            var hash = 'com.monsanto.arch.cloudformation.model.resource.Listener';
+            var hash = 'com.monsanto.arch.cloudformation.model.resource.S3VersioningStatus';
             var anchor = window.location.hash;
             var anchor_opt = '';
             if (anchor.length >= 1)
@@ -28,14 +28,14 @@
         </head>
         <body class="type">
       <div id="definition">
-        <a href="Listener$.html" title="See companion object"><img alt="Class/Object" src="../../../../../../lib/class_to_object_big.png" /></a>
+        <a href="S3VersioningStatus$.html" title="See companion object"><img alt="Trait/Object" src="../../../../../../lib/trait_to_object_big.png" /></a>
         <p id="owner"><a href="../../../../../package.html" class="extype" name="com">com</a>.<a href="../../../../package.html" class="extype" name="com.monsanto">monsanto</a>.<a href="../../../package.html" class="extype" name="com.monsanto.arch">arch</a>.<a href="../../package.html" class="extype" name="com.monsanto.arch.cloudformation">cloudformation</a>.<a href="../package.html" class="extype" name="com.monsanto.arch.cloudformation.model">model</a>.<a href="package.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource">resource</a></p>
-        <h1><a href="Listener$.html" title="See companion object">Listener</a></h1><h3><span class="morelinks"><div>
+        <h1><a href="S3VersioningStatus$.html" title="See companion object">S3VersioningStatus</a></h1><h3><span class="morelinks"><div>
             Related Docs:
-            <a href="Listener$.html" title="See companion object">object Listener</a>
+            <a href="S3VersioningStatus$.html" title="See companion object">object S3VersioningStatus</a>
             | <a href="package.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource">package resource</a>
           </div></span></h3><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.Listener" title="Permalink" target="_top">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.S3VersioningStatus" title="Permalink" target="_top">
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -43,18 +43,21 @@
 
       <h4 id="signature" class="signature">
       <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">case class</span>
+        <span class="modifier">sealed </span>
+        <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <span class="name">Listener</span><span class="params">(<span name="LoadBalancerPort">LoadBalancerPort: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="Protocol">Protocol: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="InstancePort">InstancePort: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="SSLCertificateId">SSLCertificateId: <span class="extype" name="scala.Option">Option</span>[<a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="scala.Predef.String">String</span>]]</span>, <span name="InstanceProtocol">InstanceProtocol: <span class="extype" name="scala.Predef.String">String</span> = <span class="symbol">&quot;HTTP&quot;</span></span>, <span name="PolicyNames">PolicyNames: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol">None</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <span class="name">S3VersioningStatus</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       </h4>
       
           <div id="comment" class="fullcommenttop"><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
-          <div class="superTypes hiddenContent"><span class="extype" name="scala.Serializable">Serializable</span>, <span class="extype" name="java.io.Serializable">Serializable</span>, <span class="extype" name="scala.Product">Product</span>, <span class="extype" name="scala.Equals">Equals</span>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
-        </div></div>
+          <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+        </div><div class="toggleContainer block">
+            <span class="toggle">Known Subclasses</span>
+            <div class="subClasses hiddenContent"><a href="S3VersioningStatus$$Enabled$.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.S3VersioningStatus.Enabled">Enabled</a>, <a href="S3VersioningStatus$$Suspended$.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.S3VersioningStatus.Suspended">Suspended</a></div>
+          </div></div>
         
 
       <div id="mbrsel">
@@ -71,7 +74,7 @@
                 <span class="filtertype">Inherited<br />
                 </span>
                 <ol id="linearization">
-                  <li class="in" name="com.monsanto.arch.cloudformation.model.resource.Listener"><span>Listener</span></li><li class="in" name="scala.Serializable"><span>Serializable</span></li><li class="in" name="java.io.Serializable"><span>Serializable</span></li><li class="in" name="scala.Product"><span>Product</span></li><li class="in" name="scala.Equals"><span>Equals</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                  <li class="in" name="com.monsanto.arch.cloudformation.model.resource.S3VersioningStatus"><span>S3VersioningStatus</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                 </ol>
               </div><div id="ancestors">
             <span class="filtertype"></span>
@@ -88,27 +91,7 @@
 
       <div id="template">
         <div id="allMembers">
-        <div id="constructors" class="members">
-              <h3>Instance Constructors</h3>
-              <ol><li name="com.monsanto.arch.cloudformation.model.resource.Listener#&lt;init&gt;" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="&lt;init&gt;(LoadBalancerPort:String,Protocol:String,InstancePort:String,SSLCertificateId:Option[com.monsanto.arch.cloudformation.model.Token[String]],InstanceProtocol:String,PolicyNames:Option[Seq[String]]):com.monsanto.arch.cloudformation.model.resource.Listener"></a>
-      <a id="&lt;init&gt;:Listener"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">new</span>
-      </span>
-      <span class="symbol">
-        <span class="name">Listener</span><span class="params">(<span name="LoadBalancerPort">LoadBalancerPort: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="Protocol">Protocol: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="InstancePort">InstancePort: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="SSLCertificateId">SSLCertificateId: <span class="extype" name="scala.Option">Option</span>[<a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="scala.Predef.String">String</span>]]</span>, <span name="InstanceProtocol">InstanceProtocol: <span class="extype" name="scala.Predef.String">String</span> = <span class="symbol">&quot;HTTP&quot;</span></span>, <span name="PolicyNames">PolicyNames: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol">None</span></span>)</span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.Listener@&lt;init&gt;(LoadBalancerPort:String,Protocol:String,InstancePort:String,SSLCertificateId:Option[com.monsanto.arch.cloudformation.model.Token[String]],InstanceProtocol:String,PolicyNames:Option[Seq[String]]):com.monsanto.arch.cloudformation.model.resource.Listener" title="Permalink" target="_top">
-        <img src="../../../../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      
-    </li></ol>
-            </div>
+        
 
         
 
@@ -128,7 +111,7 @@
         <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.Listener@!=(x$1:Any):Boolean" title="Permalink" target="_top">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.S3VersioningStatus@!=(x$1:Any):Boolean" title="Permalink" target="_top">
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -145,7 +128,7 @@
         <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.Listener@##():Int" title="Permalink" target="_top">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.S3VersioningStatus@##():Int" title="Permalink" target="_top">
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -162,113 +145,11 @@
         <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.Listener@==(x$1:Any):Boolean" title="Permalink" target="_top">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.S3VersioningStatus@==(x$1:Any):Boolean" title="Permalink" target="_top">
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="com.monsanto.arch.cloudformation.model.resource.Listener#InstancePort" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="InstancePort:String"></a>
-      <a id="InstancePort:String"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">InstancePort</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.Listener@InstancePort:String" title="Permalink" target="_top">
-        <img src="../../../../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      
-    </li><li name="com.monsanto.arch.cloudformation.model.resource.Listener#InstanceProtocol" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="InstanceProtocol:String"></a>
-      <a id="InstanceProtocol:String"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">InstanceProtocol</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.Listener@InstanceProtocol:String" title="Permalink" target="_top">
-        <img src="../../../../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      
-    </li><li name="com.monsanto.arch.cloudformation.model.resource.Listener#LoadBalancerPort" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="LoadBalancerPort:String"></a>
-      <a id="LoadBalancerPort:String"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">LoadBalancerPort</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.Listener@LoadBalancerPort:String" title="Permalink" target="_top">
-        <img src="../../../../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      
-    </li><li name="com.monsanto.arch.cloudformation.model.resource.Listener#PolicyNames" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="PolicyNames:Option[Seq[String]]"></a>
-      <a id="PolicyNames:Option[Seq[String]]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">PolicyNames</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.Listener@PolicyNames:Option[Seq[String]]" title="Permalink" target="_top">
-        <img src="../../../../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      
-    </li><li name="com.monsanto.arch.cloudformation.model.resource.Listener#Protocol" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="Protocol:String"></a>
-      <a id="Protocol:String"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">Protocol</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.Listener@Protocol:String" title="Permalink" target="_top">
-        <img src="../../../../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      
-    </li><li name="com.monsanto.arch.cloudformation.model.resource.Listener#SSLCertificateId" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="SSLCertificateId:Option[com.monsanto.arch.cloudformation.model.Token[String]]"></a>
-      <a id="SSLCertificateId:Option[Token[String]]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">SSLCertificateId</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.Listener@SSLCertificateId:Option[com.monsanto.arch.cloudformation.model.Token[String]]" title="Permalink" target="_top">
-        <img src="../../../../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      
     </li><li name="scala.Any#asInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="asInstanceOf[T0]:T0"></a>
       <a id="asInstanceOf[T0]:T0"></a>
@@ -281,7 +162,7 @@
         <span class="name">asInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <span class="extype" name="scala.Any.asInstanceOf.T0">T0</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.Listener@asInstanceOf[T0]:T0" title="Permalink" target="_top">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.S3VersioningStatus@asInstanceOf[T0]:T0" title="Permalink" target="_top">
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -298,7 +179,7 @@
         <span class="name">clone</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.Listener@clone():Object" title="Permalink" target="_top">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.S3VersioningStatus@clone():Object" title="Permalink" target="_top">
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -321,11 +202,28 @@
         <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.Listener@eq(x$1:AnyRef):Boolean" title="Permalink" target="_top">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.S3VersioningStatus@eq(x$1:AnyRef):Boolean" title="Permalink" target="_top">
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.AnyRef#equals" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="equals(x$1:Any):Boolean"></a>
+      <a id="equals(Any):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.S3VersioningStatus@equals(x$1:Any):Boolean" title="Permalink" target="_top">
+        <img src="../../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
     </li><li name="scala.AnyRef#finalize" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="finalize():Unit"></a>
       <a id="finalize():Unit"></a>
@@ -338,7 +236,7 @@
         <span class="name">finalize</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.Listener@finalize():Unit" title="Permalink" target="_top">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.S3VersioningStatus@finalize():Unit" title="Permalink" target="_top">
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -361,7 +259,24 @@
         <span class="name">getClass</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.Class">Class</span>[_]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.Listener@getClass():Class[_]" title="Permalink" target="_top">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.S3VersioningStatus@getClass():Class[_]" title="Permalink" target="_top">
+        <img src="../../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef#hashCode" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="hashCode():Int"></a>
+      <a id="hashCode():Int"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.S3VersioningStatus@hashCode():Int" title="Permalink" target="_top">
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -378,7 +293,7 @@
         <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.Listener@isInstanceOf[T0]:Boolean" title="Permalink" target="_top">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.S3VersioningStatus@isInstanceOf[T0]:Boolean" title="Permalink" target="_top">
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -395,7 +310,7 @@
         <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.Listener@ne(x$1:AnyRef):Boolean" title="Permalink" target="_top">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.S3VersioningStatus@ne(x$1:AnyRef):Boolean" title="Permalink" target="_top">
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -412,7 +327,7 @@
         <span class="name">notify</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.Listener@notify():Unit" title="Permalink" target="_top">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.S3VersioningStatus@notify():Unit" title="Permalink" target="_top">
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -429,7 +344,7 @@
         <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.Listener@notifyAll():Unit" title="Permalink" target="_top">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.S3VersioningStatus@notifyAll():Unit" title="Permalink" target="_top">
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -446,11 +361,28 @@
         <span class="name">synchronized</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="params">(<span name="arg0">arg0: ⇒ <span class="extype" name="java.lang.AnyRef.synchronized.T0">T0</span></span>)</span><span class="result">: <span class="extype" name="java.lang.AnyRef.synchronized.T0">T0</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.Listener@synchronized[T0](x$1:=&gt;T0):T0" title="Permalink" target="_top">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.S3VersioningStatus@synchronized[T0](x$1:=&gt;T0):T0" title="Permalink" target="_top">
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.AnyRef#toString" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="toString():String"></a>
+      <a id="toString():String"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.S3VersioningStatus@toString():String" title="Permalink" target="_top">
+        <img src="../../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
     </li><li name="scala.AnyRef#wait" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait():Unit"></a>
       <a id="wait():Unit"></a>
@@ -463,7 +395,7 @@
         <span class="name">wait</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.Listener@wait():Unit" title="Permalink" target="_top">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.S3VersioningStatus@wait():Unit" title="Permalink" target="_top">
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -486,7 +418,7 @@
         <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Long">Long</span></span>, <span name="arg1">arg1: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.Listener@wait(x$1:Long,x$2:Int):Unit" title="Permalink" target="_top">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.S3VersioningStatus@wait(x$1:Long,x$2:Int):Unit" title="Permalink" target="_top">
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -509,7 +441,7 @@
         <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Long">Long</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.Listener@wait(x$1:Long):Unit" title="Permalink" target="_top">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.S3VersioningStatus@wait(x$1:Long):Unit" title="Permalink" target="_top">
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -529,15 +461,7 @@
         </div>
 
         <div id="inheritedMembers">
-        <div class="parent" name="scala.Serializable">
-              <h3>Inherited from <span class="extype" name="scala.Serializable">Serializable</span></h3>
-            </div><div class="parent" name="java.io.Serializable">
-              <h3>Inherited from <span class="extype" name="java.io.Serializable">Serializable</span></h3>
-            </div><div class="parent" name="scala.Product">
-              <h3>Inherited from <span class="extype" name="scala.Product">Product</span></h3>
-            </div><div class="parent" name="scala.Equals">
-              <h3>Inherited from <span class="extype" name="scala.Equals">Equals</span></h3>
-            </div><div class="parent" name="scala.AnyRef">
+        <div class="parent" name="scala.AnyRef">
               <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
             </div><div class="parent" name="scala.Any">
               <h3>Inherited from <span class="extype" name="scala.Any">Any</span></h3>

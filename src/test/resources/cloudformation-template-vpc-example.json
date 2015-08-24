@@ -101,25 +101,25 @@
       "Type":"String",
       "Default":"10.183.0.0/16"
     },
+    "AvailabilityZones": {
+      "Description": "A comma separated list of availability zones",
+      "Default": "us-east-1a,us-east-1b",
+      "Type": "CommaDelimitedList"
+    },
     "PublicSubnet1":{
       "Description":"CIDR address range for the public subnet to be created in the first AZ",
       "Type":"String",
       "Default":"10.183.1.0/24"
-    },
-    "PrivateSubnet1":{
-      "Description":"CIDR address range for the private subnet to be created in the first AZ",
-      "Type":"String",
-      "Default":"10.183.0.0/24"
     },
     "PublicSubnet2":{
       "Description":"CIDR address range for the public subnet to be created in the second AZ",
       "Type":"String",
       "Default":"10.183.3.0/24"
     },
-    "PrivateSubnet2":{
-      "Description":"CIDR address range for the private subnet to be created in the second AZ",
-      "Type":"String",
-      "Default":"10.183.2.0/24"
+    "PrivateSubnets": {
+      "Description": "A comma separated list of CIDR blocks to be used for private subnet creation",
+      "Default": "10.183.0.0/24,10.183.2.0/24",
+      "Type": "CommaDelimitedList"
     },
     "JumpInstanceType":{
       "Description":"Instance type for public subnet jump nodes",
@@ -467,7 +467,7 @@
         },
         "AvailabilityZone":"us-east-1a",
         "CidrBlock":{
-          "Ref":"PrivateSubnet1"
+          "Fn::Select": ["0", {"Ref": "PrivateSubnets"}]
         },
         "Tags":[
           {
@@ -603,7 +603,7 @@
         },
         "AvailabilityZone":"us-east-1b",
         "CidrBlock":{
-          "Ref":"PrivateSubnet2"
+          "Fn::Select": ["1", {"Ref": "PrivateSubnets"}]
         },
         "Tags":[
           {

@@ -22,14 +22,16 @@ object Parameter extends DefaultJsonProtocol {
       def write(obj: Parameter) = {
 
         val raw = obj match {
-          case s: StringParameter                          => s.toJson
-          case n: NumberParameter                          => n.toJson
-          case c: CidrBlockParameter                       => c.toJson
-          case a: AMIIdParameter                           => a.toJson
-          case c: `AWS::EC2::SecurityGroup_Parameter`      => c.toJson
-          case k: `AWS::EC2::KeyPair::KeyName_Parameter`   => k.toJson
-          case v: `AWS::EC2::VPC_Parameter`                => v.toJson
-          case e: `AWS::RDS::DBInstance::Engine_Parameter` => e.toJson
+          case s:  StringParameter                          => s.toJson
+          case sl: StringListParameter                      => sl.toJson(StringListParameter.format)
+          case n:  NumberParameter                          => n.toJson
+          case c:  CidrBlockParameter                       => c.toJson
+          case cl: CidrBlockListParameter                   => cl.toJson(CidrBlockListParameter.format)
+          case a:  AMIIdParameter                           => a.toJson
+          case c:  `AWS::EC2::SecurityGroup_Parameter`      => c.toJson
+          case k:  `AWS::EC2::KeyPair::KeyName_Parameter`   => k.toJson
+          case v:  `AWS::EC2::VPC_Parameter`                => v.toJson
+          case e:  `AWS::RDS::DBInstance::Engine_Parameter` => e.toJson
         }
 
         JsObject( raw.asJsObject.fields - "name" - "ConfigDefault" + ("Type" -> JsString(obj.Type)) )
@@ -64,7 +66,6 @@ case class StringParameter (
                             ) extends Parameter("String"){type Rep = String}
 object StringParameter extends DefaultJsonProtocol {
 
-  // all these types to pick out the correct "apply" from the two choices
   implicit val format: JsonFormat[StringParameter] =
     jsonFormat10[String, Option[String], Option[StringBackedInt], Option[StringBackedInt], Option[String],
       Option[String], Option[String], Option[Seq[String]], Option[Boolean], Option[String], StringParameter](StringParameter.apply)
@@ -74,6 +75,30 @@ object StringParameter extends DefaultJsonProtocol {
   def apply(name: String, Description: String, AllowedValues: Seq[String], Default: String): StringParameter = StringParameter(name, Some(Description), None, None, None, None, Some(Default), Some(AllowedValues), None)
   def apply(name: String, Description: String, AllowedValues: Seq[String], ConstraintDescription: String, Default: String): StringParameter = StringParameter(name, Some(Description), None, None, None, Some(ConstraintDescription), Some(Default), Some(AllowedValues), None)
 }
+
+case class StringListParameter (
+                             name:                  String,
+                             Description:           Option[String]                = None,
+                             Default:               Option[Seq[String]]           = None,
+                             NoEcho:                Option[Boolean]               = None,
+                             ConfigDefault:         Option[String]                = None
+                             ) extends Parameter("CommaDelimitedList"){type Rep = Seq[String]}
+object StringListParameter extends DefaultJsonProtocol {
+
+  implicit object format extends JsonWriter[StringListParameter]{
+    def write(p: StringListParameter) =
+      JsObject(Map("name" -> JsString(p.name)) ++
+        p.Description.map("Description" -> JsString(_)) ++
+        p.Default.map(s => "Default" -> JsString(s.mkString(","))) ++
+        p.NoEcho.map("NoEcho" -> JsBoolean(_)) ++
+        p.ConfigDefault.map("ConfigDefault" -> JsString(_))
+      )
+  }
+
+  def apply(name: String, Description: String): StringListParameter = StringListParameter(name, Some(Description), None, None, None)
+  def apply(name: String, Description: String, Default: Seq[String]): StringListParameter = StringListParameter(name, Some(Description), Some(Default), None, None)
+}
+
 
 case class NumberParameter (
                             name:                  String,
@@ -109,6 +134,24 @@ case class CidrBlockParameter(
 object CidrBlockParameter extends DefaultJsonProtocol {
   implicit val format: JsonFormat[CidrBlockParameter] = jsonFormat4(CidrBlockParameter.apply)
 }
+
+case class CidrBlockListParameter(
+                               name:          String,
+                               Description:   Option[String],
+                               Default:       Option[Seq[CidrBlock]] = None,
+                               ConfigDefault: Option[String] = None
+                               ) extends Parameter("CommaDelimitedList"){type Rep = Seq[CidrBlock]}
+object CidrBlockListParameter extends DefaultJsonProtocol {
+  implicit object format extends JsonWriter[CidrBlockListParameter]{
+    def write(p: CidrBlockListParameter) =
+      JsObject(Map("name" -> JsString(p.name)) ++
+        p.Description.map("Description" -> JsString(_)) ++
+        p.Default.map(l => "Default" -> JsString(l.map(c => c.toJsString.value).mkString(","))) ++
+        p.ConfigDefault.map("ConfigDefault" -> JsString(_))
+      )
+  }
+}
+
 
 case class `AWS::EC2::SecurityGroup_Parameter`(
                                                 name:          String,
@@ -163,6 +206,9 @@ object InputParameter extends DefaultJsonProtocol {
       case StringParameter(n, _, _, _, _, _, _, _, _, Some(d)) => InputParameter(n, d.toJson)
       case StringParameter(n, _, _, _, _, _, Some(d), _, _, None) => InputParameter(n, d.toJson)
       case StringParameter(n, _, _, _, _, _, None, _, _, None) => InputParameter(n)
+      case StringListParameter(n, _, _, _, Some(d)) => InputParameter(n, d.toJson)
+      case StringListParameter(n, _, Some(d), _, None) => InputParameter(n, JsString(d.mkString(",")))
+      case StringListParameter(n, _, None, _, None) => InputParameter(n)
       case NumberParameter(n, _, _, _, _, _, _, Some(d)) => InputParameter(n, d.toJson)
       case NumberParameter(n, _, _, _, _, Some(d), _, None) => InputParameter(n, d.toJson)
       case NumberParameter(n, _, _, _, _, None, _, None) => InputParameter(n)
@@ -172,6 +218,9 @@ object InputParameter extends DefaultJsonProtocol {
       case CidrBlockParameter(n, _, _, Some(d)) => InputParameter(n, d.toJson)
       case CidrBlockParameter(n, _, Some(d), None) => InputParameter(n, d.toJson)
       case CidrBlockParameter(n, _, None, None) => InputParameter(n)
+      case CidrBlockListParameter(n, _, _, Some(d)) => InputParameter(n, d.toJson)
+      case CidrBlockListParameter(n, _, Some(d), None) => InputParameter(n, JsString(d.map(_.toJsString.value).mkString(",")))
+      case CidrBlockListParameter(n, _, None, None) => InputParameter(n)
       case `AWS::EC2::SecurityGroup_Parameter`(n, _, _, Some(d)) => InputParameter(n, d.toJson)
       case `AWS::EC2::SecurityGroup_Parameter`(n, _, Some(d), None) => InputParameter(n, d.toJson)
       case `AWS::EC2::SecurityGroup_Parameter`(n, _, None, None) => InputParameter(n)

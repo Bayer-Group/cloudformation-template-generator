@@ -1,9 +1,9 @@
 <!DOCTYPE html >
 <html>
         <head>
-          <title>Parameter - com.monsanto.arch.cloudformation.model.Parameter</title>
-          <meta name="description" content="Parameter - com.monsanto.arch.cloudformation.model.Parameter" />
-          <meta name="keywords" content="Parameter com.monsanto.arch.cloudformation.model.Parameter" />
+          <title>CidrBlockListParameter - com.monsanto.arch.cloudformation.model.CidrBlockListParameter</title>
+          <meta name="description" content="CidrBlockListParameter - com.monsanto.arch.cloudformation.model.CidrBlockListParameter" />
+          <meta name="keywords" content="CidrBlockListParameter com.monsanto.arch.cloudformation.model.CidrBlockListParameter" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../../../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
@@ -16,7 +16,7 @@
       <script type="text/javascript">
          if(top === self) {
             var url = '../../../../../index.html';
-            var hash = 'com.monsanto.arch.cloudformation.model.Parameter';
+            var hash = 'com.monsanto.arch.cloudformation.model.CidrBlockListParameter';
             var anchor = window.location.hash;
             var anchor_opt = '';
             if (anchor.length >= 1)
@@ -28,14 +28,14 @@
         </head>
         <body class="type">
       <div id="definition">
-        <a href="Parameter$.html" title="See companion object"><img alt="Class/Object" src="../../../../../lib/class_to_object_big.png" /></a>
+        <a href="CidrBlockListParameter$.html" title="See companion object"><img alt="Class/Object" src="../../../../../lib/class_to_object_big.png" /></a>
         <p id="owner"><a href="../../../../package.html" class="extype" name="com">com</a>.<a href="../../../package.html" class="extype" name="com.monsanto">monsanto</a>.<a href="../../package.html" class="extype" name="com.monsanto.arch">arch</a>.<a href="../package.html" class="extype" name="com.monsanto.arch.cloudformation">cloudformation</a>.<a href="package.html" class="extype" name="com.monsanto.arch.cloudformation.model">model</a></p>
-        <h1><a href="Parameter$.html" title="See companion object">Parameter</a></h1><h3><span class="morelinks"><div>
+        <h1><a href="CidrBlockListParameter$.html" title="See companion object">CidrBlockListParameter</a></h1><h3><span class="morelinks"><div>
             Related Docs:
-            <a href="Parameter$.html" title="See companion object">object Parameter</a>
+            <a href="CidrBlockListParameter$.html" title="See companion object">object CidrBlockListParameter</a>
             | <a href="package.html" class="extype" name="com.monsanto.arch.cloudformation.model">package model</a>
           </div></span></h3><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.Parameter" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.CidrBlockListParameter" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -43,22 +43,18 @@
 
       <h4 id="signature" class="signature">
       <span class="modifier_kind">
-        <span class="modifier">sealed abstract </span>
-        <span class="kind">class</span>
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <span class="name">Parameter</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <span class="name">CidrBlockListParameter</span><span class="params">(<span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="Description">Description: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="Default">Default: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<a href="resource/CidrBlock.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.CidrBlock">CidrBlock</a>]] = <span class="symbol">None</span></span>, <span name="ConfigDefault">ConfigDefault: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">None</span></span>)</span><span class="result"> extends <a href="Parameter.html" class="extype" name="com.monsanto.arch.cloudformation.model.Parameter">Parameter</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Created by Ryan Richt on 2/15/15
-</p></div><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
-          <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
-        </div><div class="toggleContainer block">
-            <span class="toggle">Known Subclasses</span>
-            <div class="subClasses hiddenContent"><a href="AMIIdParameter.html" class="extype" name="com.monsanto.arch.cloudformation.model.AMIIdParameter">AMIIdParameter</a>, <a href="AWS$colon$colonEC2$colon$colonKeyPair$colon$colonKeyName_Parameter.html" class="extype" name="com.monsanto.arch.cloudformation.model.AWS::EC2::KeyPair::KeyName_Parameter">AWS::EC2::KeyPair::KeyName_Parameter</a>, <a href="AWS$colon$colonEC2$colon$colonSecurityGroup_Parameter.html" class="extype" name="com.monsanto.arch.cloudformation.model.AWS::EC2::SecurityGroup_Parameter">AWS::EC2::SecurityGroup_Parameter</a>, <a href="AWS$colon$colonEC2$colon$colonVPC_Parameter.html" class="extype" name="com.monsanto.arch.cloudformation.model.AWS::EC2::VPC_Parameter">AWS::EC2::VPC_Parameter</a>, <a href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonEngine_Parameter.html" class="extype" name="com.monsanto.arch.cloudformation.model.AWS::RDS::DBInstance::Engine_Parameter">AWS::RDS::DBInstance::Engine_Parameter</a>, <a href="CidrBlockListParameter.html" class="extype" name="com.monsanto.arch.cloudformation.model.CidrBlockListParameter">CidrBlockListParameter</a>, <a href="CidrBlockParameter.html" class="extype" name="com.monsanto.arch.cloudformation.model.CidrBlockParameter">CidrBlockParameter</a>, <a href="NumberParameter.html" class="extype" name="com.monsanto.arch.cloudformation.model.NumberParameter">NumberParameter</a>, <a href="StringListParameter.html" class="extype" name="com.monsanto.arch.cloudformation.model.StringListParameter">StringListParameter</a>, <a href="StringParameter.html" class="extype" name="com.monsanto.arch.cloudformation.model.StringParameter">StringParameter</a></div>
-          </div></div>
+          <div class="superTypes hiddenContent"><span class="extype" name="scala.Serializable">Serializable</span>, <span class="extype" name="java.io.Serializable">Serializable</span>, <span class="extype" name="scala.Product">Product</span>, <span class="extype" name="scala.Equals">Equals</span>, <a href="Parameter.html" class="extype" name="com.monsanto.arch.cloudformation.model.Parameter">Parameter</a>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+        </div></div>
         
 
       <div id="mbrsel">
@@ -75,7 +71,7 @@
                 <span class="filtertype">Inherited<br />
                 </span>
                 <ol id="linearization">
-                  <li class="in" name="com.monsanto.arch.cloudformation.model.Parameter"><span>Parameter</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                  <li class="in" name="com.monsanto.arch.cloudformation.model.CidrBlockListParameter"><span>CidrBlockListParameter</span></li><li class="in" name="scala.Serializable"><span>Serializable</span></li><li class="in" name="java.io.Serializable"><span>Serializable</span></li><li class="in" name="scala.Product"><span>Product</span></li><li class="in" name="scala.Equals"><span>Equals</span></li><li class="in" name="com.monsanto.arch.cloudformation.model.Parameter"><span>Parameter</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                 </ol>
               </div><div id="ancestors">
             <span class="filtertype"></span>
@@ -92,88 +88,54 @@
 
       <div id="template">
         <div id="allMembers">
-        
+        <div id="constructors" class="members">
+              <h3>Instance Constructors</h3>
+              <ol><li name="com.monsanto.arch.cloudformation.model.CidrBlockListParameter#&lt;init&gt;" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="&lt;init&gt;(name:String,Description:Option[String],Default:Option[Seq[com.monsanto.arch.cloudformation.model.resource.CidrBlock]],ConfigDefault:Option[String]):com.monsanto.arch.cloudformation.model.CidrBlockListParameter"></a>
+      <a id="&lt;init&gt;:CidrBlockListParameter"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">new</span>
+      </span>
+      <span class="symbol">
+        <span class="name">CidrBlockListParameter</span><span class="params">(<span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="Description">Description: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="Default">Default: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<a href="resource/CidrBlock.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.CidrBlock">CidrBlock</a>]] = <span class="symbol">None</span></span>, <span name="ConfigDefault">ConfigDefault: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">None</span></span>)</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.CidrBlockListParameter@&lt;init&gt;(name:String,Description:Option[String],Default:Option[Seq[com.monsanto.arch.cloudformation.model.resource.CidrBlock]],ConfigDefault:Option[String]):com.monsanto.arch.cloudformation.model.CidrBlockListParameter" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li></ol>
+            </div>
 
         <div id="types" class="types members">
               <h3>Type Members</h3>
-              <ol><li name="com.monsanto.arch.cloudformation.model.Parameter.Rep" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="Rep"></a>
+              <ol><li name="com.monsanto.arch.cloudformation.model.CidrBlockListParameter.Rep" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="Rep=Seq[com.monsanto.arch.cloudformation.model.resource.CidrBlock]"></a>
       <a id="Rep:Rep"></a>
       <h4 class="signature">
       <span class="modifier_kind">
-        <span class="modifier">abstract </span>
+        <span class="modifier"></span>
         <span class="kind">type</span>
       </span>
       <span class="symbol">
-        <span class="name">Rep</span>
+        <span class="name">Rep</span><span class="result"> = <span class="extype" name="scala.collection.Seq">Seq</span>[<a href="resource/CidrBlock.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.CidrBlock">CidrBlock</a>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.Parameter@Rep" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.CidrBlockListParameter@Rep=Seq[com.monsanto.arch.cloudformation.model.resource.CidrBlock]" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="com.monsanto.arch.cloudformation.model.CidrBlockListParameter">CidrBlockListParameter</a> → <a href="Parameter.html" class="extype" name="com.monsanto.arch.cloudformation.model.Parameter">Parameter</a></dd></dl></div>
     </li></ol>
             </div>
 
-        <div id="values" class="values members">
-              <h3>Abstract Value Members</h3>
-              <ol><li name="com.monsanto.arch.cloudformation.model.Parameter#ConfigDefault" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="ConfigDefault:Option[String]"></a>
-      <a id="ConfigDefault:Option[String]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">abstract </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">ConfigDefault</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.Parameter@ConfigDefault:Option[String]" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      
-    </li><li name="com.monsanto.arch.cloudformation.model.Parameter#Description" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="Description:Option[String]"></a>
-      <a id="Description:Option[String]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">abstract </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">Description</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.Parameter@Description:Option[String]" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      
-    </li><li name="com.monsanto.arch.cloudformation.model.Parameter#name" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="name:String"></a>
-      <a id="name:String"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">abstract </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">name</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.Parameter@name:String" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      
-    </li></ol>
-            </div>
+        
 
         <div id="values" class="values members">
-              <h3>Concrete Value Members</h3>
+              <h3>Value Members</h3>
               <ol><li name="scala.AnyRef#!=" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="!=(x$1:Any):Boolean"></a>
       <a id="!=(Any):Boolean"></a>
@@ -186,7 +148,7 @@
         <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.Parameter@!=(x$1:Any):Boolean" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.CidrBlockListParameter@!=(x$1:Any):Boolean" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -203,7 +165,7 @@
         <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.Parameter@##():Int" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.CidrBlockListParameter@##():Int" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -220,12 +182,63 @@
         <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.Parameter@==(x$1:Any):Boolean" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.CidrBlockListParameter@==(x$1:Any):Boolean" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="com.monsanto.arch.cloudformation.model.Parameter#Type" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.monsanto.arch.cloudformation.model.CidrBlockListParameter#ConfigDefault" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="ConfigDefault:Option[String]"></a>
+      <a id="ConfigDefault:Option[String]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">ConfigDefault</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.CidrBlockListParameter@ConfigDefault:Option[String]" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="com.monsanto.arch.cloudformation.model.CidrBlockListParameter">CidrBlockListParameter</a> → <a href="Parameter.html" class="extype" name="com.monsanto.arch.cloudformation.model.Parameter">Parameter</a></dd></dl></div>
+    </li><li name="com.monsanto.arch.cloudformation.model.CidrBlockListParameter#Default" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Default:Option[Seq[com.monsanto.arch.cloudformation.model.resource.CidrBlock]]"></a>
+      <a id="Default:Option[Seq[CidrBlock]]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">Default</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<a href="resource/CidrBlock.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.CidrBlock">CidrBlock</a>]]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.CidrBlockListParameter@Default:Option[Seq[com.monsanto.arch.cloudformation.model.resource.CidrBlock]]" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.monsanto.arch.cloudformation.model.CidrBlockListParameter#Description" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="Description:Option[String]"></a>
+      <a id="Description:Option[String]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">Description</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.CidrBlockListParameter@Description:Option[String]" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="com.monsanto.arch.cloudformation.model.CidrBlockListParameter">CidrBlockListParameter</a> → <a href="Parameter.html" class="extype" name="com.monsanto.arch.cloudformation.model.Parameter">Parameter</a></dd></dl></div>
+    </li><li name="com.monsanto.arch.cloudformation.model.Parameter#Type" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="Type:String"></a>
       <a id="Type:String"></a>
       <h4 class="signature">
@@ -237,11 +250,11 @@
         <span class="name">Type</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.Parameter@Type:String" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.CidrBlockListParameter@Type:String" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Parameter.html" class="extype" name="com.monsanto.arch.cloudformation.model.Parameter">Parameter</a></dd></dl></div>
     </li><li name="scala.Any#asInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="asInstanceOf[T0]:T0"></a>
       <a id="asInstanceOf[T0]:T0"></a>
@@ -254,7 +267,7 @@
         <span class="name">asInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <span class="extype" name="scala.Any.asInstanceOf.T0">T0</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.Parameter@asInstanceOf[T0]:T0" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.CidrBlockListParameter@asInstanceOf[T0]:T0" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -271,7 +284,7 @@
         <span class="name">clone</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.Parameter@clone():Object" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.CidrBlockListParameter@clone():Object" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -294,28 +307,11 @@
         <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.Parameter@eq(x$1:AnyRef):Boolean" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.CidrBlockListParameter@eq(x$1:AnyRef):Boolean" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li name="scala.AnyRef#equals" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="equals(x$1:Any):Boolean"></a>
-      <a id="equals(Any):Boolean"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.Parameter@equals(x$1:Any):Boolean" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
     </li><li name="scala.AnyRef#finalize" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="finalize():Unit"></a>
       <a id="finalize():Unit"></a>
@@ -328,7 +324,7 @@
         <span class="name">finalize</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.Parameter@finalize():Unit" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.CidrBlockListParameter@finalize():Unit" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -351,24 +347,7 @@
         <span class="name">getClass</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.Class">Class</span>[_]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.Parameter@getClass():Class[_]" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="scala.AnyRef#hashCode" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="hashCode():Int"></a>
-      <a id="hashCode():Int"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.Parameter@hashCode():Int" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.CidrBlockListParameter@getClass():Class[_]" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -385,11 +364,28 @@
         <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.Parameter@isInstanceOf[T0]:Boolean" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.CidrBlockListParameter@isInstanceOf[T0]:Boolean" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li name="com.monsanto.arch.cloudformation.model.CidrBlockListParameter#name" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="name:String"></a>
+      <a id="name:String"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">name</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.CidrBlockListParameter@name:String" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="com.monsanto.arch.cloudformation.model.CidrBlockListParameter">CidrBlockListParameter</a> → <a href="Parameter.html" class="extype" name="com.monsanto.arch.cloudformation.model.Parameter">Parameter</a></dd></dl></div>
     </li><li name="scala.AnyRef#ne" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ne(x$1:AnyRef):Boolean"></a>
       <a id="ne(AnyRef):Boolean"></a>
@@ -402,7 +398,7 @@
         <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.Parameter@ne(x$1:AnyRef):Boolean" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.CidrBlockListParameter@ne(x$1:AnyRef):Boolean" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -419,7 +415,7 @@
         <span class="name">notify</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.Parameter@notify():Unit" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.CidrBlockListParameter@notify():Unit" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -436,7 +432,7 @@
         <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.Parameter@notifyAll():Unit" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.CidrBlockListParameter@notifyAll():Unit" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -453,28 +449,11 @@
         <span class="name">synchronized</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="params">(<span name="arg0">arg0: ⇒ <span class="extype" name="java.lang.AnyRef.synchronized.T0">T0</span></span>)</span><span class="result">: <span class="extype" name="java.lang.AnyRef.synchronized.T0">T0</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.Parameter@synchronized[T0](x$1:=&gt;T0):T0" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.CidrBlockListParameter@synchronized[T0](x$1:=&gt;T0):T0" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li name="scala.AnyRef#toString" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="toString():String"></a>
-      <a id="toString():String"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.Parameter@toString():String" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
     </li><li name="scala.AnyRef#wait" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait():Unit"></a>
       <a id="wait():Unit"></a>
@@ -487,7 +466,7 @@
         <span class="name">wait</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.Parameter@wait():Unit" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.CidrBlockListParameter@wait():Unit" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -510,7 +489,7 @@
         <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Long">Long</span></span>, <span name="arg1">arg1: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.Parameter@wait(x$1:Long,x$2:Int):Unit" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.CidrBlockListParameter@wait(x$1:Long,x$2:Int):Unit" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -533,7 +512,7 @@
         <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Long">Long</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.Parameter@wait(x$1:Long):Unit" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.CidrBlockListParameter@wait(x$1:Long):Unit" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -553,7 +532,17 @@
         </div>
 
         <div id="inheritedMembers">
-        <div class="parent" name="scala.AnyRef">
+        <div class="parent" name="scala.Serializable">
+              <h3>Inherited from <span class="extype" name="scala.Serializable">Serializable</span></h3>
+            </div><div class="parent" name="java.io.Serializable">
+              <h3>Inherited from <span class="extype" name="java.io.Serializable">Serializable</span></h3>
+            </div><div class="parent" name="scala.Product">
+              <h3>Inherited from <span class="extype" name="scala.Product">Product</span></h3>
+            </div><div class="parent" name="scala.Equals">
+              <h3>Inherited from <span class="extype" name="scala.Equals">Equals</span></h3>
+            </div><div class="parent" name="com.monsanto.arch.cloudformation.model.Parameter">
+              <h3>Inherited from <a href="Parameter.html" class="extype" name="com.monsanto.arch.cloudformation.model.Parameter">Parameter</a></h3>
+            </div><div class="parent" name="scala.AnyRef">
               <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
             </div><div class="parent" name="scala.Any">
               <h3>Inherited from <span class="extype" name="scala.Any">Any</span></h3>

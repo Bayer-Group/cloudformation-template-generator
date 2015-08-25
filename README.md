@@ -1,5 +1,7 @@
 # CloudFormation Template Generator
 
+[![Build Status](https://travis-ci.org/MonsantoCo/cloudformation-template-generator.svg?branch=master)](https://travis-ci.org/MonsantoCo/cloudformation-template-generator) [![Coverage Status](https://coveralls.io/repos/MonsantoCo/cloudformation-template-generator/badge.svg?branch=master&service=github)](https://coveralls.io/github/MonsantoCo/cloudformation-template-generator?branch=master)
+
 Simple Scala DSL to create AWS CloudFormation (CFN) templates. The library
 allows for easier creation of the AWS CloudFormation JSON by writing Scala code
 to describe the AWS resources. Lets say we have a handful of CFN templates we

@@ -385,15 +385,16 @@ object StaxTemplate {
     ))
   )
 
+  val azParam = StringListParameter(
+    name = "AvailabilityZones",
+    Description = Some("A comma separated list of availability zones"),
+    Default = Some(Seq("us-east-1a", "us-east-1b"))
+  )
+
   val publicSubnet1Param = CidrBlockParameter(
     name        = "PublicSubnet1",
     Description = Some("CIDR address range for the public subnet to be created in the first AZ"),
     Default     = Some(CidrBlock(10,183,1,0,24))
-  )
-  val privateSubnet1Param = CidrBlockParameter(
-    name        = "PrivateSubnet1",
-    Description = Some("CIDR address range for the private subnet to be created in the first AZ"),
-    Default     = Some(CidrBlock(10,183,0,0,24))
   )
 
   val publicSubnet2Param = CidrBlockParameter(
@@ -401,12 +402,12 @@ object StaxTemplate {
     Description = Some("CIDR address range for the public subnet to be created in the second AZ"),
     Default     = Some(CidrBlock(10,183,3,0,24))
   )
-  val privateSubnet2Param = CidrBlockParameter(
-    name        = "PrivateSubnet2",
-    Description = Some("CIDR address range for the private subnet to be created in the second AZ"),
-    Default     = Some(CidrBlock(10,183,2,0,24))
-  )
 
+  val privateSubnetsParam = CidrBlockListParameter(
+      name        = "PrivateSubnets",
+      Description = Some("A comma separated list of CIDR blocks to be used for private subnet creation"),
+      Default     = Some(Seq(CidrBlock(10,183,0,0,24), CidrBlock(10,183,2,0,24)))
+  )
 
   val internetGatewayResource = `AWS::EC2::InternetGateway`(
     "InternetGateway",
@@ -578,7 +579,7 @@ object StaxTemplate {
     "PriSubnet1",
     VpcId = ResourceRef(vpcResource),
     AvailabilityZone = "us-east-1a",
-    CidrBlock = ParameterRef(privateSubnet1Param),
+    CidrBlock = `Fn::Select`(StringBackedInt(0), ParameterRef(privateSubnetsParam)),
     Tags = standardTags("prisubnet1", "Private")
   )
 
@@ -594,7 +595,7 @@ object StaxTemplate {
     "PriSubnet2",
     VpcId = ResourceRef(vpcResource),
     AvailabilityZone = "us-east-1b",
-    CidrBlock = ParameterRef(privateSubnet2Param),
+    CidrBlock = `Fn::Select`(StringBackedInt(1), ParameterRef(privateSubnetsParam)),
     Tags = standardTags("prisubnet2", "Private")
   )
 
@@ -969,10 +970,10 @@ object StaxTemplate {
         discoveryURLParam,
         advertizedIPAddressParam,
         vpcCidrParam,
+        azParam,
         publicSubnet1Param,
-        privateSubnet1Param,
         publicSubnet2Param,
-        privateSubnet2Param,
+        privateSubnetsParam,
         coreOSChannelAMIParameter,
         allowHTTPFromParam,
         allowSSHFromParam

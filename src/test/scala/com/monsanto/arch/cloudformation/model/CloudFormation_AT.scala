@@ -578,6 +578,7 @@ object StaxTemplate {
     VpcId = ResourceRef(vpcResource),
     AvailabilityZone = "us-east-1a",
     CidrBlock = ParameterRef(publicSubnet1Param),
+    MapPublicIpOnLaunch = Some(true),
     Tags = standardTags("pubsubnet1", "Public")
   )
 

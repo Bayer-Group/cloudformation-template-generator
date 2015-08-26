@@ -26,32 +26,34 @@ object Builders extends
   Conditions with
   ElasticLoadBalancing
 
-trait Conditions{
+trait Conditions {
   def when[R <: Resource[R]](condition: ConditionRef)(rs: Seq[R]): Seq[R] = rs.map(r => r.when(Some(condition)))
 }
 
-trait Outputs{
+trait Outputs {
   implicit class RichResource[R <: Resource[R]](r: R) {
     def andOutput(name: String, description: String) = Template.fromResource(r) ++ Template.fromOutput( Output(name, description, ResourceRef(r)) )
   }
 }
 
-trait Route{
-  implicit class RichRouteTable(rt: `AWS::EC2::RouteTable`){
+trait Route {
+  implicit class RichRouteTable(rt: `AWS::EC2::RouteTable`) {
     def withRouteT[G <: Option[Token[ResourceRef[`AWS::EC2::InternetGateway`]]], I <: Option[Token[ResourceRef[`AWS::EC2::Instance`]]]](
       visibility:        String,
       routeTableOrdinal: Int,
       routeOrdinal:      Int,
       gateway:           G = None,
       instance:          I = None,
-      cidr:              CidrBlock = CidrBlock(0,0,0,0,0)
-      )(implicit ev1: ValidRouteCombo[G,I]) =
+      cidr:              CidrBlock = CidrBlock(0,0,0,0,0),
+      dependsOn:         Option[Seq[String]] = None
+    )(implicit ev1: ValidRouteCombo[G,I]) =
       `AWS::EC2::Route`(
         visibility + "RouteTable" + routeTableOrdinal + "Route" + routeOrdinal,
-        RouteTableId = ResourceRef(rt),
+        RouteTableId         = ResourceRef(rt),
         DestinationCidrBlock = cidr,
-        GatewayId = gateway,
-        InstanceId = instance
+        GatewayId            = gateway,
+        InstanceId           = instance,
+        DependsOn            = dependsOn
       )
 
     def withRoute[G <: Option[Token[ResourceRef[`AWS::EC2::InternetGateway`]]], I <: Option[Token[ResourceRef[`AWS::EC2::Instance`]]], GwoT <% G, IwoT <% I](
@@ -60,14 +62,16 @@ trait Route{
       routeOrdinal:      Int,
       gateway:           GwoT = None,
       instance:          IwoT = None,
-      cidr:              CidrBlock = CidrBlock(0,0,0,0,0)
-      )(implicit ev1: ValidRouteCombo[G,I]) =
+      cidr:              CidrBlock = CidrBlock(0,0,0,0,0),
+      dependsOn:         Option[Seq[String]] = None
+    )(implicit ev1: ValidRouteCombo[G,I]) =
       `AWS::EC2::Route`[G, I](
         visibility + "RouteTable" + routeTableOrdinal + "Route" + routeOrdinal,
-        RouteTableId = ResourceRef(rt),
+        RouteTableId         = ResourceRef(rt),
         DestinationCidrBlock = cidr,
-        GatewayId = gateway,
-        InstanceId = instance
+        GatewayId            = gateway,
+        InstanceId           = instance,
+        DependsOn            = dependsOn
       )
   }
 
@@ -84,7 +88,17 @@ trait Route{
 trait Instance {
 
   implicit class RichInstance(ec2: `AWS::EC2::Instance`) {
-    def withEIP(name: String, domain: String = "vpc") = `AWS::EC2::EIP`(name, Domain = domain, InstanceId = ResourceRef(ec2))
+    def withEIP(
+      name:      String,
+      domain:    String              = "vpc",
+      dependsOn: Option[Seq[String]] = None
+    ) =
+      `AWS::EC2::EIP`(
+        name       = name,
+        Domain     = domain,
+        InstanceId = ResourceRef(ec2),
+        DependsOn  = dependsOn
+      )
 
     def alarmOnSystemFailure(name: String, description: String) =
       `AWS::CloudWatch::Alarm`(
@@ -146,9 +160,14 @@ trait Subnet extends AvailabilityZone with Outputs {
   }
 }
 
-trait Route53{
-  def anyAliasRecord(name: String, subdomainNameParam: ParameterRef[String], baseDomainName: ParameterRef[String], sslTargetName: String, sslCondition: Option[ConditionRef]) = {
-
+trait Route53 {
+  def anyAliasRecord(
+    name:               String,
+    subdomainNameParam: ParameterRef[String],
+    baseDomainName:     ParameterRef[String],
+    sslTargetName:      String,
+    sslCondition:       Option[ConditionRef]
+  ) = {
     `AWS::Route53::RecordSet`.aliasRecord(
       name,
       `Fn::Join`("", Seq(subdomainNameParam, ".", baseDomainName, ".")),
@@ -163,7 +182,7 @@ trait Route53{
   }
 }
 
-trait Autoscaling{
+trait Autoscaling {
   implicit class RichASG(asg: `AWS::AutoScaling::AutoScalingGroup`){
     def withPolicy(name: String, delta: Int, coolDown: Token[Int], adjType: String = "ChangeInCapacity") =
       `AWS::AutoScaling::ScalingPolicy`(
@@ -175,47 +194,68 @@ trait Autoscaling{
       )
   }
 
-  def launchConfig(name: String, image: Token[AMIId], instanceType: Token[String], keyName: Token[String],
-                   sgs: Seq[Token[ResourceRef[`AWS::EC2::SecurityGroup`]]], userData: `Fn::Base64`,
-                   iam: Option[Token[ResourceRef[`AWS::IAM::InstanceProfile`]]] = None)(implicit vpc: `AWS::EC2::VPC`) =
+  def launchConfig(
+    name:         String,
+    image:        Token[AMIId],
+    instanceType: Token[String],
+    keyName:      Token[String],
+    sgs:          Seq[Token[ResourceRef[`AWS::EC2::SecurityGroup`]]],
+    userData:     `Fn::Base64`,
+    iam:          Option[Token[ResourceRef[`AWS::IAM::InstanceProfile`]]] = None,
+    condition:    Option[ConditionRef] = None,
+    dependsOn:    Option[Seq[String]]  = None
+  )(implicit vpc: `AWS::EC2::VPC`) =
     SecurityGroupRoutable from `AWS::AutoScaling::LaunchConfiguration`(
-        name, ImageId = image, InstanceType = instanceType, KeyName = keyName, SecurityGroups = sgs, UserData = userData, IamInstanceProfile = iam
-      )
+      name               = name,
+      ImageId            = image,
+      InstanceType       = instanceType,
+      KeyName            = keyName,
+      SecurityGroups     = sgs,
+      UserData           = userData,
+      IamInstanceProfile = iam,
+      Condition          = condition,
+      DependsOn          = dependsOn
+    )
 
   def asg(
-      baseName: String,
-      image: Token[AMIId],
+      baseName:     String,
+      image:        Token[AMIId],
       instanceType: Token[String],
-      keyName: Token[String],
-      sgs: Seq[Token[ResourceRef[`AWS::EC2::SecurityGroup`]]],
-      userData: `Fn::Base64`,
-      iam: Option[Token[ResourceRef[`AWS::IAM::InstanceProfile`]]] = None
+      keyName:      Token[String],
+      sgs:          Seq[Token[ResourceRef[`AWS::EC2::SecurityGroup`]]],
+      userData:     `Fn::Base64`,
+      iam:          Option[Token[ResourceRef[`AWS::IAM::InstanceProfile`]]] = None,
+      condition:    Option[ConditionRef] = None,
+      dependsOn:    Option[Seq[String]]  = None
     )(
-      minSize:Int,
-      maxSize: Int,
+      minSize:     Int,
+      maxSize:     Int,
       desiredSize: Token[Int],
-      tag: String,
-      azs: Seq[Token[String]],
-      subnets: Seq[Token[ResourceRef[`AWS::EC2::Subnet`]]],
-      elbs: Option[Seq[Token[ResourceRef[`AWS::ElasticLoadBalancing::LoadBalancer`]]]] = None
+      tag:         String,
+      azs:         Seq[Token[String]],
+      subnets:     Seq[Token[ResourceRef[`AWS::EC2::Subnet`]]],
+      elbs:        Option[Seq[Token[ResourceRef[`AWS::ElasticLoadBalancing::LoadBalancer`]]]] = None
     )(implicit vpc: `AWS::EC2::VPC`) = {
 
       val resourceName = baseName + "LaunchConfig"
       val asgName = baseName + "AutoScale"
 
-      val launchConfigSGR @ SecurityGroupRoutable(aLaunchConfig, _, _) = launchConfig(baseName, image, instanceType, keyName, sgs, userData, iam)
+      val launchConfigSGR @ SecurityGroupRoutable(aLaunchConfig, _, _) =
+        launchConfig(baseName, image, instanceType, keyName, sgs, userData, iam, condition, dependsOn)
 
       val asg = `AWS::AutoScaling::AutoScalingGroup`(
-        asgName,
-        AvailabilityZones = azs,
+        name                    = asgName,
+        AvailabilityZones       = azs,
         LaunchConfigurationName = aLaunchConfig,
-        MinSize = minSize,
-        MaxSize = maxSize,
-        DesiredCapacity = desiredSize,
-        HealthCheckType = "EC2",
-        VPCZoneIdentifier = subnets,
-        Tags = AmazonTag.fromNamePropagate(tag),
-        LoadBalancerNames = elbs
+        MinSize                 = minSize,
+        MaxSize                 = maxSize,
+        DesiredCapacity         = desiredSize,
+        HealthCheckType         = "EC2",
+        VPCZoneIdentifier       = subnets,
+        Tags                    = AmazonTag.fromNamePropagate(tag),
+        LoadBalancerNames       = elbs,
+        Condition               = condition,
+        DependsOn               = dependsOn
       )
 
       SecurityGroupRoutable.from(launchConfigSGR, asg)
@@ -467,35 +507,52 @@ trait AvailabilityZone {
 
 trait EC2 {
   def ec2(
-    name:               String,
-    InstanceType:       Token[String],
-    KeyName:            Token[String],
-    ImageId:            Token[AMIId],
-    SecurityGroupIds:   Seq[ResourceRef[`AWS::EC2::SecurityGroup`]],
-    Tags:               Seq[AmazonTag],
-    Metadata:           Option[Map[String, String]] = None,
-    IamInstanceProfile: Option[Token[ResourceRef[`AWS::IAM::InstanceProfile`]]] = None,
-    SourceDestCheck:    Option[String] = None,
-    UserData:           Option[`Fn::Base64`] = None,
-    Monitoring:         Option[Boolean] = None,
-    Volumes:            Option[Seq[EC2MountPoint]] = None,
-    Condition: Option[String] = None
-    )(implicit subnet: `AWS::EC2::Subnet`, vpc: `AWS::EC2::VPC`) =
+    name:                  String,
+    InstanceType:          Token[String],
+    KeyName:               Token[String],
+    ImageId:               Token[AMIId],
+    SecurityGroupIds:      Seq[ResourceRef[`AWS::EC2::SecurityGroup`]],
+    Tags:                  Seq[AmazonTag],
+    Metadata:              Option[Map[String, String]]                             = None,
+    IamInstanceProfile:    Option[Token[ResourceRef[`AWS::IAM::InstanceProfile`]]] = None,
+    SourceDestCheck:       Option[String]                                          = None,
+    UserData:              Option[`Fn::Base64`]                                    = None,
+    Monitoring:            Option[Boolean]                                         = None,
+    Volumes:               Option[Seq[EC2MountPoint]]                              = None,
+    DisableApiTermination: Option[String]                                          = None,
+    Condition:             Option[ConditionRef]                                    = None,
+    DependsOn:             Option[Seq[String]]                                     = None
+  )(implicit subnet: `AWS::EC2::Subnet`, vpc: `AWS::EC2::VPC`) =
     SecurityGroupRoutable from `AWS::EC2::Instance`(
-      name, InstanceType, KeyName, subnet, ImageId, Tags, SecurityGroupIds, Metadata,
-      IamInstanceProfile, SourceDestCheck, UserData, Monitoring, Volumes
+      name                  = name,
+      InstanceType          = InstanceType,
+      KeyName               = KeyName,
+      SubnetId              = subnet,
+      ImageId               = ImageId,
+      Tags                  = Tags,
+      SecurityGroupIds      = SecurityGroupIds,
+      Metadata              = Metadata,
+      IamInstanceProfile    = IamInstanceProfile,
+      SourceDestCheck       = SourceDestCheck,
+      UserData              = UserData,
+      Monitoring            = Monitoring,
+      Volumes               = Volumes,
+      DisableApiTermination = DisableApiTermination,
+      Condition             = Condition,
+      DependsOn             = DependsOn
     )
 }
 
 trait ElasticLoadBalancing {
 
   def elbL(
-      name:                     String,
-      subnets:                  Seq[Token[ResourceRef[`AWS::EC2::Subnet`]]],
-      healthCheckTarget:        String,
-      condition:                Option[ConditionRef] = None,
-      scheme:                   Option[ELBScheme] = None,
-      loggingBucket:            Option[Token[ResourceRef[`AWS::S3::Bucket`]]] = None
+      name:              String,
+      subnets:           Seq[Token[ResourceRef[`AWS::EC2::Subnet`]]],
+      healthCheckTarget: String,
+      condition:         Option[ConditionRef] = None,
+      scheme:            Option[ELBScheme] = None,
+      loggingBucket:     Option[Token[ResourceRef[`AWS::S3::Bucket`]]] = None,
+      dependsOn:         Option[Seq[String]] = None
     )(
       listeners: Seq[ELBListener]
     )(
@@ -523,16 +580,18 @@ trait ElasticLoadBalancing {
         ))
         case None    => None
       },
-      Condition           = condition
+      Condition           = condition,
+      DependsOn           = dependsOn
     )
 
   def elb(
-      name:                     String,
-      subnets:                  Seq[Token[ResourceRef[`AWS::EC2::Subnet`]]],
-      healthCheckTarget:        String,
-      condition:                Option[ConditionRef] = None,
-      scheme:                   Option[ELBScheme] = None,
-      loggingBucket:            Option[Token[ResourceRef[`AWS::S3::Bucket`]]] = None
+      name:              String,
+      subnets:           Seq[Token[ResourceRef[`AWS::EC2::Subnet`]]],
+      healthCheckTarget: String,
+      condition:         Option[ConditionRef] = None,
+      scheme:            Option[ELBScheme] = None,
+      loggingBucket:     Option[Token[ResourceRef[`AWS::S3::Bucket`]]] = None,
+      dependsOn:         Option[Seq[String]] = None
     )(
       listener: ELBListener
     )(
@@ -543,5 +602,5 @@ trait ElasticLoadBalancing {
         Interval           = "30",
         Timeout            = "5")
     )(implicit vpc: `AWS::EC2::VPC`) =
-      elbL(name, subnets, healthCheckTarget, condition, scheme, loggingBucket)(Seq(listener))(healthCheck)
+      elbL(name, subnets, healthCheckTarget, condition, scheme, loggingBucket, dependsOn)(Seq(listener))(healthCheck)
 }

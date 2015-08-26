@@ -28,7 +28,8 @@ case class `AWS::ElasticLoadBalancing::LoadBalancer` private (
   SecurityGroups:            Seq[Token[ResourceRef[`AWS::EC2::SecurityGroup`]]],
   Subnets:                   Seq[Token[ResourceRef[`AWS::EC2::Subnet`]]],
   Tags:                      Seq[AmazonTag],
-  override val Condition:    Option[ConditionRef] = None
+  override val Condition:    Option[ConditionRef] = None,
+  override val DependsOn:    Option[Seq[String]]  = None
 ) extends Resource[`AWS::ElasticLoadBalancing::LoadBalancer`] {
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
 }
@@ -73,7 +74,8 @@ object `AWS::ElasticLoadBalancing::LoadBalancer` extends DefaultJsonProtocol {
     Scheme:                    Option[ELBScheme]                                  = None,
     SecurityGroups:            Seq[Token[ResourceRef[`AWS::EC2::SecurityGroup`]]] = Seq.empty,
     Tags:                      Seq[AmazonTag]                                     = Seq.empty,
-    Condition:                 Option[ConditionRef]                               = None
+    Condition:                 Option[ConditionRef]                               = None,
+    DependsOn:                 Option[Seq[String]]                                = None
   ) = `AWS::ElasticLoadBalancing::LoadBalancer`(
     name = name,
     Listeners = Listeners,
@@ -92,7 +94,8 @@ object `AWS::ElasticLoadBalancing::LoadBalancer` extends DefaultJsonProtocol {
     SecurityGroups = SecurityGroups,
     Subnets = Subnets,
     Tags = Tags,
-    Condition = Condition
+    Condition = Condition,
+    DependsOn = DependsOn
   )
 
   /**
@@ -134,7 +137,8 @@ object `AWS::ElasticLoadBalancing::LoadBalancer` extends DefaultJsonProtocol {
     Policies:                  Seq[ELBPolicy]                                     = Seq.empty,
     SecurityGroups:            Seq[Token[ResourceRef[`AWS::EC2::SecurityGroup`]]] = Seq.empty,
     Tags:                      Seq[AmazonTag]                                     = Seq.empty,
-    Condition:                 Option[ConditionRef]                               = None
+    Condition:                 Option[ConditionRef]                               = None,
+    DependsOn:                 Option[Seq[String]]                                = None
   ) = `AWS::ElasticLoadBalancing::LoadBalancer`(
     name = name,
     Listeners = Listeners,
@@ -153,10 +157,11 @@ object `AWS::ElasticLoadBalancing::LoadBalancer` extends DefaultJsonProtocol {
     SecurityGroups = SecurityGroups,
     Subnets = Seq.empty,
     Tags = Tags,
-    Condition = Condition
+    Condition = Condition,
+    DependsOn = DependsOn
   )
 
-  implicit val format: JsonFormat[`AWS::ElasticLoadBalancing::LoadBalancer`] = jsonFormat18(`AWS::ElasticLoadBalancing::LoadBalancer`.apply)
+  implicit val format: JsonFormat[`AWS::ElasticLoadBalancing::LoadBalancer`] = jsonFormat19(`AWS::ElasticLoadBalancing::LoadBalancer`.apply)
 }
 
 case class ELBAccessLoggingPolicy(

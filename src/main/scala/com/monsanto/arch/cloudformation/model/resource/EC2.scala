@@ -10,13 +10,17 @@ import scala.language.implicitConversions
  * Created by Ryan Richt on 2/28/15
  */
 
-case class `AWS::EC2::EIP`(name: String, Domain: String, InstanceId: Token[ResourceRef[`AWS::EC2::Instance`]],
-  override val Condition: Option[ConditionRef] = None) extends Resource[`AWS::EC2::EIP`]{
-
+case class `AWS::EC2::EIP`(
+  name:                   String,
+  Domain:                 String,
+  InstanceId:             Token[ResourceRef[`AWS::EC2::Instance`]],
+  override val Condition: Option[ConditionRef] = None,
+  override val DependsOn: Option[Seq[String]] = None
+) extends Resource[`AWS::EC2::EIP`]{
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
 }
 object `AWS::EC2::EIP` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::EC2::EIP`] = jsonFormat4(`AWS::EC2::EIP`.apply)
+  implicit val format: JsonFormat[`AWS::EC2::EIP`] = jsonFormat5(`AWS::EC2::EIP`.apply)
 }
 
 case class AMIId(id: String)
@@ -33,27 +37,27 @@ object EC2MountPoint extends DefaultJsonProtocol {
 }
 
 case class `AWS::EC2::Instance`(
-  name:                  String,
-  InstanceType:          Token[String],
-  KeyName:               Token[String],
-  SubnetId:              Token[ResourceRef[`AWS::EC2::Subnet`]],
-  ImageId:               Token[AMIId],
-  Tags:                  Seq[AmazonTag],
-  SecurityGroupIds:      Seq[ResourceRef[`AWS::EC2::SecurityGroup`]] = Seq.empty[ResourceRef[`AWS::EC2::SecurityGroup`]],
-  Metadata:              Option[Map[String, String]] = None,
-  IamInstanceProfile:    Option[Token[ResourceRef[`AWS::IAM::InstanceProfile`]]] = None,
-  SourceDestCheck:       Option[String] = None,
-  UserData:              Option[`Fn::Base64`] = None,
-  Monitoring:            Option[Boolean] = None,
-  Volumes:               Option[Seq[EC2MountPoint]] = None,
-  DisableApiTermination: Option[String] = None,
-  override val Condition: Option[ConditionRef] = None
-  ) extends Resource[`AWS::EC2::Instance`]{
-
+  name:                   String,
+  InstanceType:           Token[String],
+  KeyName:                Token[String],
+  SubnetId:               Token[ResourceRef[`AWS::EC2::Subnet`]],
+  ImageId:                Token[AMIId],
+  Tags:                   Seq[AmazonTag],
+  SecurityGroupIds:       Seq[ResourceRef[`AWS::EC2::SecurityGroup`]] = Seq.empty[ResourceRef[`AWS::EC2::SecurityGroup`]],
+  Metadata:               Option[Map[String, String]] = None,
+  IamInstanceProfile:     Option[Token[ResourceRef[`AWS::IAM::InstanceProfile`]]] = None,
+  SourceDestCheck:        Option[String] = None,
+  UserData:               Option[`Fn::Base64`] = None,
+  Monitoring:             Option[Boolean] = None,
+  Volumes:                Option[Seq[EC2MountPoint]] = None,
+  DisableApiTermination:  Option[String] = None,
+  override val Condition: Option[ConditionRef] = None,
+  override val DependsOn: Option[Seq[String]] = None
+) extends Resource[`AWS::EC2::Instance`]{
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
 }
 object `AWS::EC2::Instance` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::EC2::Instance`] = jsonFormat15(`AWS::EC2::Instance`.apply)
+  implicit val format: JsonFormat[`AWS::EC2::Instance`] = jsonFormat16(`AWS::EC2::Instance`.apply)
 }
 
 case class `AWS::EC2::InternetGateway`(name: String, Tags: Seq[AmazonTag],
@@ -84,16 +88,18 @@ object ValidRouteCombo{
 }
 
 class `AWS::EC2::Route` private (
-                         val name:                 String,
-                         val RouteTableId:         Token[ResourceRef[`AWS::EC2::RouteTable`]],
-                         val DestinationCidrBlock: Token[CidrBlock],
-                         val GatewayId:            Option[Token[ResourceRef[`AWS::EC2::InternetGateway`]]] = None,
-                         val InstanceId:           Option[Token[ResourceRef[`AWS::EC2::Instance`]]] = None,
-                         override val Condition: Option[ConditionRef] = None
-  ) extends Resource[`AWS::EC2::Route`]{
-  private val asSeq = Seq(name, RouteTableId, DestinationCidrBlock, GatewayId, InstanceId, Condition)
+  val name:                 String,
+  val RouteTableId:         Token[ResourceRef[`AWS::EC2::RouteTable`]],
+  val DestinationCidrBlock: Token[CidrBlock],
+  val GatewayId:            Option[Token[ResourceRef[`AWS::EC2::InternetGateway`]]] = None,
+  val InstanceId:           Option[Token[ResourceRef[`AWS::EC2::Instance`]]] = None,
+  override val Condition:   Option[ConditionRef] = None,
+  override val DependsOn:   Option[Seq[String]] = None
+) extends Resource[`AWS::EC2::Route`] {
+  private val asSeq = Seq(name, RouteTableId, DestinationCidrBlock, GatewayId, InstanceId, Condition, DependsOn)
 
-  def when(newCondition: Option[ConditionRef] = Condition) = new `AWS::EC2::Route`(name, RouteTableId, DestinationCidrBlock, GatewayId, InstanceId, newCondition)
+  def when(newCondition: Option[ConditionRef] = Condition) =
+    new `AWS::EC2::Route`(name, RouteTableId, DestinationCidrBlock, GatewayId, InstanceId, newCondition, DependsOn)
 }
 object `AWS::EC2::Route` extends DefaultJsonProtocol {
 
@@ -115,7 +121,8 @@ object `AWS::EC2::Route` extends DefaultJsonProtocol {
           "DestinationCidrBlock" -> writeField(p.DestinationCidrBlock),
           "GatewayId"            -> writeField(p.GatewayId),
           "InstanceId"           -> writeField(p.InstanceId),
-          "Condition"            -> writeField(p.Condition)
+          "Condition"            -> writeField(p.Condition),
+          "DependsOn"            -> writeField(p.DependsOn)
         ).filter(_._2.isDefined).mapValues(_.get)
       )
     }
@@ -133,8 +140,10 @@ object `AWS::EC2::Route` extends DefaultJsonProtocol {
     DestinationCidrBlock:         Token[CidrBlock],
     GatewayId:                    G = None,
     InstanceId:                   I = None,
-    Condition: Option[ConditionRef] = None
-   )(implicit ev1: ValidRouteCombo[G, I]) = new `AWS::EC2::Route`(name, RouteTableId, DestinationCidrBlock, GatewayId, InstanceId, Condition)
+    Condition: Option[ConditionRef] = None,
+    DependsOn: Option[Seq[String]] = None
+   )(implicit ev1: ValidRouteCombo[G, I]) =
+    new `AWS::EC2::Route`(name, RouteTableId, DestinationCidrBlock, GatewayId, InstanceId, Condition, DependsOn)
 }
 
 case class `AWS::EC2::RouteTable`(name: String, VpcId: Token[ResourceRef[`AWS::EC2::VPC`]], Tags: Seq[AmazonTag],

@@ -414,6 +414,12 @@ object StaxTemplate {
     Tags = standardTags("igw", "Public")
   )
 
+  val gatewayAttachmentResource = `AWS::EC2::VPCGatewayAttachment`(
+    "GatewayToInternet",
+    VpcId = ResourceRef(vpcResource),
+    InternetGatewayId = ResourceRef(internetGatewayResource)
+  )
+
   val publicRouteTableResource = `AWS::EC2::RouteTable`(
     "PublicRouteTable1",
     VpcId = ResourceRef(vpcResource),
@@ -922,18 +928,21 @@ object StaxTemplate {
 
   private val jumpEIPResource = `AWS::EC2::EIP`(
     "JumpEIP",
+    DependsOn = Some(Seq(gatewayAttachmentResource.name)),
     Domain = "vpc",
     InstanceId = ResourceRef(jumpInstanceResource)
   )
 
   private val nat1EIPResource = `AWS::EC2::EIP`(
     "NAT1EIP",
+    DependsOn = Some(Seq(gatewayAttachmentResource.name)),
     Domain = "vpc",
     InstanceId = ResourceRef(nat1InstanceResource)
   )
 
   private val nat2EIPResource = `AWS::EC2::EIP`(
     "NAT2EIP",
+    DependsOn = Some(Seq(gatewayAttachmentResource.name)),
     Domain = "vpc",
     InstanceId = ResourceRef(nat2InstanceResource)
   )
@@ -1000,11 +1009,7 @@ object StaxTemplate {
       pubSubnet2,
       priSubnet2,
       internetGatewayResource,
-      `AWS::EC2::VPCGatewayAttachment`(
-                                        "GatewayToInternet",
-                                        VpcId = ResourceRef(vpcResource),
-                                        InternetGatewayId = ResourceRef(internetGatewayResource)
-                                        ),
+      gatewayAttachmentResource,
       publicRouteTableResource,
       publicRouteTableResource.withRoute("Public", 1, 1, gateway = Some(ResourceRef(internetGatewayResource))),
       privateRouteTable1Resource,

@@ -39,7 +39,7 @@ object Resource extends DefaultJsonProtocol {
           "Properties" -> JsObject(raw.fields - "name" - "Metadata" - "UpdatePolicy" - "Condition" - "DependsOn"),
           "UpdatePolicy" -> raw.fields.getOrElse("UpdatePolicy", JsNull),
           "Condition" -> obj.Condition.map(_.toJson).getOrElse(JsNull),
-          "DependsOn" -> obj.DependsOn.map(dependencies => JsArray(dependencies.map(JsString(_)).toVector)).getOrElse(JsNull)
+          "DependsOn" -> obj.DependsOn.map(dependencies => JsArray(dependencies.map(_.toJson).toVector)).getOrElse(JsNull)
         ).filter(_._2 != JsNull)
 
         JsObject(outputFields)

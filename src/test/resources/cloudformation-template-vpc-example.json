@@ -1165,7 +1165,8 @@
         "InstanceId":{
           "Ref":"JumpInstance"
         }
-      }
+      },
+      "DependsOn":[ "GatewayToInternet" ]
     },
     "NATSecurityGroup":{
       "Type":"AWS::EC2::SecurityGroup",
@@ -1385,7 +1386,8 @@
         "InstanceId":{
           "Ref":"NAT1Instance"
         }
-      }
+      },
+      "DependsOn":[ "GatewayToInternet" ]
     },
     "NAT2Instance":{
       "Type":"AWS::EC2::Instance",
@@ -1504,7 +1506,8 @@
         "InstanceId":{
           "Ref":"NAT2Instance"
         }
-      }
+      },
+      "DependsOn":[ "GatewayToInternet" ]
     },
     "RouterELBSecurityGroup":{
       "Type":"AWS::EC2::SecurityGroup",

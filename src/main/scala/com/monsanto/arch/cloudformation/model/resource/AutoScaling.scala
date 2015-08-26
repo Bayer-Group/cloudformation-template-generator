@@ -19,9 +19,9 @@ case class `AWS::AutoScaling::AutoScalingGroup`(
     Tags:                    Seq[AmazonTag],
     LoadBalancerNames:       Option[Seq[Token[ResourceRef[`AWS::ElasticLoadBalancing::LoadBalancer`]]]],
     UpdatePolicy:            Option[UpdatePolicy] = None,
-    override val Condition: Option[ConditionRef] = None,
-    override val DependsOn : Option[Seq[String]] = None)
-  extends Resource[`AWS::AutoScaling::AutoScalingGroup`]{
+    override val Condition:  Option[ConditionRef] = None,
+    override val DependsOn : Option[Seq[String]] = None
+) extends Resource[`AWS::AutoScaling::AutoScalingGroup`] {
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
 }
 
@@ -38,8 +38,8 @@ case class `AWS::AutoScaling::LaunchConfiguration`(
     UserData:           `Fn::Base64`,
     IamInstanceProfile: Option[Token[ResourceRef[`AWS::IAM::InstanceProfile`]]] = None,
     override val Condition: Option[ConditionRef] = None,
-    override val DependsOn : Option[Seq[String]] = None)
-  extends Resource[`AWS::AutoScaling::LaunchConfiguration`]{
+    override val DependsOn : Option[Seq[String]] = None
+) extends Resource[`AWS::AutoScaling::LaunchConfiguration`] {
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
 }
 
@@ -54,8 +54,8 @@ case class `AWS::AutoScaling::ScalingPolicy`(
     Cooldown:             Token[Int],
     ScalingAdjustment:    String,
     override val Condition: Option[ConditionRef] = None,
-    override val DependsOn : Option[Seq[String]] = None)
-  extends Resource[`AWS::AutoScaling::ScalingPolicy`]{
+    override val DependsOn : Option[Seq[String]] = None
+) extends Resource[`AWS::AutoScaling::ScalingPolicy`]{
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
 }
 

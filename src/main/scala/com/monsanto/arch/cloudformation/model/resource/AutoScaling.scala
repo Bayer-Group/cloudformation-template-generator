@@ -37,6 +37,7 @@ case class `AWS::AutoScaling::LaunchConfiguration`(
     SecurityGroups:     Seq[Token[ResourceRef[`AWS::EC2::SecurityGroup`]]],
     UserData:           `Fn::Base64`,
     IamInstanceProfile: Option[Token[ResourceRef[`AWS::IAM::InstanceProfile`]]] = None,
+    BlockDeviceMappings: Option[Seq[BlockDeviceMapping]] = None,
     override val Condition: Option[ConditionRef] = None,
     override val DependsOn : Option[Seq[String]] = None
 ) extends Resource[`AWS::AutoScaling::LaunchConfiguration`] {
@@ -44,9 +45,57 @@ case class `AWS::AutoScaling::LaunchConfiguration`(
 }
 
 object `AWS::AutoScaling::LaunchConfiguration` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::AutoScaling::LaunchConfiguration`] = jsonFormat9(`AWS::AutoScaling::LaunchConfiguration`.apply)
+  implicit val format: JsonFormat[`AWS::AutoScaling::LaunchConfiguration`] = jsonFormat10(`AWS::AutoScaling::LaunchConfiguration`.apply)
+}
+case class BlockDeviceMapping private(
+  DeviceName:   Token[String],
+  Ebs:  Option[AutoScalingEBS] = None,
+  NoDevice: Option[Token[Boolean]] = None,
+  VirtualName: Option[Token[String]] = None
+)
+object BlockDeviceMapping extends DefaultJsonProtocol {
+  implicit val format: JsonFormat[BlockDeviceMapping] = jsonFormat4(BlockDeviceMapping.apply)
+
+  def ebs(
+           DeviceName:   Token[String],
+           Ebs:  AutoScalingEBS,
+           NoDevice: Option[Token[Boolean]] = None
+           ) = BlockDeviceMapping(DeviceName, Some(Ebs), NoDevice, None)
+
+  def virtual(
+           DeviceName:   Token[String],
+           VirtualName:  Token[String],
+           NoDevice: Option[Token[Boolean]] = None
+           ) = BlockDeviceMapping(DeviceName, None, NoDevice, Some(VirtualName))
 }
 
+case class AutoScalingEBS(
+   DeleteOnTermination: Option[Token[Boolean]] = None,
+   Iops: Option[Token[Int]] = None,
+   SnapshotId: Option[Token[String]] = None,
+   VolumeSize: Option[Token[Int]] = None,
+   VolumeType: Option[VolumeType] = None
+ )
+object AutoScalingEBS extends DefaultJsonProtocol {
+  implicit val format: JsonFormat[AutoScalingEBS] = jsonFormat5(AutoScalingEBS.apply)
+}
+
+sealed trait VolumeType
+object VolumeType extends DefaultJsonProtocol{
+  case object Standard extends VolumeType
+  case object IO1 extends VolumeType
+  case object GP2 extends VolumeType
+
+  implicit val format: JsonFormat[VolumeType] = new JsonFormat[VolumeType] {
+    override def write(obj: VolumeType): JsValue = JsString(obj.toString.toLowerCase())
+
+    override def read(json: JsValue): VolumeType = json.toString() match {
+      case "standard" => Standard
+      case "io1" => IO1
+      case "gp2" => GP2
+    }
+  }
+}
 case class `AWS::AutoScaling::ScalingPolicy`(
     name:                 String,
     AdjustmentType:       String,

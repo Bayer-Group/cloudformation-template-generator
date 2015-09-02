@@ -203,18 +203,20 @@ trait Autoscaling {
     userData:     `Fn::Base64`,
     iam:          Option[Token[ResourceRef[`AWS::IAM::InstanceProfile`]]] = None,
     condition:    Option[ConditionRef] = None,
-    dependsOn:    Option[Seq[String]]  = None
+    dependsOn:    Option[Seq[String]]  = None,
+    blockDevices: Option[Seq[BlockDeviceMapping]] = None
   )(implicit vpc: `AWS::EC2::VPC`) =
     SecurityGroupRoutable from `AWS::AutoScaling::LaunchConfiguration`(
-      name               = name,
-      ImageId            = image,
-      InstanceType       = instanceType,
-      KeyName            = keyName,
-      SecurityGroups     = sgs,
-      UserData           = userData,
-      IamInstanceProfile = iam,
-      Condition          = condition,
-      DependsOn          = dependsOn
+      name                  = name,
+      ImageId               = image,
+      InstanceType          = instanceType,
+      KeyName               = keyName,
+      SecurityGroups        = sgs,
+      UserData              = userData,
+      IamInstanceProfile    = iam,
+      Condition             = condition,
+      DependsOn             = dependsOn,
+      BlockDeviceMappings   = blockDevices
     )
 
   def asg(
@@ -226,7 +228,8 @@ trait Autoscaling {
       userData:     `Fn::Base64`,
       iam:          Option[Token[ResourceRef[`AWS::IAM::InstanceProfile`]]] = None,
       condition:    Option[ConditionRef] = None,
-      dependsOn:    Option[Seq[String]]  = None
+      dependsOn:    Option[Seq[String]]  = None,
+      blockDevices: Option[Seq[BlockDeviceMapping]] = None
     )(
       minSize:     Int,
       maxSize:     Int,
@@ -241,7 +244,7 @@ trait Autoscaling {
       val asgName = baseName + "AutoScale"
 
       val launchConfigSGR @ SecurityGroupRoutable(aLaunchConfig, _, _) =
-        launchConfig(baseName, image, instanceType, keyName, sgs, userData, iam, condition, dependsOn)
+        launchConfig(baseName, image, instanceType, keyName, sgs, userData, iam, condition, dependsOn, blockDevices)
 
       val asg = `AWS::AutoScaling::AutoScalingGroup`(
         name                    = asgName,

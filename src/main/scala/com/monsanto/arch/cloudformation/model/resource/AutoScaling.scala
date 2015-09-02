@@ -47,7 +47,7 @@ case class `AWS::AutoScaling::LaunchConfiguration`(
 object `AWS::AutoScaling::LaunchConfiguration` extends DefaultJsonProtocol {
   implicit val format: JsonFormat[`AWS::AutoScaling::LaunchConfiguration`] = jsonFormat10(`AWS::AutoScaling::LaunchConfiguration`.apply)
 }
-case class BlockDeviceMapping(
+case class BlockDeviceMapping private(
   DeviceName:   Token[String],
   Ebs:  Option[AutoScalingEBS] = None,
   NoDevice: Option[Token[Boolean]] = None,
@@ -55,6 +55,18 @@ case class BlockDeviceMapping(
 )
 object BlockDeviceMapping extends DefaultJsonProtocol {
   implicit val format: JsonFormat[BlockDeviceMapping] = jsonFormat4(BlockDeviceMapping.apply)
+
+  def ebs(
+           DeviceName:   Token[String],
+           Ebs:  AutoScalingEBS,
+           NoDevice: Option[Token[Boolean]] = None
+           ) = BlockDeviceMapping(DeviceName, Some(Ebs), NoDevice, None)
+
+  def virtual(
+           DeviceName:   Token[String],
+           VirtualName:  Token[String],
+           NoDevice: Option[Token[Boolean]] = None
+           ) = BlockDeviceMapping(DeviceName, None, NoDevice, Some(VirtualName))
 }
 
 case class AutoScalingEBS(

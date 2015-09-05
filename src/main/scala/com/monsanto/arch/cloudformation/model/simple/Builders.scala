@@ -38,40 +38,47 @@ trait Outputs {
 
 trait Route {
   implicit class RichRouteTable(rt: `AWS::EC2::RouteTable`) {
-    def withRouteT[G <: Option[Token[ResourceRef[`AWS::EC2::InternetGateway`]]], I <: Option[Token[ResourceRef[`AWS::EC2::Instance`]]]](
+    def withRouteT[G <: Option[Token[ResourceRef[`AWS::EC2::InternetGateway`]]], I <: Option[Token[ResourceRef[`AWS::EC2::Instance`]]],
+    P <: Option[Token[ResourceRef[`AWS::EC2::VPCPeeringConnection`]]]](
       visibility:        String,
       routeTableOrdinal: Int,
       routeOrdinal:      Int,
       gateway:           G = None,
       instance:          I = None,
+      vpcPeeringConn:    P = None,
       cidr:              CidrBlock = CidrBlock(0,0,0,0,0),
       dependsOn:         Option[Seq[String]] = None
-    )(implicit ev1: ValidRouteCombo[G,I]) =
+    )(implicit ev1: ValidRouteCombo[G,I,P]) =
       `AWS::EC2::Route`(
         visibility + "RouteTable" + routeTableOrdinal + "Route" + routeOrdinal,
-        RouteTableId         = ResourceRef(rt),
-        DestinationCidrBlock = cidr,
-        GatewayId            = gateway,
-        InstanceId           = instance,
-        DependsOn            = dependsOn
+        RouteTableId           = ResourceRef(rt),
+        DestinationCidrBlock   = cidr,
+        GatewayId              = gateway,
+        InstanceId             = instance,
+        VpcPeeringConnectionId = vpcPeeringConn,
+        DependsOn              = dependsOn
       )
 
-    def withRoute[G <: Option[Token[ResourceRef[`AWS::EC2::InternetGateway`]]], I <: Option[Token[ResourceRef[`AWS::EC2::Instance`]]], GwoT <% G, IwoT <% I](
+    def withRoute[G <: Option[Token[ResourceRef[`AWS::EC2::InternetGateway`]]], I <: Option[Token[ResourceRef[`AWS::EC2::Instance`]]],
+    P <: Option[Token[ResourceRef[`AWS::EC2::VPCPeeringConnection`]]],
+    GwoT <% G, IwoT <% I, PwoT <% P](
       visibility:        String,
       routeTableOrdinal: Int,
       routeOrdinal:      Int,
       gateway:           GwoT = None,
       instance:          IwoT = None,
+      vpcPeeringConn:    PwoT = None,
       cidr:              CidrBlock = CidrBlock(0,0,0,0,0),
       dependsOn:         Option[Seq[String]] = None
-    )(implicit ev1: ValidRouteCombo[G,I]) =
-      `AWS::EC2::Route`[G, I](
+    )(implicit ev1: ValidRouteCombo[G,I,P]) =
+      `AWS::EC2::Route`[G, I, P](
         visibility + "RouteTable" + routeTableOrdinal + "Route" + routeOrdinal,
-        RouteTableId         = ResourceRef(rt),
-        DestinationCidrBlock = cidr,
-        GatewayId            = gateway,
-        InstanceId           = instance,
-        DependsOn            = dependsOn
+        RouteTableId           = ResourceRef(rt),
+        DestinationCidrBlock   = cidr,
+        GatewayId              = gateway,
+        InstanceId             = instance,
+        VpcPeeringConnectionId = vpcPeeringConn,
+        DependsOn              = dependsOn
       )
   }
 

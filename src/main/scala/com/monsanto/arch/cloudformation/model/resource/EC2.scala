@@ -19,8 +19,23 @@ case class `AWS::EC2::EIP`(
 ) extends Resource[`AWS::EC2::EIP`]{
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
 }
+
 object `AWS::EC2::EIP` extends DefaultJsonProtocol {
   implicit val format: JsonFormat[`AWS::EC2::EIP`] = jsonFormat5(`AWS::EC2::EIP`.apply)
+}
+
+case class `AWS::EC2::EIPAssociation`(
+  name:                   String,
+  AllocationId:           Option[Token[String]],
+  InstanceId:             Token[ResourceRef[`AWS::EC2::Instance`]],
+  override val Condition: Option[ConditionRef] = None,
+  override val DependsOn: Option[Seq[String]] = None
+) extends Resource[`AWS::EC2::EIPAssociation`]{
+  def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
+}
+
+object `AWS::EC2::EIPAssociation` extends DefaultJsonProtocol {
+  implicit val format: JsonFormat[`AWS::EC2::EIPAssociation`] = jsonFormat5(`AWS::EC2::EIPAssociation`.apply)
 }
 
 case class AMIId(id: String)

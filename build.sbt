@@ -42,9 +42,11 @@ javacOptions ++= Seq("-Xlint:unchecked", "-Xlint:deprecation")
 
 libraryDependencies ++= Seq (
   // -- testing --
-   "org.scalatest"              %% "scalatest"                % "2.2.1"  % "test"
+   "org.scalatest"  %% "scalatest"     % "2.2.1"  % "test"
   // -- json --
-  ,"io.spray"                   %%  "spray-json"              % "1.3.2"
+  ,"io.spray"       %%  "spray-json"   % "1.3.2"
+  // -- reflection --
+  ,"org.scala-lang" %  "scala-reflect" % scalaVersion.value
 ).map(_.force())
 
 resolvers ++= Seq(

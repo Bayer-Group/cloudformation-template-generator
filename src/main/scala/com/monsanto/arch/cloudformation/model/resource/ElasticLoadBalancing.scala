@@ -161,7 +161,8 @@ object `AWS::ElasticLoadBalancing::LoadBalancer` extends DefaultJsonProtocol {
     DependsOn = DependsOn
   )
 
-  implicit val format: JsonFormat[`AWS::ElasticLoadBalancing::LoadBalancer`] = jsonFormat19(`AWS::ElasticLoadBalancing::LoadBalancer`.apply)
+  implicit val format: JsonFormat[`AWS::ElasticLoadBalancing::LoadBalancer`] =
+    jsonFormat19(`AWS::ElasticLoadBalancing::LoadBalancer`.apply)
 }
 
 case class ELBAccessLoggingPolicy(
@@ -178,19 +179,9 @@ sealed trait ELBLoggingEmitInterval
 object ELBLoggingEmitInterval extends DefaultJsonProtocol {
   case object `5`  extends ELBLoggingEmitInterval
   case object `60` extends ELBLoggingEmitInterval
-
-  implicit val format: JsonFormat[ELBLoggingEmitInterval] = new JsonFormat[ELBLoggingEmitInterval] {
-    override def write(obj: ELBLoggingEmitInterval): JsValue = obj match {
-      case `5`  => JsNumber(5)
-      case `60` => JsNumber(60)
-    }
-    override def read(json: JsValue): ELBLoggingEmitInterval = {
-      json.toString() match {
-        case "5"  => `5`
-        case "60" => `60`
-      }
-    }
-  }
+  val values = Seq(`5`, `60`)
+  implicit val format: JsonFormat[ELBLoggingEmitInterval] =
+    new EnumFormat[ELBLoggingEmitInterval](values)
 }
 
 case class ELBAppCookieStickinessPolicy(
@@ -242,18 +233,8 @@ object ELBListenerProtocol extends DefaultJsonProtocol {
   case object HTTPS extends ELBListenerProtocol
   case object SSL   extends ELBListenerProtocol
   case object TCP   extends ELBListenerProtocol
-
-  implicit val format: JsonFormat[ELBListenerProtocol] = new JsonFormat[ELBListenerProtocol] {
-    override def write(obj: ELBListenerProtocol)= JsString(obj.toString)
-    override def read(json: JsValue): ELBListenerProtocol = {
-      json.toString match {
-        case "HTTP"  => HTTP
-        case "HTTPS" => HTTPS
-        case "SSL"   => SSL
-        case "TCP"   => TCP
-      }
-    }
-  }
+  val values = Seq(HTTPS, HTTPS, SSL, TCP)
+  implicit val format: JsonFormat[ELBListenerProtocol] = new EnumFormat[ELBListenerProtocol](values)
 }
 
 case class ELBHealthCheck(
@@ -285,16 +266,8 @@ object NameValuePair extends DefaultJsonProtocol {
 
 sealed trait ELBScheme
 object ELBScheme extends DefaultJsonProtocol {
-  case object internal extends ELBScheme
+  case object internal          extends ELBScheme
   case object `internet-facing` extends ELBScheme
-
-  implicit val format: JsonFormat[ELBScheme] = new JsonFormat[ELBScheme] {
-    override def write(obj: ELBScheme)= JsString(obj.toString)
-    override def read(json: JsValue): ELBScheme = {
-      json.toString match {
-        case "internal"  => internal
-        case "internet-facing" => `internet-facing`
-      }
-    }
-  }
+  val values = Seq(internal, `internet-facing`)
+  implicit val format: JsonFormat[ELBScheme] = new EnumFormat[ELBScheme](values)
 }

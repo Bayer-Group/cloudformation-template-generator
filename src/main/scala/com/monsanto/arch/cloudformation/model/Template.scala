@@ -55,7 +55,7 @@ case class Template(
     if(Resources.isEmpty) throw new RuntimeException("You cannot lookup in a None map")
     val candidates = Resources.get.filter{r => r.name == name}
 
-    if(candidates.length == 0) throw new RuntimeException(s"Resource name $name not found in template: ${this.Description}")
+    if(candidates.isEmpty) throw new RuntimeException(s"Resource name $name not found in template: ${this.Description}")
     if(candidates.length > 1) throw new RuntimeException(s"Name $name is not unique")
 
     candidates.head.asInstanceOf[R]
@@ -65,7 +65,7 @@ case class Template(
     if(Resources.isEmpty) throw new RuntimeException("You cannot lookup in a None map")
     val candidates = Routables.get.filter{r => r.resource.name == name}
 
-    if(candidates.length == 0) throw new RuntimeException(s"Resource name $name not found in template: ${this.Description}")
+    if(candidates.isEmpty) throw new RuntimeException(s"Resource name $name not found in template: ${this.Description}")
     if(candidates.length > 1) throw new RuntimeException(s"Name $name is not unique")
 
     candidates.head.asInstanceOf[SecurityGroupRoutable[R]]
@@ -90,7 +90,11 @@ object Template extends DefaultJsonProtocol {
 
   val EMPTY = Template("", None, None, None, None, None, None)
 
-  def collapse[R <: Resource[R]](rs: Seq[R]) = rs.foldLeft(Template.EMPTY)(_ ++ _)
+  def collapse[R <: Resource[R]](rs: Seq[R]) = {
+    val dupes = rs.groupBy(_.name).collect{case(y,xs) if xs.size>1 => y}
+    if (dupes.nonEmpty) throw new IllegalArgumentException(s"Multiple resources with the same name would clobber each other. Found duplicates of $dupes")
+    rs.foldLeft(Template.EMPTY)(_ ++ _)
+  }
 
   // b/c we really dont need to implement READING yet, and its a bit trickier
   implicit def optionWriter[T : JsonWriter]: JsonWriter[Option[T]] = new JsonWriter[Option[T]] {

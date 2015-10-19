@@ -30,6 +30,11 @@ object SecurityGroupRoutableMaker {
     def withSG(r: `AWS::AutoScaling::LaunchConfiguration`, sgr: ResourceRef[`AWS::EC2::SecurityGroup`]) =
       r.copy(SecurityGroups = r.SecurityGroups :+ Token.fromAny(sgr))
   }
+
+  implicit object RDSMaker extends SecurityGroupRoutableMaker[`AWS::RDS::DBInstance`] {
+    def withSG(r: `AWS::RDS::DBInstance`, sgr: ResourceRef[`AWS::EC2::SecurityGroup`]) =
+      r.copy(VPCSecurityGroups = Some(r.VPCSecurityGroups.getOrElse(Seq()) :+ sgr))
+  }
 }
 
 case class SecurityGroupRoutable[R <: Resource[R]](resource: R, sg: `AWS::EC2::SecurityGroup`, extras: Option[Seq[Resource[_]]] = None) {

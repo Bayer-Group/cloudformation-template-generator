@@ -636,6 +636,29 @@ http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2
       </a>
     </span>
       
+    </li><li name="com.monsanto.arch.cloudformation.model.resource.AWS::RDS::DBInstance" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="AWS::RDS::DBInstanceextendsResource[com.monsanto.arch.cloudformation.model.resource.AWS::RDS::DBInstance]withProductwithSerializable"></a>
+      <a id="AWS::RDS::DBInstance:AWS::RDS::DBInstance"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="AWS$colon$colonRDS$colon$colonDBInstance.html"><span title="gt4s: AWS$colon$colonRDS$colon$colonDBInstance" class="name">AWS::RDS::DBInstance</span></a><span class="result"> extends <a href="Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a>[<a href="AWS$colon$colonRDS$colon$colonDBInstance.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::RDS::DBInstance">AWS::RDS::DBInstance</a>] with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.package@AWS::RDS::DBInstanceextendsResource[com.monsanto.arch.cloudformation.model.resource.AWS::RDS::DBInstance]withProductwithSerializable" title="Permalink" target="_top">
+        <img src="../../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">There are several mutually exclusive options when creating an RDS instance.</p><div class="fullcomment"><div class="comment cmt"><p>There are several mutually exclusive options when creating an RDS instance.
+Therefore we make its case class package private and use a builder
+pattern to constrain use to those which will create valid instances.</p><p>The builder approach we use does its best to make sure you cannot create a template
+with an invalid RDS instance. It may not be perfect, so be sure to double check the
+resulting template and let us know of any bugs.</p><p>See http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html
+and http://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_CreateDBInstance.html
+</p></div></div>
     </li><li name="com.monsanto.arch.cloudformation.model.resource.AWS::RDS::DBInstance::Engine" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
       <a id="AWS::RDS::DBInstance::EngineextendsAnyRef"></a>
       <a id="AWS::RDS::DBInstance::Engine:AWS::RDS::DBInstance::Engine"></a>
@@ -1842,7 +1865,7 @@ created from a snapshot, or a read replica of another RDS instance.</p>
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a href="ReadReplica.html"><span class="name">ReadReplica</span></a><span class="params">(<span name="sourceDBInstanceIdentifier">sourceDBInstanceIdentifier: <a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<a href="../ResourceRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ResourceRef">ResourceRef</a>[<span class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::RDS::DBInstance">AWS::RDS::DBInstance</span>]]</span>, <span name="availabilityZone">availabilityZone: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">None</span></span>)</span><span class="result"> extends <a href="RdsSource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.RdsSource">RdsSource</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a href="ReadReplica.html"><span class="name">ReadReplica</span></a><span class="params">(<span name="sourceDBInstanceIdentifier">sourceDBInstanceIdentifier: <a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<a href="../ResourceRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ResourceRef">ResourceRef</a>[<a href="AWS$colon$colonRDS$colon$colonDBInstance.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::RDS::DBInstance">AWS::RDS::DBInstance</a>]]</span>, <span name="availabilityZone">availabilityZone: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">None</span></span>)</span><span class="result"> extends <a href="RdsSource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.RdsSource">RdsSource</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4><span class="permalink">
       <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.package@ReadReplicaextendsRdsSourcewithProductwithSerializable" title="Permalink" target="_top">
@@ -3021,6 +3044,23 @@ http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-
       </span>
       </h4><span class="permalink">
       <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.package@AWS::IAM::User" title="Permalink" target="_top">
+        <img src="../../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.monsanto.arch.cloudformation.model.resource.AWS::RDS::DBInstance" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="AWS::RDS::DBInstance"></a>
+      <a id="AWS::RDS::DBInstance:AWS::RDS::DBInstance"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="AWS$colon$colonRDS$colon$colonDBInstance$.html"><span title="gt4s: AWS$colon$colonRDS$colon$colonDBInstance" class="name">AWS::RDS::DBInstance</span></a><span class="result"> extends <span class="extype" name="spray.json.DefaultJsonProtocol">DefaultJsonProtocol</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.package@AWS::RDS::DBInstance" title="Permalink" target="_top">
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>

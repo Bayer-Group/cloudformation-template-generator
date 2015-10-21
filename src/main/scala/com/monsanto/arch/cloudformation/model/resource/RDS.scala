@@ -49,7 +49,7 @@ import spray.json._
   * @param DependsOn
   * @param DeletionPolicy
   */
-private[resource] case class `AWS::RDS::DBInstance` (
+case class `AWS::RDS::DBInstance` private[resource] (
   name:                        String,
   AllocatedStorage:            Either[Int, Token[Int]],
   DBInstanceClass:             Token[String],

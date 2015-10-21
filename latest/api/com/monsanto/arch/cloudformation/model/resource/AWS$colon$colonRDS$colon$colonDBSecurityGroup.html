@@ -47,11 +47,12 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: AWS$colon$colonRDS$colon$colonDBSecurityGroup" class="name">AWS::RDS::DBSecurityGroup</span><span class="params">(<span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="DBSecurityGroupIngress">DBSecurityGroupIngress: <span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>]]</span>, <span name="GroupDescription">GroupDescription: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="EC2VpcId">EC2VpcId: <span class="extype" name="scala.Option">Option</span>[<a href="../ResourceRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ResourceRef">ResourceRef</a>[<a href="AWS$colon$colonEC2$colon$colonVPC.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::EC2::VPC">AWS::EC2::VPC</a>]] = <span class="symbol">None</span></span>, <span name="Tags">Tags: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<a href="AmazonTag.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AmazonTag">AmazonTag</a>]] = <span class="symbol">None</span></span>, <span name="Condition">Condition: <span class="extype" name="scala.Option">Option</span>[<a href="../ConditionRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ConditionRef">ConditionRef</a>] = <span class="symbol">None</span></span>)</span><span class="result"> extends <a href="Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a>[<a href="" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::RDS::DBSecurityGroup">AWS::RDS::DBSecurityGroup</a>] with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <span title="gt4s: AWS$colon$colonRDS$colon$colonDBSecurityGroup" class="name">AWS::RDS::DBSecurityGroup</span><span class="params">(<span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="DBSecurityGroupIngress">DBSecurityGroupIngress: <span class="extype" name="scala.Seq">Seq</span>[<a href="RDSDBSecurityGroupRule.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.RDSDBSecurityGroupRule">RDSDBSecurityGroupRule</a>]</span>, <span name="GroupDescription">GroupDescription: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="EC2VpcId">EC2VpcId: <span class="extype" name="scala.Option">Option</span>[<a href="../ResourceRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ResourceRef">ResourceRef</a>[<a href="AWS$colon$colonEC2$colon$colonVPC.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::EC2::VPC">AWS::EC2::VPC</a>]] = <span class="symbol">None</span></span>, <span name="Tags">Tags: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<a href="AmazonTag.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AmazonTag">AmazonTag</a>]] = <span class="symbol">None</span></span>, <span name="Condition">Condition: <span class="extype" name="scala.Option">Option</span>[<a href="../ConditionRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ConditionRef">ConditionRef</a>] = <span class="symbol">None</span></span>)</span><span class="result"> extends <a href="Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a>[<a href="" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::RDS::DBSecurityGroup">AWS::RDS::DBSecurityGroup</a>] with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
       
-          <div id="comment" class="fullcommenttop"><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Database security group.
+</p></div><dl class="paramcmts block"><dt class="param">DBSecurityGroupIngress</dt><dd class="cmt"><p>Finite list of keys: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-security-group-rule.html</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
           <div class="superTypes hiddenContent"><span class="extype" name="scala.Serializable">Serializable</span>, <span class="extype" name="java.io.Serializable">Serializable</span>, <span class="extype" name="scala.Product">Product</span>, <span class="extype" name="scala.Equals">Equals</span>, <a href="Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a>[<a href="" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::RDS::DBSecurityGroup">AWS::RDS::DBSecurityGroup</a>], <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>
@@ -90,8 +91,8 @@
         <div id="allMembers">
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
-              <ol><li name="com.monsanto.arch.cloudformation.model.resource.AWS::RDS::DBSecurityGroup#&lt;init&gt;" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="&lt;init&gt;(name:String,DBSecurityGroupIngress:Seq[Map[String,String]],GroupDescription:String,EC2VpcId:Option[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::EC2::VPC]],Tags:Option[Seq[com.monsanto.arch.cloudformation.model.resource.AmazonTag]],Condition:Option[com.monsanto.arch.cloudformation.model.ConditionRef]):com.monsanto.arch.cloudformation.model.resource.AWS::RDS::DBSecurityGroup"></a>
+              <ol><li name="com.monsanto.arch.cloudformation.model.resource.AWS::RDS::DBSecurityGroup#&lt;init&gt;" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="&lt;init&gt;(name:String,DBSecurityGroupIngress:Seq[com.monsanto.arch.cloudformation.model.resource.RDSDBSecurityGroupRule],GroupDescription:String,EC2VpcId:Option[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::EC2::VPC]],Tags:Option[Seq[com.monsanto.arch.cloudformation.model.resource.AmazonTag]],Condition:Option[com.monsanto.arch.cloudformation.model.ConditionRef]):com.monsanto.arch.cloudformation.model.resource.AWS::RDS::DBSecurityGroup"></a>
       <a id="&lt;init&gt;:AWS::RDS::DBSecurityGroup"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -99,14 +100,14 @@
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: AWS$colon$colonRDS$colon$colonDBSecurityGroup" class="name">AWS::RDS::DBSecurityGroup</span><span class="params">(<span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="DBSecurityGroupIngress">DBSecurityGroupIngress: <span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>]]</span>, <span name="GroupDescription">GroupDescription: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="EC2VpcId">EC2VpcId: <span class="extype" name="scala.Option">Option</span>[<a href="../ResourceRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ResourceRef">ResourceRef</a>[<a href="AWS$colon$colonEC2$colon$colonVPC.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::EC2::VPC">AWS::EC2::VPC</a>]] = <span class="symbol">None</span></span>, <span name="Tags">Tags: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<a href="AmazonTag.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AmazonTag">AmazonTag</a>]] = <span class="symbol">None</span></span>, <span name="Condition">Condition: <span class="extype" name="scala.Option">Option</span>[<a href="../ConditionRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ConditionRef">ConditionRef</a>] = <span class="symbol">None</span></span>)</span>
+        <span title="gt4s: AWS$colon$colonRDS$colon$colonDBSecurityGroup" class="name">AWS::RDS::DBSecurityGroup</span><span class="params">(<span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="DBSecurityGroupIngress">DBSecurityGroupIngress: <span class="extype" name="scala.Seq">Seq</span>[<a href="RDSDBSecurityGroupRule.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.RDSDBSecurityGroupRule">RDSDBSecurityGroupRule</a>]</span>, <span name="GroupDescription">GroupDescription: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="EC2VpcId">EC2VpcId: <span class="extype" name="scala.Option">Option</span>[<a href="../ResourceRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ResourceRef">ResourceRef</a>[<a href="AWS$colon$colonEC2$colon$colonVPC.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::EC2::VPC">AWS::EC2::VPC</a>]] = <span class="symbol">None</span></span>, <span name="Tags">Tags: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<a href="AmazonTag.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AmazonTag">AmazonTag</a>]] = <span class="symbol">None</span></span>, <span name="Condition">Condition: <span class="extype" name="scala.Option">Option</span>[<a href="../ConditionRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ConditionRef">ConditionRef</a>] = <span class="symbol">None</span></span>)</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonRDS$colon$colonDBSecurityGroup@&lt;init&gt;(name:String,DBSecurityGroupIngress:Seq[Map[String,String]],GroupDescription:String,EC2VpcId:Option[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::EC2::VPC]],Tags:Option[Seq[com.monsanto.arch.cloudformation.model.resource.AmazonTag]],Condition:Option[com.monsanto.arch.cloudformation.model.ConditionRef]):com.monsanto.arch.cloudformation.model.resource.AWS::RDS::DBSecurityGroup" title="Permalink" target="_top">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonRDS$colon$colonDBSecurityGroup@&lt;init&gt;(name:String,DBSecurityGroupIngress:Seq[com.monsanto.arch.cloudformation.model.resource.RDSDBSecurityGroupRule],GroupDescription:String,EC2VpcId:Option[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::EC2::VPC]],Tags:Option[Seq[com.monsanto.arch.cloudformation.model.resource.AmazonTag]],Condition:Option[com.monsanto.arch.cloudformation.model.ConditionRef]):com.monsanto.arch.cloudformation.model.resource.AWS::RDS::DBSecurityGroup" title="Permalink" target="_top">
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">DBSecurityGroupIngress</dt><dd class="cmt"><p>Finite list of keys: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-security-group-rule.html</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -205,22 +206,39 @@
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::RDS::DBSecurityGroup">AWS::RDS::DBSecurityGroup</a> → <a href="Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a></dd></dl></div>
     </li><li name="com.monsanto.arch.cloudformation.model.resource.AWS::RDS::DBSecurityGroup#DBSecurityGroupIngress" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="DBSecurityGroupIngress:Seq[Map[String,String]]"></a>
-      <a id="DBSecurityGroupIngress:Seq[Map[String,String]]"></a>
+      <a id="DBSecurityGroupIngress:Seq[com.monsanto.arch.cloudformation.model.resource.RDSDBSecurityGroupRule]"></a>
+      <a id="DBSecurityGroupIngress:Seq[RDSDBSecurityGroupRule]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">DBSecurityGroupIngress</span><span class="result">: <span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>]]</span>
+        <span class="name">DBSecurityGroupIngress</span><span class="result">: <span class="extype" name="scala.Seq">Seq</span>[<a href="RDSDBSecurityGroupRule.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.RDSDBSecurityGroupRule">RDSDBSecurityGroupRule</a>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonRDS$colon$colonDBSecurityGroup@DBSecurityGroupIngress:Seq[Map[String,String]]" title="Permalink" target="_top">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonRDS$colon$colonDBSecurityGroup@DBSecurityGroupIngress:Seq[com.monsanto.arch.cloudformation.model.resource.RDSDBSecurityGroupRule]" title="Permalink" target="_top">
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Finite list of keys: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-security-group-rule.html</p>
+    </li><li name="com.monsanto.arch.cloudformation.model.resource.Resource#DeletionPolicy" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="DeletionPolicy:Option[com.monsanto.arch.cloudformation.model.resource.DeletionPolicy]"></a>
+      <a id="DeletionPolicy:Option[DeletionPolicy]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">DeletionPolicy</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<a href="DeletionPolicy.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.DeletionPolicy">DeletionPolicy</a>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonRDS$colon$colonDBSecurityGroup@DeletionPolicy:Option[com.monsanto.arch.cloudformation.model.resource.DeletionPolicy]" title="Permalink" target="_top">
+        <img src="../../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a></dd></dl></div>
     </li><li name="com.monsanto.arch.cloudformation.model.resource.Resource#DependsOn" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="DependsOn:Option[Seq[String]]"></a>
       <a id="DependsOn:Option[Seq[String]]"></a>

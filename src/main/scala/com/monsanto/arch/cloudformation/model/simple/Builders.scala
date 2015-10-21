@@ -107,13 +107,13 @@ trait Instance {
         AlarmActions = Some(Seq(`Fn::Join`(":", Seq("arn:aws:automate", `AWS::Region`, "ec2:recover")))),
         AlarmDescription = Some(s"Auto recover $description"),
         AlarmName = Some(`Fn::Join`("-", Seq(s"$description-alarm", `AWS::StackName`))),
-        ComparisonOperator = GreaterThanThreshold,
+        ComparisonOperator = `AWS::CloudWatch::Alarm::ComparisonOperator`.GreaterThanThreshold,
         Dimensions = Some(Seq(`AWS::CloudWatch::Alarm::Dimension`.from("InstanceId", ec2))),
         EvaluationPeriods = "2",
         MetricName = "StatusCheckFailed_System",
-        Namespace = `AWS/EC2`,
+        Namespace = `AWS::CloudWatch::Alarm::Namespace`.`AWS/EC2`,
         Period = "60",
-        Statistic = Minimum,
+        Statistic = `AWS::CloudWatch::Alarm::Statistic`.Minimum,
         Threshold = "0"
       )
   }

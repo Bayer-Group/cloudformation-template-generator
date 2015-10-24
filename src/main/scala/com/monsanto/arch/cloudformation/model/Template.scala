@@ -90,7 +90,7 @@ object Template extends DefaultJsonProtocol {
 
   val EMPTY = Template("", None, None, None, None, None, None)
 
-  def collapse[R <: Resource[R]](rs: Seq[R]) = {
+  def collapse[R <: Resource[R]](rs: Seq[R]): Template = {
     val dupes = rs.groupBy(_.name).collect{case(y,xs) if xs.size>1 => y}
     if (dupes.nonEmpty) throw new IllegalArgumentException(s"Multiple resources with the same name would clobber each other. Found duplicates of $dupes")
     rs.foldLeft(Template.EMPTY)(_ ++ _)

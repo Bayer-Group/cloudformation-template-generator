@@ -315,10 +315,15 @@ trait SecurityGroup {
 
   private def noNeg1(s: String) = s.replaceAll("-1","Neg1")
   private def noNeg1(i: Int) = i.toString.replaceAll("-1","Neg1")
+  private def safeResourceName(name: String): String = name.replaceAll("[^A-Za-z0-9]", "")
+  private def ingressName(from: String, portProto: PortProtocol, to: String): String =
+    safeResourceName(from + "To" + to + "IngressProto" + noNeg1(portProto.protocol.rep) + "FromPort" +
+                     noNeg1(portProto.startPort) + "ToPort" + noNeg1(portProto.endPort))
+
 
   private def ingressSpec(from: ParameterRef[CidrBlock], portProto: PortProtocol, to: `AWS::EC2::SecurityGroup`)
     = `AWS::EC2::SecurityGroupIngress`(
-      from.p.name + "To" + to.name + "Ingress" + "Proto" + noNeg1(portProto.protocol.rep) + "B" + noNeg1(portProto.startPort) + "E" + noNeg1(portProto.endPort),
+      ingressName(from.p.name, portProto, to.name),
       to,
       portProto.protocol.rep,
       portProto.startPort.toString,
@@ -330,7 +335,7 @@ trait SecurityGroup {
 
   private def ingressSpec(from: `AWS::EC2::SecurityGroup`, portProto: PortProtocol, to: `AWS::EC2::SecurityGroup`)
     = `AWS::EC2::SecurityGroupIngress`(
-      from.name + "To" + to.name + "Ingress" + "Proto" + noNeg1(portProto.protocol.rep) + "B" + noNeg1(portProto.startPort) + "E" + noNeg1(portProto.endPort),
+      ingressName(from.name, portProto, to.name),
       to,
       portProto.protocol.rep,
       portProto.startPort.toString,
@@ -340,7 +345,7 @@ trait SecurityGroup {
 
   private def ingressSpec(from: Token[ResourceRef[`AWS::EC2::SecurityGroup`]], portProto: PortProtocol, to: Token[ResourceRef[`AWS::EC2::SecurityGroup`]])
     = `AWS::EC2::SecurityGroupIngress`(
-      resourceNameSafeUUID(), // cloud formation logical names must be purely Alphanumeric, dashes not allowed
+      ingressName(from.toString, portProto, to.toString),
       to,
       portProto.protocol.rep,
       portProto.startPort.toString,
@@ -354,27 +359,6 @@ trait SecurityGroup {
   object PortProtocolFragment {
     implicit def fromRange(r: Range): PortProtocolFragment = PortProtocolFragment(r.start, r.end)
   }
-
-  /* TODO: TESTS!
-  {
-    val securityGroupA = securityGroup("A", "Group A")
-    val securityGroupB = securityGroup("B", "Group B")
-
-    securityGroupA ->- 22 ->- securityGroupB
-    securityGroupA ->- 22 / UDP ->- securityGroupB
-    securityGroupA ->- 22 / ICMP ->- securityGroupB
-    securityGroupA ->- 22 / ALL ->- securityGroupB
-    securityGroupA ->- (1 to 65536) ->- securityGroupB
-    securityGroupA ->- (1 to 65536) / ICMP ->- securityGroupB
-
-    securityGroupA ->- Seq(22, 5601) ->- securityGroupB
-    securityGroupA ->- Seq(22, (5601 to 5602) / UDP, 45 / ICMP, 14 / TCP) ->- securityGroupB
-
-
-    securityGroupA ->- 22 -<- securityGroupB
-    securityGroupA -<- 22 ->- securityGroupB
-  }
-  */
 
   sealed abstract class TransportProtocol(val rep: String)
   object TransportProtocol{

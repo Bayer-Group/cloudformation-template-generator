@@ -154,7 +154,7 @@ our <a href="http://engineering.monsanto.com/2015/07/10/cloudformation-template-
       gatewayToInternetResource ++
       publicRouteTableRoute
     <span class="kw">val</span> withinAZ = withAZ(<span class="lit">"us-east-1a"</span>) { <span class="kw">implicit</span> az <span class="kw">=&gt;</span>
-      withSubnet(<span class="lit">"Public"</span>, <span class="num">1</span>, CidrBlock(<span class="num">10</span>, <span class="num">0</span>, <span class="num">0</span>, <span class="num">1</span>, <span class="num">24</span>)) { <span class="kw">implicit</span> pubSubnet <span class="kw">=&gt;</span>
+      withSubnet(<span class="lit">"PubSubnet1"</span>, CidrBlock(<span class="num">10</span>, <span class="num">0</span>, <span class="num">0</span>, <span class="num">1</span>, <span class="num">24</span>)) { <span class="kw">implicit</span> pubSubnet <span class="kw">=&gt;</span>
         <span class="kw">val</span> bastionName = <span class="lit">"bastion"</span>
         <span class="kw">val</span> bastion = ec2(
           name = bastionName,
@@ -174,7 +174,8 @@ our <a href="http://engineering.monsanto.com/2015/07/10/cloudformation-template-
           ))
         )
         <span class="kw">val</span> sshToBastion = ParameterRef(allowSSHFromParameter) -&gt;- <span class="num">22</span> -&gt;- bastion
-        bastion.template ++ bastion.map(_.withEIP(<span class="lit">"BastionEIP"</span>).andOutput(<span class="lit">"BastionEIP"</span>, <span class="lit">"Bastion Host EIP"</span>)) ++
+        Template.fromSecurityGroupRoutable(bastion) ++
+          bastion.map(_.withEIP(<span class="lit">"BastionEIP"</span>).andOutput(<span class="lit">"BastionEIP"</span>, <span class="lit">"Bastion Host EIP"</span>)) ++
           Template.collapse(sshToBastion)
       }
     }
@@ -192,7 +193,8 @@ our <a href="http://engineering.monsanto.com/2015/07/10/cloudformation-template-
       Outputs = <span class="std">None</span>
     )
   writeStaxModule(<span class="lit">"vpc-simple.json"</span>, simpleTemplate)
-}</pre><p>The above code utilizes the DSL to create a simple AWS VPC utilizing a
+}
+SimpleVPC</pre><p>The above code utilizes the DSL to create a simple AWS VPC utilizing a
 single Availability Zone having a single public subnet and a single
 &quot;bastion&quot; instance.  The template output is the IP address of the EIP
 it creates.  It also shows examples of creating and using

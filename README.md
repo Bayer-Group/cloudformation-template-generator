@@ -37,6 +37,9 @@ See the
 [Scaladoc](http://monsantoco.github.io/cloudformation-template-generator/) for
 detailed documentation and examples.
 
+See the [Change Log][CHANGELOG.md] for information on new, changed,
+and deprecated featured.
+
 **Note**: we are no longer using the git-flow develop/master branch paradigm.
 Please just branch off master and submit your PRs against it.
 

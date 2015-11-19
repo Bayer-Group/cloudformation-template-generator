@@ -1,5 +1,7 @@
 package com.monsanto.arch.cloudformation
 
+import scala.language.implicitConversions
+
 /** A DSL to create consistent, type-safe AWS CloudFormation templates.
   *
   * The low-level DSL closely adheres to the objects and parameters in the
@@ -130,5 +132,35 @@ package com.monsanto.arch.cloudformation
   */
 
 package object model {
+
+  case class Zipper[A](parts: Seq[A]*) extends Traversable[A] {
+    override def foreach[U](f: (A) => U): Unit = {
+      val i = parts.map(_.iterator)
+      while (i.exists(_.hasNext))
+        i.foreach { v =>
+          if (v.hasNext) {
+            f(v.next)
+          }
+        }
+    }
+  }
+
+  implicit class AwsToken(val sc: StringContext) extends AnyVal {
+    def any2Token(a: Any): Token[String] = a match {
+      case token: Token[String] => token
+      case s: String => s
+      case amznFunc: AmazonFunctionCall[String] => amznFunc
+    }
+
+    def aws(args: Any*): Token[String] = {
+      if (args.isEmpty) {
+        sc.parts.mkString("")
+      } else {
+        val tokens = Zipper(sc.parts.filterNot(_.isEmpty).map(StringToken), args.toSeq.map(any2Token)).toArray.toSeq
+        println("tokens: " + tokens)
+        `Fn::Join`("", tokens)
+      }
+    }
+  }
 
 }

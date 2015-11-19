@@ -10,13 +10,23 @@ class AwsTokenSpec extends FunSpec with Matchers {
     fun shouldEqual StringToken("test")
   }
 
-  it("should join parameter ref tokens") {
+  it("should join ParameterRef tokens") {
     val param = ParameterRef(StringParameter("that"))
     val fun = aws"test$param"
 
     fun shouldEqual FunctionCallToken(`Fn::Join`("", Seq(
       StringToken("test"),
       param
+    )))
+  }
+
+  it("should join Parameter") {
+    val param = StringParameter("that")
+    val fun = aws"test$param"
+
+    fun shouldEqual FunctionCallToken(`Fn::Join`("", Seq(
+      StringToken("test"),
+      ParameterRef(param)
     )))
   }
 

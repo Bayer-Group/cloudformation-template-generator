@@ -148,6 +148,7 @@ package object model {
   implicit class AwsToken(val sc: StringContext) extends AnyVal {
     def any2Token(a: Any): Token[String] = a match {
       case token: Token[String] => token
+      case parameter: StringParameter => ParameterRef(parameter)
       case s: String => s
       case amznFunc: AmazonFunctionCall[String] => amznFunc
     }
@@ -157,7 +158,6 @@ package object model {
         sc.parts.mkString("")
       } else {
         val tokens = Zipper(sc.parts.filterNot(_.isEmpty).map(StringToken), args.toSeq.map(any2Token)).toArray.toSeq
-        println("tokens: " + tokens)
         `Fn::Join`("", tokens)
       }
     }

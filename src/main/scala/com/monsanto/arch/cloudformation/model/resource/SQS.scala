@@ -14,9 +14,13 @@ case class `AWS::SQS::Queue`(
                                     ReceiveMessageWaitTimeSeconds: Token[Int],
                                     VisibilityTimeout: Token[Int],
                                     override val Condition: Option[ConditionRef] = None)
-  extends Resource[`AWS::SQS::Queue`] with HasArn {
+  extends Resource[`AWS::SQS::Queue`] with HasArn with Subscribable {
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
 
+  override def asSubscription = Subscription(
+    Endpoint = arn,
+    Protocol = "sqs"
+  )
 }
 
 object `AWS::SQS::Queue` extends DefaultJsonProtocol {

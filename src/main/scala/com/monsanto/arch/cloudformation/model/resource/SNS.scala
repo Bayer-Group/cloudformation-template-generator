@@ -37,3 +37,7 @@ case class `AWS::SNS::TopicPolicy`(
 object `AWS::SNS::TopicPolicy` extends DefaultJsonProtocol {
   implicit val format: JsonFormat[`AWS::SNS::TopicPolicy`] = jsonFormat4(`AWS::SNS::TopicPolicy`.apply)
 }
+
+trait Subscribable {
+  def asSubscription : Token[Subscription]
+}

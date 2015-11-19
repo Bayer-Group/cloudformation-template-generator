@@ -1,6 +1,6 @@
 package com.monsanto.arch.cloudformation.model.resource
 
-import com.monsanto.arch.cloudformation.model.{Token, ConditionRef}
+import com.monsanto.arch.cloudformation.model.{FunctionCallToken, `Fn::GetAtt`, Token, ConditionRef}
 import spray.json.{JsonFormat, DefaultJsonProtocol}
 
 /**
@@ -16,6 +16,8 @@ case class `AWS::SQS::Queue`(
                                     override val Condition: Option[ConditionRef] = None)
   extends Resource[`AWS::SQS::Queue`] {
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
+
+  def arn : Token[String] = FunctionCallToken(`Fn::GetAtt`(Seq(name, "Arn")))
 }
 
 object `AWS::SQS::Queue` extends DefaultJsonProtocol {

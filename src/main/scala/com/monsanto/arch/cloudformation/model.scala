@@ -145,19 +145,14 @@ package object model {
     }
   }
 
+  implicit def parameter2TokenString(parameter : StringParameter) : Token[String] = ParameterRef(parameter)
   implicit class AwsToken(val sc: StringContext) extends AnyVal {
-    def any2Token(a: Any): Token[String] = a match {
-      case token: Token[String] => token
-      case parameter: StringParameter => ParameterRef(parameter)
-      case s: String => s
-      case amznFunc: AmazonFunctionCall[String] => amznFunc
-    }
 
-    def aws(args: Any*): Token[String] = {
+    def aws(args: Token[String]*): Token[String] = {
       if (args.isEmpty) {
         sc.parts.mkString("")
       } else {
-        val tokens = Zipper(sc.parts.filterNot(_.isEmpty).map(StringToken), args.toSeq.map(any2Token)).toArray.toSeq
+        val tokens = Zipper(sc.parts.filterNot(_.isEmpty).map(StringToken), args.toSeq).toArray.toSeq
         `Fn::Join`("", tokens)
       }
     }

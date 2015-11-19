@@ -17,7 +17,7 @@ case class `AWS::SNS::Topic`(
   Subscription: Option[Seq[Token[Subscription]]],
   TopicName: Option[Token[String]],
   override val Condition: Option[ConditionRef] = None)
-  extends Resource[`AWS::SNS::Topic`] {
+  extends Resource[`AWS::SNS::Topic`] with HasArn {
   def when(newCondition: Option[ConditionRef] = Condition) =
     new `AWS::SNS::Topic`(name, DisplayName, Subscription, TopicName, newCondition)
 }

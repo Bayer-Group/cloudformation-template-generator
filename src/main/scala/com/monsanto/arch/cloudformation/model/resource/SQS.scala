@@ -14,10 +14,9 @@ case class `AWS::SQS::Queue`(
                                     ReceiveMessageWaitTimeSeconds: Token[Int],
                                     VisibilityTimeout: Token[Int],
                                     override val Condition: Option[ConditionRef] = None)
-  extends Resource[`AWS::SQS::Queue`] {
+  extends Resource[`AWS::SQS::Queue`] with HasArn {
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
 
-  def arn : Token[String] = FunctionCallToken(`Fn::GetAtt`(Seq(name, "Arn")))
 }
 
 object `AWS::SQS::Queue` extends DefaultJsonProtocol {

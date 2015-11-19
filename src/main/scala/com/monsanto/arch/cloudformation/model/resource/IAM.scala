@@ -4,6 +4,7 @@ import com.monsanto.arch.cloudformation.model._
 import spray.json._
 
 import scala.annotation.implicitNotFound
+import scala.language.implicitConversions
 
 /**
  * Created by Ryan Richt on 2/28/15
@@ -95,14 +96,36 @@ object `AWS::IAM::Role` extends DefaultJsonProtocol {
   implicit val format: JsonFormat[`AWS::IAM::Role`] = jsonFormat6(`AWS::IAM::Role`.apply)
 }
 
+sealed trait PolicyConditionValue
+case class ListPolicyConditionValue(values : Seq[String]) extends PolicyConditionValue
+case class SimplePolicyConditionValue(value : String) extends PolicyConditionValue
+case class TokenPolicyConditionValue(value : Token[String]) extends PolicyConditionValue
+
+object PolicyConditionValue extends DefaultJsonProtocol {
+  implicit object format extends JsonFormat[PolicyConditionValue] {
+    override def read(json: JsValue) : PolicyConditionValue = ??? //ListPolicyConditionValue(implicitly[JsonFormat[Seq[String]]].read(json))
+
+    override def write(obj: PolicyConditionValue) = obj match {
+      case ListPolicyConditionValue(values) => values.toJson
+      case SimplePolicyConditionValue(value) => value.toJson
+      case TokenPolicyConditionValue(value) => value.toJson
+    }
+  }
+  implicit def seq2Value(s : Seq[String]): PolicyConditionValue = ListPolicyConditionValue(s)
+  implicit def simple2Value(s : String): PolicyConditionValue = SimplePolicyConditionValue(s)
+  implicit def token2Value(s : Token[String]): PolicyConditionValue = TokenPolicyConditionValue(s)
+}
+
+
 case class PolicyStatement(
   Effect:    String,
   Principal: Option[PolicyPrincipal] = None,
   Action:    Seq[String],
-  Resource:  Option[Token[String]] = None
-  )
+  Resource:  Option[Token[String]] = None,
+  Condition: Option[Map[String, Map[String, PolicyConditionValue]]] = None
+)
 object PolicyStatement extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[PolicyStatement] = jsonFormat4(PolicyStatement.apply)
+  implicit val format: JsonFormat[PolicyStatement] = jsonFormat5(PolicyStatement.apply)
 }
 
 case class `AWS::IAM::Group`(

@@ -124,6 +124,8 @@ describe("Template Lookup") {
 - AWS::S3::BucketPolicy
 - AWS::SNS::Topic
 - AWS::SNS::TopicPolicy
+- AWS::SQS::Queue
+- AWS::SQS::QueuePolicy
 
 ## Releasing
 

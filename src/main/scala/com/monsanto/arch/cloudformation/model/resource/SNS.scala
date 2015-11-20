@@ -21,7 +21,7 @@ case class `AWS::SNS::Topic`(
   def when(newCondition: Option[ConditionRef] = Condition) =
     new `AWS::SNS::Topic`(name, DisplayName, Subscription, TopicName, newCondition)
 
-  override def arn = ResourceRef(name)
+  override def arn = ResourceRef(this)
 }
 object `AWS::SNS::Topic` extends DefaultJsonProtocol {
   implicit val format: JsonFormat[`AWS::SNS::Topic`] = jsonFormat5(`AWS::SNS::Topic`.apply)

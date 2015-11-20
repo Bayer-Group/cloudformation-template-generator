@@ -21,9 +21,23 @@ case class `AWS::SQS::Queue`(
     Endpoint = arn,
     Protocol = "sqs"
   )
+
+
 }
 
 object `AWS::SQS::Queue` extends DefaultJsonProtocol {
   implicit val format: JsonFormat[`AWS::SQS::Queue`] = jsonFormat7(`AWS::SQS::Queue`.apply)
 }
 
+case class `AWS::SQS::QueuePolicy` (
+  name : String,
+  PolicyDocument : PolicyDocument,
+  Queues : Seq[Token[String]],
+  override val Condition: Option[ConditionRef] = None
+) extends Resource[`AWS::SQS::QueuePolicy`] {
+  def when (newCondition: Option[ConditionRef] = Condition) = copy (Condition = newCondition)
+}
+
+object `AWS::SQS::QueuePolicy` extends DefaultJsonProtocol {
+  implicit val format: JsonFormat[`AWS::SQS::QueuePolicy`] = jsonFormat4(`AWS::SQS::QueuePolicy`.apply)
+}

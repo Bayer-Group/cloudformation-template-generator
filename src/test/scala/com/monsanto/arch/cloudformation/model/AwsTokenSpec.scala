@@ -1,5 +1,6 @@
 package com.monsanto.arch.cloudformation.model
 
+import com.monsanto.arch.cloudformation.model.AwsStringInterpolation.Zipper
 import org.scalatest.{Matchers, FunSpec}
 
 class AwsTokenSpec extends FunSpec with Matchers {

@@ -133,29 +133,11 @@ import scala.language.implicitConversions
 
 package object model {
 
-  case class Zipper[A](parts: Seq[A]*) extends Traversable[A] {
-    override def foreach[U](f: (A) => U): Unit = {
-      val i = parts.map(_.iterator)
-      while (i.exists(_.hasNext))
-        i.foreach { v =>
-          if (v.hasNext) {
-            f(v.next)
-          }
-        }
-    }
-  }
-
   implicit def parameter2TokenString(parameter : StringParameter) : Token[String] = ParameterRef(parameter)
+
   implicit class AwsToken(val sc: StringContext) extends AnyVal {
 
-    def aws(args: Token[String]*): Token[String] = {
-      if (args.isEmpty) {
-        sc.parts.mkString("")
-      } else {
-        val tokens = Zipper(sc.parts.filterNot(_.isEmpty).map(StringToken), args.toSeq).toArray.toSeq
-        `Fn::Join`("", tokens)
-      }
-    }
-  }
+    def aws(tokens: Token[String]*) = AwsStringInterpolation(sc, tokens)
 
+  }
 }

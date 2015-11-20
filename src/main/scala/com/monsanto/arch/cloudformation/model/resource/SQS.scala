@@ -15,6 +15,9 @@ case class `AWS::SQS::Queue`(
                                     VisibilityTimeout: Token[Int],
                                     override val Condition: Option[ConditionRef] = None)
   extends Resource[`AWS::SQS::Queue`] with HasArn with Subscribable {
+
+  override def arn = `Fn::GetAtt`(Seq(name, "Arn"))
+
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
 
   override def asSubscription = Subscription(

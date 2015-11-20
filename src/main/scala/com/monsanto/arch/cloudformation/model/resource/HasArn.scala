@@ -9,5 +9,5 @@ trait HasArn {
 
   def name : String
 
-  def arn : Token[String] = FunctionCallToken(`Fn::GetAtt`(Seq(name, "Arn")))
+  def arn : Token[String]
 }

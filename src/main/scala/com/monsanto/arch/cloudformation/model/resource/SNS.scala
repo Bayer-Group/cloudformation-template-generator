@@ -20,6 +20,8 @@ case class `AWS::SNS::Topic`(
   extends Resource[`AWS::SNS::Topic`] with HasArn {
   def when(newCondition: Option[ConditionRef] = Condition) =
     new `AWS::SNS::Topic`(name, DisplayName, Subscription, TopicName, newCondition)
+
+  override def arn = ResourceRef(name)
 }
 object `AWS::SNS::Topic` extends DefaultJsonProtocol {
   implicit val format: JsonFormat[`AWS::SNS::Topic`] = jsonFormat5(`AWS::SNS::Topic`.apply)

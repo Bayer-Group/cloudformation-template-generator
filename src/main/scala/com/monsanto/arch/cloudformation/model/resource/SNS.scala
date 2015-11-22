@@ -17,9 +17,11 @@ case class `AWS::SNS::Topic`(
   Subscription: Option[Seq[Token[Subscription]]],
   TopicName: Option[Token[String]],
   override val Condition: Option[ConditionRef] = None)
-  extends Resource[`AWS::SNS::Topic`] {
+  extends Resource[`AWS::SNS::Topic`] with HasArn {
   def when(newCondition: Option[ConditionRef] = Condition) =
     new `AWS::SNS::Topic`(name, DisplayName, Subscription, TopicName, newCondition)
+
+  override def arn = ResourceRef(this)
 }
 object `AWS::SNS::Topic` extends DefaultJsonProtocol {
   implicit val format: JsonFormat[`AWS::SNS::Topic`] = jsonFormat5(`AWS::SNS::Topic`.apply)
@@ -36,4 +38,8 @@ case class `AWS::SNS::TopicPolicy`(
 }
 object `AWS::SNS::TopicPolicy` extends DefaultJsonProtocol {
   implicit val format: JsonFormat[`AWS::SNS::TopicPolicy`] = jsonFormat4(`AWS::SNS::TopicPolicy`.apply)
+}
+
+trait Subscribable {
+  def asSubscription : Token[Subscription]
 }

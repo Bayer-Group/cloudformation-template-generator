@@ -1,5 +1,7 @@
 package com.monsanto.arch.cloudformation
 
+import scala.language.implicitConversions
+
 /** A DSL to create consistent, type-safe AWS CloudFormation templates.
   *
   * The low-level DSL closely adheres to the objects and parameters in the
@@ -131,4 +133,11 @@ package com.monsanto.arch.cloudformation
 
 package object model {
 
+  implicit def parameter2TokenString(parameter : StringParameter) : Token[String] = ParameterRef(parameter)
+
+  implicit class AwsToken(val sc: StringContext) extends AnyVal {
+
+    def aws(tokens: Token[String]*) = AwsStringInterpolation(sc, tokens)
+
+  }
 }

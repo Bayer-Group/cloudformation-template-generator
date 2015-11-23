@@ -67,6 +67,19 @@ class AwsTokenSpec extends FunSpec with Matchers {
     )))
   }
 
+  it("should optimize join tokens") {
+    val getAtt : Token[String] = `Fn::GetAtt`(Seq("that"))
+    val test1 = "test1"
+    val test2 = "test2"
+    val fun = aws"test$getAtt${test1}something$test2"
+
+    fun shouldEqual FunctionCallToken(`Fn::Join`("", Seq(
+      StringToken("test"),
+      getAtt,
+      StringToken(s"${test1}something$test2")
+    )))
+  }
+
   describe("zipper") {
     it("should combine unevent lists") {
       val zipper = Zipper(Seq("a", "b", "c"), Seq("d", "e"), Seq("f"))

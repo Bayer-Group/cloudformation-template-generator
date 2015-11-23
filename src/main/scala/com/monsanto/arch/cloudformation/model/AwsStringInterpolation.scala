@@ -20,15 +20,22 @@ object AwsStringInterpolation {
     }
   }
 
-  def apply(sc : StringContext, tokens : Seq[Token[String]]) : Token[String] = {
-      if (tokens.isEmpty) {
-        sc.parts.mkString("")
-      } else {
-        val zippedTokens = Zipper(sc.parts.map(StringToken), tokens).toArray.toSeq.filterNot {
-          case StringToken(s) if s.isEmpty => true
-          case _ => false
-        }
-        `Fn::Join`("", zippedTokens)
-      }
+  def apply(sc: StringContext, tokens: Seq[Token[String]]): Token[String] = {
+    val zippedTokens = Zipper(sc.parts.map(StringToken), tokens).toArray.toSeq.filterNot {
+      case StringToken(s) if s.isEmpty => true
+      case _ => false
     }
+    val optimizedTokens = zippedTokens.foldLeft(Seq[Token[String]]()) { case (seq, token) =>
+      (token, seq.headOption) match {
+        case (StringToken(newToken), Some(StringToken(previousToken))) => Seq(StringToken(previousToken + newToken)) ++ seq.tail
+        case _ => Seq(token) ++ seq
+      }
+    }.reverse
+
+    if (optimizedTokens.size == 1) {
+      optimizedTokens.head
+    } else {
+      `Fn::Join`("", optimizedTokens)
+    }
+  }
 }

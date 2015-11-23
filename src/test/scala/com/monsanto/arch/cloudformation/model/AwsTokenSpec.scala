@@ -11,6 +11,14 @@ class AwsTokenSpec extends FunSpec with Matchers {
     fun shouldEqual StringToken("test")
   }
 
+  it("should generate simple string if no only string substitutions") {
+    val lost : Token[String] = "lost"
+    val world : Token[String] = "world"
+    val fun = aws"hello$lost$world"
+
+    fun shouldEqual StringToken("hellolostworld")
+  }
+
   it("should join ParameterRef tokens") {
     val param = ParameterRef(StringParameter("that"))
     val fun = aws"test$param"
@@ -28,6 +36,21 @@ class AwsTokenSpec extends FunSpec with Matchers {
     fun shouldEqual FunctionCallToken(`Fn::Join`("", Seq(
       StringToken("test"),
       ParameterRef(param)
+    )))
+  }
+
+  it("should join multiple Parameters") {
+    val param1 = StringParameter("that")
+    val param2 = StringParameter("this")
+    val param3 = StringParameter("these")
+    val fun = aws"test$param1${param2}hello$param3"
+
+    fun shouldEqual FunctionCallToken(`Fn::Join`("", Seq(
+      StringToken("test"),
+      ParameterRef(param1),
+      ParameterRef(param2),
+      StringToken("hello"),
+      ParameterRef(param3)
     )))
   }
 
@@ -49,6 +72,19 @@ class AwsTokenSpec extends FunSpec with Matchers {
       StringToken("test"),
       getAtt,
       StringToken("something")
+    )))
+  }
+
+  it("should optimize join tokens") {
+    val getAtt : Token[String] = `Fn::GetAtt`(Seq("that"))
+    val test1 = "test1"
+    val test2 = "test2"
+    val fun = aws"test$getAtt${test1}something$test2"
+
+    fun shouldEqual FunctionCallToken(`Fn::Join`("", Seq(
+      StringToken("test"),
+      getAtt,
+      StringToken(s"${test1}something$test2")
     )))
   }
 

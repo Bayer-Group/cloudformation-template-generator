@@ -140,4 +140,6 @@ package object model {
     def aws(tokens: Token[String]*) = AwsStringInterpolation(sc, tokens)
 
   }
+
+  implicit def lift2Option[A](a : A) : Option[A] = Option(a)
 }

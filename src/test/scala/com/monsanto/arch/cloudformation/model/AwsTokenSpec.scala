@@ -11,6 +11,14 @@ class AwsTokenSpec extends FunSpec with Matchers {
     fun shouldEqual StringToken("test")
   }
 
+  it("should generate simple string if no only string substitutions") {
+    val lost : Token[String] = "lost"
+    val world : Token[String] = "world"
+    val fun = aws"hello$lost$world"
+
+    fun shouldEqual StringToken("hellolostworld")
+  }
+
   it("should join ParameterRef tokens") {
     val param = ParameterRef(StringParameter("that"))
     val fun = aws"test$param"

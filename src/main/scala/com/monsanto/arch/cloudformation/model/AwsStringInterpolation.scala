@@ -24,7 +24,10 @@ object AwsStringInterpolation {
       if (tokens.isEmpty) {
         sc.parts.mkString("")
       } else {
-        val zippedTokens = Zipper(sc.parts.filterNot(_.isEmpty).map(StringToken), tokens).toArray.toSeq
+        val zippedTokens = Zipper(sc.parts.map(StringToken), tokens).toArray.toSeq.filterNot {
+          case StringToken(s) if s.isEmpty => true
+          case _ => false
+        }
         `Fn::Join`("", zippedTokens)
       }
     }

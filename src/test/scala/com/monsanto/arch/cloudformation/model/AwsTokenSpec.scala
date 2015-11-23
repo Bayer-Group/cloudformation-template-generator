@@ -31,6 +31,21 @@ class AwsTokenSpec extends FunSpec with Matchers {
     )))
   }
 
+  it("should join multiple Parameters") {
+    val param1 = StringParameter("that")
+    val param2 = StringParameter("this")
+    val param3 = StringParameter("these")
+    val fun = aws"test$param1${param2}hello$param3"
+
+    fun shouldEqual FunctionCallToken(`Fn::Join`("", Seq(
+      StringToken("test"),
+      ParameterRef(param1),
+      ParameterRef(param2),
+      StringToken("hello"),
+      ParameterRef(param3)
+    )))
+  }
+
   it("should join Fn::GetAtt ref tokens") {
     val getAtt = `Fn::GetAtt`(Seq("that"))
     val fun = aws"test${getAtt}something"

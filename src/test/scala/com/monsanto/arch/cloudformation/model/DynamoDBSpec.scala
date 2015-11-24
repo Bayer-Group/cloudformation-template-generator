@@ -18,9 +18,7 @@ class DynamoDBSpec extends FunSpec with Matchers with JsonWritingMatcher {
         KeySchema = Seq(
           "gKey1" -> HashKeyType
         ),
-        Projection = Projection(
-          ProjectionType = AllProjectionType
-        ),
+        Projection = AllProjection,
         ProvisionedThroughput = ProvisionedThroughput(
           ReadCapacityUnits = 1,
           WriteCapacityUnits = 1
@@ -34,10 +32,7 @@ class DynamoDBSpec extends FunSpec with Matchers with JsonWritingMatcher {
         KeySchema = Seq(
           "key2" -> HashKeyType
         ),
-        Projection = Projection(
-          NonKeyAttributes = Seq("test1"),
-          ProjectionType = IncludeProjectionType
-        )
+        Projection = IncludeProjection(Seq("test1"))
       )),
       ProvisionedThroughput = ProvisionedThroughput(
         ReadCapacityUnits = 1,

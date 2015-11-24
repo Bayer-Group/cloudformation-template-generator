@@ -1,7 +1,7 @@
 package com.monsanto.arch.cloudformation.model.resource
 
 import com.monsanto.arch.cloudformation.model._
-import spray.json.{JsString, JsValue, JsonFormat, DefaultJsonProtocol}
+import spray.json._
 
 import scala.language.implicitConversions
 
@@ -70,16 +70,6 @@ object AttributeDefinition extends DefaultJsonProtocol {
 sealed trait DynamoIndex {
   def IndexName : String
 }
-case class GlobalSecondaryIndex (
-                                 IndexName: String,
-                                 KeySchema: Seq[KeySchema],
-                                 Projection: Projection,
-                                 ProvisionedThroughput: ProvisionedThroughput
-                               ) extends DynamoIndex
-
-object GlobalSecondaryIndex extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[GlobalSecondaryIndex] = jsonFormat4(GlobalSecondaryIndex.apply)
-}
 
 sealed trait KeyType
 
@@ -121,36 +111,30 @@ object ProvisionedThroughput extends DefaultJsonProtocol {
   implicit val format: JsonFormat[ProvisionedThroughput] = jsonFormat2(ProvisionedThroughput.apply)
 }
 
-sealed trait ProjectionType
+sealed trait Projection
 
-case object AllProjectionType extends ProjectionType
+case object AllProjection extends Projection
 
-case object KeysOnlyProjectionType extends ProjectionType
+case object KeysOnlyProjection extends Projection
 
-case object IncludeProjectionType extends ProjectionType
-
-case object ProjectionType {
-  implicit object format extends JsonFormat[ProjectionType] {
-    override def write(obj: ProjectionType) = obj match {
-      case AllProjectionType => JsString("ALL")
-      case KeysOnlyProjectionType=> JsString("KEYS_ONLY")
-      case IncludeProjectionType=> JsString("INCLUDE")
-    }
-
-    override def read(json: JsValue): ProjectionType = ???
-  }
-}
+case class IncludeProjection(keys : Seq[String]) extends Projection
 
 /**
   * http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dynamodb-projectionobject.html
   */
-case class Projection(
-                       NonKeyAttributes: Option[Seq[String]] = None,
-                       ProjectionType: ProjectionType
-                     )
+case object Projection extends DefaultJsonProtocol {
+  implicit object format extends JsonFormat[Projection] {
+    override def write(obj: Projection) = obj match {
+      case AllProjection => Map("ProjectionType" -> "ALL").toJson
+      case KeysOnlyProjection => Map("ProjectionType" -> "KEYS_ONLY").toJson
+      case IncludeProjection(keys) => Map(
+        "ProjectionType" -> "INCLUDE".toJson,
+        "NonKeyAttributes" -> keys.toJson
+      ).toJson
+    }
 
-object Projection extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[Projection] = jsonFormat2(Projection.apply)
+    override def read(json: JsValue): Projection = ???
+  }
 }
 
 case class LocalSecondaryIndex(
@@ -161,4 +145,15 @@ case class LocalSecondaryIndex(
 
 object LocalSecondaryIndex extends DefaultJsonProtocol {
   implicit val format: JsonFormat[LocalSecondaryIndex] = jsonFormat3(LocalSecondaryIndex.apply)
+}
+
+case class GlobalSecondaryIndex (
+                                  IndexName: String,
+                                  KeySchema: Seq[KeySchema],
+                                  Projection: Projection,
+                                  ProvisionedThroughput: ProvisionedThroughput
+                                ) extends DynamoIndex
+
+object GlobalSecondaryIndex extends DefaultJsonProtocol {
+  implicit val format: JsonFormat[GlobalSecondaryIndex] = jsonFormat4(GlobalSecondaryIndex.apply)
 }

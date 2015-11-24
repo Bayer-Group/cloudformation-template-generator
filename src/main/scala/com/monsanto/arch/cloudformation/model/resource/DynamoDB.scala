@@ -105,6 +105,11 @@ case class KeySchema(
 
 object KeySchema extends DefaultJsonProtocol {
   implicit val format: JsonFormat[KeySchema] = jsonFormat2(KeySchema.apply)
+
+  implicit def tuple2KeySchema(t : (String, KeyType)) : KeySchema = KeySchema(
+    AttributeName = t._1,
+    KeyType = t._2
+  )
 }
 
 case class ProvisionedThroughput(

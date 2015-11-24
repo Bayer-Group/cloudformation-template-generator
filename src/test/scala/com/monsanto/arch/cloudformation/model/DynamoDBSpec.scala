@@ -15,10 +15,9 @@ class DynamoDBSpec extends FunSpec with Matchers with JsonWritingMatcher {
       ),
       GlobalSecondaryIndexes = Seq(GlobalSecondaryIndex(
         IndexName = "globalIndex1",
-        KeySchema = Seq(KeySchema(
-          AttributeName = "gKey1",
-          KeyType = HashKeyType
-        )),
+        KeySchema = Seq(
+          "gKey1" -> HashKeyType
+        ),
         Projection = Projection(
           ProjectionType = AllProjectionType
         ),
@@ -27,16 +26,14 @@ class DynamoDBSpec extends FunSpec with Matchers with JsonWritingMatcher {
           WriteCapacityUnits = 1
         )
       )),
-      KeySchema = Seq(KeySchema(
-        AttributeName = "key1",
-        KeyType = RangeKeyType
-      )),
+      KeySchema = Seq(
+        "key1" -> RangeKeyType
+      ),
       LocalSecondaryIndexes = Seq(LocalSecondaryIndex(
         IndexName = "localIndex1",
-        KeySchema = Seq(KeySchema(
-          AttributeName = "key2",
-          KeyType = HashKeyType
-        )),
+        KeySchema = Seq(
+          "key2" -> HashKeyType
+        ),
         Projection = Projection(
           NonKeyAttributes = Seq("test1"),
           ProjectionType = IncludeProjectionType

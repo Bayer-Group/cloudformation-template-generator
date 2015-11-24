@@ -22,6 +22,10 @@ case class `AWS::DynamoDB::Table`(
 
   override def arn = aws"arn:aws:dynamodb:${`AWS::Region`}:${`AWS::AccountId`}:table/${ResourceRef(this)}"
 
+  private def indexArns(indexes : Seq[_ <: DynamoIndex]) = indexes.map(_.IndexName).map(indexName => aws"$arn/index/$indexName")
+  def localSecondaryIndexArns = indexArns(LocalSecondaryIndexes)
+  def globalSecondaryIndexArns = indexArns(GlobalSecondaryIndexes)
+
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
 
 }
@@ -63,12 +67,15 @@ object AttributeDefinition extends DefaultJsonProtocol {
   )
 }
 
-case class GlobalSecondaryIndex(
-                                 IndexName: Token[String],
+sealed trait DynamoIndex {
+  def IndexName : String
+}
+case class GlobalSecondaryIndex (
+                                 IndexName: String,
                                  KeySchema: Seq[KeySchema],
                                  Projection: Projection,
                                  ProvisionedThroughput: ProvisionedThroughput
-                               )
+                               ) extends DynamoIndex
 
 object GlobalSecondaryIndex extends DefaultJsonProtocol {
   implicit val format: JsonFormat[GlobalSecondaryIndex] = jsonFormat4(GlobalSecondaryIndex.apply)
@@ -145,7 +152,7 @@ case class LocalSecondaryIndex(
                                 IndexName: String,
                                 KeySchema: Seq[KeySchema],
                                 Projection: Projection
-                              )
+                              ) extends DynamoIndex
 
 object LocalSecondaryIndex extends DefaultJsonProtocol {
   implicit val format: JsonFormat[LocalSecondaryIndex] = jsonFormat3(LocalSecondaryIndex.apply)

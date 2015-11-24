@@ -84,6 +84,7 @@ describe("Template Lookup") {
 - AWS::AutoScaling::LaunchConfiguration
 - AWS::AutoScaling::ScalingPolicy
 - AWS::CloudWatch::Alarm
+- AWS::DynamoDB::Table
 - AWS::EC2::EIP
 - AWS::EC2::Instance
 - AWS::EC2::InternetGateway

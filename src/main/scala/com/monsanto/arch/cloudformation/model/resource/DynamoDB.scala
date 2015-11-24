@@ -3,6 +3,8 @@ package com.monsanto.arch.cloudformation.model.resource
 import com.monsanto.arch.cloudformation.model._
 import spray.json.{JsString, JsValue, JsonFormat, DefaultJsonProtocol}
 
+import scala.language.implicitConversions
+
 /**
   * http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dynamodb-table.html
   * Created by Tyler Southwick on 11/24/15.
@@ -28,17 +30,37 @@ object `AWS::DynamoDB::Table` extends DefaultJsonProtocol {
   implicit val format: JsonFormat[`AWS::DynamoDB::Table`] = jsonFormat8(`AWS::DynamoDB::Table`.apply)
 }
 
+sealed trait AttributeType
+case object StringAttributeType extends AttributeType
+case object NumberAttributeType extends AttributeType
+case object BinaryAttributeType extends AttributeType
+object AttributeType extends DefaultJsonProtocol {
+  implicit object format extends JsonFormat[AttributeType] {
+    override def write(obj: AttributeType) = JsString(obj match {
+      case StringAttributeType => "S"
+      case NumberAttributeType => "N"
+      case BinaryAttributeType => "B"
+    })
+
+    override def read(json: JsValue): AttributeType = ???
+  }
+}
 /**
   * @param AttributeName The name of an attribute. Attribute names can be 1 – 255 characters long and have no character restrictions.
   * @param AttributeType The data type for the attribute. You can specify S for string data, N for numeric data, or B for binary data.
   */
 case class AttributeDefinition(
-                                AttributeName: Token[String],
-                                AttributeType: Token[String]
+                                AttributeName: String,
+                                AttributeType: AttributeType
                               )
 
 object AttributeDefinition extends DefaultJsonProtocol {
   implicit val format: JsonFormat[AttributeDefinition] = jsonFormat2(AttributeDefinition.apply)
+
+  implicit def tuple2AttributeDefinition(t : (String, AttributeType)) : AttributeDefinition = AttributeDefinition(
+    AttributeName = t._1,
+    AttributeType = t._2
+  )
 }
 
 case class GlobalSecondaryIndex(

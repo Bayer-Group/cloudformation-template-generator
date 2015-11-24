@@ -10,10 +10,9 @@ class DynamoDBSpec extends FunSpec with Matchers with JsonWritingMatcher {
   it("should generate policy document") {
     val dynamoDbTable = `AWS::DynamoDB::Table`(
       name = "mytable",
-      AttributeDefinitions = Seq(AttributeDefinition(
-        AttributeName = "name",
-        AttributeType = "S"
-      )),
+      AttributeDefinitions = Seq(
+        "name" -> StringAttributeType
+      ),
       GlobalSecondaryIndexes = Seq(GlobalSecondaryIndex(
         IndexName = "globalIndex1",
         KeySchema = Seq(KeySchema(

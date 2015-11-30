@@ -5,9 +5,25 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [3.0.4] - 2015-11-30
+
+### Changed
+
+-   Minor updates to README.md, CHANGELOG.md and MAINTAINERS
+
+## [3.0.3] - 2015-11-30
+
+The "tylersouthwick" release!
+
 ### Added
 
 -   CHANGELOG.md
+
+-   SQS and DynamoDB support
+
+-   Support for IAM Policy Conditions
+
+-   aws triple-quoted string interpolation
 
 ## [3.0.2] - 2015-10-27
 

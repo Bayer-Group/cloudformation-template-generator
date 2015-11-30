@@ -23,7 +23,6 @@ trait JsonWritingMatcher extends Matchers {
       import spray.json._
 
       val jsonPolicy = value.toJson(format)
-      println(jsonPolicy)
       val parsedPolicy = policy.parseJson
       jsonEquals(Seq(), jsonPolicy, parsedPolicy)
     }

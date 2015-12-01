@@ -108,6 +108,9 @@ describe("Template Lookup") {
 - AWS::IAM::Policy
 - AWS::IAM::Role
 - AWS::IAM::User
+- AWS::Lambda::EventSourceMapping
+- AWS::Lambda::Function
+- AWS::Lambda::Permission
 - AWS::RDS::DBInstance::Engine
 - AWS::RDS::DBInstance::StorageType
 - AWS::RDS::DBInstance

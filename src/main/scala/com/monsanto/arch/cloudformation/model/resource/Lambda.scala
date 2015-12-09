@@ -1,6 +1,6 @@
 package com.monsanto.arch.cloudformation.model.resource
 
-import com.monsanto.arch.cloudformation.model.{Template, `Fn::GetAtt`, Token, ConditionRef}
+import com.monsanto.arch.cloudformation.model._
 import spray.json.{JsString, JsValue, JsonFormat, DefaultJsonProtocol}
 
 class Runtime(val runtime: String)
@@ -25,7 +25,7 @@ object Runtime {
 
 case class `AWS::Lambda::Function`(name: String,
                                    Code: Code,
-                                   Description: String,
+                                   Description: Option[String],
                                    Handler: String,
                                    Runtime: Runtime,
                                    MemorySize: Option[Int] = None,
@@ -60,10 +60,10 @@ object Code extends DefaultJsonProtocol {
 
 case class `AWS::Lambda::Permission`(name: String,
                                      Action: String,
-                                     FunctionName: Token[String],
+                                     FunctionName: Token[ResourceRef[`AWS::Lambda::Function`]],
                                      Principal: Token[String],
                                      SourceAccount: Option[Token[String]],
-                                     SourceArn: Token[String],
+                                     SourceArn: Option[Token[String]],
                                      override val Condition: Option[ConditionRef] = None)
   extends Resource[`AWS::Lambda::Permission`] {
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
@@ -75,8 +75,8 @@ object `AWS::Lambda::Permission` extends DefaultJsonProtocol {
 
 case class `AWS::Lambda::EventSourceMapping`(
                                               name: String,
-                                              BatchSize: Token[Int],
-                                              Enabled: Token[Boolean],
+                                              BatchSize: Option[Token[Int]],
+                                              Enabled: Option[Token[Boolean]],
                                               EventSourceArn: Token[String],
                                               FunctionName: Token[String],
                                               StartingPosition: Token[String],

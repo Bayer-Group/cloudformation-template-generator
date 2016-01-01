@@ -78,7 +78,7 @@ case class `AWS::Lambda::EventSourceMapping`(
                                               BatchSize: Option[Token[Int]],
                                               Enabled: Option[Token[Boolean]],
                                               EventSourceArn: Token[String],
-                                              FunctionName: Token[String],
+                                              FunctionName: Token[ResourceRef[`AWS::Lambda::Function`]],
                                               StartingPosition: Token[String],
                                               override val Condition: Option[ConditionRef] = None
                                               ) extends Resource[`AWS::Lambda::EventSourceMapping`] {

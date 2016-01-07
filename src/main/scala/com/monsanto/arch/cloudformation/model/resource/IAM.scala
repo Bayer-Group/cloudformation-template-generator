@@ -88,9 +88,11 @@ case class `AWS::IAM::Role`(
   Path:                     Option[Token[String]] = None,
   Policies:                 Option[Seq[Policy]] = None,
   override val Condition: Option[ConditionRef] = None
-  ) extends Resource[`AWS::IAM::Role`]{
+  ) extends Resource[`AWS::IAM::Role`] with HasArn {
 
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
+
+  override def arn = `Fn::GetAtt`(Seq(name, "Arn"))
 }
 object `AWS::IAM::Role` extends DefaultJsonProtocol {
   implicit val format: JsonFormat[`AWS::IAM::Role`] = jsonFormat6(`AWS::IAM::Role`.apply)

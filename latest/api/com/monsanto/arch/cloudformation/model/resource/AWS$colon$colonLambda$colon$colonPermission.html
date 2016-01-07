@@ -1,9 +1,9 @@
 <!DOCTYPE html >
 <html>
         <head>
-          <title>AWS::IAM::Role - com.monsanto.arch.cloudformation.model.resource.AWS::IAM::Role</title>
-          <meta name="description" content="AWS IAM Role - com.monsanto.arch.cloudformation.model.resource.AWS IAM Role" />
-          <meta name="keywords" content="AWS IAM Role com.monsanto.arch.cloudformation.model.resource.AWS IAM Role" />
+          <title>AWS::Lambda::Permission - com.monsanto.arch.cloudformation.model.resource.AWS::Lambda::Permission</title>
+          <meta name="description" content="AWS Lambda Permission - com.monsanto.arch.cloudformation.model.resource.AWS Lambda Permission" />
+          <meta name="keywords" content="AWS Lambda Permission com.monsanto.arch.cloudformation.model.resource.AWS Lambda Permission" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../../../../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
@@ -16,7 +16,7 @@
       <script type="text/javascript">
          if(top === self) {
             var url = '../../../../../../index.html';
-            var hash = 'com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonIAM$colon$colonRole';
+            var hash = 'com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonLambda$colon$colonPermission';
             var anchor = window.location.hash;
             var anchor_opt = '';
             if (anchor.length >= 1)
@@ -28,14 +28,14 @@
         </head>
         <body class="type">
       <div id="definition">
-        <a href="AWS$colon$colonIAM$colon$colonRole$.html" title="See companion object"><img alt="Class/Object" src="../../../../../../lib/class_to_object_big.png" /></a>
+        <a href="AWS$colon$colonLambda$colon$colonPermission$.html" title="See companion object"><img alt="Class/Object" src="../../../../../../lib/class_to_object_big.png" /></a>
         <p id="owner"><a href="../../../../../package.html" class="extype" name="com">com</a>.<a href="../../../../package.html" class="extype" name="com.monsanto">monsanto</a>.<a href="../../../package.html" class="extype" name="com.monsanto.arch">arch</a>.<a href="../../package.html" class="extype" name="com.monsanto.arch.cloudformation">cloudformation</a>.<a href="../package.html" class="extype" name="com.monsanto.arch.cloudformation.model">model</a>.<a href="package.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource">resource</a></p>
-        <h1><a href="AWS$colon$colonIAM$colon$colonRole$.html" title="See companion object">AWS::IAM::Role</a></h1><h3><span class="morelinks"><div>
+        <h1><a href="AWS$colon$colonLambda$colon$colonPermission$.html" title="See companion object">AWS::Lambda::Permission</a></h1><h3><span class="morelinks"><div>
             Related Docs:
-            <a href="AWS$colon$colonIAM$colon$colonRole$.html" title="See companion object">object AWS::IAM::Role</a>
+            <a href="AWS$colon$colonLambda$colon$colonPermission$.html" title="See companion object">object AWS::Lambda::Permission</a>
             | <a href="package.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource">package resource</a>
           </div></span></h3><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonIAM$colon$colonRole" title="Permalink" target="_top">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonLambda$colon$colonPermission" title="Permalink" target="_top">
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -47,13 +47,13 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: AWS$colon$colonIAM$colon$colonRole" class="name">AWS::IAM::Role</span><span class="params">(<span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="AssumeRolePolicyDocument">AssumeRolePolicyDocument: <a href="PolicyDocument.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.PolicyDocument">PolicyDocument</a></span>, <span name="ManagedPolicyArns">ManagedPolicyArns: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<a href="../ResourceRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ResourceRef">ResourceRef</a>[<a href="AWS$colon$colonIAM$colon$colonManagedPolicy.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::IAM::ManagedPolicy">AWS::IAM::ManagedPolicy</a>]]] = <span class="symbol">None</span></span>, <span name="Path">Path: <span class="extype" name="scala.Option">Option</span>[<a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol">None</span></span>, <span name="Policies">Policies: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<a href="Policy.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Policy">Policy</a>]] = <span class="symbol">None</span></span>, <span name="Condition">Condition: <span class="extype" name="scala.Option">Option</span>[<a href="../ConditionRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ConditionRef">ConditionRef</a>] = <span class="symbol">None</span></span>)</span><span class="result"> extends <a href="Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a>[<a href="" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::IAM::Role">AWS::IAM::Role</a>] with <a href="HasArn.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.HasArn">HasArn</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <span title="gt4s: AWS$colon$colonLambda$colon$colonPermission" class="name">AWS::Lambda::Permission</span><span class="params">(<span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="Action">Action: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="FunctionName">FunctionName: <a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<a href="../ResourceRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ResourceRef">ResourceRef</a>[<a href="AWS$colon$colonLambda$colon$colonFunction.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::Lambda::Function">AWS::Lambda::Function</a>]]</span>, <span name="Principal">Principal: <a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="SourceAccount">SourceAccount: <span class="extype" name="scala.Option">Option</span>[<a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="scala.Predef.String">String</span>]]</span>, <span name="SourceArn">SourceArn: <span class="extype" name="scala.Option">Option</span>[<a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="scala.Predef.String">String</span>]]</span>, <span name="Condition">Condition: <span class="extype" name="scala.Option">Option</span>[<a href="../ConditionRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ConditionRef">ConditionRef</a>] = <span class="symbol">None</span></span>)</span><span class="result"> extends <a href="Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a>[<a href="" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::Lambda::Permission">AWS::Lambda::Permission</a>] with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
       
           <div id="comment" class="fullcommenttop"><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
-          <div class="superTypes hiddenContent"><span class="extype" name="scala.Serializable">Serializable</span>, <span class="extype" name="java.io.Serializable">Serializable</span>, <span class="extype" name="scala.Product">Product</span>, <span class="extype" name="scala.Equals">Equals</span>, <a href="HasArn.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.HasArn">HasArn</a>, <a href="Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a>[<a href="" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::IAM::Role">AWS::IAM::Role</a>], <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+          <div class="superTypes hiddenContent"><span class="extype" name="scala.Serializable">Serializable</span>, <span class="extype" name="java.io.Serializable">Serializable</span>, <span class="extype" name="scala.Product">Product</span>, <span class="extype" name="scala.Equals">Equals</span>, <a href="Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a>[<a href="" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::Lambda::Permission">AWS::Lambda::Permission</a>], <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>
         
 
@@ -71,7 +71,7 @@
                 <span class="filtertype">Inherited<br />
                 </span>
                 <ol id="linearization">
-                  <li class="in" name="com.monsanto.arch.cloudformation.model.resource.AWS::IAM::Role"><span>AWS::IAM::Role</span></li><li class="in" name="scala.Serializable"><span>Serializable</span></li><li class="in" name="java.io.Serializable"><span>Serializable</span></li><li class="in" name="scala.Product"><span>Product</span></li><li class="in" name="scala.Equals"><span>Equals</span></li><li class="in" name="com.monsanto.arch.cloudformation.model.resource.HasArn"><span>HasArn</span></li><li class="in" name="com.monsanto.arch.cloudformation.model.resource.Resource"><span>Resource</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                  <li class="in" name="com.monsanto.arch.cloudformation.model.resource.AWS::Lambda::Permission"><span>AWS::Lambda::Permission</span></li><li class="in" name="scala.Serializable"><span>Serializable</span></li><li class="in" name="java.io.Serializable"><span>Serializable</span></li><li class="in" name="scala.Product"><span>Product</span></li><li class="in" name="scala.Equals"><span>Equals</span></li><li class="in" name="com.monsanto.arch.cloudformation.model.resource.Resource"><span>Resource</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                 </ol>
               </div><div id="ancestors">
             <span class="filtertype"></span>
@@ -90,19 +90,19 @@
         <div id="allMembers">
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
-              <ol><li name="com.monsanto.arch.cloudformation.model.resource.AWS::IAM::Role#&lt;init&gt;" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="&lt;init&gt;(name:String,AssumeRolePolicyDocument:com.monsanto.arch.cloudformation.model.resource.PolicyDocument,ManagedPolicyArns:Option[Seq[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::IAM::ManagedPolicy]]],Path:Option[com.monsanto.arch.cloudformation.model.Token[String]],Policies:Option[Seq[com.monsanto.arch.cloudformation.model.resource.Policy]],Condition:Option[com.monsanto.arch.cloudformation.model.ConditionRef]):com.monsanto.arch.cloudformation.model.resource.AWS::IAM::Role"></a>
-      <a id="&lt;init&gt;:AWS::IAM::Role"></a>
+              <ol><li name="com.monsanto.arch.cloudformation.model.resource.AWS::Lambda::Permission#&lt;init&gt;" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="&lt;init&gt;(name:String,Action:String,FunctionName:com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::Lambda::Function]],Principal:com.monsanto.arch.cloudformation.model.Token[String],SourceAccount:Option[com.monsanto.arch.cloudformation.model.Token[String]],SourceArn:Option[com.monsanto.arch.cloudformation.model.Token[String]],Condition:Option[com.monsanto.arch.cloudformation.model.ConditionRef]):com.monsanto.arch.cloudformation.model.resource.AWS::Lambda::Permission"></a>
+      <a id="&lt;init&gt;:AWS::Lambda::Permission"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: AWS$colon$colonIAM$colon$colonRole" class="name">AWS::IAM::Role</span><span class="params">(<span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="AssumeRolePolicyDocument">AssumeRolePolicyDocument: <a href="PolicyDocument.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.PolicyDocument">PolicyDocument</a></span>, <span name="ManagedPolicyArns">ManagedPolicyArns: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<a href="../ResourceRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ResourceRef">ResourceRef</a>[<a href="AWS$colon$colonIAM$colon$colonManagedPolicy.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::IAM::ManagedPolicy">AWS::IAM::ManagedPolicy</a>]]] = <span class="symbol">None</span></span>, <span name="Path">Path: <span class="extype" name="scala.Option">Option</span>[<a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol">None</span></span>, <span name="Policies">Policies: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<a href="Policy.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Policy">Policy</a>]] = <span class="symbol">None</span></span>, <span name="Condition">Condition: <span class="extype" name="scala.Option">Option</span>[<a href="../ConditionRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ConditionRef">ConditionRef</a>] = <span class="symbol">None</span></span>)</span>
+        <span title="gt4s: AWS$colon$colonLambda$colon$colonPermission" class="name">AWS::Lambda::Permission</span><span class="params">(<span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="Action">Action: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="FunctionName">FunctionName: <a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<a href="../ResourceRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ResourceRef">ResourceRef</a>[<a href="AWS$colon$colonLambda$colon$colonFunction.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::Lambda::Function">AWS::Lambda::Function</a>]]</span>, <span name="Principal">Principal: <a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="SourceAccount">SourceAccount: <span class="extype" name="scala.Option">Option</span>[<a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="scala.Predef.String">String</span>]]</span>, <span name="SourceArn">SourceArn: <span class="extype" name="scala.Option">Option</span>[<a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="scala.Predef.String">String</span>]]</span>, <span name="Condition">Condition: <span class="extype" name="scala.Option">Option</span>[<a href="../ConditionRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ConditionRef">ConditionRef</a>] = <span class="symbol">None</span></span>)</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonIAM$colon$colonRole@&lt;init&gt;(name:String,AssumeRolePolicyDocument:com.monsanto.arch.cloudformation.model.resource.PolicyDocument,ManagedPolicyArns:Option[Seq[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::IAM::ManagedPolicy]]],Path:Option[com.monsanto.arch.cloudformation.model.Token[String]],Policies:Option[Seq[com.monsanto.arch.cloudformation.model.resource.Policy]],Condition:Option[com.monsanto.arch.cloudformation.model.ConditionRef]):com.monsanto.arch.cloudformation.model.resource.AWS::IAM::Role" title="Permalink" target="_top">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonLambda$colon$colonPermission@&lt;init&gt;(name:String,Action:String,FunctionName:com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::Lambda::Function]],Principal:com.monsanto.arch.cloudformation.model.Token[String],SourceAccount:Option[com.monsanto.arch.cloudformation.model.Token[String]],SourceArn:Option[com.monsanto.arch.cloudformation.model.Token[String]],Condition:Option[com.monsanto.arch.cloudformation.model.ConditionRef]):com.monsanto.arch.cloudformation.model.resource.AWS::Lambda::Permission" title="Permalink" target="_top">
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -121,10 +121,10 @@
         <span class="kind">type</span>
       </span>
       <span class="symbol">
-        <span class="name">RR</span><span class="result"> = <a href="Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a>[<a href="" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::IAM::Role">AWS::IAM::Role</a>]</span>
+        <span class="name">RR</span><span class="result"> = <a href="Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a>[<a href="" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::Lambda::Permission">AWS::Lambda::Permission</a>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonIAM$colon$colonRole@RR=com.monsanto.arch.cloudformation.model.resource.Resource[R]" title="Permalink" target="_top">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonLambda$colon$colonPermission@RR=com.monsanto.arch.cloudformation.model.resource.Resource[R]" title="Permalink" target="_top">
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -148,7 +148,7 @@
         <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonIAM$colon$colonRole@!=(x$1:Any):Boolean" title="Permalink" target="_top">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonLambda$colon$colonPermission@!=(x$1:Any):Boolean" title="Permalink" target="_top">
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -165,7 +165,7 @@
         <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonIAM$colon$colonRole@##():Int" title="Permalink" target="_top">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonLambda$colon$colonPermission@##():Int" title="Permalink" target="_top">
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -182,29 +182,29 @@
         <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonIAM$colon$colonRole@==(x$1:Any):Boolean" title="Permalink" target="_top">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonLambda$colon$colonPermission@==(x$1:Any):Boolean" title="Permalink" target="_top">
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="com.monsanto.arch.cloudformation.model.resource.AWS::IAM::Role#AssumeRolePolicyDocument" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="AssumeRolePolicyDocument:com.monsanto.arch.cloudformation.model.resource.PolicyDocument"></a>
-      <a id="AssumeRolePolicyDocument:PolicyDocument"></a>
+    </li><li name="com.monsanto.arch.cloudformation.model.resource.AWS::Lambda::Permission#Action" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Action:String"></a>
+      <a id="Action:String"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">AssumeRolePolicyDocument</span><span class="result">: <a href="PolicyDocument.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.PolicyDocument">PolicyDocument</a></span>
+        <span class="name">Action</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonIAM$colon$colonRole@AssumeRolePolicyDocument:com.monsanto.arch.cloudformation.model.resource.PolicyDocument" title="Permalink" target="_top">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonLambda$colon$colonPermission@Action:String" title="Permalink" target="_top">
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
-    </li><li name="com.monsanto.arch.cloudformation.model.resource.AWS::IAM::Role#Condition" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+    </li><li name="com.monsanto.arch.cloudformation.model.resource.AWS::Lambda::Permission#Condition" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="Condition:Option[com.monsanto.arch.cloudformation.model.ConditionRef]"></a>
       <a id="Condition:Option[ConditionRef]"></a>
       <h4 class="signature">
@@ -216,11 +216,11 @@
         <span class="name">Condition</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<a href="../ConditionRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ConditionRef">ConditionRef</a>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonIAM$colon$colonRole@Condition:Option[com.monsanto.arch.cloudformation.model.ConditionRef]" title="Permalink" target="_top">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonLambda$colon$colonPermission@Condition:Option[com.monsanto.arch.cloudformation.model.ConditionRef]" title="Permalink" target="_top">
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::IAM::Role">AWS::IAM::Role</a> → <a href="Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a></dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::Lambda::Permission">AWS::Lambda::Permission</a> → <a href="Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a></dd></dl></div>
     </li><li name="com.monsanto.arch.cloudformation.model.resource.Resource#DeletionPolicy" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="DeletionPolicy:Option[com.monsanto.arch.cloudformation.model.resource.DeletionPolicy]"></a>
       <a id="DeletionPolicy:Option[DeletionPolicy]"></a>
@@ -233,7 +233,7 @@
         <span class="name">DeletionPolicy</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<a href="DeletionPolicy.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.DeletionPolicy">DeletionPolicy</a>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonIAM$colon$colonRole@DeletionPolicy:Option[com.monsanto.arch.cloudformation.model.resource.DeletionPolicy]" title="Permalink" target="_top">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonLambda$colon$colonPermission@DeletionPolicy:Option[com.monsanto.arch.cloudformation.model.resource.DeletionPolicy]" title="Permalink" target="_top">
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -250,58 +250,75 @@
         <span class="name">DependsOn</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonIAM$colon$colonRole@DependsOn:Option[Seq[String]]" title="Permalink" target="_top">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonLambda$colon$colonPermission@DependsOn:Option[Seq[String]]" title="Permalink" target="_top">
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a></dd></dl></div>
-    </li><li name="com.monsanto.arch.cloudformation.model.resource.AWS::IAM::Role#ManagedPolicyArns" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="ManagedPolicyArns:Option[Seq[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::IAM::ManagedPolicy]]]"></a>
-      <a id="ManagedPolicyArns:Option[Seq[ResourceRef[AWS::IAM::ManagedPolicy]]]"></a>
+    </li><li name="com.monsanto.arch.cloudformation.model.resource.AWS::Lambda::Permission#FunctionName" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="FunctionName:com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::Lambda::Function]]"></a>
+      <a id="FunctionName:Token[ResourceRef[AWS::Lambda::Function]]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">ManagedPolicyArns</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<a href="../ResourceRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ResourceRef">ResourceRef</a>[<a href="AWS$colon$colonIAM$colon$colonManagedPolicy.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::IAM::ManagedPolicy">AWS::IAM::ManagedPolicy</a>]]]</span>
+        <span class="name">FunctionName</span><span class="result">: <a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<a href="../ResourceRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ResourceRef">ResourceRef</a>[<a href="AWS$colon$colonLambda$colon$colonFunction.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::Lambda::Function">AWS::Lambda::Function</a>]]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonIAM$colon$colonRole@ManagedPolicyArns:Option[Seq[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::IAM::ManagedPolicy]]]" title="Permalink" target="_top">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonLambda$colon$colonPermission@FunctionName:com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::Lambda::Function]]" title="Permalink" target="_top">
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
-    </li><li name="com.monsanto.arch.cloudformation.model.resource.AWS::IAM::Role#Path" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="Path:Option[com.monsanto.arch.cloudformation.model.Token[String]]"></a>
-      <a id="Path:Option[Token[String]]"></a>
+    </li><li name="com.monsanto.arch.cloudformation.model.resource.AWS::Lambda::Permission#Principal" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Principal:com.monsanto.arch.cloudformation.model.Token[String]"></a>
+      <a id="Principal:Token[String]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">Path</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
+        <span class="name">Principal</span><span class="result">: <a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonIAM$colon$colonRole@Path:Option[com.monsanto.arch.cloudformation.model.Token[String]]" title="Permalink" target="_top">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonLambda$colon$colonPermission@Principal:com.monsanto.arch.cloudformation.model.Token[String]" title="Permalink" target="_top">
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
-    </li><li name="com.monsanto.arch.cloudformation.model.resource.AWS::IAM::Role#Policies" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="Policies:Option[Seq[com.monsanto.arch.cloudformation.model.resource.Policy]]"></a>
-      <a id="Policies:Option[Seq[Policy]]"></a>
+    </li><li name="com.monsanto.arch.cloudformation.model.resource.AWS::Lambda::Permission#SourceAccount" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="SourceAccount:Option[com.monsanto.arch.cloudformation.model.Token[String]]"></a>
+      <a id="SourceAccount:Option[Token[String]]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">Policies</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<a href="Policy.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Policy">Policy</a>]]</span>
+        <span class="name">SourceAccount</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonIAM$colon$colonRole@Policies:Option[Seq[com.monsanto.arch.cloudformation.model.resource.Policy]]" title="Permalink" target="_top">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonLambda$colon$colonPermission@SourceAccount:Option[com.monsanto.arch.cloudformation.model.Token[String]]" title="Permalink" target="_top">
+        <img src="../../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.monsanto.arch.cloudformation.model.resource.AWS::Lambda::Permission#SourceArn" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="SourceArn:Option[com.monsanto.arch.cloudformation.model.Token[String]]"></a>
+      <a id="SourceArn:Option[Token[String]]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">SourceArn</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonLambda$colon$colonPermission@SourceArn:Option[com.monsanto.arch.cloudformation.model.Token[String]]" title="Permalink" target="_top">
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -318,28 +335,11 @@
         <span class="name">Type</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonIAM$colon$colonRole@Type:String" title="Permalink" target="_top">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonLambda$colon$colonPermission@Type:String" title="Permalink" target="_top">
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a></dd></dl></div>
-    </li><li name="com.monsanto.arch.cloudformation.model.resource.AWS::IAM::Role#arn" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="arn:com.monsanto.arch.cloudformation.model.FunctionCallToken[String]"></a>
-      <a id="arn:FunctionCallToken[String]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">arn</span><span class="result">: <a href="../FunctionCallToken.html" class="extype" name="com.monsanto.arch.cloudformation.model.FunctionCallToken">FunctionCallToken</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonIAM$colon$colonRole@arn:com.monsanto.arch.cloudformation.model.FunctionCallToken[String]" title="Permalink" target="_top">
-        <img src="../../../../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::IAM::Role">AWS::IAM::Role</a> → <a href="HasArn.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.HasArn">HasArn</a></dd></dl></div>
     </li><li name="scala.Any#asInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="asInstanceOf[T0]:T0"></a>
       <a id="asInstanceOf[T0]:T0"></a>
@@ -352,7 +352,7 @@
         <span class="name">asInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <span class="extype" name="scala.Any.asInstanceOf.T0">T0</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonIAM$colon$colonRole@asInstanceOf[T0]:T0" title="Permalink" target="_top">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonLambda$colon$colonPermission@asInstanceOf[T0]:T0" title="Permalink" target="_top">
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -369,7 +369,7 @@
         <span class="name">clone</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonIAM$colon$colonRole@clone():Object" title="Permalink" target="_top">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonLambda$colon$colonPermission@clone():Object" title="Permalink" target="_top">
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -392,7 +392,7 @@
         <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonIAM$colon$colonRole@eq(x$1:AnyRef):Boolean" title="Permalink" target="_top">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonLambda$colon$colonPermission@eq(x$1:AnyRef):Boolean" title="Permalink" target="_top">
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -409,7 +409,7 @@
         <span class="name">finalize</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonIAM$colon$colonRole@finalize():Unit" title="Permalink" target="_top">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonLambda$colon$colonPermission@finalize():Unit" title="Permalink" target="_top">
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -432,7 +432,7 @@
         <span class="name">getClass</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.Class">Class</span>[_]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonIAM$colon$colonRole@getClass():Class[_]" title="Permalink" target="_top">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonLambda$colon$colonPermission@getClass():Class[_]" title="Permalink" target="_top">
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -449,12 +449,12 @@
         <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonIAM$colon$colonRole@isInstanceOf[T0]:Boolean" title="Permalink" target="_top">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonLambda$colon$colonPermission@isInstanceOf[T0]:Boolean" title="Permalink" target="_top">
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li name="com.monsanto.arch.cloudformation.model.resource.AWS::IAM::Role#name" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+    </li><li name="com.monsanto.arch.cloudformation.model.resource.AWS::Lambda::Permission#name" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="name:String"></a>
       <a id="name:String"></a>
       <h4 class="signature">
@@ -466,11 +466,11 @@
         <span class="name">name</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonIAM$colon$colonRole@name:String" title="Permalink" target="_top">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonLambda$colon$colonPermission@name:String" title="Permalink" target="_top">
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::IAM::Role">AWS::IAM::Role</a> → <a href="HasArn.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.HasArn">HasArn</a> → <a href="Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a></dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::Lambda::Permission">AWS::Lambda::Permission</a> → <a href="Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a></dd></dl></div>
     </li><li name="scala.AnyRef#ne" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ne(x$1:AnyRef):Boolean"></a>
       <a id="ne(AnyRef):Boolean"></a>
@@ -483,7 +483,7 @@
         <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonIAM$colon$colonRole@ne(x$1:AnyRef):Boolean" title="Permalink" target="_top">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonLambda$colon$colonPermission@ne(x$1:AnyRef):Boolean" title="Permalink" target="_top">
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -500,7 +500,7 @@
         <span class="name">notify</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonIAM$colon$colonRole@notify():Unit" title="Permalink" target="_top">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonLambda$colon$colonPermission@notify():Unit" title="Permalink" target="_top">
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -517,7 +517,7 @@
         <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonIAM$colon$colonRole@notifyAll():Unit" title="Permalink" target="_top">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonLambda$colon$colonPermission@notifyAll():Unit" title="Permalink" target="_top">
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -534,7 +534,7 @@
         <span class="name">synchronized</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="params">(<span name="arg0">arg0: ⇒ <span class="extype" name="java.lang.AnyRef.synchronized.T0">T0</span></span>)</span><span class="result">: <span class="extype" name="java.lang.AnyRef.synchronized.T0">T0</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonIAM$colon$colonRole@synchronized[T0](x$1:=&gt;T0):T0" title="Permalink" target="_top">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonLambda$colon$colonPermission@synchronized[T0](x$1:=&gt;T0):T0" title="Permalink" target="_top">
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -551,7 +551,7 @@
         <span class="name">wait</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonIAM$colon$colonRole@wait():Unit" title="Permalink" target="_top">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonLambda$colon$colonPermission@wait():Unit" title="Permalink" target="_top">
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -574,7 +574,7 @@
         <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Long">Long</span></span>, <span name="arg1">arg1: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonIAM$colon$colonRole@wait(x$1:Long,x$2:Int):Unit" title="Permalink" target="_top">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonLambda$colon$colonPermission@wait(x$1:Long,x$2:Int):Unit" title="Permalink" target="_top">
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -597,7 +597,7 @@
         <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Long">Long</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonIAM$colon$colonRole@wait(x$1:Long):Unit" title="Permalink" target="_top">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonLambda$colon$colonPermission@wait(x$1:Long):Unit" title="Permalink" target="_top">
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -608,23 +608,23 @@
     </span>)</span>
               
         </dd></dl></div>
-    </li><li name="com.monsanto.arch.cloudformation.model.resource.AWS::IAM::Role#when" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="when(newCondition:Option[com.monsanto.arch.cloudformation.model.ConditionRef]):com.monsanto.arch.cloudformation.model.resource.AWS::IAM::Role"></a>
-      <a id="when(Option[ConditionRef]):AWS::IAM::Role"></a>
+    </li><li name="com.monsanto.arch.cloudformation.model.resource.AWS::Lambda::Permission#when" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="when(newCondition:Option[com.monsanto.arch.cloudformation.model.ConditionRef]):com.monsanto.arch.cloudformation.model.resource.AWS::Lambda::Permission"></a>
+      <a id="when(Option[ConditionRef]):AWS::Lambda::Permission"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">when</span><span class="params">(<span name="newCondition">newCondition: <span class="extype" name="scala.Option">Option</span>[<a href="../ConditionRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ConditionRef">ConditionRef</a>] = <span class="symbol"><span class="name"><a href="#Condition:Option[com.monsanto.arch.cloudformation.model.ConditionRef]">Condition</a></span></span></span>)</span><span class="result">: <a href="" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::IAM::Role">AWS::IAM::Role</a></span>
+        <span class="name">when</span><span class="params">(<span name="newCondition">newCondition: <span class="extype" name="scala.Option">Option</span>[<a href="../ConditionRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ConditionRef">ConditionRef</a>] = <span class="symbol"><span class="name"><a href="#Condition:Option[com.monsanto.arch.cloudformation.model.ConditionRef]">Condition</a></span></span></span>)</span><span class="result">: <a href="" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::Lambda::Permission">AWS::Lambda::Permission</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonIAM$colon$colonRole@when(newCondition:Option[com.monsanto.arch.cloudformation.model.ConditionRef]):com.monsanto.arch.cloudformation.model.resource.AWS::IAM::Role" title="Permalink" target="_top">
+      <a href="../../../../../../index.html#com.monsanto.arch.cloudformation.model.resource.AWS$colon$colonLambda$colon$colonPermission@when(newCondition:Option[com.monsanto.arch.cloudformation.model.ConditionRef]):com.monsanto.arch.cloudformation.model.resource.AWS::Lambda::Permission" title="Permalink" target="_top">
         <img src="../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::IAM::Role">AWS::IAM::Role</a> → <a href="Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a></dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::Lambda::Permission">AWS::Lambda::Permission</a> → <a href="Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a></dd></dl></div>
     </li></ol>
             </div>
 
@@ -642,10 +642,8 @@
               <h3>Inherited from <span class="extype" name="scala.Product">Product</span></h3>
             </div><div class="parent" name="scala.Equals">
               <h3>Inherited from <span class="extype" name="scala.Equals">Equals</span></h3>
-            </div><div class="parent" name="com.monsanto.arch.cloudformation.model.resource.HasArn">
-              <h3>Inherited from <a href="HasArn.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.HasArn">HasArn</a></h3>
             </div><div class="parent" name="com.monsanto.arch.cloudformation.model.resource.Resource">
-              <h3>Inherited from <a href="Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a>[<a href="" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::IAM::Role">AWS::IAM::Role</a>]</h3>
+              <h3>Inherited from <a href="Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a>[<a href="" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::Lambda::Permission">AWS::Lambda::Permission</a>]</h3>
             </div><div class="parent" name="scala.AnyRef">
               <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
             </div><div class="parent" name="scala.Any">

@@ -90,7 +90,7 @@ class TemplateDoc_AT extends FunSpec with Matchers {
               )
               val sshToBastion = ParameterRef(allowSSHFromParameter) ->- 22 ->- bastion
               Template.fromSecurityGroupRoutable(bastion) ++
-                bastion.map(_.withEIP("BastionEIP").andOutput("BastionEIP", "Bastion Host EIP")) ++
+                bastion.map(_.withEIPInVPC("BastionEIP").andOutput("BastionEIP", "Bastion Host EIP")) ++
                 Template.collapse(sshToBastion)
             }
           }

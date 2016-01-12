@@ -928,25 +928,22 @@ object StaxTemplate {
     AmazonTag("CostCenter", ParameterRef(costCenterParam))
   )
 
-  private val jumpEIPResource = `AWS::EC2::EIP`(
+  private val jumpEIPResource = `AWS::EC2::EIP`.vpc(
     "JumpEIP",
     DependsOn = Some(Seq(gatewayAttachmentResource.name)),
-    Domain = "vpc",
-    InstanceId = ResourceRef(jumpInstanceResource)
+    InstanceId = Some(ResourceRef(jumpInstanceResource))
   )
 
-  private val nat1EIPResource = `AWS::EC2::EIP`(
+  private val nat1EIPResource = `AWS::EC2::EIP`.vpc(
     "NAT1EIP",
     DependsOn = Some(Seq(gatewayAttachmentResource.name)),
-    Domain = "vpc",
-    InstanceId = ResourceRef(nat1InstanceResource)
+    InstanceId = Some(ResourceRef(nat1InstanceResource))
   )
 
-  private val nat2EIPResource = `AWS::EC2::EIP`(
+  private val nat2EIPResource = `AWS::EC2::EIP`.vpc(
     "NAT2EIP",
     DependsOn = Some(Seq(gatewayAttachmentResource.name)),
-    Domain = "vpc",
-    InstanceId = ResourceRef(nat2InstanceResource)
+    InstanceId = Some(ResourceRef(nat2InstanceResource))
   )
 
   val itsaDockerStack = Template(

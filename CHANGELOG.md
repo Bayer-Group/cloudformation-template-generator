@@ -3,7 +3,19 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+
+## [3.0.7] - 2016-01-21
+
+### Added
+
+-   Add ability to work with NAT gateways.  Requires a custom Lambda function.  See README.md.
+-   Added `AWS::CloudFormation::WaitCondition` and `AWS::CloudFormation::WaitConditionHandle` to support pausing
+        for resources to do things.
+
+### Changed
+
+-   Improved EIP model to better handle VPC vs Classic EIPs.  Changes are backwards compatible, but 
+        existing methods are now deprecated.
 
 ## [3.0.4] - 2015-11-30
 

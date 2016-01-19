@@ -3,6 +3,8 @@ package com.monsanto.arch.cloudformation.model
 import spray.json._
 import DefaultJsonProtocol._
 
+import scala.collection.immutable.ListMap
+
 /**
  * Created by Ryan Richt on 2/15/15
  */
@@ -25,6 +27,6 @@ object Mapping extends DefaultJsonProtocol {
       }
     }
 
-    def write(objs: Seq[Mapping[_]]) = JsObject(objs.map(o => o.name -> format.write(o)).toMap)
+    def write(objs: Seq[Mapping[_]]) = JsObject(ListMap(objs.map(o => o.name -> format.write(o)): _*))
   }
 }

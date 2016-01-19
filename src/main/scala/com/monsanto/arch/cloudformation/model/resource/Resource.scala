@@ -3,9 +3,11 @@ package com.monsanto.arch.cloudformation.model.resource
 import com.monsanto.arch.cloudformation.model._
 import spray.json._
 
+import scala.collection.immutable.ListMap
 import scala.language.implicitConversions
 import scala.reflect.ClassTag
 import scala.reflect.NameTransformer
+
 
 /**
  * Created by Ryan Richt on 2/15/15
@@ -48,7 +50,7 @@ object Resource extends DefaultJsonProtocol {
       }
     }
 
-    def write(objs: Seq[Resource[_]]) = JsObject( objs.map( o => o.name -> format.write(o) ).toMap )
+    def write(objs: Seq[Resource[_]]) = JsObject( ListMap(objs.map( o => o.name -> format.write(o) ): _*) )
   }
 }
 

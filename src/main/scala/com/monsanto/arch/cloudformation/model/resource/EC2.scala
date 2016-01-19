@@ -94,6 +94,20 @@ object `AWS::EC2::KeyPair::KeyName` extends DefaultJsonProtocol {
   implicit val format: JsonFormat[`AWS::EC2::KeyPair::KeyName`] = jsonFormat2(`AWS::EC2::KeyPair::KeyName`.apply)
 }
 
+case class `AWS::EC2::CustomerGateway`(
+  name: String,
+  BgpAsn: Int,
+  IpAddress: IPAddress,
+  Tags: Seq[AmazonTag],
+  Type: String,
+  override val Condition: Option[ConditionRef] = None) extends Resource[`AWS::EC2::CustomerGateway`]{
+
+  def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
+}
+object `AWS::EC2::CustomerGateway` extends DefaultJsonProtocol {
+  implicit val format: JsonFormat[`AWS::EC2::CustomerGateway`] = jsonFormat6(`AWS::EC2::CustomerGateway`.apply)
+}
+
 @implicitNotFound("A Route can only have exactly ONE of GatewayId, InstanceId, NetworkInterfaceId or VpcPeeringConnectionId set")
 class ValidRouteCombo[G, I, P] private ()
 object ValidRouteCombo{

@@ -15,7 +15,7 @@ import scala.reflect.NameTransformer
 
 // serializes to Type and Properties
 abstract class Resource[R <: Resource[R] : ClassTag : JsonFormat]{ self: Resource[R] =>
-  val Type = NameTransformer.decode(implicitly[ClassTag[R]].runtimeClass.getSimpleName)
+  val ResourceType = NameTransformer.decode(implicitly[ClassTag[R]].runtimeClass.getSimpleName)
   val name: String
 
   val Condition:      Option[ConditionRef]   = None
@@ -37,7 +37,7 @@ object Resource extends DefaultJsonProtocol {
         val raw = bar._format.asInstanceOf[JsonFormat[obj.RR]].write(bar).asJsObject
 
         val outputFields = Map(
-          "Type" -> JsString(obj.Type),
+          "Type" -> JsString(obj.ResourceType),
           "Metadata" -> raw.fields.getOrElse("Metadata", JsNull),
           "Properties" -> JsObject(raw.fields - "name" - "Metadata" - "UpdatePolicy" - "Condition" - "DependsOn" - "DeletionPolicy"),
           "UpdatePolicy" -> raw.fields.getOrElse("UpdatePolicy", JsNull),

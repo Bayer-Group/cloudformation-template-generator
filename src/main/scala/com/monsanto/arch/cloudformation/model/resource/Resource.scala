@@ -3,9 +3,11 @@ package com.monsanto.arch.cloudformation.model.resource
 import com.monsanto.arch.cloudformation.model._
 import spray.json._
 
+import scala.collection.immutable.ListMap
 import scala.language.implicitConversions
 import scala.reflect.ClassTag
 import scala.reflect.NameTransformer
+
 
 /**
  * Created by Ryan Richt on 2/15/15
@@ -13,7 +15,7 @@ import scala.reflect.NameTransformer
 
 // serializes to Type and Properties
 abstract class Resource[R <: Resource[R] : ClassTag : JsonFormat]{ self: Resource[R] =>
-  val Type = NameTransformer.decode(implicitly[ClassTag[R]].runtimeClass.getSimpleName)
+  val ResourceType = NameTransformer.decode(implicitly[ClassTag[R]].runtimeClass.getSimpleName)
   val name: String
 
   val Condition:      Option[ConditionRef]   = None
@@ -35,7 +37,7 @@ object Resource extends DefaultJsonProtocol {
         val raw = bar._format.asInstanceOf[JsonFormat[obj.RR]].write(bar).asJsObject
 
         val outputFields = Map(
-          "Type" -> JsString(obj.Type),
+          "Type" -> JsString(obj.ResourceType),
           "Metadata" -> raw.fields.getOrElse("Metadata", JsNull),
           "Properties" -> JsObject(raw.fields - "name" - "Metadata" - "UpdatePolicy" - "Condition" - "DependsOn" - "DeletionPolicy"),
           "UpdatePolicy" -> raw.fields.getOrElse("UpdatePolicy", JsNull),
@@ -48,7 +50,7 @@ object Resource extends DefaultJsonProtocol {
       }
     }
 
-    def write(objs: Seq[Resource[_]]) = JsObject( objs.map( o => o.name -> format.write(o) ).toMap )
+    def write(objs: Seq[Resource[_]]) = JsObject( ListMap(objs.map( o => o.name -> format.write(o) ): _*) )
   }
 }
 

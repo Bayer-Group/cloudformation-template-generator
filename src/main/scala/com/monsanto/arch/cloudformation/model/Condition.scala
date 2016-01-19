@@ -2,6 +2,8 @@ package com.monsanto.arch.cloudformation.model
 
 import spray.json._
 
+import scala.collection.immutable.ListMap
+
 /**
  * Created by bkrodg on 2/16/15.
  */
@@ -12,6 +14,6 @@ object Condition extends DefaultJsonProtocol {
       def write(obj: Condition) = obj.function.toJson
     }
 
-    def write(objs: Seq[Condition]) = JsObject( objs.map( o => o.name -> o.toJson ).toMap )
+    def write(objs: Seq[Condition]) = JsObject( ListMap(objs.map( o => o.name -> o.toJson ): _*) )
   }
 }

@@ -3,6 +3,7 @@ package com.monsanto.arch.cloudformation.model
 import com.monsanto.arch.cloudformation.model.resource._
 import spray.json._
 import DefaultJsonProtocol._
+import scala.collection.immutable.ListMap
 import scala.language.implicitConversions
 
 /**
@@ -38,7 +39,7 @@ object Parameter extends DefaultJsonProtocol {
       }
     }
 
-    def write(objs: Seq[Parameter]) = JsObject( objs.map( o => o.name -> o.toJson ).toMap )
+    def write(objs: Seq[Parameter]) = JsObject( ListMap(objs.map( o => o.name -> o.toJson ): _*) )
   }
 }
 

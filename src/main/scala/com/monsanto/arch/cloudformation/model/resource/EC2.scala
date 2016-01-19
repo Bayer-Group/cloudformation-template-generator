@@ -19,8 +19,23 @@ case class `AWS::EC2::EIP`(
 ) extends Resource[`AWS::EC2::EIP`]{
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
 }
+
 object `AWS::EC2::EIP` extends DefaultJsonProtocol {
   implicit val format: JsonFormat[`AWS::EC2::EIP`] = jsonFormat5(`AWS::EC2::EIP`.apply)
+}
+
+case class `AWS::EC2::EIPAssociation`(
+  name:                   String,
+  AllocationId:           Option[Token[String]],
+  InstanceId:             Token[ResourceRef[`AWS::EC2::Instance`]],
+  override val Condition: Option[ConditionRef] = None,
+  override val DependsOn: Option[Seq[String]] = None
+) extends Resource[`AWS::EC2::EIPAssociation`]{
+  def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
+}
+
+object `AWS::EC2::EIPAssociation` extends DefaultJsonProtocol {
+  implicit val format: JsonFormat[`AWS::EC2::EIPAssociation`] = jsonFormat5(`AWS::EC2::EIPAssociation`.apply)
 }
 
 case class AMIId(id: String)
@@ -76,6 +91,20 @@ case class `AWS::EC2::KeyPair::KeyName`(name: String,
 }
 object `AWS::EC2::KeyPair::KeyName` extends DefaultJsonProtocol {
   implicit val format: JsonFormat[`AWS::EC2::KeyPair::KeyName`] = jsonFormat2(`AWS::EC2::KeyPair::KeyName`.apply)
+}
+
+case class `AWS::EC2::CustomerGateway`(
+  name: String,
+  BgpAsn: Int,
+  IpAddress: IPAddress,
+  Tags: Seq[AmazonTag],
+  Type: String,
+  override val Condition: Option[ConditionRef] = None) extends Resource[`AWS::EC2::CustomerGateway`]{
+
+  def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
+}
+object `AWS::EC2::CustomerGateway` extends DefaultJsonProtocol {
+  implicit val format: JsonFormat[`AWS::EC2::CustomerGateway`] = jsonFormat6(`AWS::EC2::CustomerGateway`.apply)
 }
 
 @implicitNotFound("A Route can only have exactly ONE of GatewayId, InstanceId, NetworkInterfaceId or VpcPeeringConnectionId set")
@@ -213,6 +242,21 @@ object CidrBlock extends DefaultJsonProtocol {
       val parts = json.convertTo[String].split(Array('.','/')).map(_.toInt)
 
       CidrBlock(parts(0), parts(1), parts(2), parts(3), parts(4))
+    }
+  }
+}
+
+case class IPAddress(a: IPAddressSegment, b: IPAddressSegment, c: IPAddressSegment, d: IPAddressSegment) {
+  def toJsString: JsString =  JsString( Seq(a, b, c, d).map(_.value.toString).mkString("."))
+}
+object IPAddress extends DefaultJsonProtocol {
+  implicit val format: JsonFormat[IPAddress] = new JsonFormat[IPAddress] {
+    def write(obj: IPAddress) = obj.toJsString
+
+    def read(json: JsValue) = {
+      val parts = json.convertTo[String].split(Array('.')).map(_.toInt)
+
+      IPAddress(parts(0), parts(1), parts(2), parts(3))
     }
   }
 }

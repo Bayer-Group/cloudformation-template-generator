@@ -87,6 +87,7 @@ describe("Template Lookup") {
 - AWS::DynamoDB::Table
 - AWS::EC2::CustomerGateway
 - AWS::EC2::EIP
+- AWS::EC2::EIPAssociation
 - AWS::EC2::Instance
 - AWS::EC2::InternetGateway
 - AWS::EC2::KeyPair::KeyName
@@ -99,6 +100,7 @@ describe("Template Lookup") {
 - AWS::EC2::SubnetRouteTableAssociation
 - AWS::EC2::VPC
 - AWS::EC2::VPCGatewayAttachment
+- AWS::EC2::VPCPeeringConnection
 - AWS::EC2::Volume
 - AWS::EC2::VolumeAttachment
 - AWS::ElasticLoadBalancing::LoadBalancer

@@ -232,6 +232,21 @@ object CidrBlock extends DefaultJsonProtocol {
   }
 }
 
+case class IPAddress(a: IPAddressSegment, b: IPAddressSegment, c: IPAddressSegment, d: IPAddressSegment) {
+  def toJsString: JsString =  JsString( Seq(a, b, c, d).map(_.value.toString).mkString("."))
+}
+object IPAddress extends DefaultJsonProtocol {
+  implicit val format: JsonFormat[IPAddress] = new JsonFormat[IPAddress] {
+    def write(obj: IPAddress) = obj.toJsString
+
+    def read(json: JsValue) = {
+      val parts = json.convertTo[String].split(Array('.')).map(_.toInt)
+
+      IPAddress(parts(0), parts(1), parts(2), parts(3))
+    }
+  }
+}
+
 sealed trait EgressSpec
 object EgressSpec extends DefaultJsonProtocol {
   implicit val format: JsonFormat[EgressSpec] = new JsonFormat[EgressSpec] {

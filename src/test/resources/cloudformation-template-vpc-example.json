@@ -401,6 +401,7 @@
         "CidrBlock":{
           "Ref":"PublicSubnet1"
         },
+        "MapPublicIpOnLaunch":true,
         "Tags":[
           {
             "Key":"Network",

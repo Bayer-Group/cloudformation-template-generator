@@ -313,18 +313,19 @@ object `AWS::EC2::SecurityGroupIngress` extends DefaultJsonProtocol {
 }
 
 case class `AWS::EC2::Subnet`(
-  name:             String,
-  VpcId:            Token[ResourceRef[`AWS::EC2::VPC`]],
-  AvailabilityZone: Token[String],
-  CidrBlock:        Token[CidrBlock],
-  Tags:             Seq[AmazonTag],
+  name:                String,
+  VpcId:               Token[ResourceRef[`AWS::EC2::VPC`]],
+  AvailabilityZone:    Token[String],
+  CidrBlock:           Token[CidrBlock],
+  Tags:                Seq[AmazonTag],
+  MapPublicIpOnLaunch: Option[Token[Boolean]] = None,
   override val Condition: Option[ConditionRef] = None
   ) extends Resource[`AWS::EC2::Subnet`]{
 
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
 }
 object `AWS::EC2::Subnet` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::EC2::Subnet`] = jsonFormat6(`AWS::EC2::Subnet`.apply)
+  implicit val format: JsonFormat[`AWS::EC2::Subnet`] = jsonFormat7(`AWS::EC2::Subnet`.apply)
 }
 
 case class `AWS::EC2::SubnetRouteTableAssociation`(

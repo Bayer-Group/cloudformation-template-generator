@@ -1289,6 +1289,7 @@
         },
         "SourceDestCheck":"false",
         "DisableApiTermination":"false",
+        "PrivateIpAddress":"1.2.3.4",
         "ImageId":{
           "Fn::FindInMap":[
             "AWSNATAMI",
@@ -1409,6 +1410,7 @@
         },
         "SourceDestCheck":"false",
         "DisableApiTermination":"false",
+        "PrivateIpAddress":"1.2.3.4",
         "ImageId":{
           "Fn::FindInMap":[
             "AWSNATAMI",

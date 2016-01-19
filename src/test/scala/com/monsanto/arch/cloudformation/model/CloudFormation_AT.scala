@@ -624,6 +624,7 @@ object StaxTemplate {
       SecurityGroupIds = Seq( ResourceRef(natSecGroupResource) ),
       Tags = standardTagsNoNetwork("nat" + number),
       DisableApiTermination = Some("false"),
+      PrivateIpAddress = Some(IPAddress(1, 2, 3, 4)),
       UserData = Some(`Fn::Base64`(
         `Fn::Join`("",
           Seq[Token[String]](

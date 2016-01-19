@@ -65,6 +65,7 @@ case class `AWS::EC2::Instance`(
   UserData:               Option[`Fn::Base64`] = None,
   Monitoring:             Option[Boolean] = None,
   Volumes:                Option[Seq[EC2MountPoint]] = None,
+  PrivateIpAddress:       Option[Token[IPAddress]] = None,
   DisableApiTermination:  Option[String] = None,
   override val Condition: Option[ConditionRef] = None,
   override val DependsOn: Option[Seq[String]] = None
@@ -72,7 +73,7 @@ case class `AWS::EC2::Instance`(
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
 }
 object `AWS::EC2::Instance` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::EC2::Instance`] = jsonFormat16(`AWS::EC2::Instance`.apply)
+  implicit val format: JsonFormat[`AWS::EC2::Instance`] = jsonFormat17(`AWS::EC2::Instance`.apply)
 }
 
 case class `AWS::EC2::InternetGateway`(name: String, Tags: Seq[AmazonTag],

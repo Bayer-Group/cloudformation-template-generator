@@ -38,46 +38,36 @@ trait Outputs {
 
 trait Route {
   implicit class RichRouteTable(rt: `AWS::EC2::RouteTable`) {
-    def withRouteT[G <: Option[Token[ResourceRef[`AWS::EC2::InternetGateway`]]], I <: Option[Token[ResourceRef[`AWS::EC2::Instance`]]],
-    P <: Option[Token[ResourceRef[`AWS::EC2::VPCPeeringConnection`]]]](
+    def withRouteT(
       visibility:        String,
       routeTableOrdinal: Int,
       routeOrdinal:      Int,
-      gateway:           G = None,
-      instance:          I = None,
-      vpcPeeringConn:    P = None,
+      connectionBobber:             ValidRouteComboOption,
       cidr:              CidrBlock = CidrBlock(0,0,0,0,0),
       dependsOn:         Option[Seq[String]] = None
-    )(implicit ev1: ValidRouteCombo[G,I,P]) =
+    ) =
       `AWS::EC2::Route`(
         visibility + "RouteTable" + routeTableOrdinal + "Route" + routeOrdinal,
         RouteTableId           = ResourceRef(rt),
         DestinationCidrBlock   = cidr,
-        GatewayId              = gateway,
-        InstanceId             = instance,
-        VpcPeeringConnectionId = vpcPeeringConn,
+        connectionBobber:             ValidRouteComboOption,
         DependsOn              = dependsOn
       )
 
-    def withRoute[G <: Option[Token[ResourceRef[`AWS::EC2::InternetGateway`]]], I <: Option[Token[ResourceRef[`AWS::EC2::Instance`]]],
-    P <: Option[Token[ResourceRef[`AWS::EC2::VPCPeeringConnection`]]],
-    GwoT <% G, IwoT <% I, PwoT <% P](
+
+    def withRoute(
       visibility:        String,
       routeTableOrdinal: Int,
       routeOrdinal:      Int,
-      gateway:           GwoT = None,
-      instance:          IwoT = None,
-      vpcPeeringConn:    PwoT = None,
+      connectionBobber:             ValidRouteComboOption,
       cidr:              CidrBlock = CidrBlock(0,0,0,0,0),
       dependsOn:         Option[Seq[String]] = None
-    )(implicit ev1: ValidRouteCombo[G,I,P]) =
-      `AWS::EC2::Route`[G, I, P](
+    ) =
+      `AWS::EC2::Route`(
         visibility + "RouteTable" + routeTableOrdinal + "Route" + routeOrdinal,
         RouteTableId           = ResourceRef(rt),
         DestinationCidrBlock   = cidr,
-        GatewayId              = gateway,
-        InstanceId             = instance,
-        VpcPeeringConnectionId = vpcPeeringConn,
+        connectionBobber       = connectionBobber,
         DependsOn              = dependsOn
       )
   }

@@ -44,7 +44,7 @@ class FnIf_UT extends FunSpec with Matchers {
       )
 
       val test: Token[ResourceRef[`AWS::EC2::SecurityGroup`]] = `Fn::If`[ResourceRef[`AWS::EC2::SecurityGroup`]](
-        "ServiceELBSSLCertNameIsNotDefined",
+        ConditionRef(cond),
         ResourceRef(gatewayELBSecGroupResource),
         ResourceRef(gatewayELBSecGroupResource)
       )

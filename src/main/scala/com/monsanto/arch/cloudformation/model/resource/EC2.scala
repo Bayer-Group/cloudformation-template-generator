@@ -109,14 +109,15 @@ object `AWS::EC2::CustomerGateway` extends DefaultJsonProtocol {
 }
 
 @implicitNotFound("A Route can only have exactly ONE of GatewayId, InstanceId, NetworkInterfaceId or VpcPeeringConnectionId set")
-class ValidRouteCombo[G, I, P] private ()
-object ValidRouteCombo{
-  implicit object valid1T extends ValidRouteCombo[Some[Token[ResourceRef[`AWS::EC2::InternetGateway`]]], None.type, None.type]
-  implicit object valid1 extends ValidRouteCombo[Some[ResourceRef[`AWS::EC2::InternetGateway`]], None.type, None.type]
-  implicit object valid2T extends ValidRouteCombo[None.type , Some[Token[ResourceRef[`AWS::EC2::Instance`]]], None.type]
-  implicit object valid2 extends ValidRouteCombo[None.type , Some[ResourceRef[`AWS::EC2::Instance`]], None.type]
-  implicit object valid3T extends ValidRouteCombo[None.type , None.type, Some[Token[ResourceRef[`AWS::EC2::VPCPeeringConnection`]]]]
-  implicit object valid3 extends ValidRouteCombo[None.type , None.type, Some[ResourceRef[`AWS::EC2::VPCPeeringConnection`]]]
+sealed trait ValidRouteComboOption
+case class InternetGatewayRoute(v:Token[ResourceRef[`AWS::EC2::InternetGateway`]]) extends ValidRouteComboOption
+case class EC2InstanceRoute(v:Token[ResourceRef[`AWS::EC2::Instance`]]) extends ValidRouteComboOption
+case class VPCPeeringRoute(v:Token[ResourceRef[`AWS::EC2::VPCPeeringConnection`]]) extends ValidRouteComboOption
+
+object ValidRouteComboOption {
+  implicit def toInternetGateway[T](v: T)(implicit t:T => Token[ResourceRef[`AWS::EC2::InternetGateway`]]) = InternetGatewayRoute(v)
+  implicit def toEC2InstanceRoute[T](v:T)(implicit t :T => Token[ResourceRef[`AWS::EC2::Instance`]]) = EC2InstanceRoute(v)
+  implicit def toVPCPeeringRoute[T](v:T)(implicit t :T => Token[ResourceRef[`AWS::EC2::VPCPeeringConnection`]]) = VPCPeeringRoute(v)
 }
 
 class `AWS::EC2::Route` private (
@@ -167,22 +168,22 @@ object `AWS::EC2::Route` extends DefaultJsonProtocol {
     def read(json: JsValue) = ???
   }
 
-  def apply[
-    G <: Option[Token[ResourceRef[`AWS::EC2::InternetGateway`]]],
-    I <: Option[Token[ResourceRef[`AWS::EC2::Instance`]]],
-    P <: Option[Token[ResourceRef[`AWS::EC2::VPCPeeringConnection`]]]
-  ](
-    name:                         String,
-    RouteTableId:                 Token[ResourceRef[`AWS::EC2::RouteTable`]],
-    DestinationCidrBlock:         Token[CidrBlock],
-    GatewayId:                    G = None,
-    InstanceId:                   I = None,
-    VpcPeeringConnectionId:       P = None,
-    Condition: Option[ConditionRef] = None,
-    DependsOn: Option[Seq[String]] = None
-   )(implicit ev1: ValidRouteCombo[G, I, P]) =
-    new `AWS::EC2::Route`(name, RouteTableId, DestinationCidrBlock, GatewayId, InstanceId, VpcPeeringConnectionId,
-      Condition, DependsOn)
+  def apply(
+             name:                         String,
+             RouteTableId:                 Token[ResourceRef[`AWS::EC2::RouteTable`]],
+             DestinationCidrBlock:         Token[CidrBlock],
+             connectionBobber:             ValidRouteComboOption,
+             Condition: Option[ConditionRef] = None,
+             DependsOn: Option[Seq[String]] = None
+           ) =
+    connectionBobber match {
+      case InternetGatewayRoute(v) => new `AWS::EC2::Route`(name, RouteTableId, DestinationCidrBlock,
+        Some(v), None,None, Condition, DependsOn)
+      case EC2InstanceRoute(v)     => new `AWS::EC2::Route`(name, RouteTableId, DestinationCidrBlock,
+        None, Some(v), None, Condition, DependsOn)
+      case VPCPeeringRoute(v)      => new `AWS::EC2::Route`(name, RouteTableId, DestinationCidrBlock,
+        None, None ,Some(v), Condition, DependsOn)
+    }
 }
 
 case class `AWS::EC2::RouteTable`(name: String, VpcId: Token[ResourceRef[`AWS::EC2::VPC`]], Tags: Seq[AmazonTag],

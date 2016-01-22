@@ -63,7 +63,7 @@ class TemplateDoc_AT extends FunSpec with Matchers {
             visibility = "Public",
             routeTableOrdinal = 1,
             routeOrdinal = 1,
-            gateway = Some(ResourceRef(internetGatewayResource))
+            internetGatewayResource
           )
           val gatewayStuff = Template.fromResource(internetGatewayResource) ++
             gatewayToInternetResource ++

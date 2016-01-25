@@ -96,16 +96,142 @@ object `AWS::EC2::KeyPair::KeyName` extends DefaultJsonProtocol {
 
 case class `AWS::EC2::CustomerGateway`(
   name: String,
-  BgpAsn: Int,
-  IpAddress: IPAddress,
+  BgpAsn: Token[Int],
+  IpAddress: Token[IPAddress],
   Tags: Seq[AmazonTag],
-  Type: String,
+  Type: VPNType = VPNType("ipsec.1"),
   override val Condition: Option[ConditionRef] = None) extends Resource[`AWS::EC2::CustomerGateway`]{
 
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
 }
 object `AWS::EC2::CustomerGateway` extends DefaultJsonProtocol {
   implicit val format: JsonFormat[`AWS::EC2::CustomerGateway`] = jsonFormat6(`AWS::EC2::CustomerGateway`.apply)
+}
+
+case class `AWS::EC2::VPNGateway`(
+  name: String,
+  Type: Token[VPNType] = VPNType("ipsec.1"),
+  Tags: Seq[AmazonTag],
+  override val Condition: Option[ConditionRef] = None) extends Resource[`AWS::EC2::VPNGateway`]{
+
+  def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
+}
+object `AWS::EC2::VPNGateway` extends DefaultJsonProtocol {
+  implicit val format: JsonFormat[`AWS::EC2::VPNGateway`] = jsonFormat4(`AWS::EC2::VPNGateway`.apply)
+}
+
+case class VPNType(value: String) { require( value.equals("ipsec.1"), "only ipsec.1 is valid") }
+object VPNType extends DefaultJsonProtocol {
+  implicit def toString(s: String): VPNType = VPNType(s)
+  implicit val format: JsonFormat[VPNType] = new JsonFormat[VPNType] {
+
+    override def read(json: JsValue): VPNType = ???
+
+    override def write(obj: VPNType): JsValue =  JsString(obj.value)
+
+  }
+}
+
+case class `AWS::EC2::VPNConnection` (
+  name: String,
+  CustomerGatewayId: Token[ResourceRef[`AWS::EC2::CustomerGateway`]],
+  StaticRoutesOnly: Boolean,
+  VpnGatewayId: Token[ResourceRef[`AWS::EC2::VPNGateway`]],
+  Tags: Seq[AmazonTag],
+  override val Condition: Option[ConditionRef] = None) extends Resource[`AWS::EC2::VPNConnection`] {
+
+  def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
+}
+object `AWS::EC2::VPNConnection` extends DefaultJsonProtocol {
+  implicit val format: JsonFormat[`AWS::EC2::VPNConnection`] = jsonFormat6(`AWS::EC2::VPNConnection`.apply)
+}
+
+case class `AWS::EC2::VPNConnectionRoute`(
+  name: String,
+  DestinationCidrBlock: Token[CidrBlock],
+  VpnConnectionId: Token[ResourceRef[`AWS::EC2::VPNConnection`]],
+  override val Condition: Option[ConditionRef] = None) extends Resource[`AWS::EC2::VPNConnectionRoute`] {
+
+  def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
+}
+object `AWS::EC2::VPNConnectionRoute` extends DefaultJsonProtocol {
+  implicit val format: JsonFormat[`AWS::EC2::VPNConnectionRoute`] = jsonFormat4(`AWS::EC2::VPNConnectionRoute`.apply)
+}
+
+case class `AWS::EC2::NetworkAcl`(
+  name: String,
+  VpcId: Token[ResourceRef[`AWS::EC2::VPC`]],
+  Tags: Seq[AmazonTag],
+  override val Condition: Option[ConditionRef] = None) extends Resource[`AWS::EC2::NetworkAcl`] {
+
+  def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
+}
+object `AWS::EC2::NetworkAcl` extends DefaultJsonProtocol {
+  implicit val format: JsonFormat[`AWS::EC2::NetworkAcl`] = jsonFormat4(`AWS::EC2::NetworkAcl`.apply)
+}
+
+case class `AWS::EC2::NetworkAclEntry`(
+  name: String,
+  CidrBlock: Token[CidrBlock],
+  Egress: Token[Boolean],
+  Icmp: Token[EC2IcmpProperty],
+  NetworkAclId: Token[ResourceRef[`AWS::EC2::NetworkAcl`]],
+  PortRange: Token[PortRange],
+  Protocol: Token[Protocol],
+  RuleAction: Token[RuleAction],
+  RuleNumber: Token[RuleNumber],
+override val Condition: Option[ConditionRef] = None) extends Resource[`AWS::EC2::NetworkAclEntry`] {
+
+def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
+}
+object `AWS::EC2::NetworkAclEntry` extends DefaultJsonProtocol {
+  implicit val format: JsonFormat[`AWS::EC2::NetworkAclEntry`] = jsonFormat10(`AWS::EC2::NetworkAclEntry`.apply)
+}
+
+/**
+  * http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-icmp.html
+  *
+  * @param Code
+  * @param Type
+  */
+case class EC2IcmpProperty(Code: Int, Type: Int)
+object EC2IcmpProperty extends DefaultJsonProtocol {
+  implicit val format: JsonFormat[EC2IcmpProperty] = jsonFormat2(EC2IcmpProperty.apply)
+}
+
+case class PortRange(From: Int, To: Int)
+object PortRange extends DefaultJsonProtocol {
+  implicit val format: JsonFormat[PortRange] = jsonFormat2(PortRange.apply)
+}
+
+case class RuleAction(value: String) { require( value.equals("allow") || value.equals("deny"), "must be allow or deny") }
+object RuleAction {
+  implicit def toString(s: String): RuleAction = RuleAction(s)
+  implicit val format: JsonFormat[RuleAction] = new JsonFormat[RuleAction] {
+    override def read(json: JsValue): RuleAction = ???
+
+    override def write(obj: RuleAction): JsValue = JsString(obj.value)
+  }
+}
+
+case class RuleNumber(value: Int) { require( value <= 32766 && value >= 1, "must be between 1 and 32766") }
+object RuleNumber {
+  implicit def toInt(i: Int): RuleNumber = RuleNumber(i)
+  implicit val format: JsonFormat[RuleNumber] = new JsonFormat[RuleNumber] {
+    override def read(json: JsValue): RuleNumber = ???
+
+    override def write(obj: RuleNumber): JsValue = JsNumber(obj.value)
+  }
+}
+
+case class Protocol(value: Int) { require( value == -1 || (value <= 255 && value >= 1), "must be -1 or between 1 and 255") }
+object Protocol {
+  implicit def toInt(i: Int): Protocol = Protocol(i)
+  implicit val format: JsonFormat[Protocol] = new JsonFormat[Protocol] {
+    override def read(json: JsValue): Protocol = ???
+
+    override def write(obj: Protocol): JsValue = JsNumber(obj.value)
+  }
 }
 
 @implicitNotFound("A Route can only have exactly ONE of GatewayId, InstanceId, NetworkInterfaceId or VpcPeeringConnectionId set")
@@ -378,17 +504,70 @@ object `AWS::EC2::VPCPeeringConnection` extends DefaultJsonProtocol {
   implicit val format: JsonFormat[`AWS::EC2::VPCPeeringConnection`] = jsonFormat5(`AWS::EC2::VPCPeeringConnection`.apply)
 }
 
-case class `AWS::EC2::VPCGatewayAttachment`(
-  name:              String,
-  VpcId:             Token[ResourceRef[`AWS::EC2::VPC`]],
-  InternetGatewayId: Token[ResourceRef[`AWS::EC2::InternetGateway`]],
-  override val Condition: Option[ConditionRef] = None
-  ) extends Resource[`AWS::EC2::VPCGatewayAttachment`]{
-
-  def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
+sealed trait VPCGatewayOptions
+object VPCGatewayOptions {
+  implicit def toVPNGateway[T](v: T)(implicit t: T => Token[ResourceRef[`AWS::EC2::VPNGateway`]]) = VPNGateway(v)
+  implicit def toInternetGateway[T](v: T)(implicit t: T => Token[ResourceRef[`AWS::EC2::InternetGateway`]]) = InternetGateway(v)
 }
+
+case class VPNGateway(v: Token[ResourceRef[`AWS::EC2::VPNGateway`]]) extends VPCGatewayOptions
+case class InternetGateway(v: Token[ResourceRef[`AWS::EC2::InternetGateway`]]) extends VPCGatewayOptions
+
+class `AWS::EC2::VPCGatewayAttachment` private (
+  val name:              String,
+  val VpcId:             Token[ResourceRef[`AWS::EC2::VPC`]],
+  val VpnGatewayId:      Option[Token[ResourceRef[`AWS::EC2::VPNGateway`]]] = None,
+  val InternetGatewayId: Option[Token[ResourceRef[`AWS::EC2::InternetGateway`]]] = None,
+  override val Condition: Option[ConditionRef] = None
+) extends Resource[`AWS::EC2::VPCGatewayAttachment`]{
+  private val asSeq = Seq(name, VpcId, VpnGatewayId, InternetGatewayId,
+    Condition)
+
+  def when(newCondition: Option[ConditionRef] = Condition) =
+    new `AWS::EC2::VPCGatewayAttachment`(name, VpcId, VpnGatewayId, InternetGatewayId,
+      newCondition )
+
+}
+
 object `AWS::EC2::VPCGatewayAttachment` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::EC2::VPCGatewayAttachment`] = jsonFormat4(`AWS::EC2::VPCGatewayAttachment`.apply)
+
+  private def writeField[T: JsonFormat](t: T) = {
+    val writer = implicitly[JsonFormat[T]]
+    writer match {
+      case _: OptionFormat[_] if t == None => None
+      case _ => Some(writer.write(t))
+    }
+  }
+
+  // Because we dont want the default case class apply method without our checks
+  implicit val format: JsonFormat[`AWS::EC2::VPCGatewayAttachment`] = new JsonFormat[`AWS::EC2::VPCGatewayAttachment`]{
+    def write(p: `AWS::EC2::VPCGatewayAttachment`) = {
+      JsObject(
+        Map(
+          "name"                   -> writeField(p.name),
+          "VpcId"                  -> writeField(p.VpcId),
+          "VpnGatewayId"           -> writeField(p.VpnGatewayId),
+          "InternetGatewayId"      -> writeField(p.InternetGatewayId),
+          "Condition"              -> writeField(p.Condition)
+        ).filter(_._2.isDefined).mapValues(_.get)
+      )
+    }
+
+    // TODO
+    def read(json: JsValue) = ???
+  }
+
+  def apply(
+    name: String,
+    VpcId: Token[ResourceRef[`AWS::EC2::VPC`]],
+    gatewayId: VPCGatewayOptions,
+    Condition: Option[ConditionRef] = None
+  ) =
+    gatewayId match {
+      case VPNGateway(e) =>   new `AWS::EC2::VPCGatewayAttachment`(name, VpcId, Some(e), None, Condition )
+      case InternetGateway(e) =>   new `AWS::EC2::VPCGatewayAttachment`(name, VpcId,None, Some(e), Condition )
+    }
+
 }
 
 case class `AWS::EC2::Volume` private (

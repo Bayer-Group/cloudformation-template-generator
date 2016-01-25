@@ -417,7 +417,7 @@ object StaxTemplate {
   val gatewayAttachmentResource = `AWS::EC2::VPCGatewayAttachment`(
     "GatewayToInternet",
     VpcId = ResourceRef(vpcResource),
-    InternetGatewayId = ResourceRef(internetGatewayResource)
+    gatewayId = ResourceRef(internetGatewayResource)
   )
 
   val publicRouteTableResource = `AWS::EC2::RouteTable`(

@@ -91,6 +91,8 @@ describe("Template Lookup") {
 - AWS::EC2::Instance
 - AWS::EC2::InternetGateway
 - AWS::EC2::KeyPair::KeyName
+- AWS::EC2::NetworkAcl
+- AWS::EC2::NetworkAclEntry
 - AWS::EC2::Route
 - AWS::EC2::RouteTable
 - AWS::EC2::SecurityGroup
@@ -101,6 +103,9 @@ describe("Template Lookup") {
 - AWS::EC2::VPC
 - AWS::EC2::VPCGatewayAttachment
 - AWS::EC2::VPCPeeringConnection
+- AWS::EC2::VPNConnection
+- AWS::EC2::VPNConnectionRoute
+- AWS::EC2::VPNGateway
 - AWS::EC2::Volume
 - AWS::EC2::VolumeAttachment
 - AWS::ElasticLoadBalancing::LoadBalancer

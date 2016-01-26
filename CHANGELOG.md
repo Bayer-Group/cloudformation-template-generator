@@ -4,18 +4,56 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 
-## [3.0.7] - 2016-01-21
+## [3.1.0] - 2016-01-26
+
+**Note: Minor breaks in backwards compatibility**
 
 ### Added
 
--   Add ability to work with NAT gateways.  Requires a custom Lambda function.  See README.md.
+-   Added the ability to work with NAT gateways.  Requires a custom Lambda function.  See README.md.
+
 -   Added `AWS::CloudFormation::WaitCondition` and `AWS::CloudFormation::WaitConditionHandle` to support pausing
         for resources to do things.
+
+-   Added support for the `Fn::GetAZs` function
+
+-   Added in VPN support
 
 ### Changed
 
 -   Improved EIP model to better handle VPC vs Classic EIPs.  Changes are backwards compatible, but 
         existing methods are now deprecated.
+
+-   Most functions updated to use `Token[ConditionRef]` instead of `Token[String]`
+
+-   Changed how implicits are handle in creating `AWS::EC2::Route` to simplify the code
+
+## [3.0.6] - 2015-01-19
+
+### Added
+
+-   Support `AWS::EC2::EIPAssociation` (closes [#43](https://github.com/MonsantoCo/cloudformation-template-generator/issues/43))
+
+-   Custom type for IPAddress
+
+-   Support `AWS::EC2::VPCPeeringConnection` in routes (closes [#47](https://github.com/MonsantoCo/cloudformation-template-generator/issues/47))
+
+-   Support `PrivateIP` on EC2 instances (closes [#49](https://github.com/MonsantoCo/cloudformation-template-generator/issues/49))
+
+-   Support `MapPublicIpOnLaunch` on subnets (closes [#51](https://github.com/MonsantoCo/cloudformation-template-generator/issues/51))
+
+-   Support `AWS::EC2::CustomerGateway`
+
+### Changed
+
+-   Have predictable order in the output JSON (fixes [#45](https://github.com/MonsantoCo/cloudformation-template-generator/issues/45))
+
+## [3.0.5] - 2015-01-07
+
+### Added
+
+-   Basic Lambda support
+
 
 ## [3.0.4] - 2015-11-30
 

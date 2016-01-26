@@ -85,17 +85,33 @@ trait Route {
 trait Instance {
 
   implicit class RichInstance(ec2: `AWS::EC2::Instance`) {
+
+    @deprecated(message = "Use withEIPInVPC or withEIPInClassic", since = "v3.0.6")
     def withEIP(
       name:      String,
       domain:    String              = "vpc",
       dependsOn: Option[Seq[String]] = None
-    ) =
-      `AWS::EC2::EIP`(
-        name       = name,
-        Domain     = domain,
-        InstanceId = ResourceRef(ec2),
-        DependsOn  = dependsOn
-      )
+    ) : `AWS::EC2::EIP` = withEIPInVPC(name, dependsOn)
+
+    def withEIPInVPC(
+                 name:      String,
+                 dependsOn: Option[Seq[String]] = None
+               ) : `AWS::EC2::EIP` =
+        `AWS::EC2::EIP`.vpc(
+          name       = name,
+          InstanceId = Some(ResourceRef(ec2)),
+          DependsOn  = dependsOn
+        )
+
+    def withEIPInClassic(
+                  name:      String,
+                  dependsOn: Option[Seq[String]] = None
+                ) : `AWS::EC2::EIP` =
+        `AWS::EC2::EIP`.classic(
+          name       = name,
+          InstanceId = Some(ResourceRef(ec2)),
+          DependsOn  = dependsOn
+        )
 
     def alarmOnSystemFailure(name: String, description: String) =
       `AWS::CloudWatch::Alarm`(
@@ -121,6 +137,20 @@ trait Subnet extends AvailabilityZone with Outputs {
   def withRouteTableAssoc(visibility: String, subnetOrdinal: Int, routeTable: Token[ResourceRef[`AWS::EC2::RouteTable`]])(implicit s: `AWS::EC2::Subnet`) =
     s.withRouteTableAssoc( visibility, subnetOrdinal, routeTable )
 
+  def withNAT(
+               ordinal: Int,
+               vpcGatewayAttachmentResource: `AWS::EC2::VPCGatewayAttachment`,
+               privateRouteTables: Seq[`AWS::EC2::RouteTable`],
+               cfNATLambdaARN: Token[String])(implicit s: `AWS::EC2::Subnet`) =
+  s.withNAT(ordinal, vpcGatewayAttachmentResource, privateRouteTables, cfNATLambdaARN)
+
+  def withNAT(
+               ordinal: Int,
+               vpcGatewayAttachmentResource: `AWS::EC2::VPCGatewayAttachment`,
+               privateRouteTable: `AWS::EC2::RouteTable`,
+               cfNATLambdaARN: Token[String])(implicit s: `AWS::EC2::Subnet`) =
+    s.withNAT(ordinal, vpcGatewayAttachmentResource, privateRouteTable, cfNATLambdaARN)
+
   implicit class RichSubnet(s: `AWS::EC2::Subnet`){
     def withRouteTableAssoc(visibility: String, subnetOrdinal: Int, routeTable: Token[ResourceRef[`AWS::EC2::RouteTable`]]) =
       `AWS::EC2::SubnetRouteTableAssociation`(
@@ -128,6 +158,55 @@ trait Subnet extends AvailabilityZone with Outputs {
         SubnetId = s,
         RouteTableId = routeTable
       )
+    def withNAT(
+                 ordinal: Int,
+                 vpcGatewayAttachmentResource: `AWS::EC2::VPCGatewayAttachment`,
+                 privateRouteTable: `AWS::EC2::RouteTable`,
+                 cfNATLambdaARN: Token[String]): Template =
+      withNAT(ordinal, vpcGatewayAttachmentResource, Seq(privateRouteTable), cfNATLambdaARN)
+
+    def withNAT(
+             ordinal: Int,
+             vpcGatewayAttachmentResource: `AWS::EC2::VPCGatewayAttachment`,
+             privateRouteTables: Seq[`AWS::EC2::RouteTable`],
+             cfNATLambdaARN: Token[String]): Template = {
+      val natEIP = `AWS::EC2::EIP`.vpc(
+        name = s"NAT${ordinal}EIP",
+        InstanceId = None,
+        DependsOn = Some(Seq(vpcGatewayAttachmentResource.name))
+      )
+
+      val natWaitHandle = `AWS::CloudFormation::WaitConditionHandle`(s"NAT${ordinal}WaitHandle")
+
+      val nat = `Custom::NatGateway`(
+        name=s"NAT${ordinal}",
+        ServiceToken = cfNATLambdaARN,
+        AllocationId = `Fn::GetAtt`(Seq(natEIP.name, "AllocationId")),
+        SubnetId = ResourceRef(s),
+        WaitHandle = ResourceRef(natWaitHandle)
+      )
+
+      val natWaitCondition = `AWS::CloudFormation::WaitCondition`(
+        s"NAT${ordinal}WaitCondition",
+        Handle = ResourceRef(natWaitHandle),
+        Timeout = 240,
+        Count = None,
+        DependsOn = Some(Seq(nat.name))
+      )
+      val privateRoutes = privateRouteTables.map{
+        privateRouteTable => `Custom::NatGatewayRoute`(
+          name = s"NAT${ordinal}Route",
+          ServiceToken = cfNATLambdaARN,
+          RouteTableId = ResourceRef(privateRouteTable),
+          NatGatewayId = ResourceRef(nat),
+          DestinationCidrBlock = CidrBlock(0,0,0,0,0),
+          DependsOn = Some(Seq(natWaitCondition.name))
+        )
+      }
+
+      Template.fromResource(nat) ++ natEIP.andOutput(s"NAT${ordinal}EIP", s"NAT ${ordinal} EIP") ++
+        natWaitCondition ++ natWaitHandle ++ privateRoutes
+    }
   }
 
   private def ucFirst(s: String): String = (s.head.toUpper +: s.tail.toCharArray).mkString
@@ -533,6 +612,7 @@ trait ElasticLoadBalancing {
       name:              String,
       subnets:           Seq[Token[ResourceRef[`AWS::EC2::Subnet`]]],
       healthCheckTarget: String,
+      loadBalancerName:  Option[Token[String]] = None,
       condition:         Option[ConditionRef] = None,
       scheme:            Option[ELBScheme] = None,
       loggingBucket:     Option[Token[ResourceRef[`AWS::S3::Bucket`]]] = None,
@@ -553,6 +633,7 @@ trait ElasticLoadBalancing {
       Scheme              = scheme,
       Subnets             = subnets,
       Listeners           = listeners,
+      LoadBalancerName    = loadBalancerName,
       HealthCheck         = Some(healthCheck),
       Tags                = AmazonTag.fromName(name),
       AccessLoggingPolicy = loggingBucket match {
@@ -572,6 +653,7 @@ trait ElasticLoadBalancing {
       name:              String,
       subnets:           Seq[Token[ResourceRef[`AWS::EC2::Subnet`]]],
       healthCheckTarget: String,
+      loadBalancerName:  Option[Token[String]] = None,
       condition:         Option[ConditionRef] = None,
       scheme:            Option[ELBScheme] = None,
       loggingBucket:     Option[Token[ResourceRef[`AWS::S3::Bucket`]]] = None,
@@ -586,5 +668,5 @@ trait ElasticLoadBalancing {
         Interval           = "30",
         Timeout            = "5")
     )(implicit vpc: `AWS::EC2::VPC`) =
-      elbL(name, subnets, healthCheckTarget, condition, scheme, loggingBucket, dependsOn)(Seq(listener))(healthCheck)
+      elbL(name, subnets, healthCheckTarget, loadBalancerName, condition, scheme, loggingBucket, dependsOn)(Seq(listener))(healthCheck)
 }

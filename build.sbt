@@ -70,3 +70,19 @@ git.remoteRepo := "git@github.com:MonsantoCo/cloudformation-template-generator.g
 bintrayOrganization := Some("monsanto")
 
 licenses += ("BSD", url("http://opensource.org/licenses/BSD-3-Clause"))
+
+bintrayReleaseOnPublish := ! isSnapshot.value
+
+publishTo := {
+  if (isSnapshot.value)
+    Some("Artifactory Realm" at "https://oss.jfrog.org/oss-snapshot-local/")
+  else
+    publishTo.value /* Value set by bintray-sbt plugin */
+}
+
+credentials := {
+  if (isSnapshot.value)
+    List(Path.userHome / ".bintray" / ".artifactory").filter(_.exists).map(Credentials(_))
+  else
+    credentials.value /* Value set by bintray-sbt plugin */
+}

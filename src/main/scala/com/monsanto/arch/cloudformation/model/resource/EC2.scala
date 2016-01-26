@@ -10,18 +10,45 @@ import scala.language.implicitConversions
  * Created by Ryan Richt on 2/28/15
  */
 
-case class `AWS::EC2::EIP`(
+case class `AWS::EC2::EIP` private (
   name:                   String,
-  Domain:                 String,
-  InstanceId:             Token[ResourceRef[`AWS::EC2::Instance`]],
-  override val Condition: Option[ConditionRef] = None,
-  override val DependsOn: Option[Seq[String]] = None
+  Domain:                 Option[String],
+  InstanceId:             Option[Token[ResourceRef[`AWS::EC2::Instance`]]],
+  override val Condition: Option[ConditionRef],
+  override val DependsOn: Option[Seq[String]]
 ) extends Resource[`AWS::EC2::EIP`]{
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
 }
 
 object `AWS::EC2::EIP` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::EC2::EIP`] = jsonFormat5(`AWS::EC2::EIP`.apply)
+  // Need to be explicit here to get it to pick the apply above, not the backwards compatibility one below.
+  implicit val format: JsonFormat[`AWS::EC2::EIP`] =
+    jsonFormat5[String,
+      Option[String],
+      Option[Token[ResourceRef[`AWS::EC2::Instance`]]],
+      Option[ConditionRef],
+      Option[Seq[String]],
+      `AWS::EC2::EIP`](`AWS::EC2::EIP`.apply)
+
+  @deprecated(message = "Use .vpc() or .classic() instead.", since = "v3.0.6")
+  def apply(name:                   String,
+            Domain:                 String,
+            InstanceId:             Token[ResourceRef[`AWS::EC2::Instance`]],
+            Condition: Option[ConditionRef] = None,
+            DependsOn: Option[Seq[String]] = None): `AWS::EC2::EIP` =
+    `AWS::EC2::EIP`(name, Some(Domain), Some(InstanceId), Condition, DependsOn)
+
+  def vpc(name:                   String,
+            InstanceId:             Option[Token[ResourceRef[`AWS::EC2::Instance`]]],
+            Condition:              Option[ConditionRef] = None,
+            DependsOn:              Option[Seq[String]] = None): `AWS::EC2::EIP` =
+    `AWS::EC2::EIP`(name, Some("vpc"), InstanceId, Condition, DependsOn)
+
+  def classic(name:                 String,
+            InstanceId:             Option[Token[ResourceRef[`AWS::EC2::Instance`]]],
+            Condition:              Option[ConditionRef] = None,
+            DependsOn:              Option[Seq[String]] = None): `AWS::EC2::EIP` =
+    `AWS::EC2::EIP`(name, None, InstanceId, Condition, DependsOn)
 }
 
 case class `AWS::EC2::EIPAssociation`(

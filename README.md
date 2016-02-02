@@ -27,7 +27,7 @@ and the dependency
 
 ```scala
 libraryDependencies ++= Seq (
-  "com.monsanto.arch" %% "cloud-formation-template-generator" % "3.1.0"
+  "com.monsanto.arch" %% "cloud-formation-template-generator" % "3.1.1"
 ).map(_.force())
 ```
 

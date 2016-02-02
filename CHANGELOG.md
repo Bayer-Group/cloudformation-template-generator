@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.1.1] - 2016-02-02
+
+### Changed
+
+-   Rolled back the Token changes for functions (see [#60](https://github.com/MonsantoCo/cloudformation-template-generator/issues/60))
 
 ## [3.1.0] - 2016-01-26
 

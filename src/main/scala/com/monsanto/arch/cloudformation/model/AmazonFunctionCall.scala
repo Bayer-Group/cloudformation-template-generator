@@ -35,6 +35,7 @@ object AmazonFunctionCall extends DefaultJsonProtocol {
         case not: `Fn::Not`            => implicitly[JsonWriter[`Fn::Not`#CFBackingType]         ].write(not.arguments)
         case and: `Fn::And`            => implicitly[JsonWriter[`Fn::And`#CFBackingType]         ].write(and.arguments)
         case or:  `Fn::Or`             => implicitly[JsonWriter[`Fn::Or`#CFBackingType]          ].write(or.arguments)
+        case cfr:  ConditionFnRef      => implicitly[JsonWriter[ConditionFnRef#CFBackingType]    ].write(cfr.arguments)
         case s:   `Fn::Select`[_]      => s.serializeArguments
         case f:   `Fn::If`[_]          => f.serializeArguments
         case f:    If[_]               => f.serializeArguments
@@ -58,7 +59,6 @@ object ParameterRef extends DefaultJsonProtocol {
 }
 
 
-//extends AmazonFunctionCall[R]("Ref"){type CFBackingType = String ; val arguments = p.name}
 case class MappingRef[R](m: Mapping[R])
 object MappingRef extends DefaultJsonProtocol {
 
@@ -126,14 +126,17 @@ case class `Fn::Base64`(toEncode: Token[String])
 case class `Fn::Equals`(a: Token[String], b: Token[String])
   extends AmazonFunctionCall[String]("Fn::Equals"){type CFBackingType = (Token[String], Token[String]) ; val arguments = (a, b)}
 
-case class `Fn::Not`(fn: Token[ConditionRef])
-  extends AmazonFunctionCall[String]("Fn::Not"){type CFBackingType = (Seq[Token[ConditionRef]]) ; val arguments = Seq(fn)}
+case class `Fn::Not`(fn: Token[String])
+  extends AmazonFunctionCall[String]("Fn::Not"){type CFBackingType = (Seq[Token[String]]) ; val arguments = Seq(fn)}
 
-case class `Fn::And`(fn: Seq[Token[ConditionRef]])
-  extends AmazonFunctionCall[String]("Fn::And"){type CFBackingType = (Seq[Token[ConditionRef]]) ; val arguments = fn}
+case class `Fn::And`(fn: Seq[Token[String]])
+  extends AmazonFunctionCall[String]("Fn::And"){type CFBackingType = (Seq[Token[String]]) ; val arguments = fn}
 
-case class `Fn::Or`(fn: Seq[Token[ConditionRef]])
-  extends AmazonFunctionCall[String]("Fn::Or"){type CFBackingType = (Seq[Token[ConditionRef]]) ; val arguments = fn}
+case class `Fn::Or`(fn: Seq[Token[String]])
+  extends AmazonFunctionCall[String]("Fn::Or"){type CFBackingType = (Seq[Token[String]]) ; val arguments = fn}
+
+case class ConditionFnRef(c: Condition)
+  extends AmazonFunctionCall[String]("Condition"){type CFBackingType = (Token[String]) ; val arguments = StringToken(c.name)}
 
 case class `Fn::Select`[R: JsonFormat](index: Token[StringBackedInt], listOfObjects: Token[Seq[R]])
   extends AmazonFunctionCall[R]("Fn::Select") {

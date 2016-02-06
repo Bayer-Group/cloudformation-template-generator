@@ -6,7 +6,7 @@ import spray.json.{JsString, JsValue, JsonFormat}
 
 case class `AWS::ElasticBeanstalk::Application`(
                                                  name: String,
-                                                 ApplicationName: Option[String] = None,
+                                                 ApplicationName: Option[Token[String]] = None,
                                                  Description: Option[String] = None,
                                                  override val Condition: Option[ConditionRef] = None
                                                ) extends Resource[`AWS::ElasticBeanstalk::Application`] {
@@ -74,7 +74,7 @@ case class `AWS::ElasticBeanstalk::Environment`(
                                                  ApplicationName: ResourceRef[`AWS::ElasticBeanstalk::Application`],
                                                  CNAMEPrefix: Option[String] = None,
                                                  Description: Option[String] = None,
-                                                 EnvironmentName: Option[String] = None,
+                                                 EnvironmentName: Option[Token[String]] = None,
                                                  OptionSettings: Option[Seq[OptionSetting]] = None,
                                                  SolutionStackName: Option[String] = None,
                                                  Tags: Option[Seq[ResourceTag]] = None,
@@ -93,9 +93,9 @@ object `AWS::ElasticBeanstalk::Environment` {
 }
 
 case class OptionSetting(
-                          Namespace: String,
-                          OptionName: String,
-                          Value: String
+                          Namespace: Token[String],
+                          OptionName: Token[String],
+                          Value: Token[String]
                         )
 
 object OptionSetting {

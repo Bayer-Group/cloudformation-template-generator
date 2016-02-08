@@ -1,9 +1,9 @@
 <!DOCTYPE html >
 <html>
         <head>
-          <title>AwsToken - com.monsanto.arch.cloudformation.model.AwsToken</title>
-          <meta name="description" content="AwsToken - com.monsanto.arch.cloudformation.model.AwsToken" />
-          <meta name="keywords" content="AwsToken com.monsanto.arch.cloudformation.model.AwsToken" />
+          <title>AwsStringInterpolator - com.monsanto.arch.cloudformation.model.AwsStringInterpolator</title>
+          <meta name="description" content="AwsStringInterpolator - com.monsanto.arch.cloudformation.model.AwsStringInterpolator" />
+          <meta name="keywords" content="AwsStringInterpolator com.monsanto.arch.cloudformation.model.AwsStringInterpolator" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../../../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
@@ -16,7 +16,7 @@
       <script type="text/javascript">
          if(top === self) {
             var url = '../../../../../index.html';
-            var hash = 'com.monsanto.arch.cloudformation.model.package$$AwsToken';
+            var hash = 'com.monsanto.arch.cloudformation.model.package$$AwsStringInterpolator';
             var anchor = window.location.hash;
             var anchor_opt = '';
             if (anchor.length >= 1)
@@ -30,10 +30,10 @@
       <div id="definition">
         <img alt="Class" src="../../../../../lib/class_big.png" />
         <p id="owner"><a href="../../../../package.html" class="extype" name="com">com</a>.<a href="../../../package.html" class="extype" name="com.monsanto">monsanto</a>.<a href="../../package.html" class="extype" name="com.monsanto.arch">arch</a>.<a href="../package.html" class="extype" name="com.monsanto.arch.cloudformation">cloudformation</a>.<a href="package.html" class="extype" name="com.monsanto.arch.cloudformation.model">model</a></p>
-        <h1>AwsToken</h1><h3><span class="morelinks"><div>Related Doc:
+        <h1>AwsStringInterpolator</h1><h3><span class="morelinks"><div>Related Doc:
             <a href="package.html" class="extype" name="com.monsanto.arch.cloudformation.model">package model</a>
           </div></span></h3><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.package$$AwsToken" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.package$$AwsStringInterpolator" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -45,11 +45,14 @@
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <span class="name">AwsToken</span><span class="result"> extends <span class="extype" name="scala.AnyVal">AnyVal</span></span>
+        <span class="name">AwsStringInterpolator</span><span class="result"> extends <span class="extype" name="scala.AnyVal">AnyVal</span></span>
       </span>
       </h4>
       
-          <div id="comment" class="fullcommenttop"><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Provides a string interpolator to assist in the concatenation of</p><p>The following:</p><pre><span class="kw">import</span> com.monsanto.arch.cloudformation.model._
+
+<span class="kw">val</span> param = ParameterRef(StringParameter(<span class="lit">"that"</span>))
+<span class="kw">val</span> fun = aws<span class="lit">"test$param"</span></pre><p>Will generate the following FunctionCall definition:</p><pre>FunctionCallToken(`Fn::Join`(<span class="lit">""</span>, <span class="std">Seq</span>(StringToken(<span class="lit">"test"</span>), param)))</pre></div><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
           <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyVal">AnyVal</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>
@@ -69,7 +72,7 @@
                 <span class="filtertype">Inherited<br />
                 </span>
                 <ol id="linearization">
-                  <li class="in" name="com.monsanto.arch.cloudformation.model.AwsToken"><span>AwsToken</span></li><li class="in" name="scala.AnyVal"><span>AnyVal</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                  <li class="in" name="com.monsanto.arch.cloudformation.model.AwsStringInterpolator"><span>AwsStringInterpolator</span></li><li class="in" name="scala.AnyVal"><span>AnyVal</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                 </ol>
               </div><div id="ancestors">
             <span class="filtertype"></span>
@@ -88,19 +91,19 @@
         <div id="allMembers">
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
-              <ol><li name="com.monsanto.arch.cloudformation.model.AwsToken#&lt;init&gt;" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="&lt;init&gt;(sc:StringContext):com.monsanto.arch.cloudformation.model.package.AwsToken"></a>
-      <a id="&lt;init&gt;:AwsToken"></a>
+              <ol><li name="com.monsanto.arch.cloudformation.model.AwsStringInterpolator#&lt;init&gt;" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="&lt;init&gt;(sc:StringContext):com.monsanto.arch.cloudformation.model.package.AwsStringInterpolator"></a>
+      <a id="&lt;init&gt;:AwsStringInterpolator"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">AwsToken</span><span class="params">(<span name="sc">sc: <span class="extype" name="scala.StringContext">StringContext</span></span>)</span>
+        <span class="name">AwsStringInterpolator</span><span class="params">(<span name="sc">sc: <span class="extype" name="scala.StringContext">StringContext</span></span>)</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.package$$AwsToken@&lt;init&gt;(sc:StringContext):com.monsanto.arch.cloudformation.model.package.AwsToken" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.package$$AwsStringInterpolator@&lt;init&gt;(sc:StringContext):com.monsanto.arch.cloudformation.model.package.AwsStringInterpolator" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -126,7 +129,7 @@
         <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.package$$AwsToken@!=(x$1:Any):Boolean" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.package$$AwsStringInterpolator@!=(x$1:Any):Boolean" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -143,7 +146,7 @@
         <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.package$$AwsToken@##():Int" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.package$$AwsStringInterpolator@##():Int" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -160,7 +163,7 @@
         <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.package$$AwsToken@==(x$1:Any):Boolean" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.package$$AwsStringInterpolator@==(x$1:Any):Boolean" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -177,12 +180,12 @@
         <span class="name">asInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <span class="extype" name="scala.Any.asInstanceOf.T0">T0</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.package$$AwsToken@asInstanceOf[T0]:T0" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.package$$AwsStringInterpolator@asInstanceOf[T0]:T0" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li name="com.monsanto.arch.cloudformation.model.AwsToken#aws" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.monsanto.arch.cloudformation.model.AwsStringInterpolator#aws" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="aws(tokens:com.monsanto.arch.cloudformation.model.Token[String]*):com.monsanto.arch.cloudformation.model.Token[String]"></a>
       <a id="aws(Token[String]*):Token[String]"></a>
       <h4 class="signature">
@@ -194,7 +197,7 @@
         <span class="name">aws</span><span class="params">(<span name="tokens">tokens: <a href="Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="scala.Predef.String">String</span>]*</span>)</span><span class="result">: <a href="Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.package$$AwsToken@aws(tokens:com.monsanto.arch.cloudformation.model.Token[String]*):com.monsanto.arch.cloudformation.model.Token[String]" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.package$$AwsStringInterpolator@aws(tokens:com.monsanto.arch.cloudformation.model.Token[String]*):com.monsanto.arch.cloudformation.model.Token[String]" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -211,7 +214,7 @@
         <span class="name">getClass</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Predef.Class">Class</span>[_ &lt;: <span class="extype" name="scala.AnyVal">AnyVal</span>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.package$$AwsToken@getClass():Class[_&lt;:AnyVal]" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.package$$AwsStringInterpolator@getClass():Class[_&lt;:AnyVal]" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -228,12 +231,12 @@
         <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.package$$AwsToken@isInstanceOf[T0]:Boolean" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.package$$AwsStringInterpolator@isInstanceOf[T0]:Boolean" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li name="com.monsanto.arch.cloudformation.model.AwsToken#sc" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.monsanto.arch.cloudformation.model.AwsStringInterpolator#sc" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="sc:StringContext"></a>
       <a id="sc:StringContext"></a>
       <h4 class="signature">
@@ -245,7 +248,7 @@
         <span class="name">sc</span><span class="result">: <span class="extype" name="scala.StringContext">StringContext</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.package$$AwsToken@sc:StringContext" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.package$$AwsStringInterpolator@sc:StringContext" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -262,7 +265,7 @@
         <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.package$$AwsToken@toString():String" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.package$$AwsStringInterpolator@toString():String" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>

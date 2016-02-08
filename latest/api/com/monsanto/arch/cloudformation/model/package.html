@@ -321,23 +321,26 @@ Parameters and Mappings.  A Condition is created but not used.
       </a>
     </span>
       
-    </li><li name="com.monsanto.arch.cloudformation.model.AwsToken" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="AwsTokenextendsAnyVal"></a>
-      <a id="AwsToken:AwsToken"></a>
+    </li><li name="com.monsanto.arch.cloudformation.model.AwsStringInterpolator" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="AwsStringInterpolatorextendsAnyVal"></a>
+      <a id="AwsStringInterpolator:AwsStringInterpolator"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier">implicit final </span>
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a href="package$$AwsToken.html"><span class="name">AwsToken</span></a><span class="result"> extends <span class="extype" name="scala.AnyVal">AnyVal</span></span>
+        <a href="package$$AwsStringInterpolator.html"><span class="name">AwsStringInterpolator</span></a><span class="result"> extends <span class="extype" name="scala.AnyVal">AnyVal</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.package@AwsTokenextendsAnyVal" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.package@AwsStringInterpolatorextendsAnyVal" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Provides a string interpolator to assist in the concatenation of</p><div class="fullcomment"><div class="comment cmt"><p>Provides a string interpolator to assist in the concatenation of</p><p>The following:</p><pre><span class="kw">import</span> com.monsanto.arch.cloudformation.model._
+
+<span class="kw">val</span> param = ParameterRef(StringParameter(<span class="lit">"that"</span>))
+<span class="kw">val</span> fun = aws<span class="lit">"test$param"</span></pre><p>Will generate the following FunctionCall definition:</p><pre>FunctionCallToken(`Fn::Join`(<span class="lit">""</span>, <span class="std">Seq</span>(StringToken(<span class="lit">"test"</span>), param)))</pre></div></div>
     </li><li name="com.monsanto.arch.cloudformation.model.BooleanToken" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="BooleanTokenextendsToken[Boolean]withProductwithSerializable"></a>
       <a id="BooleanToken:BooleanToken"></a>

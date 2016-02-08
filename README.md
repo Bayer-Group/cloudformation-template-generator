@@ -175,6 +175,11 @@ which will construct an ARN from the AWS account, region, and this default funct
 
 Credit for the Lambda function script: http://www.spacevatican.org/2015/12/20/cloudformation-nat-gateway/
 
+## Working with Cloudformation Concatenating
+In the CloudFormation DSL, there is support for concatenating strings, parameters, and function calls together to build strings.
+This can get really ugly as they are chained together.
+There is a [string interpolator](http://monsantoco.github.io/cloudformation-template-generator/latest/api/#com.monsanto.arch.cloudformation.model.package$$AwsStringInterpolator) to make this easier.
+
 ## Releasing
 
 This project uses the sbt release plugin.  After the changes you want to

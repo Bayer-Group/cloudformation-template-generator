@@ -135,7 +135,24 @@ package object model {
 
   implicit def parameter2TokenString(parameter : StringParameter) : Token[String] = ParameterRef(parameter)
 
-  implicit class AwsToken(val sc: StringContext) extends AnyVal {
+  /**
+    * Provides a string interpolator to assist in the concatenation of
+    *
+    * The following:
+    * {{{
+    *  import com.monsanto.arch.cloudformation.model._
+    *
+    *  val param = ParameterRef(StringParameter("that"))
+    *  val fun = aws"test\$param"
+    * }}}
+    *
+    * Will generate the following FunctionCall definition:
+    * {{{
+    *  FunctionCallToken(`Fn::Join`("", Seq(StringToken("test"), param)))
+    * }}}
+    *
+    */
+  implicit class AwsStringInterpolator(val sc: StringContext) extends AnyVal {
 
     def aws(tokens: Token[String]*) = AwsStringInterpolation(sc, tokens)
 

@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.1.2] - 2016-02-08
+
+### Added
+
+-   Added resources to support ElasticBeanstalk (see [#64](https://github.com/MonsantoCo/cloudformation-template-generator/pull/64))
+
 ## [3.1.1] - 2016-02-02
 
 ### Changed

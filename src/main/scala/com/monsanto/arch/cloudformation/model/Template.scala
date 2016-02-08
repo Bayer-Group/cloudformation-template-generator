@@ -119,13 +119,23 @@ object Template extends DefaultJsonProtocol {
     }
   }
 
-  implicit def fromResource[R <: Resource[R]](r: R): Template = Template("", None, None, None, Some(Seq(r)), None, None)
-  implicit def fromResources[R <: Resource[R]](r: Seq[R]): Template = Template("", None, None, None, Some(r), None, None)
-  implicit def fromOutput(o: Output[_]): Template = Template("", None, None, None, None, None, Some(Seq(o)))
-  implicit def fromOutputs(o: Seq[Output[_]]): Template = Template("", None, None, None, None, None, Some(o))
   implicit def fromParameter(p: Parameter): Template = Template("", Seq(p), None, None, None, None, None)
+  implicit def fromParameters(ps: Seq[Parameter]): Template = Template("", ps, None, None, None, None, None)
+
+  implicit def fromCondition(c: Condition): Template = Template("",None, Seq(c), None, None, None, None)
+  implicit def fromConditions(cs: Seq[Condition]): Template = Template("",None, cs, None, None, None, None)
+
+  implicit def fromMapping(m: Mapping[_]): Template = Template("", None, None, Seq(m), None, None, None)
+  implicit def fromMappings(ms: Seq[Mapping[_]]): Template = Template("", None, None, ms, None, None, None)
+
+  implicit def fromResource[R <: Resource[R]](r: R): Template = Template("", None, None, None, Some(Seq(r)), None, None)
+  implicit def fromResources[R <: Resource[R]](rs: Seq[R]): Template = Template("", None, None, None, Some(rs), None, None)
+
   implicit def fromSecurityGroupRoutable[R <: Resource[R]](sgr: SecurityGroupRoutable[R]): Template =
     Template("", None, None, None, Some(sgr.resources), Some(Seq(sgr)), None)
   implicit def fromSecurityGroupRoutables[R <: Resource[R]](sgrs: Seq[SecurityGroupRoutable[R]]): Template =
     Template("", None, None, None, Some(sgrs.flatMap(sgr => sgr.resources)), Some(sgrs), None)
+
+  implicit def fromOutput(o: Output[_]): Template = Template("", None, None, None, None, None, Some(Seq(o)))
+  implicit def fromOutputs(os: Seq[Output[_]]): Template = Template("", None, None, None, None, None, Some(os))
 }

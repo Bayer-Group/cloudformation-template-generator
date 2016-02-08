@@ -111,6 +111,10 @@ describe("Template Lookup") {
 - AWS::EC2::Volume
 - AWS::EC2::VolumeAttachment
 - AWS::ElasticLoadBalancing::LoadBalancer
+- AWS::ElasticBeanstalk::Application
+- AWS::ElasticBeanstalk::ApplicationVersion
+- AWS::ElasticBeanstalk::ConfigurationTemplate
+- AWS::ElasticBeanstalk::Environment
 - AWS::IAM::AccessKey
 - AWS::IAM::Group
 - AWS::IAM::InstanceProfile

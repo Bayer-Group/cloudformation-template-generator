@@ -108,6 +108,14 @@ object ResourceRef extends DefaultJsonProtocol {
   }
 }
 
+sealed trait ConditionFunctionNestable[LogicalReturnType] {
+  def token : Token[LogicalReturnType]
+}
+
+sealed abstract class NestableAmazonFunctionCall[LogicalReturnType](funName : String) extends AmazonFunctionCall[LogicalReturnType](funName) with ConditionFunctionNestable[LogicalReturnType] {
+  lazy val token = FunctionCallToken(this)
+}
+
 case class `Fn::GetAtt`(args: Seq[String])
   extends AmazonFunctionCall[String]("Fn::GetAtt"){type CFBackingType = Seq[String] ; val arguments = args}
 
@@ -124,19 +132,20 @@ case class `Fn::Base64`(toEncode: Token[String])
   extends AmazonFunctionCall[String]("Fn::Base64"){type CFBackingType = Token[String] ; val arguments = toEncode}
 
 case class `Fn::Equals`(a: Token[String], b: Token[String])
-  extends AmazonFunctionCall[String]("Fn::Equals"){type CFBackingType = (Token[String], Token[String]) ; val arguments = (a, b)}
+  extends NestableAmazonFunctionCall[String]("Fn::Equals")
+{type CFBackingType = (Token[String], Token[String]) ; val arguments = (a, b)}
 
-case class `Fn::Not`(fn: Token[String])
-  extends AmazonFunctionCall[String]("Fn::Not"){type CFBackingType = (Seq[Token[String]]) ; val arguments = Seq(fn)}
+case class `Fn::Not`(fn: ConditionFunctionNestable[String])
+  extends AmazonFunctionCall[String]("Fn::Not"){type CFBackingType = (Seq[Token[String]]) ; val arguments = Seq(fn).map(_.token)}
 
-case class `Fn::And`(fn: Seq[Token[String]])
-  extends AmazonFunctionCall[String]("Fn::And"){type CFBackingType = (Seq[Token[String]]) ; val arguments = fn}
+case class `Fn::And`(fn: Seq[ConditionFunctionNestable[String]])
+  extends NestableAmazonFunctionCall[String]("Fn::And"){type CFBackingType = (Seq[Token[String]]) ; val arguments = fn.map(_.token)}
 
-case class `Fn::Or`(fn: Seq[Token[String]])
-  extends AmazonFunctionCall[String]("Fn::Or"){type CFBackingType = (Seq[Token[String]]) ; val arguments = fn}
+case class `Fn::Or`(fn: Seq[ConditionFunctionNestable[String]])
+  extends NestableAmazonFunctionCall[String]("Fn::Or"){type CFBackingType = (Seq[Token[String]]) ; val arguments = fn.map(_.token)}
 
 case class ConditionFnRef(c: Condition)
-  extends AmazonFunctionCall[String]("Condition"){type CFBackingType = (Token[String]) ; val arguments = StringToken(c.name)}
+  extends NestableAmazonFunctionCall[String]("Condition"){type CFBackingType = (Token[String]) ; val arguments = StringToken(c.name)}
 
 case class `Fn::Select`[R: JsonFormat](index: Token[StringBackedInt], listOfObjects: Token[Seq[R]])
   extends AmazonFunctionCall[R]("Fn::Select") {

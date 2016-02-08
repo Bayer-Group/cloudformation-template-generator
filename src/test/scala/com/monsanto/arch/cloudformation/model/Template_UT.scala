@@ -12,4 +12,13 @@ class Template_UT extends FlatSpec with Matchers{
     ))
     thrown.getMessage should include("repeat")
   }
+
+  it should "be able to add a parameter" in {
+    val parameter = StringParameter(
+      name = "param1"
+    )
+    val template = Template.EMPTY ++ parameter
+
+    template should equal(Template.EMPTY.copy(Parameters = Some(Seq(parameter))))
+  }
 }

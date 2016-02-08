@@ -123,6 +123,7 @@ object Template extends DefaultJsonProtocol {
   implicit def fromResources[R <: Resource[R]](r: Seq[R]): Template = Template("", None, None, None, Some(r), None, None)
   implicit def fromOutput(o: Output[_]): Template = Template("", None, None, None, None, None, Some(Seq(o)))
   implicit def fromOutputs(o: Seq[Output[_]]): Template = Template("", None, None, None, None, None, Some(o))
+  implicit def fromParameter(p: Parameter): Template = Template("", Seq(p), None, None, None, None, None)
   implicit def fromSecurityGroupRoutable[R <: Resource[R]](sgr: SecurityGroupRoutable[R]): Template =
     Template("", None, None, None, Some(sgr.resources), Some(Seq(sgr)), None)
   implicit def fromSecurityGroupRoutables[R <: Resource[R]](sgrs: Seq[SecurityGroupRoutable[R]]): Template =

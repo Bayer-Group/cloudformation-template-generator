@@ -483,7 +483,7 @@ object `AWS::EC2::SecurityGroupIngress` extends DefaultJsonProtocol {
 case class `AWS::EC2::Subnet`(
   name:                String,
   VpcId:               Token[ResourceRef[`AWS::EC2::VPC`]],
-  AvailabilityZone:    Token[String],
+  AvailabilityZone:    Option[Token[String]] = None,
   CidrBlock:           Token[CidrBlock],
   Tags:                Seq[AmazonTag],
   MapPublicIpOnLaunch: Option[Token[Boolean]] = None,

@@ -216,6 +216,16 @@ trait Subnet extends AvailabilityZone with Outputs {
     `AWS::EC2::Subnet`(
       ucFirst(visibility.take(3)) + "Subnet" + ordinal,
       VpcId = vpc,
+      AvailabilityZone = Some(az),
+      CidrBlock = cidr,
+      Tags = tagger(visibility.take(3).toLowerCase + "subnet" + ordinal, visibility)
+    )
+
+  def subnet(visibility: String, ordinal: Int, vpc: Token[ResourceRef[`AWS::EC2::VPC`]], az: Option[Token[String]] =  None,
+             cidr: Token[CidrBlock], tagger: (String, String) => Seq[AmazonTag]) =
+    `AWS::EC2::Subnet`(
+      ucFirst(visibility.take(3)) + "Subnet" + ordinal,
+      VpcId = vpc,
       AvailabilityZone = az,
       CidrBlock = cidr,
       Tags = tagger(visibility.take(3).toLowerCase + "subnet" + ordinal, visibility)

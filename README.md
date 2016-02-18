@@ -86,6 +86,7 @@ describe("Template Lookup") {
 - AWS::CloudFormation::WaitCondition
 - AWS::CloudFormation::WaitConditionHandle
 - AWS::CloudTrail::Trail
+- AWS::CloudFront:Distribution:
 - AWS::CloudWatch::Alarm
 - AWS::DynamoDB::Table
 - AWS::EC2::CustomerGateway

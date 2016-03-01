@@ -576,7 +576,7 @@ object StaxTemplate {
   val pubSubnet1 = `AWS::EC2::Subnet`(
     "PubSubnet1",
     VpcId = ResourceRef(vpcResource),
-    AvailabilityZone = "us-east-1a",
+    AvailabilityZone = Some("us-east-1a"),
     CidrBlock = ParameterRef(publicSubnet1Param),
     MapPublicIpOnLaunch = Some(true),
     Tags = standardTags("pubsubnet1", "Public")
@@ -585,7 +585,7 @@ object StaxTemplate {
   val priSubnet1 = `AWS::EC2::Subnet`(
     "PriSubnet1",
     VpcId = ResourceRef(vpcResource),
-    AvailabilityZone = "us-east-1a",
+    AvailabilityZone = Some("us-east-1a"),
     CidrBlock = `Fn::Select`(StringBackedInt(0), ParameterRef(privateSubnetsParam)),
     Tags = standardTags("prisubnet1", "Private")
   )
@@ -593,7 +593,7 @@ object StaxTemplate {
   val pubSubnet2 = `AWS::EC2::Subnet`(
     "PubSubnet2",
     VpcId = ResourceRef(vpcResource),
-    AvailabilityZone = "us-east-1b",
+    AvailabilityZone = Some("us-east-1b"),
     CidrBlock = ParameterRef(publicSubnet2Param),
     Tags = standardTags("pubsubnet2", "Public")
   )
@@ -601,7 +601,7 @@ object StaxTemplate {
   val priSubnet2 = `AWS::EC2::Subnet`(
     "PriSubnet2",
     VpcId = ResourceRef(vpcResource),
-    AvailabilityZone = "us-east-1b",
+    AvailabilityZone = Some("us-east-1b"),
     CidrBlock = `Fn::Select`(StringBackedInt(1), ParameterRef(privateSubnetsParam)),
     Tags = standardTags("prisubnet2", "Private")
   )

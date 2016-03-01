@@ -14,7 +14,7 @@ class RDS_UT extends FunSpec with Matchers {
     val dbSubnet = `AWS::EC2::Subnet`(
       name             = "Subnet",
       VpcId            = ResourceRef(vpc),
-      AvailabilityZone = "us-east-1a",
+      AvailabilityZone = Some("us-east-1a"),
       CidrBlock        = CidrBlock(10, 10, 10, 10, 24),
       Tags             = Seq()
     )

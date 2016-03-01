@@ -25,7 +25,7 @@ class ResourceRef_UT extends FunSpec with Matchers {
       val DBPriSubnet1Resource = `AWS::EC2::Subnet`(
         "DBPriSubnet1",
         VpcId = vpcToken,
-        AvailabilityZone = "us-east-1a",
+        AvailabilityZone = Some("us-east-1a"),
         CidrBlock = ParameterRef(privateDBSubnet1CidrParam),
         Tags = Seq[AmazonTag]()
       )
@@ -33,7 +33,7 @@ class ResourceRef_UT extends FunSpec with Matchers {
       val DBPriSubnet2Resource = `AWS::EC2::Subnet`(
         "DBPriSubnet2",
         VpcId = vpcToken,
-        AvailabilityZone = "us-east-1b",
+        AvailabilityZone = Some("us-east-1b"),
         CidrBlock = ParameterRef(privateDBSubnet1CidrParam),
         Tags = Seq[AmazonTag]()
       )

@@ -1,5 +1,7 @@
 package com.monsanto.arch.cloudformation
 
+import spray.json.JsonFormat
+
 import scala.language.implicitConversions
 
 /** A DSL to create consistent, type-safe AWS CloudFormation templates.
@@ -159,4 +161,11 @@ package object model {
   }
 
   implicit def lift2Option[A](a : A) : Option[A] = Option(a)
+
+  import spray.json._
+  import Token._
+  /**
+    * This is to assist in creating Output[Token[String]] objects as it allows the formatter to be in scope.
+    */
+  implicit lazy val stringTokenFormat = implicitly[JsonFormat[Token[String]]]
 }

@@ -1,9 +1,9 @@
 <!DOCTYPE html >
 <html>
         <head>
-          <title>Fn::Not - com.monsanto.arch.cloudformation.model.Fn::Not</title>
-          <meta name="description" content="Fn Not - com.monsanto.arch.cloudformation.model.Fn Not" />
-          <meta name="keywords" content="Fn Not com.monsanto.arch.cloudformation.model.Fn Not" />
+          <title>NestableAmazonFunctionCall - com.monsanto.arch.cloudformation.model.NestableAmazonFunctionCall</title>
+          <meta name="description" content="NestableAmazonFunctionCall - com.monsanto.arch.cloudformation.model.NestableAmazonFunctionCall" />
+          <meta name="keywords" content="NestableAmazonFunctionCall com.monsanto.arch.cloudformation.model.NestableAmazonFunctionCall" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../../../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
@@ -16,7 +16,7 @@
       <script type="text/javascript">
          if(top === self) {
             var url = '../../../../../index.html';
-            var hash = 'com.monsanto.arch.cloudformation.model.Fn$colon$colonNot';
+            var hash = 'com.monsanto.arch.cloudformation.model.NestableAmazonFunctionCall';
             var anchor = window.location.hash;
             var anchor_opt = '';
             if (anchor.length >= 1)
@@ -30,10 +30,10 @@
       <div id="definition">
         <img alt="Class" src="../../../../../lib/class_big.png" />
         <p id="owner"><a href="../../../../package.html" class="extype" name="com">com</a>.<a href="../../../package.html" class="extype" name="com.monsanto">monsanto</a>.<a href="../../package.html" class="extype" name="com.monsanto.arch">arch</a>.<a href="../package.html" class="extype" name="com.monsanto.arch.cloudformation">cloudformation</a>.<a href="package.html" class="extype" name="com.monsanto.arch.cloudformation.model">model</a></p>
-        <h1>Fn::Not</h1><h3><span class="morelinks"><div>Related Doc:
+        <h1>NestableAmazonFunctionCall</h1><h3><span class="morelinks"><div>Related Doc:
             <a href="package.html" class="extype" name="com.monsanto.arch.cloudformation.model">package model</a>
           </div></span></h3><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.Fn$colon$colonNot" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.NestableAmazonFunctionCall" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -41,18 +41,21 @@
 
       <h4 id="signature" class="signature">
       <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">case class</span>
+        <span class="modifier">sealed abstract </span>
+        <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: Fn$colon$colonNot" class="name">Fn::Not</span><span class="params">(<span name="fn">fn: <a href="ConditionFunctionNestable.html" class="extype" name="com.monsanto.arch.cloudformation.model.ConditionFunctionNestable">ConditionFunctionNestable</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>)</span><span class="result"> extends <a href="AmazonFunctionCall.html" class="extype" name="com.monsanto.arch.cloudformation.model.AmazonFunctionCall">AmazonFunctionCall</a>[<span class="extype" name="scala.Predef.String">String</span>] with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <span class="name">NestableAmazonFunctionCall</span><span class="tparams">[<span name="LogicalReturnType">LogicalReturnType</span>]</span><span class="result"> extends <a href="AmazonFunctionCall.html" class="extype" name="com.monsanto.arch.cloudformation.model.AmazonFunctionCall">AmazonFunctionCall</a>[<span class="extype" name="com.monsanto.arch.cloudformation.model.NestableAmazonFunctionCall.LogicalReturnType">LogicalReturnType</span>] with <a href="ConditionFunctionNestable.html" class="extype" name="com.monsanto.arch.cloudformation.model.ConditionFunctionNestable">ConditionFunctionNestable</a>[<span class="extype" name="com.monsanto.arch.cloudformation.model.NestableAmazonFunctionCall.LogicalReturnType">LogicalReturnType</span>]</span>
       </span>
       </h4>
       
           <div id="comment" class="fullcommenttop"><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
-          <div class="superTypes hiddenContent"><span class="extype" name="scala.Serializable">Serializable</span>, <span class="extype" name="java.io.Serializable">Serializable</span>, <span class="extype" name="scala.Product">Product</span>, <span class="extype" name="scala.Equals">Equals</span>, <a href="AmazonFunctionCall.html" class="extype" name="com.monsanto.arch.cloudformation.model.AmazonFunctionCall">AmazonFunctionCall</a>[<span class="extype" name="scala.Predef.String">String</span>], <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
-        </div></div>
+          <div class="superTypes hiddenContent"><a href="ConditionFunctionNestable.html" class="extype" name="com.monsanto.arch.cloudformation.model.ConditionFunctionNestable">ConditionFunctionNestable</a>[<span class="extype" name="com.monsanto.arch.cloudformation.model.NestableAmazonFunctionCall.LogicalReturnType">LogicalReturnType</span>], <a href="AmazonFunctionCall.html" class="extype" name="com.monsanto.arch.cloudformation.model.AmazonFunctionCall">AmazonFunctionCall</a>[<span class="extype" name="com.monsanto.arch.cloudformation.model.NestableAmazonFunctionCall.LogicalReturnType">LogicalReturnType</span>], <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+        </div><div class="toggleContainer block">
+            <span class="toggle">Known Subclasses</span>
+            <div class="subClasses hiddenContent"><a href="ConditionFnRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ConditionFnRef">ConditionFnRef</a>, <a href="Fn$colon$colonAnd.html" class="extype" name="com.monsanto.arch.cloudformation.model.Fn::And">Fn::And</a>, <a href="Fn$colon$colonEquals.html" class="extype" name="com.monsanto.arch.cloudformation.model.Fn::Equals">Fn::Equals</a>, <a href="Fn$colon$colonOr.html" class="extype" name="com.monsanto.arch.cloudformation.model.Fn::Or">Fn::Or</a></div>
+          </div></div>
         
 
       <div id="mbrsel">
@@ -69,7 +72,7 @@
                 <span class="filtertype">Inherited<br />
                 </span>
                 <ol id="linearization">
-                  <li class="in" name="com.monsanto.arch.cloudformation.model.Fn::Not"><span>Fn::Not</span></li><li class="in" name="scala.Serializable"><span>Serializable</span></li><li class="in" name="java.io.Serializable"><span>Serializable</span></li><li class="in" name="scala.Product"><span>Product</span></li><li class="in" name="scala.Equals"><span>Equals</span></li><li class="in" name="com.monsanto.arch.cloudformation.model.AmazonFunctionCall"><span>AmazonFunctionCall</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                  <li class="in" name="com.monsanto.arch.cloudformation.model.NestableAmazonFunctionCall"><span>NestableAmazonFunctionCall</span></li><li class="in" name="com.monsanto.arch.cloudformation.model.ConditionFunctionNestable"><span>ConditionFunctionNestable</span></li><li class="in" name="com.monsanto.arch.cloudformation.model.AmazonFunctionCall"><span>AmazonFunctionCall</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                 </ol>
               </div><div id="ancestors">
             <span class="filtertype"></span>
@@ -86,54 +89,54 @@
 
       <div id="template">
         <div id="allMembers">
-        <div id="constructors" class="members">
-              <h3>Instance Constructors</h3>
-              <ol><li name="com.monsanto.arch.cloudformation.model.Fn::Not#&lt;init&gt;" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="&lt;init&gt;(fn:com.monsanto.arch.cloudformation.model.ConditionFunctionNestable[String]):com.monsanto.arch.cloudformation.model.Fn::Not"></a>
-      <a id="&lt;init&gt;:Fn::Not"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">new</span>
-      </span>
-      <span class="symbol">
-        <span title="gt4s: Fn$colon$colonNot" class="name">Fn::Not</span><span class="params">(<span name="fn">fn: <a href="ConditionFunctionNestable.html" class="extype" name="com.monsanto.arch.cloudformation.model.ConditionFunctionNestable">ConditionFunctionNestable</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>)</span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.Fn$colon$colonNot@&lt;init&gt;(fn:com.monsanto.arch.cloudformation.model.ConditionFunctionNestable[String]):com.monsanto.arch.cloudformation.model.Fn::Not" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      
-    </li></ol>
-            </div>
+        
 
         <div id="types" class="types members">
               <h3>Type Members</h3>
-              <ol><li name="com.monsanto.arch.cloudformation.model.Fn::Not.CFBackingType" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="CFBackingType=Seq[com.monsanto.arch.cloudformation.model.Token[String]]"></a>
+              <ol><li name="com.monsanto.arch.cloudformation.model.AmazonFunctionCall.CFBackingType" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="CFBackingType"></a>
       <a id="CFBackingType:CFBackingType"></a>
       <h4 class="signature">
       <span class="modifier_kind">
-        <span class="modifier"></span>
+        <span class="modifier">abstract </span>
         <span class="kind">type</span>
       </span>
       <span class="symbol">
-        <span class="name">CFBackingType</span><span class="result"> = <span class="extype" name="scala.collection.Seq">Seq</span>[<a href="Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
+        <span class="name">CFBackingType</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.Fn$colon$colonNot@CFBackingType=Seq[com.monsanto.arch.cloudformation.model.Token[String]]" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.NestableAmazonFunctionCall@CFBackingType" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="com.monsanto.arch.cloudformation.model.Fn::Not">Fn::Not</a> → <a href="AmazonFunctionCall.html" class="extype" name="com.monsanto.arch.cloudformation.model.AmazonFunctionCall">AmazonFunctionCall</a></dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="AmazonFunctionCall.html" class="extype" name="com.monsanto.arch.cloudformation.model.AmazonFunctionCall">AmazonFunctionCall</a></dd></dl></div>
     </li></ol>
             </div>
 
-        
+        <div id="values" class="values members">
+              <h3>Abstract Value Members</h3>
+              <ol><li name="com.monsanto.arch.cloudformation.model.AmazonFunctionCall#arguments" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="arguments:AmazonFunctionCall.this.CFBackingType"></a>
+      <a id="arguments:CFBackingType"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">abstract </span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">arguments</span><span class="result">: <a href="#CFBackingType" class="extmbr" name="com.monsanto.arch.cloudformation.model.NestableAmazonFunctionCall.CFBackingType">CFBackingType</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.NestableAmazonFunctionCall@arguments:AmazonFunctionCall.this.CFBackingType" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="AmazonFunctionCall.html" class="extype" name="com.monsanto.arch.cloudformation.model.AmazonFunctionCall">AmazonFunctionCall</a></dd></dl></div>
+    </li></ol>
+            </div>
 
         <div id="values" class="values members">
-              <h3>Value Members</h3>
+              <h3>Concrete Value Members</h3>
               <ol><li name="scala.AnyRef#!=" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="!=(x$1:Any):Boolean"></a>
       <a id="!=(Any):Boolean"></a>
@@ -146,7 +149,7 @@
         <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.Fn$colon$colonNot@!=(x$1:Any):Boolean" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.NestableAmazonFunctionCall@!=(x$1:Any):Boolean" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -163,7 +166,7 @@
         <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.Fn$colon$colonNot@##():Int" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.NestableAmazonFunctionCall@##():Int" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -180,28 +183,11 @@
         <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.Fn$colon$colonNot@==(x$1:Any):Boolean" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.NestableAmazonFunctionCall@==(x$1:Any):Boolean" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="com.monsanto.arch.cloudformation.model.Fn::Not#arguments" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="arguments:Seq[com.monsanto.arch.cloudformation.model.Token[String]]"></a>
-      <a id="arguments:Seq[Token[String]]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">arguments</span><span class="result">: <span class="extype" name="scala.collection.Seq">Seq</span>[<a href="Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.Fn$colon$colonNot@arguments:Seq[com.monsanto.arch.cloudformation.model.Token[String]]" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="com.monsanto.arch.cloudformation.model.Fn::Not">Fn::Not</a> → <a href="AmazonFunctionCall.html" class="extype" name="com.monsanto.arch.cloudformation.model.AmazonFunctionCall">AmazonFunctionCall</a></dd></dl></div>
     </li><li name="scala.Any#asInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="asInstanceOf[T0]:T0"></a>
       <a id="asInstanceOf[T0]:T0"></a>
@@ -214,7 +200,7 @@
         <span class="name">asInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <span class="extype" name="scala.Any.asInstanceOf.T0">T0</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.Fn$colon$colonNot@asInstanceOf[T0]:T0" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.NestableAmazonFunctionCall@asInstanceOf[T0]:T0" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -231,7 +217,7 @@
         <span class="name">clone</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.Fn$colon$colonNot@clone():Object" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.NestableAmazonFunctionCall@clone():Object" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -254,11 +240,28 @@
         <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.Fn$colon$colonNot@eq(x$1:AnyRef):Boolean" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.NestableAmazonFunctionCall@eq(x$1:AnyRef):Boolean" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.AnyRef#equals" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="equals(x$1:Any):Boolean"></a>
+      <a id="equals(Any):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.NestableAmazonFunctionCall@equals(x$1:Any):Boolean" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
     </li><li name="scala.AnyRef#finalize" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="finalize():Unit"></a>
       <a id="finalize():Unit"></a>
@@ -271,7 +274,7 @@
         <span class="name">finalize</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.Fn$colon$colonNot@finalize():Unit" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.NestableAmazonFunctionCall@finalize():Unit" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -282,23 +285,6 @@
     </span>)</span>
               
         </dd></dl></div>
-    </li><li name="com.monsanto.arch.cloudformation.model.Fn::Not#fn" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="fn:com.monsanto.arch.cloudformation.model.ConditionFunctionNestable[String]"></a>
-      <a id="fn:ConditionFunctionNestable[String]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">fn</span><span class="result">: <a href="ConditionFunctionNestable.html" class="extype" name="com.monsanto.arch.cloudformation.model.ConditionFunctionNestable">ConditionFunctionNestable</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.Fn$colon$colonNot@fn:com.monsanto.arch.cloudformation.model.ConditionFunctionNestable[String]" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      
     </li><li name="com.monsanto.arch.cloudformation.model.AmazonFunctionCall#funName" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="funName:String"></a>
       <a id="funName:String"></a>
@@ -311,7 +297,7 @@
         <span class="name">funName</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.Fn$colon$colonNot@funName:String" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.NestableAmazonFunctionCall@funName:String" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -328,7 +314,24 @@
         <span class="name">getClass</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.Class">Class</span>[_]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.Fn$colon$colonNot@getClass():Class[_]" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.NestableAmazonFunctionCall@getClass():Class[_]" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef#hashCode" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="hashCode():Int"></a>
+      <a id="hashCode():Int"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.NestableAmazonFunctionCall@hashCode():Int" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -345,7 +348,7 @@
         <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.Fn$colon$colonNot@isInstanceOf[T0]:Boolean" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.NestableAmazonFunctionCall@isInstanceOf[T0]:Boolean" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -362,7 +365,7 @@
         <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.Fn$colon$colonNot@ne(x$1:AnyRef):Boolean" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.NestableAmazonFunctionCall@ne(x$1:AnyRef):Boolean" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -379,7 +382,7 @@
         <span class="name">notify</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.Fn$colon$colonNot@notify():Unit" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.NestableAmazonFunctionCall@notify():Unit" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -396,7 +399,7 @@
         <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.Fn$colon$colonNot@notifyAll():Unit" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.NestableAmazonFunctionCall@notifyAll():Unit" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -413,11 +416,45 @@
         <span class="name">synchronized</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="params">(<span name="arg0">arg0: ⇒ <span class="extype" name="java.lang.AnyRef.synchronized.T0">T0</span></span>)</span><span class="result">: <span class="extype" name="java.lang.AnyRef.synchronized.T0">T0</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.Fn$colon$colonNot@synchronized[T0](x$1:=&gt;T0):T0" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.NestableAmazonFunctionCall@synchronized[T0](x$1:=&gt;T0):T0" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.AnyRef#toString" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="toString():String"></a>
+      <a id="toString():String"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.NestableAmazonFunctionCall@toString():String" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="com.monsanto.arch.cloudformation.model.NestableAmazonFunctionCall#token" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="token:com.monsanto.arch.cloudformation.model.FunctionCallToken[LogicalReturnType]"></a>
+      <a id="token:FunctionCallToken[LogicalReturnType]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">lazy val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">token</span><span class="result">: <a href="FunctionCallToken.html" class="extype" name="com.monsanto.arch.cloudformation.model.FunctionCallToken">FunctionCallToken</a>[<span class="extype" name="com.monsanto.arch.cloudformation.model.NestableAmazonFunctionCall.LogicalReturnType">LogicalReturnType</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.NestableAmazonFunctionCall@token:com.monsanto.arch.cloudformation.model.FunctionCallToken[LogicalReturnType]" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="com.monsanto.arch.cloudformation.model.NestableAmazonFunctionCall">NestableAmazonFunctionCall</a> → <a href="ConditionFunctionNestable.html" class="extype" name="com.monsanto.arch.cloudformation.model.ConditionFunctionNestable">ConditionFunctionNestable</a></dd></dl></div>
     </li><li name="scala.AnyRef#wait" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait():Unit"></a>
       <a id="wait():Unit"></a>
@@ -430,7 +467,7 @@
         <span class="name">wait</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.Fn$colon$colonNot@wait():Unit" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.NestableAmazonFunctionCall@wait():Unit" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -453,7 +490,7 @@
         <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Long">Long</span></span>, <span name="arg1">arg1: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.Fn$colon$colonNot@wait(x$1:Long,x$2:Int):Unit" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.NestableAmazonFunctionCall@wait(x$1:Long,x$2:Int):Unit" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -476,7 +513,7 @@
         <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Long">Long</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.Fn$colon$colonNot@wait(x$1:Long):Unit" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.NestableAmazonFunctionCall@wait(x$1:Long):Unit" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -496,16 +533,10 @@
         </div>
 
         <div id="inheritedMembers">
-        <div class="parent" name="scala.Serializable">
-              <h3>Inherited from <span class="extype" name="scala.Serializable">Serializable</span></h3>
-            </div><div class="parent" name="java.io.Serializable">
-              <h3>Inherited from <span class="extype" name="java.io.Serializable">Serializable</span></h3>
-            </div><div class="parent" name="scala.Product">
-              <h3>Inherited from <span class="extype" name="scala.Product">Product</span></h3>
-            </div><div class="parent" name="scala.Equals">
-              <h3>Inherited from <span class="extype" name="scala.Equals">Equals</span></h3>
+        <div class="parent" name="com.monsanto.arch.cloudformation.model.ConditionFunctionNestable">
+              <h3>Inherited from <a href="ConditionFunctionNestable.html" class="extype" name="com.monsanto.arch.cloudformation.model.ConditionFunctionNestable">ConditionFunctionNestable</a>[<span class="extype" name="com.monsanto.arch.cloudformation.model.NestableAmazonFunctionCall.LogicalReturnType">LogicalReturnType</span>]</h3>
             </div><div class="parent" name="com.monsanto.arch.cloudformation.model.AmazonFunctionCall">
-              <h3>Inherited from <a href="AmazonFunctionCall.html" class="extype" name="com.monsanto.arch.cloudformation.model.AmazonFunctionCall">AmazonFunctionCall</a>[<span class="extype" name="scala.Predef.String">String</span>]</h3>
+              <h3>Inherited from <a href="AmazonFunctionCall.html" class="extype" name="com.monsanto.arch.cloudformation.model.AmazonFunctionCall">AmazonFunctionCall</a>[<span class="extype" name="com.monsanto.arch.cloudformation.model.NestableAmazonFunctionCall.LogicalReturnType">LogicalReturnType</span>]</h3>
             </div><div class="parent" name="scala.AnyRef">
               <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
             </div><div class="parent" name="scala.Any">

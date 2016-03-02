@@ -410,7 +410,7 @@ Parameters and Mappings.  A Condition is created but not used.
     </span>
       <p class="shortcomment cmt">Created by bkrodg on 2/16/15.</p>
     </li><li name="com.monsanto.arch.cloudformation.model.ConditionFnRef" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="ConditionFnRefextendsAmazonFunctionCall[String]withProductwithSerializable"></a>
+      <a id="ConditionFnRefextendsNestableAmazonFunctionCall[String]withProductwithSerializable"></a>
       <a id="ConditionFnRef:ConditionFnRef"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -418,10 +418,27 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a href="ConditionFnRef.html"><span class="name">ConditionFnRef</span></a><span class="params">(<span name="c">c: <a href="Condition.html" class="extype" name="com.monsanto.arch.cloudformation.model.Condition">Condition</a></span>)</span><span class="result"> extends <a href="AmazonFunctionCall.html" class="extype" name="com.monsanto.arch.cloudformation.model.AmazonFunctionCall">AmazonFunctionCall</a>[<span class="extype" name="scala.Predef.String">String</span>] with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a href="ConditionFnRef.html"><span class="name">ConditionFnRef</span></a><span class="params">(<span name="c">c: <a href="Condition.html" class="extype" name="com.monsanto.arch.cloudformation.model.Condition">Condition</a></span>)</span><span class="result"> extends <a href="NestableAmazonFunctionCall.html" class="extype" name="com.monsanto.arch.cloudformation.model.NestableAmazonFunctionCall">NestableAmazonFunctionCall</a>[<span class="extype" name="scala.Predef.String">String</span>] with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.package@ConditionFnRefextendsAmazonFunctionCall[String]withProductwithSerializable" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.package@ConditionFnRefextendsNestableAmazonFunctionCall[String]withProductwithSerializable" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.monsanto.arch.cloudformation.model.ConditionFunctionNestable" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="ConditionFunctionNestable[LogicalReturnType]extendsAnyRef"></a>
+      <a id="ConditionFunctionNestable[LogicalReturnType]:ConditionFunctionNestable[LogicalReturnType]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">sealed </span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="ConditionFunctionNestable.html"><span class="name">ConditionFunctionNestable</span></a><span class="tparams">[<span name="LogicalReturnType">LogicalReturnType</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.package@ConditionFunctionNestable[LogicalReturnType]extendsAnyRef" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -461,7 +478,7 @@ Parameters and Mappings.  A Condition is created but not used.
     </span>
       
     </li><li name="com.monsanto.arch.cloudformation.model.Fn::And" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="Fn::AndextendsAmazonFunctionCall[String]withProductwithSerializable"></a>
+      <a id="Fn::AndextendsNestableAmazonFunctionCall[String]withProductwithSerializable"></a>
       <a id="Fn::And:Fn::And"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -469,10 +486,10 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a href="Fn$colon$colonAnd.html"><span title="gt4s: Fn$colon$colonAnd" class="name">Fn::And</span></a><span class="params">(<span name="fn">fn: <span class="extype" name="scala.Seq">Seq</span>[<a href="Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="scala.Predef.String">String</span>]]</span>)</span><span class="result"> extends <a href="AmazonFunctionCall.html" class="extype" name="com.monsanto.arch.cloudformation.model.AmazonFunctionCall">AmazonFunctionCall</a>[<span class="extype" name="scala.Predef.String">String</span>] with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a href="Fn$colon$colonAnd.html"><span title="gt4s: Fn$colon$colonAnd" class="name">Fn::And</span></a><span class="params">(<span name="fn">fn: <span class="extype" name="scala.Seq">Seq</span>[<a href="ConditionFunctionNestable.html" class="extype" name="com.monsanto.arch.cloudformation.model.ConditionFunctionNestable">ConditionFunctionNestable</a>[<span class="extype" name="scala.Predef.String">String</span>]]</span>)</span><span class="result"> extends <a href="NestableAmazonFunctionCall.html" class="extype" name="com.monsanto.arch.cloudformation.model.NestableAmazonFunctionCall">NestableAmazonFunctionCall</a>[<span class="extype" name="scala.Predef.String">String</span>] with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.package@Fn::AndextendsAmazonFunctionCall[String]withProductwithSerializable" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.package@Fn::AndextendsNestableAmazonFunctionCall[String]withProductwithSerializable" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -495,7 +512,7 @@ Parameters and Mappings.  A Condition is created but not used.
     </span>
       
     </li><li name="com.monsanto.arch.cloudformation.model.Fn::Equals" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="Fn::EqualsextendsAmazonFunctionCall[String]withProductwithSerializable"></a>
+      <a id="Fn::EqualsextendsNestableAmazonFunctionCall[String]withProductwithSerializable"></a>
       <a id="Fn::Equals:Fn::Equals"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -503,10 +520,10 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a href="Fn$colon$colonEquals.html"><span title="gt4s: Fn$colon$colonEquals" class="name">Fn::Equals</span></a><span class="params">(<span name="a">a: <a href="Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="b">b: <a href="Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>)</span><span class="result"> extends <a href="AmazonFunctionCall.html" class="extype" name="com.monsanto.arch.cloudformation.model.AmazonFunctionCall">AmazonFunctionCall</a>[<span class="extype" name="scala.Predef.String">String</span>] with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a href="Fn$colon$colonEquals.html"><span title="gt4s: Fn$colon$colonEquals" class="name">Fn::Equals</span></a><span class="params">(<span name="a">a: <a href="Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="b">b: <a href="Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>)</span><span class="result"> extends <a href="NestableAmazonFunctionCall.html" class="extype" name="com.monsanto.arch.cloudformation.model.NestableAmazonFunctionCall">NestableAmazonFunctionCall</a>[<span class="extype" name="scala.Predef.String">String</span>] with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.package@Fn::EqualsextendsAmazonFunctionCall[String]withProductwithSerializable" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.package@Fn::EqualsextendsNestableAmazonFunctionCall[String]withProductwithSerializable" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -605,7 +622,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a href="Fn$colon$colonNot.html"><span title="gt4s: Fn$colon$colonNot" class="name">Fn::Not</span></a><span class="params">(<span name="fn">fn: <a href="Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>)</span><span class="result"> extends <a href="AmazonFunctionCall.html" class="extype" name="com.monsanto.arch.cloudformation.model.AmazonFunctionCall">AmazonFunctionCall</a>[<span class="extype" name="scala.Predef.String">String</span>] with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a href="Fn$colon$colonNot.html"><span title="gt4s: Fn$colon$colonNot" class="name">Fn::Not</span></a><span class="params">(<span name="fn">fn: <a href="ConditionFunctionNestable.html" class="extype" name="com.monsanto.arch.cloudformation.model.ConditionFunctionNestable">ConditionFunctionNestable</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>)</span><span class="result"> extends <a href="AmazonFunctionCall.html" class="extype" name="com.monsanto.arch.cloudformation.model.AmazonFunctionCall">AmazonFunctionCall</a>[<span class="extype" name="scala.Predef.String">String</span>] with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.package@Fn::NotextendsAmazonFunctionCall[String]withProductwithSerializable" title="Permalink" target="_top">
@@ -614,7 +631,7 @@ Parameters and Mappings.  A Condition is created but not used.
     </span>
       
     </li><li name="com.monsanto.arch.cloudformation.model.Fn::Or" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="Fn::OrextendsAmazonFunctionCall[String]withProductwithSerializable"></a>
+      <a id="Fn::OrextendsNestableAmazonFunctionCall[String]withProductwithSerializable"></a>
       <a id="Fn::Or:Fn::Or"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -622,10 +639,10 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a href="Fn$colon$colonOr.html"><span title="gt4s: Fn$colon$colonOr" class="name">Fn::Or</span></a><span class="params">(<span name="fn">fn: <span class="extype" name="scala.Seq">Seq</span>[<a href="Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="scala.Predef.String">String</span>]]</span>)</span><span class="result"> extends <a href="AmazonFunctionCall.html" class="extype" name="com.monsanto.arch.cloudformation.model.AmazonFunctionCall">AmazonFunctionCall</a>[<span class="extype" name="scala.Predef.String">String</span>] with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a href="Fn$colon$colonOr.html"><span title="gt4s: Fn$colon$colonOr" class="name">Fn::Or</span></a><span class="params">(<span name="fn">fn: <span class="extype" name="scala.Seq">Seq</span>[<a href="ConditionFunctionNestable.html" class="extype" name="com.monsanto.arch.cloudformation.model.ConditionFunctionNestable">ConditionFunctionNestable</a>[<span class="extype" name="scala.Predef.String">String</span>]]</span>)</span><span class="result"> extends <a href="NestableAmazonFunctionCall.html" class="extype" name="com.monsanto.arch.cloudformation.model.NestableAmazonFunctionCall">NestableAmazonFunctionCall</a>[<span class="extype" name="scala.Predef.String">String</span>] with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.package@Fn::OrextendsAmazonFunctionCall[String]withProductwithSerializable" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.package@Fn::OrextendsNestableAmazonFunctionCall[String]withProductwithSerializable" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -746,6 +763,23 @@ Parameters and Mappings.  A Condition is created but not used.
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.package@MappingRef[R]extendsProductwithSerializable" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.monsanto.arch.cloudformation.model.NestableAmazonFunctionCall" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="NestableAmazonFunctionCall[LogicalReturnType]extendsAmazonFunctionCall[LogicalReturnType]withConditionFunctionNestable[LogicalReturnType]"></a>
+      <a id="NestableAmazonFunctionCall[LogicalReturnType]:NestableAmazonFunctionCall[LogicalReturnType]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">sealed abstract </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="NestableAmazonFunctionCall.html"><span class="name">NestableAmazonFunctionCall</span></a><span class="tparams">[<span name="LogicalReturnType">LogicalReturnType</span>]</span><span class="result"> extends <a href="AmazonFunctionCall.html" class="extype" name="com.monsanto.arch.cloudformation.model.AmazonFunctionCall">AmazonFunctionCall</a>[<span class="extype" name="com.monsanto.arch.cloudformation.model.NestableAmazonFunctionCall.LogicalReturnType">LogicalReturnType</span>] with <a href="ConditionFunctionNestable.html" class="extype" name="com.monsanto.arch.cloudformation.model.ConditionFunctionNestable">ConditionFunctionNestable</a>[<span class="extype" name="com.monsanto.arch.cloudformation.model.NestableAmazonFunctionCall.LogicalReturnType">LogicalReturnType</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.monsanto.arch.cloudformation.model.package@NestableAmazonFunctionCall[LogicalReturnType]extendsAmazonFunctionCall[LogicalReturnType]withConditionFunctionNestable[LogicalReturnType]" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>

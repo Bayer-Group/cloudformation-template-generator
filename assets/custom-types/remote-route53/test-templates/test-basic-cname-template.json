@@ -1,0 +1,16 @@
+{
+  "Resources": {
+    "Route53Test": {
+      "Type": "Custom::RemoteRoute53RecordSet",
+      "Properties": {
+        "ServiceToken": {"Fn::Join": [":", ["arn:aws:sns", {"Ref":"AWS::Region"}, {"Ref":"AWS::AccountId"}, "cf-remote-route53"]]},
+        "DestinationRole": "<changeme>",
+        "HostedZoneName": "<changeme>.",
+        "Name": "<changeme>",
+        "Type": "CNAME",
+        "ResourceRecords": ["cnn.com"],
+        "TTL": 360
+      }
+    }
+  }
+}

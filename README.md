@@ -154,7 +154,7 @@ to your account and region.  The code for these functions is found in this repo 
 ## NAT Gateways
 CloudFormation does not yet support the new managed NAT gateways.  In order to make use of these, a custom
 function has been implemented.  At whatever time Amazon updates CF to support these natively, this functionality
-will be deprecated and removed. 
+will be deprecated and removed.  [**UPDATE 03/01**]: This has now been added to CF, but not yet implemented here. See [issue] (https://github.com/MonsantoCo/cloudformation-template-generator/issues/72).
 
 If you use the raw `Custom::NatGateway` and `Custom::NatGatewayRoute` objects directly, you'll need to set up
 WaitCondition and WaitConditionHandles as well.  See the `withNAT()` implementations for more details.  
@@ -178,6 +178,9 @@ If you are deploying the function to the default name of `cf-nat-gateway`, you c
 which will construct an ARN from the AWS account, region, and this default function name.
 
 Credit for the Lambda function script: http://www.spacevatican.org/2015/12/20/cloudformation-nat-gateway/
+
+## Remote Route 53 entries
+A given domain (or hosted zone, more specifically) must be managed out of a single AWS account.  This poses problems if you want to create resources under that domain in templates that will run out of other accounts.  A CloudFormation template can only work in one given account.  However, with Cloud Formation's custom type functionality, we use custom code to assume a role in the account that owns the hosted zone.  This requires some setup steps for each hosted zone and each account.  For instructions, please see: https://github.com/MonsantoCo/cloudformation-template-generator/assets/custom-types/remote-route53/README.md for more. 
 
 ## Working with Cloudformation Concatenating
 In the CloudFormation DSL, there is support for concatenating strings, parameters, and function calls together to build strings.

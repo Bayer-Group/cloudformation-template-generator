@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+**Note: Minor breaks in backwards compatibility on `AWS::EC2::Subnet`**
+
+## [3.2.0] - 2016-03-02
+
+### Added
+
+-   Added custom type to remotely manage Route 53 entries in another account (see [#75](https://github.com/MonsantoCo/cloudformation-template-generator/pull/75)).
+
+### Changed
+
+-   AvailabilityZone is optional for Subnet (see [#69](https://github.com/MonsantoCo/cloudformation-template-generator/pull/69))
+-   Fixed an issue in the NAT Gateway custom type that can cause an unrecoverable failure if the gateway was manually deleted.
+
+
 ## [3.1.2] - 2016-02-08
 
 ### Added

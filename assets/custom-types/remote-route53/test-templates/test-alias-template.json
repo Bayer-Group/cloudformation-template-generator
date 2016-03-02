@@ -1,0 +1,61 @@
+{
+  "Resources": {
+    "VPC" : {
+     "Type" : "AWS::EC2::VPC",
+     "Properties" : {
+        "CidrBlock" : "10.183.0.0/16"
+     }
+  },
+    "Subnet": {
+       "Type" : "AWS::EC2::Subnet",
+       "Properties" : {
+          "CidrBlock" : "10.183.0.0/24",
+          "VpcId" : { "Ref" : "VPC" }
+       }
+    },
+    "IGW": {
+       "Type" : "AWS::EC2::InternetGateway",
+       "Properties" : {
+
+       }
+    },
+    "IGWattach": {
+       "Type" : "AWS::EC2::VPCGatewayAttachment",
+       "Properties" : {
+          "InternetGatewayId" : {"Ref": "IGW"},
+          "VpcId" : {"Ref": "VPC"}
+       }
+    },
+    "ELBTest": {
+       "Type": "AWS::ElasticLoadBalancing::LoadBalancer",
+       "Properties": {
+         "Listeners": [{
+           "InstancePort" : "80",
+           "InstanceProtocol" : "HTTP",
+           "LoadBalancerPort" : "80",
+           "Protocol" : "HTTP"
+        }],
+        "Subnets": [{"Ref": "Subnet"}]
+     }
+    },
+    "Route53Test": {
+      "Type": "Custom::RemoteRoute53RecordSet",
+      "Properties": {
+        "ServiceToken": {"Fn::Join": [":", ["arn:aws:sns", {"Ref":"AWS::Region"}, {"Ref":"AWS::AccountId"}, "cf-remote-route53"]]},
+        "DestinationRole": "<changeme>",
+        "HostedZoneName": "<changeme>.",
+        "Name": "<changeme>",
+        "Type": "A",
+        "AliasTarget": {
+          "DNSName": {
+            "Fn::GetAtt": ["ELBTest", "DNSName"]
+          },
+          "HostedZoneId": {
+            "Fn::GetAtt": ["ELBTest", "CanonicalHostedZoneNameID"]
+          },
+          "EvaluateTargetHealth": false
+        }
+      }
+    }
+  }
+}

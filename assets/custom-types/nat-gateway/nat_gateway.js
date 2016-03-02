@@ -62,12 +62,12 @@ var deleteRoute = function(event, context) {
             DestinationCidrBlock: destinationCidrBlock
         }, function(err, data) {
             if (err) {
-                if (err.code != "InvalidRoute.NotFound") {
+                if (err.code == "InvalidRoute.NotFound") {
                     errMsg = "WARNING: " + err;
                     console.log(errMsg);
                     response.send(event, context, response.SUCCESS, errMsg, {}, physicalId(event.ResourceProperties));
                 } else {
-                    errMsg = "delete route failed" + err;
+                    errMsg = "delete route failed: " + err;
                     console.log(errMsg);
                     response.send(event, context, response.FAILED, errMsg);
                 }
@@ -232,9 +232,15 @@ var deleteGateway = function(event, context) {
             NatGatewayId: event.PhysicalResourceId
         }, function(err, data) {
             if (err) {
-                errMsg = "delete gateway failed " + err;
-                console.log(errMsg);
-                response.send(event, context, response.FAILED, errMsg, null, event.PhysicalResourceId);
+                if (err.code == "NatGatewayNotFound") {
+                    errMsg = "WARNING: " + err;
+                    console.log(errMsg);
+                    response.send(event, context, response.SUCCESS, errMsg, {}, physicalId(event.ResourceProperties));
+                } else {
+                    errMsg = "delete gateway failed " + err;
+                    console.log(errMsg);
+                    response.send(event, context, response.FAILED, errMsg, null, event.PhysicalResourceId);
+                }
             } else {
                 waitForGatewayStateChange(event.PhysicalResourceId, ['deleted'], function(state){
                     response.send(event, context, response.SUCCESS, null, {}, event.PhysicalResourceId);

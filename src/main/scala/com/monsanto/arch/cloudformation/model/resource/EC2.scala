@@ -263,14 +263,12 @@ object Protocol {
 
 @implicitNotFound("A Route can only have exactly ONE of GatewayId, InstanceId, NetworkInterfaceId or VpcPeeringConnectionId set")
 sealed trait ValidRouteComboOption
-case class InternetGatewayRoute(v:Token[ResourceRef[`AWS::EC2::InternetGateway`]]) extends ValidRouteComboOption
-case class VPNGatewayRoute(v:Token[ResourceRef[`AWS::EC2::VPNGateway`]]) extends ValidRouteComboOption
+case class GatewayRoute(v:VPCGatewayOptions) extends ValidRouteComboOption
 case class EC2InstanceRoute(v:Token[ResourceRef[`AWS::EC2::Instance`]]) extends ValidRouteComboOption
 case class VPCPeeringRoute(v:Token[ResourceRef[`AWS::EC2::VPCPeeringConnection`]]) extends ValidRouteComboOption
 
 object ValidRouteComboOption {
-  implicit def toInternetGateway[T](v: T)(implicit t:T => Token[ResourceRef[`AWS::EC2::InternetGateway`]]) = InternetGatewayRoute(v)
-  implicit def toVPNGateway[T](v: T)(implicit t:T => Token[ResourceRef[`AWS::EC2::VPNGateway`]]) = VPNGateway(v)
+  implicit def toGatewayRoute[T](v: T)(implicit t:T => VPCGatewayOptions) = GatewayRoute(v)
   implicit def toEC2InstanceRoute[T](v:T)(implicit t :T => Token[ResourceRef[`AWS::EC2::Instance`]]) = EC2InstanceRoute(v)
   implicit def toVPCPeeringRoute[T](v:T)(implicit t :T => Token[ResourceRef[`AWS::EC2::VPCPeeringConnection`]]) = VPCPeeringRoute(v)
 }
@@ -279,18 +277,17 @@ class `AWS::EC2::Route` private (
   val name:                   String,
   val RouteTableId:           Token[ResourceRef[`AWS::EC2::RouteTable`]],
   val DestinationCidrBlock:   Token[CidrBlock],
-  val InternetGatewayId:      Option[Token[ResourceRef[`AWS::EC2::InternetGateway`]]] = None,
-  val VPNGatewayId:           Option[Token[ResourceRef[`AWS::EC2::VPNGateway`]]] = None,
+  val GatewayId:              Option[VPCGatewayOptions] = None,
   val InstanceId:             Option[Token[ResourceRef[`AWS::EC2::Instance`]]] = None,
   val VpcPeeringConnectionId: Option[Token[ResourceRef[`AWS::EC2::VPCPeeringConnection`]]] = None,
   override val Condition:     Option[ConditionRef] = None,
   override val DependsOn:     Option[Seq[String]] = None
 ) extends Resource[`AWS::EC2::Route`] {
-  private val asSeq = Seq(name, RouteTableId, DestinationCidrBlock, InternetGatewayId, VPNGatewayId, InstanceId, VpcPeeringConnectionId,
+  private val asSeq = Seq(name, RouteTableId, DestinationCidrBlock, GatewayId, InstanceId, VpcPeeringConnectionId,
     Condition, DependsOn)
 
   def when(newCondition: Option[ConditionRef] = Condition) =
-    new `AWS::EC2::Route`(name, RouteTableId, DestinationCidrBlock, InternetGatewayId, VPNGatewayId, InstanceId, VpcPeeringConnectionId,
+    new `AWS::EC2::Route`(name, RouteTableId, DestinationCidrBlock, GatewayId, InstanceId, VpcPeeringConnectionId,
       newCondition, DependsOn)
 }
 object `AWS::EC2::Route` extends DefaultJsonProtocol {
@@ -311,18 +308,16 @@ object `AWS::EC2::Route` extends DefaultJsonProtocol {
           "name"                   -> writeField(p.name),
           "RouteTableId"           -> writeField(p.RouteTableId),
           "DestinationCidrBlock"   -> writeField(p.DestinationCidrBlock),
-          "InternetGatewayId"      -> writeField(p.InternetGatewayId),
-          "VPNGatewayId"           -> writeField(p.VPNGatewayId),
+          "GatewayId"              -> (p.GatewayId match {
+                                        case Some(VPNGateway(v))      => writeField(v)
+                                        case Some(InternetGateway(v)) => writeField(v)
+                                        case None                     => None
+                                      }),
           "InstanceId"             -> writeField(p.InstanceId),
           "VpcPeeringConnectionId" -> writeField(p.VpcPeeringConnectionId),
           "Condition"              -> writeField(p.Condition),
           "DependsOn"              -> writeField(p.DependsOn)
-        ).filter(_._2.isDefined).map{ case (k, v) =>
-          val nk = if (k == "VPNGatewayId" || k == "InternetGatewayId")
-            "GatewayId"
-          else k
-          nk -> v.get
-        }
+        ).filter(_._2.isDefined).mapValues(_.get)
       )
     }
 
@@ -339,14 +334,12 @@ object `AWS::EC2::Route` extends DefaultJsonProtocol {
              DependsOn: Option[Seq[String]] = None
            ) =
     connectionBobber match {
-      case InternetGatewayRoute(v) => new `AWS::EC2::Route`(name, RouteTableId, DestinationCidrBlock,
-        Some(v), None, None, None, Condition, DependsOn)
-      case VPNGatewayRoute(v)      => new `AWS::EC2::Route`(name, RouteTableId, DestinationCidrBlock,
-        None, Some(v), None, None, Condition, DependsOn)
+      case GatewayRoute(v) => new `AWS::EC2::Route`(name, RouteTableId, DestinationCidrBlock,
+        Some(v), None, None, Condition, DependsOn)
       case EC2InstanceRoute(v)     => new `AWS::EC2::Route`(name, RouteTableId, DestinationCidrBlock,
-        None, None, Some(v), None, Condition, DependsOn)
+        None, Some(v), None, Condition, DependsOn)
       case VPCPeeringRoute(v)      => new `AWS::EC2::Route`(name, RouteTableId, DestinationCidrBlock,
-        None, None, None, Some(v), Condition, DependsOn)
+        None, None, Some(v), Condition, DependsOn)
     }
 }
 

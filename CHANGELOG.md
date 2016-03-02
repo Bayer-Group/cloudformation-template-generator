@@ -3,9 +3,9 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-**Note: Minor breaks in backwards compatibility on `AWS::EC2::Subnet`**
-
 ## [3.2.0] - 2016-03-02
+
+**Note: Minor breaks in backwards compatibility on `AWS::EC2::Subnet`**
 
 ### Added
 

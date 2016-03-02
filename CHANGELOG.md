@@ -5,7 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [3.2.0] - 2016-03-02
 
-**Note: Minor breaks in backwards compatibility on `AWS::EC2::Subnet`**
+**Note: Minor breaks in backwards compatibility on `AWS::EC2::Subnet`.  If you use the `Builder` wrappers, the change is backwards compatible.**
 
 ### Added
 

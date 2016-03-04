@@ -104,9 +104,7 @@ case class SimplePolicyConditionValue(value : String) extends PolicyConditionVal
 case class TokenPolicyConditionValue(value : Token[String]) extends PolicyConditionValue
 
 object PolicyConditionValue extends DefaultJsonProtocol {
-  implicit object format extends JsonFormat[PolicyConditionValue] {
-    override def read(json: JsValue) : PolicyConditionValue = ??? //ListPolicyConditionValue(implicitly[JsonFormat[Seq[String]]].read(json))
-
+  implicit object format extends JsonWriter[PolicyConditionValue] {
     override def write(obj: PolicyConditionValue) = obj match {
       case ListPolicyConditionValue(values) => values.toJson
       case SimplePolicyConditionValue(value) => value.toJson
@@ -185,14 +183,12 @@ object `AWS::IAM::Policy` extends DefaultJsonProtocol {
 
 sealed trait PolicyPrincipal
 object PolicyPrincipal extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[PolicyPrincipal] = new JsonFormat[PolicyPrincipal] {
+  implicit val format: JsonWriter[PolicyPrincipal] = new JsonWriter[PolicyPrincipal] {
     def write(obj: PolicyPrincipal) =
       obj match {
         case i: DefinedPrincipal => i.targets.toJson
         case WildcardPrincipal => JsString("*")
       }
-    //TODO
-    def read(json: JsValue) = ???
   }
 }
 case class DefinedPrincipal(targets: Map[String, Seq[Token[String]]]) extends PolicyPrincipal

@@ -2,7 +2,6 @@ package com.monsanto.arch.cloudformation.model
 
 import com.monsanto.arch.cloudformation.model.resource.Resource
 import spray.json._
-import DefaultJsonProtocol._
 import scala.language.existentials
 import scala.language.implicitConversions
 
@@ -52,9 +51,8 @@ case class ParameterRef[R](p: Parameter{type Rep = R})
   extends AmazonFunctionCall[R]("Ref"){type CFBackingType = String ; val arguments = p.name}
 object ParameterRef extends DefaultJsonProtocol {
 
-  implicit def format[R]: JsonFormat[ParameterRef[R]] = new JsonFormat[ParameterRef[R]] {
+  implicit def format[R]: JsonWriter[ParameterRef[R]] = new JsonWriter[ParameterRef[R]] {
     def write(obj: ParameterRef[R]) = AmazonFunctionCall.format.write(obj)
-    def read(json: JsValue) = ???
   }
 }
 
@@ -62,15 +60,12 @@ object ParameterRef extends DefaultJsonProtocol {
 case class MappingRef[R](m: Mapping[R])
 object MappingRef extends DefaultJsonProtocol {
 
-  implicit def format[R]: JsonFormat[MappingRef[R]] = new JsonFormat[MappingRef[R]] {
-
+  implicit def format[R]: JsonWriter[MappingRef[R]] = new JsonWriter[MappingRef[R]] {
     def write(obj: MappingRef[R]) = JsString(obj.m.name)
-    def read(json: JsValue) = ???
   }
 
-  val formatUnderscore: JsonFormat[MappingRef[_]] = new JsonFormat[MappingRef[_]] {
+  val formatUnderscore: JsonWriter[MappingRef[_]] = new JsonWriter[MappingRef[_]] {
     def write(obj: MappingRef[_]) = JsString(obj.m.name)
-    def read(json: JsValue) = ???
   }
 }
 
@@ -79,10 +74,8 @@ object ConditionRef extends DefaultJsonProtocol {
 
   implicit def fromCondition(c: Condition): ConditionRef = ConditionRef(c)
 
-  implicit val format: JsonFormat[ConditionRef] = new JsonFormat[ConditionRef] {
+  implicit val format: JsonWriter[ConditionRef] = new JsonWriter[ConditionRef] {
     def write(c: ConditionRef) = JsString(c.c.name)
-
-    def read(json: JsValue) = ??? // TODO
   }
 }
 
@@ -93,18 +86,12 @@ object ResourceRef extends DefaultJsonProtocol {
   implicit def fromResource[R <: Resource[R]](r: R): ResourceRef[R] = ResourceRef(r)
 
 
-  implicit def format[R <: Resource[R]]: JsonFormat[ResourceRef[R]] = new JsonFormat[ResourceRef[R]] {
+  implicit def format[R <: Resource[R]]: JsonWriter[ResourceRef[R]] = new JsonWriter[ResourceRef[R]] {
     def write(obj: ResourceRef[R]) = AmazonFunctionCall.format.write(obj)
-
-    //TODO: Implement Readers, but this is necessary to get Seq[T] JsonFormat for ResourceRef's
-    def read(json: JsValue) = ???
   }
 
-  implicit def format2: JsonFormat[ResourceRef[_]] = new JsonFormat[ResourceRef[_]] {
+  implicit def format2: JsonWriter[ResourceRef[_]] = new JsonWriter[ResourceRef[_]] {
     def write(obj: ResourceRef[_]) = AmazonFunctionCall.format.write(obj)
-
-    //TODO: Implement Readers, but this is necessary to get Seq[T] JsonFormat for ResourceRef's
-    def read(json: JsValue) = ???
   }
 }
 
@@ -147,31 +134,27 @@ case class `Fn::Or`(fn: Seq[ConditionFunctionNestable[String]])
 case class ConditionFnRef(c: Condition)
   extends NestableAmazonFunctionCall[String]("Condition"){type CFBackingType = (Token[String]) ; val arguments = StringToken(c.name)}
 
-case class `Fn::Select`[R: JsonFormat](index: Token[StringBackedInt], listOfObjects: Token[Seq[R]])
+case class `Fn::Select`[R: JsonWriter](index: Token[StringBackedInt], listOfObjects: Token[Seq[R]])
   extends AmazonFunctionCall[R]("Fn::Select") {
   type CFBackingType = (Token[StringBackedInt], Token[Seq[R]])
   val arguments = (index, listOfObjects)
   def serializeArguments = arguments.toJson
 }
 
-case class `Fn::If`[R : JsonFormat](conditionName : Token[ConditionRef], valIfTrue: Token[R], valIfFalse: Token[R])
+case class `Fn::If`[R : JsonWriter](conditionName : Token[ConditionRef], valIfTrue: Token[R], valIfFalse: Token[R])
   extends AmazonFunctionCall[R]("Fn::If"){type CFBackingType = (Token[ConditionRef], Token[R], Token[R]) ; val arguments = (conditionName, valIfTrue, valIfFalse)
 
   def serializeArguments = arguments.toJson
 }
 
-case class If[R : JsonFormat](conditionName : Token[String], valIfTrue: Token[R], valIfFalse: Token[String] = `AWS::NoValue`)
+case class If[R : JsonWriter](conditionName : Token[String], valIfTrue: Token[R], valIfFalse: Token[String] = `AWS::NoValue`)
   extends AmazonFunctionCall[R]("Fn::If"){type CFBackingType = (Token[String], Token[R], Token[String]) ; val arguments = (conditionName, valIfTrue, valIfFalse)
   def serializeArguments = arguments.toJson
 }
 
 object `Fn::Base64` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`Fn::Base64`] = new JsonFormat[`Fn::Base64`] {
-
+  implicit val format: JsonWriter[`Fn::Base64`] = new JsonWriter[`Fn::Base64`] {
     def write(obj: `Fn::Base64`) = implicitly[JsonWriter[AmazonFunctionCall[_]]].write(obj)
-
-    //TODO
-    def read(json: JsValue) = ???
   }
 }
 
@@ -183,8 +166,8 @@ object `Fn::Base64` extends DefaultJsonProtocol {
 // but you also want to be able to pass a literal ResourceRef[R]
 sealed trait Token[R]
 object Token extends DefaultJsonProtocol {
-  implicit def fromAny[R: JsonFormat](r: R): AnyToken[R] = AnyToken(r)
-  implicit def fromOptionAny[R: JsonFormat](or: Option[R]): Option[AnyToken[R]] = or.map(r => Token.fromAny(r))
+  implicit def fromAny[R: JsonWriter](r: R): AnyToken[R] = AnyToken(r)
+  implicit def fromOptionAny[R: JsonWriter](or: Option[R]): Option[AnyToken[R]] = or.map(r => Token.fromAny(r))
   implicit def fromString(s: String): StringToken = StringToken(s)
   implicit def fromBoolean(s: Boolean): BooleanToken = BooleanToken(s)
   implicit def fromInt(s: Int): IntToken = IntToken(s)
@@ -197,7 +180,7 @@ object Token extends DefaultJsonProtocol {
   implicit def fromSeq[R <: Resource[R]](sR: Seq[R])(implicit toRef: R => ResourceRef[R]): Seq[Token[ResourceRef[R]]] = sR.map(r => fromAny(toRef(r)))
 
   // lazyFormat b/c Token and AmazonFunctionCall are mutually recursive
-  implicit def format[R : JsonFormat]: JsonFormat[Token[R]] = lazyFormat(new JsonFormat[Token[R]] {
+  implicit def format[R : JsonWriter]: JsonWriter[Token[R]] = lazyWriter(new JsonWriter[Token[R]] {
     def write(obj: Token[R]) = {
       obj match {
         case a: AnyToken[R]          => a.value.toJson
@@ -212,12 +195,14 @@ object Token extends DefaultJsonProtocol {
         case r: ResourceRef[_]       => r.toJson
       }
     }
-
-    // TODO: BLERG, for now, to make Tuple formats work
-    def read(json: JsValue) = ???
   })
+
+  def lazyWriter[T](format: => JsonWriter[T]) = new JsonWriter[T] {
+    lazy val delegate = format
+    def write(x: T) = delegate.write(x)
+  }
 }
-case class AnyToken[R : JsonFormat](value: R) extends Token[R]
+case class AnyToken[R : JsonWriter](value: R) extends Token[R]
 case class StringToken(value: String) extends Token[String]
 case class BooleanToken(value: Boolean) extends Token[Boolean]
 case class IntToken(value: Int) extends Token[Int]

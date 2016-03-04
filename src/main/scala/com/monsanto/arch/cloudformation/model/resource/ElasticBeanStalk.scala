@@ -2,7 +2,7 @@ package com.monsanto.arch.cloudformation.model.resource
 
 import com.monsanto.arch.cloudformation.model.{ResourceRef, ConditionRef, Token, `Fn::GetAtt`}
 import spray.json.DefaultJsonProtocol._
-import spray.json.{JsString, JsValue, JsonFormat}
+import spray.json.{JsonWriter, JsString, JsValue, JsonFormat}
 
 case class `AWS::ElasticBeanstalk::Application`(
                                                  name: String,
@@ -114,9 +114,7 @@ object ResourceTag {
 sealed abstract class EnvironmentTierType(val tierType: String)
 
 object EnvironmentTierType {
-  implicit val format = new JsonFormat[EnvironmentTierType] {
-    override def read(json: JsValue) = ???
-
+  implicit val format = new JsonWriter[EnvironmentTierType] {
     override def write(obj: EnvironmentTierType) = JsString(obj.tierType)
   }
 }

@@ -150,12 +150,8 @@ object `AWS::EC2::VPNGateway` extends DefaultJsonProtocol {
 case class VPNType(value: String) { require( value.equals("ipsec.1"), "only ipsec.1 is valid") }
 object VPNType extends DefaultJsonProtocol {
   implicit def toString(s: String): VPNType = VPNType(s)
-  implicit val format: JsonFormat[VPNType] = new JsonFormat[VPNType] {
-
-    override def read(json: JsValue): VPNType = ???
-
+  implicit val format: JsonWriter[VPNType] = new JsonWriter[VPNType] {
     override def write(obj: VPNType): JsValue =  JsString(obj.value)
-
   }
 }
 
@@ -234,9 +230,7 @@ object PortRange extends DefaultJsonProtocol {
 case class RuleAction(value: String) { require( value.equals("allow") || value.equals("deny"), "must be allow or deny") }
 object RuleAction {
   implicit def toString(s: String): RuleAction = RuleAction(s)
-  implicit val format: JsonFormat[RuleAction] = new JsonFormat[RuleAction] {
-    override def read(json: JsValue): RuleAction = ???
-
+  implicit val format: JsonWriter[RuleAction] = new JsonWriter[RuleAction] {
     override def write(obj: RuleAction): JsValue = JsString(obj.value)
   }
 }
@@ -244,9 +238,7 @@ object RuleAction {
 case class RuleNumber(value: Int) { require( value <= 32766 && value >= 1, "must be between 1 and 32766") }
 object RuleNumber {
   implicit def toInt(i: Int): RuleNumber = RuleNumber(i)
-  implicit val format: JsonFormat[RuleNumber] = new JsonFormat[RuleNumber] {
-    override def read(json: JsValue): RuleNumber = ???
-
+  implicit val format: JsonWriter[RuleNumber] = new JsonWriter[RuleNumber] {
     override def write(obj: RuleNumber): JsValue = JsNumber(obj.value)
   }
 }
@@ -254,9 +246,7 @@ object RuleNumber {
 case class Protocol(value: Int) { require( value == -1 || (value <= 255 && value >= 1), "must be -1 or between 1 and 255") }
 object Protocol {
   implicit def toInt(i: Int): Protocol = Protocol(i)
-  implicit val format: JsonFormat[Protocol] = new JsonFormat[Protocol] {
-    override def read(json: JsValue): Protocol = ???
-
+  implicit val format: JsonWriter[Protocol] = new JsonWriter[Protocol] {
     override def write(obj: Protocol): JsValue = JsNumber(obj.value)
   }
 }
@@ -301,7 +291,7 @@ object `AWS::EC2::Route` extends DefaultJsonProtocol {
   }
 
   // Because we dont want the default case class apply method without our checks
-  implicit val format: JsonFormat[`AWS::EC2::Route`] = new JsonFormat[`AWS::EC2::Route`]{
+  implicit val format: JsonWriter[`AWS::EC2::Route`] = new JsonWriter[`AWS::EC2::Route`]{
     def write(p: `AWS::EC2::Route`) = {
       JsObject(
         Map(
@@ -316,9 +306,6 @@ object `AWS::EC2::Route` extends DefaultJsonProtocol {
         ).filter(_._2.isDefined).mapValues(_.get)
       )
     }
-
-    // TODO
-    def read(json: JsValue) = ???
   }
 
   def apply(
@@ -366,14 +353,12 @@ object `AWS::EC2::SecurityGroup` extends DefaultJsonProtocol {
 
 sealed trait IngressSpec
 object IngressSpec extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[IngressSpec] = new JsonFormat[IngressSpec] {
+  implicit val format: JsonWriter[IngressSpec] = new JsonWriter[IngressSpec] {
     def write(obj: IngressSpec) =
       obj match {
         case i: CidrIngressSpec => i.toJson
         case i: SGIngressSpec => i.toJson
       }
-    //TODO
-    def read(json: JsValue) = ???
   }
 }
 case class CidrIngressSpec(IpProtocol: String, CidrIp: Token[CidrBlock], FromPort: String, ToPort: String) extends IngressSpec
@@ -427,14 +412,12 @@ object IPAddress extends DefaultJsonProtocol {
 
 sealed trait EgressSpec
 object EgressSpec extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[EgressSpec] = new JsonFormat[EgressSpec] {
+  implicit val format: JsonWriter[EgressSpec] = new JsonWriter[EgressSpec] {
     def write(obj: EgressSpec) =
       obj match {
         case i: CidrEgressSpec => i.toJson
         case i: SGEgressSpec   => i.toJson
       }
-    //TODO
-    def read(json: JsValue) = ???
   }
 }
 case class CidrEgressSpec(IpProtocol: String, CidrIp: Token[CidrBlock], FromPort: String, ToPort: String) extends EgressSpec
@@ -567,7 +550,7 @@ object `AWS::EC2::VPCGatewayAttachment` extends DefaultJsonProtocol {
   }
 
   // Because we dont want the default case class apply method without our checks
-  implicit val format: JsonFormat[`AWS::EC2::VPCGatewayAttachment`] = new JsonFormat[`AWS::EC2::VPCGatewayAttachment`]{
+  implicit val format: JsonWriter[`AWS::EC2::VPCGatewayAttachment`] = new JsonWriter[`AWS::EC2::VPCGatewayAttachment`]{
     def write(p: `AWS::EC2::VPCGatewayAttachment`) = {
       JsObject(
         Map(
@@ -579,9 +562,6 @@ object `AWS::EC2::VPCGatewayAttachment` extends DefaultJsonProtocol {
         ).filter(_._2.isDefined).mapValues(_.get)
       )
     }
-
-    // TODO
-    def read(json: JsValue) = ???
   }
 
   def apply(

@@ -39,14 +39,12 @@ case object StringAttributeType extends AttributeType
 case object NumberAttributeType extends AttributeType
 case object BinaryAttributeType extends AttributeType
 object AttributeType extends DefaultJsonProtocol {
-  implicit object format extends JsonFormat[AttributeType] {
+  implicit object format extends JsonWriter[AttributeType] {
     override def write(obj: AttributeType) = JsString(obj match {
       case StringAttributeType => "S"
       case NumberAttributeType => "N"
       case BinaryAttributeType => "B"
     })
-
-    override def read(json: JsValue): AttributeType = ???
   }
 }
 /**
@@ -78,13 +76,11 @@ case object HashKeyType extends KeyType
 case object RangeKeyType extends KeyType
 
 object KeyType {
-  implicit object format extends JsonFormat[KeyType] {
+  implicit object format extends JsonWriter[KeyType] {
     override def write(obj: KeyType) = JsString(obj match {
       case HashKeyType => "HASH"
       case RangeKeyType => "RANGE"
     })
-
-    override def read(json: JsValue): KeyType = ???
   }
 }
 
@@ -123,7 +119,7 @@ case class IncludeProjection(keys : Seq[String]) extends Projection
   * http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dynamodb-projectionobject.html
   */
 case object Projection extends DefaultJsonProtocol {
-  implicit object format extends JsonFormat[Projection] {
+  implicit object format extends JsonWriter[Projection] {
     override def write(obj: Projection) = obj match {
       case AllProjection => Map("ProjectionType" -> "ALL").toJson
       case KeysOnlyProjection => Map("ProjectionType" -> "KEYS_ONLY").toJson
@@ -132,8 +128,6 @@ case object Projection extends DefaultJsonProtocol {
         "NonKeyAttributes" -> keys.toJson
       ).toJson
     }
-
-    override def read(json: JsValue): Projection = ???
   }
 }
 

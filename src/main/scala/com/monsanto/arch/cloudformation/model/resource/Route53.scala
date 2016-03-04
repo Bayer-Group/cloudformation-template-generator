@@ -62,14 +62,12 @@ class `AWS::Route53::RecordSet` protected (
 }
 object `AWS::Route53::RecordSet` extends DefaultJsonProtocol {
   // Because we dont want the default case class apply method without our checks
-  implicit val format: JsonFormat[`AWS::Route53::RecordSet`] = new JsonFormat[`AWS::Route53::RecordSet`]{
+  implicit val format: JsonWriter[`AWS::Route53::RecordSet`] = new JsonWriter[`AWS::Route53::RecordSet`]{
     def write(p: `AWS::Route53::RecordSet`) = {
       JsObject(
         Route53RecordSetBaseFields.writeCoreFields(p).filter(_._2.isDefined).mapValues(_.get)
       )
     }
-    
-    def read(json: JsValue) = ???
   }
 
   def generalRecord(
@@ -123,7 +121,7 @@ class `Custom::RemoteRoute53RecordSet` private(
 object `Custom::RemoteRoute53RecordSet` {
   import DefaultJsonProtocol._
   import Route53RecordSetBaseFields.writeField
-  implicit val format: JsonFormat[`Custom::RemoteRoute53RecordSet`] = new JsonFormat[`Custom::RemoteRoute53RecordSet`]{
+  implicit val format: JsonWriter[`Custom::RemoteRoute53RecordSet`] = new JsonWriter[`Custom::RemoteRoute53RecordSet`]{
     def write(p: `Custom::RemoteRoute53RecordSet`) = {
       JsObject(
         (Route53RecordSetBaseFields.writeCoreFields(p)
@@ -132,8 +130,6 @@ object `Custom::RemoteRoute53RecordSet` {
           ).filter(_._2.isDefined).mapValues(_.get)
       )
     }
-
-    def read(json: JsValue) = ???
   }
 
   val defaultServiceToken = `Fn::Join`(":", Seq("arn:aws:sns", `AWS::Region`, `AWS::AccountId`, "cf-remote-route53"))

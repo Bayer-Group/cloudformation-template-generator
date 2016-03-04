@@ -38,7 +38,7 @@ case class `AWS::Redshift::Cluster`(
 }
 /** Sorry this looks ugly but arity only goes to 22 :( */
 object `AWS::Redshift::Cluster` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::Redshift::Cluster`] = new RootJsonFormat[`AWS::Redshift::Cluster`] {
+  implicit val format: JsonWriter[`AWS::Redshift::Cluster`] = new JsonWriter[`AWS::Redshift::Cluster`] {
     def write(c: `AWS::Redshift::Cluster`) = {
       val obj = JsObject(
         "AllowVersionUpgrade" -> c.AllowVersionUpgrade.toJson,
@@ -68,9 +68,6 @@ object `AWS::Redshift::Cluster` extends DefaultJsonProtocol {
       )
       obj.copy(fields = obj.fields.filter(_._2 != JsNull))
     }
-
-    // TODO: does anyone use this code to read JSON in rather than just write?
-    def read(value: JsValue) = ???
   }
 }
 

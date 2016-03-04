@@ -22,7 +22,7 @@ abstract class Resource[R <: Resource[R] : ClassTag : JsonFormat]{ self: Resourc
   val DependsOn:      Option[Seq[String]]    = None
   val DeletionPolicy: Option[DeletionPolicy] = None
 
-  private val _format: JsonFormat[R] = implicitly[JsonFormat[R]] // the magic
+  private val _format: JsonWriter[R] = implicitly[JsonWriter[R]] // the magic
   type RR = Resource[R] // and his assistant
 
   def when(newCondition: Option[ConditionRef] = Condition): R

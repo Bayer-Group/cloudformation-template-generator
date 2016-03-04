@@ -90,7 +90,7 @@ case class `AWS::RDS::DBInstance` private[resource] (
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
 }
 object `AWS::RDS::DBInstance` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::RDS::DBInstance`] = new RootJsonFormat[`AWS::RDS::DBInstance`] {
+  implicit val format: JsonWriter[`AWS::RDS::DBInstance`] = new JsonWriter[`AWS::RDS::DBInstance`] {
     def write(d: `AWS::RDS::DBInstance`) = {
       val obj = JsObject(
         "AllocatedStorage"           -> d.AllocatedStorage.toJson,
@@ -126,7 +126,6 @@ object `AWS::RDS::DBInstance` extends DefaultJsonProtocol {
       )
       obj.copy(fields = obj.fields.filter(_._2 != JsNull))
     }
-    def read(value: JsValue) = ???
   }
 }
 

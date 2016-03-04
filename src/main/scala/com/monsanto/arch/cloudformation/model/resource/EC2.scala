@@ -261,22 +261,25 @@ object Protocol {
   }
 }
 
-@implicitNotFound("A Route can only have exactly ONE of GatewayId, InstanceId, NetworkInterfaceId or VpcPeeringConnectionId set")
+@implicitNotFound("A Route can only have exactly ONE of GatewayId, NatGatewayId, InstanceId, NetworkInterfaceId or VpcPeeringConnectionId set")
 sealed trait ValidRouteComboOption
 case class InternetGatewayRoute(v:Token[ResourceRef[`AWS::EC2::InternetGateway`]]) extends ValidRouteComboOption
 case class EC2InstanceRoute(v:Token[ResourceRef[`AWS::EC2::Instance`]]) extends ValidRouteComboOption
 case class VPCPeeringRoute(v:Token[ResourceRef[`AWS::EC2::VPCPeeringConnection`]]) extends ValidRouteComboOption
+case class NatGatewayRoute(v:Token[ResourceRef[`AWS::EC2::NatGateway`]]) extends ValidRouteComboOption
 
 object ValidRouteComboOption {
   implicit def toInternetGateway[T](v: T)(implicit t:T => Token[ResourceRef[`AWS::EC2::InternetGateway`]]) = InternetGatewayRoute(v)
   implicit def toEC2InstanceRoute[T](v:T)(implicit t :T => Token[ResourceRef[`AWS::EC2::Instance`]]) = EC2InstanceRoute(v)
   implicit def toVPCPeeringRoute[T](v:T)(implicit t :T => Token[ResourceRef[`AWS::EC2::VPCPeeringConnection`]]) = VPCPeeringRoute(v)
+  implicit def toNatGateway[T](v:T)(implicit t :T => Token[ResourceRef[`AWS::EC2::NatGateway`]]) = NatGatewayRoute(v)
 }
 
 class `AWS::EC2::Route` private (
   val name:                   String,
   val RouteTableId:           Token[ResourceRef[`AWS::EC2::RouteTable`]],
   val DestinationCidrBlock:   Token[CidrBlock],
+  val NatGatewayId:           Option[Token[ResourceRef[`AWS::EC2::NatGateway`]]] = None,
   val GatewayId:              Option[Token[ResourceRef[`AWS::EC2::InternetGateway`]]] = None,
   val InstanceId:             Option[Token[ResourceRef[`AWS::EC2::Instance`]]] = None,
   val VpcPeeringConnectionId: Option[Token[ResourceRef[`AWS::EC2::VPCPeeringConnection`]]] = None,
@@ -287,8 +290,8 @@ class `AWS::EC2::Route` private (
     Condition, DependsOn)
 
   def when(newCondition: Option[ConditionRef] = Condition) =
-    new `AWS::EC2::Route`(name, RouteTableId, DestinationCidrBlock, GatewayId, InstanceId, VpcPeeringConnectionId,
-      newCondition, DependsOn)
+    new `AWS::EC2::Route`(name, RouteTableId, DestinationCidrBlock, NatGatewayId, GatewayId, InstanceId,
+      VpcPeeringConnectionId, newCondition, DependsOn)
 }
 object `AWS::EC2::Route` extends DefaultJsonProtocol {
 
@@ -308,6 +311,7 @@ object `AWS::EC2::Route` extends DefaultJsonProtocol {
           "name"                   -> writeField(p.name),
           "RouteTableId"           -> writeField(p.RouteTableId),
           "DestinationCidrBlock"   -> writeField(p.DestinationCidrBlock),
+          "NatGatewayId"           -> writeField(p.NatGatewayId),
           "GatewayId"              -> writeField(p.GatewayId),
           "InstanceId"             -> writeField(p.InstanceId),
           "VpcPeeringConnectionId" -> writeField(p.VpcPeeringConnectionId),
@@ -330,12 +334,14 @@ object `AWS::EC2::Route` extends DefaultJsonProtocol {
              DependsOn: Option[Seq[String]] = None
            ) =
     connectionBobber match {
+      case NatGatewayRoute(n) => new `AWS::EC2::Route`(name, RouteTableId, DestinationCidrBlock,
+        Some(n), None, None,None, Condition, DependsOn)
       case InternetGatewayRoute(v) => new `AWS::EC2::Route`(name, RouteTableId, DestinationCidrBlock,
-        Some(v), None,None, Condition, DependsOn)
+        None, Some(v), None,None, Condition, DependsOn)
       case EC2InstanceRoute(v)     => new `AWS::EC2::Route`(name, RouteTableId, DestinationCidrBlock,
-        None, Some(v), None, Condition, DependsOn)
+        None, None, Some(v), None, Condition, DependsOn)
       case VPCPeeringRoute(v)      => new `AWS::EC2::Route`(name, RouteTableId, DestinationCidrBlock,
-        None, None ,Some(v), Condition, DependsOn)
+        None, None, None ,Some(v), Condition, DependsOn)
     }
 }
 
@@ -649,4 +655,17 @@ case class `AWS::EC2::VolumeAttachment`(
 }
 object `AWS::EC2::VolumeAttachment` extends DefaultJsonProtocol {
   implicit val format: JsonFormat[`AWS::EC2::VolumeAttachment`] = jsonFormat5(`AWS::EC2::VolumeAttachment`.apply)
+}
+
+case class `AWS::EC2::NatGateway`(
+  name:                     String,
+  AllocationId:             Token[String],
+  SubnetId:                 ResourceRef[`AWS::EC2::Subnet`],
+  override val Condition:   Option[ConditionRef]  = None,
+  override val DependsOn:   Option[Seq[String]]   = None
+) extends Resource[`AWS::EC2::NatGateway`] {
+  def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
+}
+object `AWS::EC2::NatGateway` extends DefaultJsonProtocol {
+  implicit val format: JsonFormat[`AWS::EC2::NatGateway`] = jsonFormat5(`AWS::EC2::NatGateway`.apply)
 }

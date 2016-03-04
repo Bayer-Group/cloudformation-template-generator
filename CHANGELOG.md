@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.2.1] - 2015-03-04
+
+**Note: This breaks backwards compatibility for anyone using custom NAT Gateways.**
+
+### Changed
+
+-   Removed the custom NAT gateway support in favor of the official CloudFormation mechanism (see [#72](https://github.com/MonsantoCo/cloudformation-template-generator/issues/72))
+
+
 ## [3.2.0] - 2016-03-02
 
 **Note: Minor breaks in backwards compatibility on `AWS::EC2::Subnet`.  If you use the `Builder` wrappers, the change is backwards compatible.**

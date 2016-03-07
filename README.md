@@ -111,6 +111,7 @@ describe("Template Lookup") {
 - AWS::EC2::VPNGateway
 - AWS::EC2::Volume
 - AWS::EC2::VolumeAttachment
+- AWS::Elasticsearch::Domain
 - AWS::ElasticLoadBalancing::LoadBalancer
 - AWS::ElasticBeanstalk::Application
 - AWS::ElasticBeanstalk::ApplicationVersion

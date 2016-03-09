@@ -93,6 +93,7 @@ describe("Template Lookup") {
 - AWS::EC2::Instance
 - AWS::EC2::InternetGateway
 - AWS::EC2::KeyPair::KeyName
+- AWS::EC2::NatGateway
 - AWS::EC2::NetworkAcl
 - AWS::EC2::NetworkAclEntry
 - AWS::EC2::Route
@@ -150,34 +151,6 @@ describe("Template Lookup") {
 This project packages certain useful custom CloudFormation types.  These are Lambda backed types that perform
 tasks that CloudFormation does not natively support.  In order to use them, you must upload the Lambda function
 to your account and region.  The code for these functions is found in this repo under assets/custom-types.
-
-## NAT Gateways
-CloudFormation does not yet support the new managed NAT gateways.  In order to make use of these, a custom
-function has been implemented.  At whatever time Amazon updates CF to support these natively, this functionality
-will be deprecated and removed.  [**UPDATE 03/01**]: This has now been added to CF, but not yet implemented here. See [issue] (https://github.com/MonsantoCo/cloudformation-template-generator/issues/72).
-
-If you use the raw `Custom::NatGateway` and `Custom::NatGatewayRoute` objects directly, you'll need to set up
-WaitCondition and WaitConditionHandles as well.  See the `withNAT()` implementations for more details.  
-We highly recommend using  the `Builder`'s `withNAT()` function, as it takes care of the complexity of this.
-
-To set up the necessary Lambda functions:
-
-1. Open a shell with the `aws` cli installed and configured for the AWS account and region you want to deploy to. 
-    You must have permissions to create Lambda functions and IAM roles.  You also need `npm` installed.
-2. `git clone` this repo.
-3. `cd <this repo>/assets/custom-types/nat-gateway`
-4. Review the code in nat_gateway.js and the policies we're about to create for you, along with deploy.sh. 
-    (Not that you can't trust us, but we're about to upload code to your account and create an IAM role to do things.)
-5. WARNING: This will deploy the Lambda function as `cf-nat-gateway` in your account.  
-    *IN THE UNLIKELY EVENT YOU ARE ALREADY USING THIS NAME, IT WILL BE OVERWRITTEN!* You can change this in the script,
-    but will need to pass in the ARN, instead of using the default as described below.
-6. Run ./deploy.sh
-
-The `ServiceToken` parameter (or `cfNATLambdaARN` parameter in `withNat()`) needs to be the ARN to the Lambda function.
-If you are deploying the function to the default name of `cf-nat-gateway`, you can use `Custom::NatGateway.defaultServiceToken`,
-which will construct an ARN from the AWS account, region, and this default function name.
-
-Credit for the Lambda function script: http://www.spacevatican.org/2015/12/20/cloudformation-nat-gateway/
 
 ## Remote Route 53 entries
 A given domain (or hosted zone, more specifically) must be managed out of a single AWS account.  This poses problems if you want to create resources under that domain in templates that will run out of other accounts.  A CloudFormation template can only work in one given account.  However, with Cloud Formation's custom type functionality, we use custom code to assume a role in the account that owns the hosted zone.  This requires some setup steps for each hosted zone and each account.  For instructions, please see: https://github.com/MonsantoCo/cloudformation-template-generator/assets/custom-types/remote-route53/README.md for more. 

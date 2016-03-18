@@ -3,9 +3,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [3.2.1] - 2015-03-04
+## [3.2.1] - 2015-03-18
 
 **Note: This breaks backwards compatibility for anyone using custom NAT Gateways.**
+
+### Added
+
+-   Added support for AWS::Elasticsearch::Domain and the related types (see [#73](https://github.com/MonsantoCo/cloudformation-template-generator/issues/73))
 
 ### Changed
 

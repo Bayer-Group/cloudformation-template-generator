@@ -1,15 +1,9 @@
 package com.monsanto.arch.cloudformation.model.simple
 
 import java.util.UUID
-
 import com.monsanto.arch.cloudformation.model.resource._
 import com.monsanto.arch.cloudformation.model._
-
 import scala.language.implicitConversions
-
-/**
- * Created by Ryan Richt on 5/10/15
- */
 
 object Builders extends
   Route with
@@ -148,8 +142,14 @@ trait Subnet extends AvailabilityZone with Outputs {
 
   private def ucFirst(s: String): String = (s.head.toUpper +: s.tail.toCharArray).mkString
 
-  def subnet(visibility: String, ordinal: Int, vpc: Token[ResourceRef[`AWS::EC2::VPC`]], az: Token[String],
-    cidr: Token[CidrBlock], tagger: (String, String) => Seq[AmazonTag]) =
+  def subnet(
+    visibility:     String,
+    ordinal:        Int,
+    vpc:            Token[ResourceRef[`AWS::EC2::VPC`]],
+    az:             Token[String],
+    cidr:           Token[CidrBlock],
+    tagger:         (String, String) => Seq[AmazonTag]
+  ) =
     `AWS::EC2::Subnet`(
       ucFirst(visibility.take(3)) + "Subnet" + ordinal,
       VpcId = vpc,
@@ -158,8 +158,14 @@ trait Subnet extends AvailabilityZone with Outputs {
       Tags = tagger(visibility.take(3).toLowerCase + "subnet" + ordinal, visibility)
     )
 
-  def subnet(visibility: String, ordinal: Int, vpc: Token[ResourceRef[`AWS::EC2::VPC`]], az: Option[Token[String]] =  None,
-             cidr: Token[CidrBlock], tagger: (String, String) => Seq[AmazonTag]) =
+  def subnet(
+    visibility:   String,
+    ordinal:      Int,
+    vpc:          Token[ResourceRef[`AWS::EC2::VPC`]],
+    az:           Option[Token[String]] =  None,
+    cidr:         Token[CidrBlock],
+    tagger:       (String, String) => Seq[AmazonTag]
+  ) =
     `AWS::EC2::Subnet`(
       ucFirst(visibility.take(3)) + "Subnet" + ordinal,
       VpcId = vpc,
@@ -182,8 +188,18 @@ trait Subnet extends AvailabilityZone with Outputs {
     f(sub) ++ sub.andOutput(name, name)
   }
 
-  def nat(routeTables: Seq[`AWS::EC2::RouteTable`], ga: `AWS::EC2::VPCGatewayAttachment`)(implicit s: `AWS::EC2::Subnet`) = {
+  def nat(routeTables: Seq[`AWS::EC2::RouteTable`], ga: `AWS::EC2::VPCGatewayAttachment`)
+         (implicit s: `AWS::EC2::Subnet`): Template = {
     val eip = `AWS::EC2::EIP`.vpc(s.name + "NatEip", None, None, Some(Seq(ga.name)))
+    nat(eip, routeTables, ga)
+  }
+
+  def nat(routeTable: `AWS::EC2::RouteTable`, ga: `AWS::EC2::VPCGatewayAttachment`)
+         (implicit s: `AWS::EC2::Subnet`): Template =
+    nat(Seq(routeTable), ga)
+
+  def nat(eip: `AWS::EC2::EIP`, routeTables: Seq[`AWS::EC2::RouteTable`], ga: `AWS::EC2::VPCGatewayAttachment`)
+         (implicit s: `AWS::EC2::Subnet`): Template = {
     val nat = `AWS::EC2::NatGateway`(s.name + "Nat", `Fn::GetAtt`(Seq(eip.name, "AllocationId")), s)
     val routes = routeTables.map{ rt =>
       `AWS::EC2::Route`(s.name + "Nat" + rt.name, rt, CidrBlock(0, 0, 0, 0, 0), nat)
@@ -191,7 +207,9 @@ trait Subnet extends AvailabilityZone with Outputs {
     Template.fromResource(nat) ++ eip ++ routes
   }
 
-  def nat(routeTable: `AWS::EC2::RouteTable`, ga: `AWS::EC2::VPCGatewayAttachment`)(implicit s: `AWS::EC2::Subnet`): Template = nat(Seq(routeTable), ga)
+  def nat(eip: `AWS::EC2::EIP`, routeTable: `AWS::EC2::RouteTable`, ga: `AWS::EC2::VPCGatewayAttachment`)
+         (implicit s: `AWS::EC2::Subnet`): Template =
+    nat(eip, Seq(routeTable), ga)
 
 }
 

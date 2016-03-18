@@ -102,20 +102,23 @@ sealed trait PolicyConditionValue
 case class ListPolicyConditionValue(values : Seq[String]) extends PolicyConditionValue
 case class SimplePolicyConditionValue(value : String) extends PolicyConditionValue
 case class TokenPolicyConditionValue(value : Token[String]) extends PolicyConditionValue
+case class TokenListPolicyConditionValue(value : Seq[Token[String]]) extends PolicyConditionValue
 
 object PolicyConditionValue extends DefaultJsonProtocol {
   implicit object format extends JsonFormat[PolicyConditionValue] {
     override def read(json: JsValue) : PolicyConditionValue = ??? //ListPolicyConditionValue(implicitly[JsonFormat[Seq[String]]].read(json))
 
     override def write(obj: PolicyConditionValue) = obj match {
-      case ListPolicyConditionValue(values) => values.toJson
-      case SimplePolicyConditionValue(value) => value.toJson
-      case TokenPolicyConditionValue(value) => value.toJson
+      case ListPolicyConditionValue(values)       => values.toJson
+      case SimplePolicyConditionValue(value)      => value.toJson
+      case TokenPolicyConditionValue(value)       => value.toJson
+      case TokenListPolicyConditionValue(values)  => values.toJson
     }
   }
   implicit def seq2Value(s : Seq[String]): PolicyConditionValue = ListPolicyConditionValue(s)
   implicit def simple2Value(s : String): PolicyConditionValue = SimplePolicyConditionValue(s)
   implicit def token2Value(s : Token[String]): PolicyConditionValue = TokenPolicyConditionValue(s)
+  implicit def tokenList2Value(s : Seq[Token[String]]): PolicyConditionValue = TokenListPolicyConditionValue(s)
 }
 
 

@@ -163,4 +163,24 @@ class ConditionFunctionNestable_UT extends FunSpec with Matchers {
       test.toJson should be(expected)
     }
   }
+
+  describe("Fn::And(Fn::Not(Fn::Equals), Fn::Equals)"){
+
+    it("Should serialize correctly"){
+
+      val test: Token[String] = `Fn::And`(Seq(
+        `Fn::Not`(`Fn::Equals`("hello", "there")),
+        `Fn::Equals`("is it me", "you're looking for"))
+      )
+      val expected = JsObject(
+        "Fn::And"-> JsArray(
+          JsObject("Fn::Not" -> JsArray(
+            JsObject("Fn::Equals" -> JsArray(JsString("hello"), JsString("there"))))
+          ),
+          JsObject("Fn::Equals" -> JsArray(JsString("is it me"), JsString("you're looking for")))
+        )
+      )
+      test.toJson should be(expected)
+    }
+  }
 }

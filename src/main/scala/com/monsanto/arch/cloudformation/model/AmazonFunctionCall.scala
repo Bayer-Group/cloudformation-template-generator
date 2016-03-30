@@ -136,7 +136,7 @@ case class `Fn::Equals`(a: Token[String], b: Token[String])
 {type CFBackingType = (Token[String], Token[String]) ; val arguments = (a, b)}
 
 case class `Fn::Not`(fn: ConditionFunctionNestable[String])
-  extends AmazonFunctionCall[String]("Fn::Not"){type CFBackingType = (Seq[Token[String]]) ; val arguments = Seq(fn).map(_.token)}
+  extends NestableAmazonFunctionCall[String]("Fn::Not"){type CFBackingType = (Seq[Token[String]]) ; val arguments = Seq(fn).map(_.token)}
 
 case class `Fn::And`(fn: Seq[ConditionFunctionNestable[String]])
   extends NestableAmazonFunctionCall[String]("Fn::And"){type CFBackingType = (Seq[Token[String]]) ; val arguments = fn.map(_.token)}

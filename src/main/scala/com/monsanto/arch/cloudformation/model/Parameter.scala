@@ -33,6 +33,7 @@ object Parameter extends DefaultJsonProtocol {
           case k:  `AWS::EC2::KeyPair::KeyName_Parameter`   => k.toJson
           case v:  `AWS::EC2::VPC_Parameter`                => v.toJson
           case e:  `AWS::RDS::DBInstance::Engine_Parameter` => e.toJson
+          case s:  `AWS::RDS::DBSubnetGroup_Parameter`      => s.toJson
         }
 
         JsObject( raw.asJsObject.fields - "name" - "ConfigDefault" + ("Type" -> JsString(obj.Type)) )
@@ -181,7 +182,7 @@ case class `AWS::EC2::VPC_Parameter`(
                                       Description:   Option[String],
                                       Default:       Option[Token[ResourceRef[`AWS::EC2::VPC`]]] = None,
                                       ConfigDefault: Option[String] = None
-                                      ) extends Parameter("String"){type Rep = ResourceRef[`AWS::EC2::VPC`]}
+                                      ) extends Parameter("AWS::EC2::VPC::Id"){type Rep = ResourceRef[`AWS::EC2::VPC`]}
 object `AWS::EC2::VPC_Parameter` extends DefaultJsonProtocol {
   implicit val format: JsonFormat[`AWS::EC2::VPC_Parameter`] = jsonFormat4(`AWS::EC2::VPC_Parameter`.apply)
 }
@@ -194,6 +195,15 @@ case class `AWS::RDS::DBInstance::Engine_Parameter`(
                                                      ) extends Parameter("String"){type Rep = `AWS::RDS::DBInstance::Engine`}
 object `AWS::RDS::DBInstance::Engine_Parameter` extends DefaultJsonProtocol {
   implicit val format: JsonFormat[`AWS::RDS::DBInstance::Engine_Parameter`] = jsonFormat4(`AWS::RDS::DBInstance::Engine_Parameter`.apply)
+}
+
+case class `AWS::RDS::DBSubnetGroup_Parameter`(name:          String,
+                                               Description:   Option[String],
+                                               Default:       Option[String] = None,
+                                               ConfigDefault: Option[String] = None
+                                              ) extends Parameter("String"){type Rep = ResourceRef[`AWS::RDS::DBSubnetGroup`]}
+object `AWS::RDS::DBSubnetGroup_Parameter` extends DefaultJsonProtocol {
+  implicit val format: JsonFormat[`AWS::RDS::DBSubnetGroup_Parameter`] = jsonFormat4(`AWS::RDS::DBSubnetGroup_Parameter`.apply)
 }
 
 case class InputParameter(ParameterKey: String, ParameterValue: JsValue = "<changeMe>".toJson)
@@ -234,5 +244,8 @@ object InputParameter extends DefaultJsonProtocol {
       case `AWS::RDS::DBInstance::Engine_Parameter`(n, _, _, Some(d)) => InputParameter(n, d.toJson)
       case `AWS::RDS::DBInstance::Engine_Parameter`(n, _, Some(d), None) => InputParameter(n, d.toJson)
       case `AWS::RDS::DBInstance::Engine_Parameter`(n, _, None, None) => InputParameter(n)
+      case `AWS::RDS::DBSubnetGroup_Parameter`(n, None, _, _) => InputParameter(n)
+      case `AWS::RDS::DBSubnetGroup_Parameter`(n, Some(d), None, _) => InputParameter(n, d.toJson)
+      case `AWS::RDS::DBSubnetGroup_Parameter`(n, _, Some(d), _) => InputParameter(n, d.toJson)
     }))
 }

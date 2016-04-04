@@ -65,6 +65,71 @@ class RDS_UT extends FunSpec with Matchers {
       Seq[Resource[_]](rdsInstance).toJson should be (expected)
     }
 
+    it("should create a valid new RDS database instance when DBSubnetGroupName is passed in as a parameter") {
+      val dbSubnetGroupParamName = "dbSubnetGroup"
+      val dbSubnetGroupParam = `AWS::RDS::DBSubnetGroup_Parameter`(dbSubnetGroupParamName , "Subnet group where RDS instances are created.")
+      val rdsInstanceWithSubnetParam = rdsInstance.copy(DBSubnetGroupName = Some(ParameterRef(dbSubnetGroupParam)))
+      val expected = JsObject(
+        "TestRds" -> JsObject(
+          "Type" -> JsString("AWS::RDS::DBInstance"),
+          "Properties" -> JsObject(
+            "AllocatedStorage" -> JsNumber(storage),
+            "DBInstanceClass" -> JsString(instanceClass),
+            "Engine" -> JsString("postgres"),
+            "MasterUsername" -> JsString(username),
+            "MasterUserPassword" -> JsString(pw),
+            "MultiAZ" -> JsBoolean(true),
+            "StorageEncrypted" -> JsBoolean(true),
+            "StorageType" -> JsString("standard"),
+            "DBSubnetGroupName" -> JsObject("Ref" -> JsString(dbSubnetGroupParamName))
+          )
+        )
+      )
+      Seq[Resource[_]](rdsInstanceWithSubnetParam).toJson should be (expected)
+    }
+
+    it("should create a valid new RDS database instance when EC2VpcId is passed in as a parameter") {
+      val vpcParamName = "vpc"
+      val vpcParam = `AWS::EC2::VPC_Parameter`(vpcParamName, "VPC to create security groups")
+      val secGroupName = "SecurityGroup"
+      val secGroup = `AWS::RDS::DBSecurityGroup`(
+        name                   = secGroupName,
+        DBSecurityGroupIngress = Seq(),
+        GroupDescription       = "Not a real group",
+        EC2VpcId = Some(ParameterRef(vpcParam))
+      )
+      val rdsInstanceWithVpcParam = rdsInstance.copy(DBSecurityGroups = Seq(ResourceRef(secGroup)))
+      val expectedInstanceJson = JsObject(
+        "TestRds" -> JsObject(
+          "Type" -> JsString("AWS::RDS::DBInstance"),
+          "Properties" -> JsObject(
+            "AllocatedStorage" -> JsNumber(storage),
+            "DBInstanceClass" -> JsString(instanceClass),
+            "Engine" -> JsString("postgres"),
+            "MasterUsername" -> JsString(username),
+            "MasterUserPassword" -> JsString(pw),
+            "MultiAZ" -> JsBoolean(true),
+            "DBSecurityGroups"-> JsArray(JsObject("Ref" -> JsString(secGroupName))),
+            "StorageEncrypted" -> JsBoolean(true),
+            "StorageType" -> JsString("standard"),
+            "DBSubnetGroupName" -> JsObject("Ref" -> JsString(subnetGroupName))
+          )
+        )
+      )
+      val expectedSecGroupJson = JsObject(
+        "SecurityGroup" -> JsObject(
+          "Properties" -> JsObject(
+            "DBSecurityGroupIngress" -> JsArray(),
+            "GroupDescription" -> JsString("Not a real group"),
+            "EC2VpcId" -> JsObject("Ref" -> JsString(vpcParamName))
+          ),
+          "Type" -> JsString("AWS::RDS::DBSecurityGroup")
+        )
+      )
+      Seq[Resource[_]](rdsInstanceWithVpcParam).toJson should be (expectedInstanceJson)
+      Seq[Resource[_]](secGroup).toJson should be (expectedSecGroupJson)
+    }
+
     it("should create a valid pIOPS RDS database instance from snapshot") {
       val secGroupName = "SecurityGroup"
       val secGroup = `AWS::RDS::DBSecurityGroup`(

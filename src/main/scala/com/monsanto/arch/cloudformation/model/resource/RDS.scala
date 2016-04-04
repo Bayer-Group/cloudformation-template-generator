@@ -64,7 +64,7 @@ case class `AWS::RDS::DBInstance` private[resource] (
   DBParameterGroupName:        Option[ResourceRef[`AWS::RDS::DBParameterGroup`]],
   DBSecurityGroups:            Option[Seq[ResourceRef[`AWS::RDS::DBSecurityGroup`]]],
   DBSnapshotIdentifier:        Option[String],
-  DBSubnetGroupName:           Option[ResourceRef[`AWS::RDS::DBSubnetGroup`]],
+  DBSubnetGroupName:           Option[Token[ResourceRef[`AWS::RDS::DBSubnetGroup`]]],
   Engine:                      Option[Token[`AWS::RDS::DBInstance::Engine`]],
   EngineVersion:               Option[String],
   Iops:                        Option[Either[Int, Token[Int]]],
@@ -141,7 +141,7 @@ sealed trait RdsLocation {
   * @param vpcSecurityGroups AWS::RDS::DBInstance(VPCSecurityGroups)
   */
 case class RdsVpc(
-  dbSubnetGroupName:   ResourceRef[`AWS::RDS::DBSubnetGroup`],
+  dbSubnetGroupName:   Token[ResourceRef[`AWS::RDS::DBSubnetGroup`]],
   vpcSecurityGroups:   Option[Seq[ResourceRef[`AWS::EC2::SecurityGroup`]]] = None
 ) extends RdsLocation {
   private[resource] def location(rdsInstance: `AWS::RDS::DBInstance`): `AWS::RDS::DBInstance` =
@@ -150,6 +150,7 @@ case class RdsVpc(
       DBSubnetGroupName = Some(dbSubnetGroupName),
       VPCSecurityGroups = vpcSecurityGroups
     )
+
 }
 
 /** RDS instance not in a VPC, a "classic".
@@ -557,7 +558,7 @@ case class `AWS::RDS::DBSecurityGroup`(
   name:                   String,
   DBSecurityGroupIngress: Seq[RDSDBSecurityGroupRule],
   GroupDescription:       String,
-  EC2VpcId:               Option[ResourceRef[`AWS::EC2::VPC`]] = None,
+  EC2VpcId:               Option[Token[ResourceRef[`AWS::EC2::VPC`]]] = None,
   Tags:                   Option[Seq[AmazonTag]]               = None,
   override val Condition: Option[ConditionRef]                 = None
 ) extends Resource[`AWS::RDS::DBSecurityGroup`]{

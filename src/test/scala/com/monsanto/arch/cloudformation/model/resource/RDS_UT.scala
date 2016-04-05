@@ -69,7 +69,7 @@ class RDS_UT extends FunSpec with Matchers {
       val dbSubnetGroupParamName = "dbSubnetGroup"
       val dbSubnetGroupParam = `AWS::RDS::DBSubnetGroup_Parameter`(dbSubnetGroupParamName , "Subnet group where RDS instances are created.")
       val rdsInstanceWithSubnetParam = rdsInstance.copy(DBSubnetGroupName = Some(ParameterRef(dbSubnetGroupParam)))
-      val expected = JsObject(
+      val expectedInstanceJson = JsObject(
         "TestRds" -> JsObject(
           "Type" -> JsString("AWS::RDS::DBInstance"),
           "Properties" -> JsObject(
@@ -85,7 +85,14 @@ class RDS_UT extends FunSpec with Matchers {
           )
         )
       )
-      Seq[Resource[_]](rdsInstanceWithSubnetParam).toJson should be (expected)
+      val expectedSubnetGroupParamJson = JsObject(
+        "dbSubnetGroup" -> JsObject(
+          "Description" -> JsString("Subnet group where RDS instances are created."),
+          "Type" -> JsString("String")
+        )
+      )
+      Seq[Resource[_]](rdsInstanceWithSubnetParam).toJson should be (expectedInstanceJson)
+      Seq[Parameter](dbSubnetGroupParam).toJson should be (expectedSubnetGroupParamJson)
     }
 
     it("should create a valid new RDS database instance when EC2VpcId is passed in as a parameter") {

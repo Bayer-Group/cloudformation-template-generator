@@ -85,14 +85,7 @@ class RDS_UT extends FunSpec with Matchers {
           )
         )
       )
-      val expectedSubnetGroupParamJson = JsObject(
-        "dbSubnetGroup" -> JsObject(
-          "Description" -> JsString("Subnet group where RDS instances are created."),
-          "Type" -> JsString("String")
-        )
-      )
       Seq[Resource[_]](rdsInstanceWithSubnetParam).toJson should be (expectedInstanceJson)
-      Seq[Parameter](dbSubnetGroupParam).toJson should be (expectedSubnetGroupParamJson)
     }
 
     it("should create a valid new RDS database instance when EC2VpcId is passed in as a parameter") {
@@ -123,18 +116,7 @@ class RDS_UT extends FunSpec with Matchers {
           )
         )
       )
-      val expectedSecGroupJson = JsObject(
-        "SecurityGroup" -> JsObject(
-          "Properties" -> JsObject(
-            "DBSecurityGroupIngress" -> JsArray(),
-            "GroupDescription" -> JsString("Not a real group"),
-            "EC2VpcId" -> JsObject("Ref" -> JsString(vpcParamName))
-          ),
-          "Type" -> JsString("AWS::RDS::DBSecurityGroup")
-        )
-      )
       Seq[Resource[_]](rdsInstanceWithVpcParam).toJson should be (expectedInstanceJson)
-      Seq[Resource[_]](secGroup).toJson should be (expectedSecGroupJson)
     }
 
     it("should create a valid pIOPS RDS database instance from snapshot") {
@@ -319,6 +301,78 @@ class RDS_UT extends FunSpec with Matchers {
         )
       )
       Seq[Resource[_]](rdsInstance).toJson should be (expected)
+    }
+  }
+
+  describe("AWS::RDS::DBSubnetGroup_Parameter") {
+    it("should serialize into valid json") {
+      val dbSubnetGroupParam = `AWS::RDS::DBSubnetGroup_Parameter`("dbSubnetGroup" , "Subnet group where RDS instances are created.", "defaultSubnetGroupId")
+      val expectedJson = JsObject(
+        "dbSubnetGroup" -> JsObject(
+          "Description" -> JsString("Subnet group where RDS instances are created."),
+          "Type" -> JsString("String"),
+          "Default" -> JsString("defaultSubnetGroupId")
+        )
+      )
+      Seq[Parameter](dbSubnetGroupParam).toJson should be (expectedJson)
+    }
+
+    it("should serialize into valid json as InputParameter") {
+      val dbSubnetGroupParam = `AWS::RDS::DBSubnetGroup_Parameter`("dbSubnetGroup" , "Subnet group where RDS instances are created.", "defaultSubnetGroupId")
+      val expectedJson = JsObject(
+        "ParameterKey" -> JsString("dbSubnetGroup"),
+        "ParameterValue" -> JsString("defaultSubnetGroupId")
+      )
+      val inputParam = InputParameter.templateParameterToInputParameter(Some(Seq(dbSubnetGroupParam)))
+      inputParam.get(0).toJson should be (expectedJson)
+    }
+  }
+
+  describe("AWS::RDS::DBSecurityGroup") {
+    it("should serialize into valid json") {
+      val vpcParamName = "vpc"
+      val vpcParam = `AWS::EC2::VPC_Parameter`(vpcParamName, "VPC to create security groups")
+      val secGroupName = "SecurityGroup"
+      val secGroup = `AWS::RDS::DBSecurityGroup`(
+        name                   = secGroupName,
+        DBSecurityGroupIngress = Seq(),
+        GroupDescription       = "Not a real group",
+        EC2VpcId = Some(ParameterRef(vpcParam))
+      )
+      val expectedJson = JsObject(
+        "SecurityGroup" -> JsObject(
+          "Properties" -> JsObject(
+            "DBSecurityGroupIngress" -> JsArray(),
+            "GroupDescription" -> JsString("Not a real group"),
+            "EC2VpcId" -> JsObject("Ref" -> JsString(vpcParamName))
+          ),
+          "Type" -> JsString("AWS::RDS::DBSecurityGroup")
+        )
+      )
+      Seq[Resource[_]](secGroup).toJson should be (expectedJson)
+    }
+  }
+
+  describe("AWS::EC2::VPC_Parameter") {
+    it("should serialize into valid json") {
+      val vpcParam = `AWS::EC2::VPC_Parameter`("vpc", "VPC to create security groups", None)
+      val expectedJson = JsObject(
+        "vpc" -> JsObject(
+          "Description" -> JsString("VPC to create security groups"),
+          "Type" -> JsString("AWS::EC2::VPC::Id")
+        )
+      )
+      Seq[Parameter](vpcParam).toJson should be (expectedJson)
+    }
+
+    it("should serialize into valid json as InputParameter") {
+      val vpcParam = `AWS::EC2::VPC_Parameter`("vpc", "VPC to create security groups", None, "defaultVpcId")
+      val expectedJson = JsObject(
+        "ParameterKey" -> JsString("vpc"),
+        "ParameterValue" -> JsString("defaultVpcId")
+      )
+      val inputParam = InputParameter.templateParameterToInputParameter(Some(Seq(vpcParam)))
+      inputParam.get(0).toJson should be (expectedJson)
     }
   }
 }

@@ -127,6 +127,7 @@ describe("Template Lookup") {
 - AWS::Lambda::EventSourceMapping
 - AWS::Lambda::Function
 - AWS::Lambda::Permission
+- AWS::DataPipeline::Pipeline
 - AWS::RDS::DBInstance::Engine
 - AWS::RDS::DBInstance::StorageType
 - AWS::RDS::DBInstance

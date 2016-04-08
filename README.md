@@ -85,6 +85,7 @@ describe("Template Lookup") {
 - AWS::AutoScaling::ScalingPolicy
 - AWS::CloudFormation::WaitCondition
 - AWS::CloudFormation::WaitConditionHandle
+- AWS::CloudTrail::Trail
 - AWS::CloudWatch::Alarm
 - AWS::DynamoDB::Table
 - AWS::EC2::CustomerGateway

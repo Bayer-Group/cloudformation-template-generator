@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.3.2] - 2015-04-08
+
+### Added
+
+-   Support for AWS::CloudTrail::Trail
+
+-   Support for AWS::DataPipeline::Pipeline
+
+-   Ability to use DBSubnet parameters for RDS
+
+-   Ability to use Subnet parameters for EC2 (see [#81](https://github.com/MonsantoCo/cloudformation-template-generator/issues/81))
+
+
 ## [3.3.1] - 2015-03-30
 
 ### Changed

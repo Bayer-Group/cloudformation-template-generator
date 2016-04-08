@@ -183,6 +183,7 @@ object `Fn::Base64` extends DefaultJsonProtocol {
 // but you also want to be able to pass a literal ResourceRef[R]
 sealed trait Token[R]
 object Token extends DefaultJsonProtocol {
+  implicit def fromAnySeq[R: JsonFormat](r: Seq[R]): AnyToken[Seq[R]] = AnyToken(r)
   implicit def fromAny[R: JsonFormat](r: R): AnyToken[R] = AnyToken(r)
   implicit def fromOptionAny[R: JsonFormat](or: Option[R]): Option[AnyToken[R]] = or.map(r => Token.fromAny(r))
   implicit def fromString(s: String): StringToken = StringToken(s)

@@ -582,7 +582,7 @@ object RDSDBSecurityGroupRule extends DefaultJsonProtocol {
 case class `AWS::RDS::DBSubnetGroup`(
   name:                     String,
   DBSubnetGroupDescription: String,
-  SubnetIds:                Seq[ResourceRef[`AWS::EC2::Subnet`]],
+  SubnetIds:                Token[Seq[ResourceRef[`AWS::EC2::Subnet`]]],
   Tags:                     Option[Seq[AmazonTag]] = None,
   override val Condition: Option[ConditionRef]     = None
 ) extends Resource[`AWS::RDS::DBSubnetGroup`]{

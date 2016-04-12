@@ -150,6 +150,11 @@ var changeResourceRecordSetsHelper = function(route53, params, callback, iterati
     if (!iteration) {
         iteration = 0;
     }
+    /* If the CF template has multiple records in a single zone, it may try to fire them all off at once.
+     * For whatever reason, route 53 can't handle simultaneous updates to a given zone.
+     * This will catch the PriorRequestNotComplete error that is thrown in that situation and retry.
+     * All other error handling is delegated back to the callback.
+     */
     route53.changeResourceRecordSets(params, function (err, data) {
         if (err && err.code == "PriorRequestNotComplete") {
             if (iteration < iterationLimit) {

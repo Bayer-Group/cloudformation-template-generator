@@ -63,7 +63,7 @@ var createRecordSet = function(event, context) {
                 },
                 HostedZoneId: hostedZoneId
             };
-            route53.changeResourceRecordSets(params, function (err, data) {
+            changeResourceRecordSetsHelper(route53, params, function (err, data) {
                 if (err) {
                     errMsg = "create record set failed: " + err;
                     console.log(errMsg);
@@ -91,7 +91,7 @@ var updateRecordSet = function(event, context) {
                 },
                 HostedZoneId: hostedZoneId
             };
-            route53.changeResourceRecordSets(params, function (err, data) {
+            changeResourceRecordSetsHelper(route53, params, function (err, data) {
                 if (err) {
                     errMsg = "update record set failed: " + err;
                     console.log(errMsg);
@@ -120,7 +120,7 @@ var deleteRecordSet = function(event, context) {
                     },
                     HostedZoneId: hostedZoneId
                 };
-                route53.changeResourceRecordSets(params, function (err, data) {
+                changeResourceRecordSetsHelper(route53, params, function (err, data) {
                     if (err) {
                         if (err.code == "InvalidChangeBatch" && err.message && err.message.indexOf("not found") >= 0) {
                             errMsg = "WARNING: " + err;
@@ -143,6 +143,31 @@ var deleteRecordSet = function(event, context) {
         console.log(errMsg);
         response.send(event, context, response.SUCCESS, errMsg);
     }
+};
+
+var changeResourceRecordSetsHelper = function(route53, params, callback, iteration) {
+    var iterationLimit = 100;
+    if (!iteration) {
+        iteration = 0;
+    }
+    /* If the CF template has multiple records in a single zone, it may try to fire them all off at once.
+     * For whatever reason, route 53 can't handle simultaneous updates to a given zone.
+     * This will catch the PriorRequestNotComplete error that is thrown in that situation and retry.
+     * All other error handling is delegated back to the callback.
+     */
+    route53.changeResourceRecordSets(params, function (err, data) {
+        if (err && err.code == "PriorRequestNotComplete") {
+            if (iteration < iterationLimit) {
+                console.log("WARNING: Prior request not complete.  Retrying");
+                changeResourceRecordSetsHelper(route53, params, callback, ++iteration, iterationLimit);
+            } else {
+                console.log("ERR: Prior request not complete, but retry limit hit.  Giving up.");
+                callback(err, data)
+            }
+        } else {
+            callback(err, data);
+        }
+    });
 };
 
 var validateCombos = function(event, context) {

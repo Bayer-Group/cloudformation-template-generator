@@ -63,6 +63,7 @@ object `AWS::CloudWatch::Alarm::Namespace` extends DefaultJsonProtocol {
   case object `AWS/EC2`              extends `AWS::CloudWatch::Alarm::Namespace`
   case object `AWS/ELB`              extends `AWS::CloudWatch::Alarm::Namespace`
   case object `AWS/ElasticMapReduce` extends `AWS::CloudWatch::Alarm::Namespace`
+  case object `AWS/Lambda`           extends `AWS::CloudWatch::Alarm::Namespace`
   case object `AWS/Kinesis`          extends `AWS::CloudWatch::Alarm::Namespace`
   case object `AWS/OpsWorks`         extends `AWS::CloudWatch::Alarm::Namespace`
   case object `AWS/Redshift`         extends `AWS::CloudWatch::Alarm::Namespace`
@@ -89,7 +90,8 @@ object `AWS::CloudWatch::Alarm::Namespace` extends DefaultJsonProtocol {
     `AWS/SNS`,
     `AWS/SQS`,
     `AWS/SWF`,
-    `AWS/StorageGateway`
+    `AWS/StorageGateway`,
+    `AWS/Lambda`
   )
   implicit val format: JsonFormat[`AWS::CloudWatch::Alarm::Namespace`] =
     new EnumFormat[`AWS::CloudWatch::Alarm::Namespace`](values)

@@ -7,6 +7,8 @@ class Runtime(val runtime: String)
 
 case object NodeJS extends Runtime("nodejs")
 
+case object `NodeJS4.3` extends Runtime("nodejs4.3")
+
 case object Java8 extends Runtime("java8")
 
 case object Python27 extends Runtime("python2.7")
@@ -28,9 +30,9 @@ case class `AWS::Lambda::Function`(name: String,
                                    Description: Option[String],
                                    Handler: String,
                                    Runtime: Runtime,
-                                   MemorySize: Option[Int] = None,
+                                   MemorySize: Option[Token[Int]] = None,
                                    Role: Token[String],
-                                   Timeout: Option[Int] = None,
+                                   Timeout: Option[Token[Int]] = None,
                                    override val Condition: Option[ConditionRef] = None)
   extends Resource[`AWS::Lambda::Function`] with HasArn with Subscribable {
 

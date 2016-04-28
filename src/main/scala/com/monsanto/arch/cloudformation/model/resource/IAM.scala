@@ -205,7 +205,7 @@ case class Policy(PolicyName: String, PolicyDocument: PolicyDocument)
 object Policy extends DefaultJsonProtocol {
   implicit val format: JsonFormat[Policy] = jsonFormat2(Policy.apply)
 }
-case class PolicyDocument(Statement: Seq[PolicyStatement])
+case class PolicyDocument(Statement: Seq[PolicyStatement], Version : Option[String] = None)
 object PolicyDocument extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[PolicyDocument] = jsonFormat1(PolicyDocument.apply)
+  implicit val format: JsonFormat[PolicyDocument] = jsonFormat2(PolicyDocument.apply)
 }

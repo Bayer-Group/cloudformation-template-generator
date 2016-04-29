@@ -116,6 +116,25 @@ class Template_UT extends FlatSpec with Matchers with VPC with Subnet with Avail
     template should equal(Template.EMPTY.copy(Outputs = Some(Seq(output1))))
   }
 
+  it should "be able to add an output of type Token[String]" in new JsonWritingMatcher {
+    import spray.json._
+    val token : Token[String] = ResourceRef(resource1)
+    val output = Output(
+      name = "out1",
+      Description = "test",
+      Value = token
+    )
+    output.toJson shouldMatch
+      s"""
+        |{
+        | "Description": "test",
+        | "Value": {
+        |   "Ref": "${resource1.name}"
+        | }
+        |}
+      """.stripMargin
+  }
+
   it should "be able to add outputs" in {
     val outputs = Seq(output1, output2)
     val template = Template.EMPTY ++ outputs

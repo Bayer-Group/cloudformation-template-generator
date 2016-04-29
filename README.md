@@ -80,12 +80,24 @@ describe("Template Lookup") {
 
 ### Currently supported AWS resource types
 
+- AWS::ApiGateway::Account
+- AWS::ApiGateway::ApiKey
+- AWS::ApiGateway::Authorizer
+- AWS::ApiGateway::BasePathMapping
+- AWS::ApiGateway::ClientCertificate
+- AWS::ApiGateway::Deployment
+- AWS::ApiGateway::Method
+- AWS::ApiGateway::Model
+- AWS::ApiGateway::Resource
+- AWS::ApiGateway::RestApi
+- AWS::ApiGateway::Stage
 - AWS::AutoScaling::AutoScalingGroup
 - AWS::AutoScaling::LaunchConfiguration
 - AWS::AutoScaling::ScalingPolicy
 - AWS::CloudFormation::WaitCondition
 - AWS::CloudFormation::WaitConditionHandle
 - AWS::CloudTrail::Trail
+- AWS::CloudFront:Distribution:
 - AWS::CloudWatch::Alarm
 - AWS::DynamoDB::Table
 - AWS::EC2::CustomerGateway

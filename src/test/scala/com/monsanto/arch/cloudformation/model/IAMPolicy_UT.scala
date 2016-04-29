@@ -99,5 +99,21 @@ class IAMPolicy_UT extends FunSpec with Matchers with JsonWritingMatcher {
           |}
         """.stripMargin
     }
+
+    it("should generate policy document with a version") {
+      PolicyDocument(
+        Statement = Seq(PolicyStatement(Effect = "Allow",Action = Seq("*"))),
+        Version =  Some(IAMPolicyVersion.`2012-10-17`)
+      ) shouldMatch
+        """
+          |{
+          |  "Statement": [{
+          |    "Effect": "Allow",
+          |    "Action": ["*"]
+          |  }],
+          |  "Version": "2012-10-17"
+          |}
+        """.stripMargin
+    }
   }
 }

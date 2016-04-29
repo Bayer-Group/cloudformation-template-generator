@@ -205,7 +205,17 @@ case class Policy(PolicyName: String, PolicyDocument: PolicyDocument)
 object Policy extends DefaultJsonProtocol {
   implicit val format: JsonFormat[Policy] = jsonFormat2(Policy.apply)
 }
-case class PolicyDocument(Statement: Seq[PolicyStatement], Version : Option[String] = None)
+
+case class PolicyDocument(Statement: Seq[PolicyStatement], Version : Option[IAMPolicyVersion] = None)
 object PolicyDocument extends DefaultJsonProtocol {
   implicit val format: JsonFormat[PolicyDocument] = jsonFormat2(PolicyDocument.apply)
+}
+
+sealed trait IAMPolicyVersion
+object IAMPolicyVersion extends DefaultJsonProtocol {
+  case object `2012-10-17`      extends IAMPolicyVersion
+  case object `2008-10-17`      extends IAMPolicyVersion
+
+  val values = Seq(`2012-10-17`, `2008-10-17`)
+  implicit val format: JsonFormat[IAMPolicyVersion] = new EnumFormat[IAMPolicyVersion](values)
 }

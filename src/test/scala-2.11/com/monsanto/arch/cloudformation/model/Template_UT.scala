@@ -2,7 +2,7 @@ package com.monsanto.arch.cloudformation.model
 
 import com.monsanto.arch.cloudformation.model.resource._
 import com.monsanto.arch.cloudformation.model.simple._
-import org.scalatest.{Matchers, FlatSpec}
+import org.scalatest.{FlatSpec, Matchers}
 import spray.json.DefaultJsonProtocol._
 
 class Template_UT extends FlatSpec with Matchers with VPC with Subnet with AvailabilityZone with SecurityGroup with EC2 {

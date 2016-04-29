@@ -1,3 +1,5 @@
+package com.monsanto.arch.cloudformation.model
+
 import com.monsanto.arch.cloudformation.model._
 import com.monsanto.arch.cloudformation.model.resource._
 import org.scalatest.FunSpec

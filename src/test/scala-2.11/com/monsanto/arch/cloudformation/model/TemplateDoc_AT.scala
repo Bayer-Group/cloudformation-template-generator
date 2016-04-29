@@ -1,3 +1,5 @@
+package com.monsanto.arch.cloudformation.model
+
 import org.scalatest.{Matchers, FunSpec}
 
 /**

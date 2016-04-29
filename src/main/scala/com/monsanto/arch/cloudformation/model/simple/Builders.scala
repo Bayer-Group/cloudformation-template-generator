@@ -508,18 +508,16 @@ trait Gateway {
   def withInternetGateway(implicit vpc: `AWS::EC2::VPC`) = {
     // internet gateway
     val gName = "InternetGateway"
-    val gateway : VPCGatewayOptions = InternetGateway(
-      `AWS::EC2::InternetGateway`(
-        gName,
-        Tags = AmazonTag.fromName(gName)
-      )
+    val gateway = `AWS::EC2::InternetGateway`(
+      gName,
+      Tags = AmazonTag.fromName(gName)
     )
 
     val attName = "GatewayToInternet"
     val attachment = `AWS::EC2::VPCGatewayAttachment`(
       attName,
       VpcId = vpc,
-      gatewayId = gateway
+      gatewayId = InternetGateway(gateway)
     )
 
     (gateway, attachment)

@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.3.3] - 2015-04-29
+
+### Added
+
+-   Support for AWS::CloudFront:Distribution (see [#71](https://github.com/MonsantoCo/cloudformation-template-generator/pull/71))
+
+-   Support for tokens in an output (see [#74](https://github.com/MonsantoCo/cloudformation-template-generator/pull/74))
+
+-   AWS/Lambda CloudWatch Alarm Namespace (see [#87](https://github.com/MonsantoCo/cloudformation-template-generator/pull/87))
+
+-   Support for NodeJs4.3 as a Lambda rutime (see [#88](https://github.com/MonsantoCo/cloudformation-template-generator/pull/88))
+
+-   Support for AWS::ApiGateway (see [#89](https://github.com/MonsantoCo/cloudformation-template-generator/pull/89))
+
+-   Support for IAMPolicyVersions (see [#90](https://github.com/MonsantoCo/cloudformation-template-generator/pull/90))
+
 ## [3.3.2] - 2015-04-08
 
 ### Added

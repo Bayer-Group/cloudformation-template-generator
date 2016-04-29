@@ -10,7 +10,7 @@ import scala.language.implicitConversions
  * Created by Ryan Richt on 2/15/15
  */
 
-sealed abstract class Parameter(val Type: String) {
+abstract class Parameter(val Type: String) {
   type Rep // what logical type does this represent in real life? irrespective of CF file format
   def name:          String
   def Description:   Option[String]
@@ -22,7 +22,7 @@ object Parameter extends DefaultJsonProtocol {
     implicit object format extends JsonWriter[Parameter]{
       def write(obj: Parameter) = {
 
-        val raw = obj match {
+        val rawFormatter : PartialFunction[Parameter, JsValue] = {
           case s:  StringParameter                          => s.toJson
           case sl: StringListParameter                      => sl.toJson(StringListParameter.format)
           case n:  NumberParameter                          => n.toJson
@@ -32,10 +32,11 @@ object Parameter extends DefaultJsonProtocol {
           case c:  `AWS::EC2::SecurityGroup_Parameter`      => c.toJson
           case k:  `AWS::EC2::KeyPair::KeyName_Parameter`   => k.toJson
           case v:  `AWS::EC2::VPC_Parameter`                => v.toJson
-          case e:  `AWS::RDS::DBInstance::Engine_Parameter` => e.toJson
-          case s:  `AWS::RDS::DBSubnetGroup_Parameter`      => s.toJson
           case s:  `AWS::EC2::Subnet_Parameter_List`        => s.toJson
         }
+        val formatter = ParameterFormatExt.format.orElse(rawFormatter)
+
+        val raw = formatter(obj)
 
         JsObject( raw.asJsObject.fields - "name" - "ConfigDefault" + ("Type" -> JsString(obj.Type)) )
       }
@@ -188,24 +189,6 @@ object `AWS::EC2::VPC_Parameter` extends DefaultJsonProtocol {
   implicit val format: JsonFormat[`AWS::EC2::VPC_Parameter`] = jsonFormat4(`AWS::EC2::VPC_Parameter`.apply)
 }
 
-case class `AWS::RDS::DBInstance::Engine_Parameter`(
-                                                     name:          String,
-                                                     Description:   Option[String],
-                                                     Default:       Option[Token[`AWS::RDS::DBInstance::Engine`]] = None,
-                                                     ConfigDefault: Option[String] = None
-                                                     ) extends Parameter("String"){type Rep = `AWS::RDS::DBInstance::Engine`}
-object `AWS::RDS::DBInstance::Engine_Parameter` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::RDS::DBInstance::Engine_Parameter`] = jsonFormat4(`AWS::RDS::DBInstance::Engine_Parameter`.apply)
-}
-
-case class `AWS::RDS::DBSubnetGroup_Parameter`(name:          String,
-                                               Description:   Option[String],
-                                               Default:       Option[String] = None,
-                                               ConfigDefault: Option[String] = None
-                                              ) extends Parameter("String"){type Rep = ResourceRef[`AWS::RDS::DBSubnetGroup`]}
-object `AWS::RDS::DBSubnetGroup_Parameter` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::RDS::DBSubnetGroup_Parameter`] = jsonFormat4(`AWS::RDS::DBSubnetGroup_Parameter`.apply)
-}
 
 case class `AWS::EC2::Subnet_Parameter_List`(
                                               name:          String,
@@ -219,44 +202,41 @@ object `AWS::EC2::Subnet_Parameter_List` extends DefaultJsonProtocol {
 case class InputParameter(ParameterKey: String, ParameterValue: JsValue = "<changeMe>".toJson)
 object InputParameter extends DefaultJsonProtocol {
   implicit val format: JsonFormat[InputParameter] = jsonFormat2(InputParameter.apply)
+  val rawFormatter : PartialFunction[Parameter, InputParameter] = {
+    case StringParameter(n, _, _, _, _, _, _, _, _, Some(d)) => InputParameter(n, d.toJson)
+    case StringParameter(n, _, _, _, _, _, Some(d), _, _, None) => InputParameter(n, d.toJson)
+    case StringParameter(n, _, _, _, _, _, None, _, _, None) => InputParameter(n)
+    case StringListParameter(n, _, _, _, Some(d)) => InputParameter(n, d.toJson)
+    case StringListParameter(n, _, Some(d), _, None) => InputParameter(n, JsString(d.mkString(",")))
+    case StringListParameter(n, _, None, _, None) => InputParameter(n)
+    case NumberParameter(n, _, _, _, _, _, _, Some(d)) => InputParameter(n, d.toJson)
+    case NumberParameter(n, _, _, _, _, Some(d), _, None) => InputParameter(n, d.toJson)
+    case NumberParameter(n, _, _, _, _, None, _, None) => InputParameter(n)
+    case `AWS::EC2::KeyPair::KeyName_Parameter`(n, _, _, _, Some(d)) => InputParameter(n, d.toJson)
+    case `AWS::EC2::KeyPair::KeyName_Parameter`(n, _, _, Some(d), None) => InputParameter(n, d.toJson)
+    case `AWS::EC2::KeyPair::KeyName_Parameter`(n, _, _, None, None) => InputParameter(n)
+    case CidrBlockParameter(n, _, _, Some(d)) => InputParameter(n, d.toJson)
+    case CidrBlockParameter(n, _, Some(d), None) => InputParameter(n, d.toJson)
+    case CidrBlockParameter(n, _, None, None) => InputParameter(n)
+    case CidrBlockListParameter(n, _, _, Some(d)) => InputParameter(n, d.toJson)
+    case CidrBlockListParameter(n, _, Some(d), None) => InputParameter(n, JsString(d.map(_.toJsString.value).mkString(",")))
+    case CidrBlockListParameter(n, _, None, None) => InputParameter(n)
+    case `AWS::EC2::SecurityGroup_Parameter`(n, _, _, Some(d)) => InputParameter(n, d.toJson)
+    case `AWS::EC2::SecurityGroup_Parameter`(n, _, Some(d), None) => InputParameter(n, d.toJson)
+    case `AWS::EC2::SecurityGroup_Parameter`(n, _, None, None) => InputParameter(n)
+    case AMIIdParameter(n, _, _, _, _, Some(d)) => InputParameter(n, d.toJson)
+    case AMIIdParameter(n, _, Some(d), _, _, None) => InputParameter(n, d.toJson)
+    case AMIIdParameter(n, _, None, _, _, None) => InputParameter(n)
+    case `AWS::EC2::VPC_Parameter`(n, _, _, Some(d)) => InputParameter(n, d.toJson)
+    case `AWS::EC2::VPC_Parameter`(n, _, Some(d), None) => InputParameter(n, d.toJson)
+    case `AWS::EC2::VPC_Parameter`(n, _, None, None) => InputParameter(n)
+    case `AWS::EC2::Subnet_Parameter_List`(n, _, _) => InputParameter(n, "".toJson)
+  }
+
+  val formatter = ParameterFormatExt.inputParameters.orElse(rawFormatter)
 
   // is there a better way to do this?
   def templateParameterToInputParameter(Parameters: Option[Seq[Parameter]]): Option[Seq[InputParameter]] =
     // prefer ConfigDefault to Default when it is present
-    Parameters.map(o => o.map(p => p match {
-      case StringParameter(n, _, _, _, _, _, _, _, _, Some(d)) => InputParameter(n, d.toJson)
-      case StringParameter(n, _, _, _, _, _, Some(d), _, _, None) => InputParameter(n, d.toJson)
-      case StringParameter(n, _, _, _, _, _, None, _, _, None) => InputParameter(n)
-      case StringListParameter(n, _, _, _, Some(d)) => InputParameter(n, d.toJson)
-      case StringListParameter(n, _, Some(d), _, None) => InputParameter(n, JsString(d.mkString(",")))
-      case StringListParameter(n, _, None, _, None) => InputParameter(n)
-      case NumberParameter(n, _, _, _, _, _, _, Some(d)) => InputParameter(n, d.toJson)
-      case NumberParameter(n, _, _, _, _, Some(d), _, None) => InputParameter(n, d.toJson)
-      case NumberParameter(n, _, _, _, _, None, _, None) => InputParameter(n)
-      case `AWS::EC2::KeyPair::KeyName_Parameter`(n, _, _, _, Some(d)) => InputParameter(n, d.toJson)
-      case `AWS::EC2::KeyPair::KeyName_Parameter`(n, _, _, Some(d), None) => InputParameter(n, d.toJson)
-      case `AWS::EC2::KeyPair::KeyName_Parameter`(n, _, _, None, None) => InputParameter(n)
-      case CidrBlockParameter(n, _, _, Some(d)) => InputParameter(n, d.toJson)
-      case CidrBlockParameter(n, _, Some(d), None) => InputParameter(n, d.toJson)
-      case CidrBlockParameter(n, _, None, None) => InputParameter(n)
-      case CidrBlockListParameter(n, _, _, Some(d)) => InputParameter(n, d.toJson)
-      case CidrBlockListParameter(n, _, Some(d), None) => InputParameter(n, JsString(d.map(_.toJsString.value).mkString(",")))
-      case CidrBlockListParameter(n, _, None, None) => InputParameter(n)
-      case `AWS::EC2::SecurityGroup_Parameter`(n, _, _, Some(d)) => InputParameter(n, d.toJson)
-      case `AWS::EC2::SecurityGroup_Parameter`(n, _, Some(d), None) => InputParameter(n, d.toJson)
-      case `AWS::EC2::SecurityGroup_Parameter`(n, _, None, None) => InputParameter(n)
-      case AMIIdParameter(n, _, _, _, _, Some(d)) => InputParameter(n, d.toJson)
-      case AMIIdParameter(n, _, Some(d), _, _, None) => InputParameter(n, d.toJson)
-      case AMIIdParameter(n, _, None, _, _, None) => InputParameter(n)
-      case `AWS::EC2::VPC_Parameter`(n, _, _, Some(d)) => InputParameter(n, d.toJson)
-      case `AWS::EC2::VPC_Parameter`(n, _, Some(d), None) => InputParameter(n, d.toJson)
-      case `AWS::EC2::VPC_Parameter`(n, _, None, None) => InputParameter(n)
-      case `AWS::RDS::DBInstance::Engine_Parameter`(n, _, _, Some(d)) => InputParameter(n, d.toJson)
-      case `AWS::RDS::DBInstance::Engine_Parameter`(n, _, Some(d), None) => InputParameter(n, d.toJson)
-      case `AWS::RDS::DBInstance::Engine_Parameter`(n, _, None, None) => InputParameter(n)
-      case `AWS::RDS::DBSubnetGroup_Parameter`(n, None, _, _) => InputParameter(n)
-      case `AWS::RDS::DBSubnetGroup_Parameter`(n, Some(d), None, _) => InputParameter(n, d.toJson)
-      case `AWS::RDS::DBSubnetGroup_Parameter`(n, _, Some(d), _) => InputParameter(n, d.toJson)
-      case `AWS::EC2::Subnet_Parameter_List`(n, _, _) => InputParameter(n, "".toJson)
-    }))
+    Parameters.map(o => o.map(formatter) )
 }

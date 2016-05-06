@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.3.4] - 2015-05-06
+
+**Note: This breaks backwards compatibility for some people using ApiGateways.**
+
+### Changed
+
+-   Datatypes for ApiGateway (see [#93](https://github.com/MonsantoCo/cloudformation-template-generator/pull/93))
+
+
 ## [3.3.3] - 2015-04-29
 
 ### Added

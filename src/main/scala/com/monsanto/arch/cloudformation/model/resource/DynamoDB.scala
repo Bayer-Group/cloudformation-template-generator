@@ -2,6 +2,7 @@ package com.monsanto.arch.cloudformation.model.resource
 
 import com.monsanto.arch.cloudformation.model._
 import spray.json._
+import DefaultJsonProtocol._
 
 import scala.language.implicitConversions
 
@@ -16,6 +17,7 @@ case class `AWS::DynamoDB::Table`(
                                    KeySchema: Seq[KeySchema],
                                    LocalSecondaryIndexes: Seq[LocalSecondaryIndex],
                                    ProvisionedThroughput: ProvisionedThroughput,
+                                   StreamSpecification : Option[StreamSpecification] = None,
                                    TableName: Token[String],
                                    override val Condition: Option[ConditionRef] = None
                                  ) extends Resource[`AWS::DynamoDB::Table`] with HasArn {
@@ -30,15 +32,34 @@ case class `AWS::DynamoDB::Table`(
 
 }
 
-object `AWS::DynamoDB::Table` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::DynamoDB::Table`] = jsonFormat8(`AWS::DynamoDB::Table`.apply)
+object `AWS::DynamoDB::Table` {
+  implicit val format: JsonFormat[`AWS::DynamoDB::Table`] = jsonFormat9(`AWS::DynamoDB::Table`.apply)
+}
+
+sealed abstract class StreamViewType(val name : String)
+case object NEW_IMAGE extends StreamViewType("NEW_IMAGE")
+case object OLD_IMAGE extends StreamViewType("OLD_IMAGE")
+case object NEW_AND_OLD_IMAGES extends StreamViewType("NEW_AND_OLD_IMAGES")
+case object KEYS_ONLY extends StreamViewType("KEYS_ONLY")
+
+object StreamViewType {
+  implicit object format extends JsonFormat[StreamViewType] {
+    override def read(json: JsValue): StreamViewType = ???
+
+    override def write(obj: StreamViewType): JsValue = JsString(obj.name)
+  }
+}
+
+case class StreamSpecification(StreamViewType : StreamViewType)
+object StreamSpecification {
+  implicit val format : JsonFormat[StreamSpecification] = jsonFormat1(StreamSpecification.apply)
 }
 
 sealed trait AttributeType
 case object StringAttributeType extends AttributeType
 case object NumberAttributeType extends AttributeType
 case object BinaryAttributeType extends AttributeType
-object AttributeType extends DefaultJsonProtocol {
+object AttributeType {
   implicit object format extends JsonFormat[AttributeType] {
     override def write(obj: AttributeType) = JsString(obj match {
       case StringAttributeType => "S"
@@ -58,7 +79,7 @@ case class AttributeDefinition(
                                 AttributeType: AttributeType
                               )
 
-object AttributeDefinition extends DefaultJsonProtocol {
+object AttributeDefinition {
   implicit val format: JsonFormat[AttributeDefinition] = jsonFormat2(AttributeDefinition.apply)
 
   implicit def tuple2AttributeDefinition(t : (String, AttributeType)) : AttributeDefinition = AttributeDefinition(
@@ -93,7 +114,7 @@ case class KeySchema(
                       KeyType: KeyType
                     )
 
-object KeySchema extends DefaultJsonProtocol {
+object KeySchema {
   implicit val format: JsonFormat[KeySchema] = jsonFormat2(KeySchema.apply)
 
   implicit def tuple2KeySchema(t : (String, KeyType)) : KeySchema = KeySchema(
@@ -107,7 +128,7 @@ case class ProvisionedThroughput(
                                   WriteCapacityUnits: Token[Int]
                                 )
 
-object ProvisionedThroughput extends DefaultJsonProtocol {
+object ProvisionedThroughput {
   implicit val format: JsonFormat[ProvisionedThroughput] = jsonFormat2(ProvisionedThroughput.apply)
 }
 
@@ -122,7 +143,7 @@ case class IncludeProjection(keys : Seq[String]) extends Projection
 /**
   * http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dynamodb-projectionobject.html
   */
-case object Projection extends DefaultJsonProtocol {
+case object Projection {
   implicit object format extends JsonFormat[Projection] {
     override def write(obj: Projection) = obj match {
       case AllProjection => Map("ProjectionType" -> "ALL").toJson
@@ -143,7 +164,7 @@ case class LocalSecondaryIndex(
                                 Projection: Projection
                               ) extends DynamoIndex
 
-object LocalSecondaryIndex extends DefaultJsonProtocol {
+object LocalSecondaryIndex {
   implicit val format: JsonFormat[LocalSecondaryIndex] = jsonFormat3(LocalSecondaryIndex.apply)
 }
 
@@ -154,6 +175,6 @@ case class GlobalSecondaryIndex (
                                   ProvisionedThroughput: ProvisionedThroughput
                                 ) extends DynamoIndex
 
-object GlobalSecondaryIndex extends DefaultJsonProtocol {
+object GlobalSecondaryIndex {
   implicit val format: JsonFormat[GlobalSecondaryIndex] = jsonFormat4(GlobalSecondaryIndex.apply)
 }

@@ -27,7 +27,7 @@ object Runtime {
 
 case class `AWS::Lambda::Function`(name: String,
                                    Code: Code,
-                                   Description: Option[Token[String]],
+                                   Description: Option[String],
                                    Handler: String,
                                    Runtime: Runtime,
                                    MemorySize: Option[Token[Int]] = None,

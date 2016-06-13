@@ -3,7 +3,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [3.3.4] - 2015-05-06
+## [3.3.5] - TBD
+
+### Added
+
+-   Support for AWS::CloudFormation::Stack (see [#100](hub.com/MonsantoCo/cloudformation-template-generator/pull/100))
+
+## [3.3.4] - 2016-05-06
 
 **Note: This breaks backwards compatibility for some people using ApiGateways.**
 
@@ -12,7 +18,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 -   Datatypes for ApiGateway (see [#93](https://github.com/MonsantoCo/cloudformation-template-generator/pull/93))
 
 
-## [3.3.3] - 2015-04-29
+## [3.3.3] - 2016-04-29
 
 ### Added
 
@@ -28,7 +34,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 -   Support for IAMPolicyVersions (see [#90](https://github.com/MonsantoCo/cloudformation-template-generator/pull/90))
 
-## [3.3.2] - 2015-04-08
+## [3.3.2] - 2016-04-08
 
 ### Added
 
@@ -41,13 +47,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 -   Ability to use Subnet parameters for EC2 (see [#81](https://github.com/MonsantoCo/cloudformation-template-generator/issues/81))
 
 
-## [3.3.1] - 2015-03-30
+## [3.3.1] - 2016-03-30
 
 ### Changed
 
 -   Modified Fn::Not to be a NestableAmazonFunctionCall to support using the function within an Fn::And block
 
-## [3.3.0] - 2015-03-18
+## [3.3.0] - 2016-03-18
 
 **Note: This breaks backwards compatibility for anyone using custom NAT Gateways.**
 
@@ -110,7 +116,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 -   Changed how implicits are handle in creating `AWS::EC2::Route` to simplify the code
 
-## [3.0.6] - 2015-01-19
+## [3.0.6] - 2016-01-19
 
 ### Added
 
@@ -130,7 +136,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 -   Have predictable order in the output JSON (fixes [#45](https://github.com/MonsantoCo/cloudformation-template-generator/issues/45))
 
-## [3.0.5] - 2015-01-07
+## [3.0.5] - 2016-01-07
 
 ### Added
 

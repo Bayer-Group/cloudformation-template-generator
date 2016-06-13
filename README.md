@@ -94,6 +94,7 @@ describe("Template Lookup") {
 - AWS::AutoScaling::AutoScalingGroup
 - AWS::AutoScaling::LaunchConfiguration
 - AWS::AutoScaling::ScalingPolicy
+- AWS::CloudFormation::Stack
 - AWS::CloudFormation::WaitCondition
 - AWS::CloudFormation::WaitConditionHandle
 - AWS::CloudTrail::Trail

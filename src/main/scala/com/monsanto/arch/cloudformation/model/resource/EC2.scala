@@ -473,8 +473,8 @@ case class `AWS::EC2::SecurityGroupIngress`(
   name:                  String,
   GroupId:               Token[ResourceRef[`AWS::EC2::SecurityGroup`]],
   IpProtocol:            String,
-  FromPort:              String,
-  ToPort:                String,
+  FromPort:              Token[String],
+  ToPort:                Token[String],
   CidrIp:                Option[Token[CidrBlock]] = None, // either CidrIp or SourceSecurityGroupId required
   SourceSecurityGroupId: Option[Token[ResourceRef[`AWS::EC2::SecurityGroup`]]] = None, // either CidrIp or SourceSecurityGroupId required
   override val Condition: Option[ConditionRef] = None

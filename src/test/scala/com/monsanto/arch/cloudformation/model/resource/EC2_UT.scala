@@ -1,8 +1,8 @@
 package com.monsanto.arch.cloudformation.model.resource
 
 import com.monsanto.arch.cloudformation.model._
-import org.scalatest.{Matchers, FunSpec}
-import spray.json._
+import org.scalatest.{FunSpec, Matchers}
+import spray.json.{JsString, _}
 
 class EC2_UT extends FunSpec with Matchers {
 
@@ -185,4 +185,42 @@ class EC2_UT extends FunSpec with Matchers {
     }
   }
 
+  describe("AWS::EC2::SecurityGroupIngress") {
+    val securityGroupParam = `AWS::EC2::SecurityGroup_Parameter`("testSGParam", "testSGParam")
+    val ingres = `AWS::EC2::SecurityGroupIngress`(
+      name = "Test Ingress",
+      GroupId = ParameterRef(securityGroupParam),
+      IpProtocol = "TCP",
+      FromPort = "80",
+      ToPort = "80",
+      CidrIp = Some(CidrBlock(192, 168, 1, 2, 32))
+    )
+
+    it("should write valid SecurityGroupIngress"){
+      ingres.toJson shouldEqual JsObject(
+        "name" -> JsString("Test Ingress"),
+        "CidrIp" -> JsString("192.168.1.2/32"),
+        "GroupId" -> JsObject("Ref" -> JsString("testSGParam")),
+        "ToPort" -> JsString("80"),
+        "FromPort" -> JsString("80"),
+        "IpProtocol" -> JsString("TCP")
+      )
+    }
+
+    it("should write valid SecurityGroupIngress when parameterized"){
+      val portParam = StringParameter("portParam")
+      val ingresParameterized = ingres.copy(
+        FromPort = ParameterRef(portParam),
+        ToPort = ParameterRef(portParam)
+      )
+      ingresParameterized.toJson shouldEqual JsObject(
+        "name" -> JsString("Test Ingress"),
+        "CidrIp" -> JsString("192.168.1.2/32"),
+        "GroupId" -> JsObject("Ref" -> JsString("testSGParam")),
+        "ToPort" -> JsObject("Ref" -> JsString("portParam")),
+        "FromPort" -> JsObject("Ref" -> JsString("portParam")),
+        "IpProtocol" -> JsString("TCP")
+      )
+    }
+  }
 }

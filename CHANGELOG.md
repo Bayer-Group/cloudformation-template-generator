@@ -3,11 +3,18 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [3.3.5] - TBD
+## [3.3.5] - 2016-07-14
 
 ### Added
 
--   Support for AWS::CloudFormation::Stack (see [#100](hub.com/MonsantoCo/cloudformation-template-generator/pull/100))
+-   Support for AWS::CloudFormation::Stack (see [#100](https://github.com/MonsantoCo/cloudformation-template-generator/pull/100))
+
+-   Change Description property of Function to Option[Token[String]] so it can contain CloudFormation expressions  (see [#97](https://github.com/MonsantoCo/cloudformation-template-generator/issues/97))
+
+-   Ports in Security groups can now be parameterized (see [#101](https://github.com/MonsantoCo/cloudformation-template-generator/pull/101))
+
+-   Add stream specification for DynamoDB (see [#94](https://github.com/MonsantoCo/cloudformation-template-generator/pull/94))
+
 
 ## [3.3.4] - 2016-05-06
 

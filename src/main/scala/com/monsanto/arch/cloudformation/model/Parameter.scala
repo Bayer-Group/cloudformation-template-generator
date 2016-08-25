@@ -35,6 +35,8 @@ object Parameter extends DefaultJsonProtocol {
           case e:  `AWS::RDS::DBInstance::Engine_Parameter` => e.toJson
           case s:  `AWS::RDS::DBSubnetGroup_Parameter`      => s.toJson
           case s:  `AWS::EC2::Subnet_Parameter_List`        => s.toJson
+          case s:  `AWS::S3::Bucket_Parameter`              => s.toJson
+          case s:  `AWS::SNS::Topic_Parameter`              => s.toJson
         }
 
         JsObject( raw.asJsObject.fields - "name" - "ConfigDefault" + ("Type" -> JsString(obj.Type)) )
@@ -216,6 +218,26 @@ object `AWS::EC2::Subnet_Parameter_List` extends DefaultJsonProtocol {
   implicit val format: JsonFormat[`AWS::EC2::Subnet_Parameter_List`] = jsonFormat3(`AWS::EC2::Subnet_Parameter_List`.apply)
 }
 
+case class `AWS::S3::Bucket_Parameter`(
+                                        name:          String,
+                                        Description:   Option[String],
+                                        Default:       Option[Token[ResourceRef[`AWS::S3::Bucket`]]] = None,
+                                        ConfigDefault: Option[String] = None
+                                      ) extends Parameter("String"){type Rep = ResourceRef[`AWS::S3::Bucket`]}
+object `AWS::S3::Bucket_Parameter` extends DefaultJsonProtocol {
+  implicit val format: JsonFormat[`AWS::S3::Bucket_Parameter`] = jsonFormat4(`AWS::S3::Bucket_Parameter`.apply)
+}
+
+case class `AWS::SNS::Topic_Parameter`(
+                                        name:          String,
+                                        Description:   Option[String],
+                                        Default:       Option[Token[ResourceRef[`AWS::SNS::Topic`]]] = None,
+                                        ConfigDefault: Option[String] = None
+                                      ) extends Parameter("String"){type Rep = ResourceRef[`AWS::SNS::Topic`]}
+object `AWS::SNS::Topic_Parameter` extends DefaultJsonProtocol {
+  implicit val format: JsonFormat[`AWS::SNS::Topic_Parameter`] = jsonFormat4(`AWS::SNS::Topic_Parameter`.apply)
+}
+
 case class InputParameter(ParameterKey: String, ParameterValue: JsValue = "<changeMe>".toJson)
 object InputParameter extends DefaultJsonProtocol {
   implicit val format: JsonFormat[InputParameter] = jsonFormat2(InputParameter.apply)
@@ -258,5 +280,11 @@ object InputParameter extends DefaultJsonProtocol {
       case `AWS::RDS::DBSubnetGroup_Parameter`(n, Some(d), None, _) => InputParameter(n, d.toJson)
       case `AWS::RDS::DBSubnetGroup_Parameter`(n, _, Some(d), _) => InputParameter(n, d.toJson)
       case `AWS::EC2::Subnet_Parameter_List`(n, _, _) => InputParameter(n, "".toJson)
+      case `AWS::S3::Bucket_Parameter`(n, _, _, Some(d)) => InputParameter(n, d.toJson)
+      case `AWS::S3::Bucket_Parameter`(n, _, Some(d), None) => InputParameter(n, d.toJson)
+      case `AWS::S3::Bucket_Parameter`(n, _, None, None) => InputParameter(n)
+      case `AWS::SNS::Topic_Parameter`(n, _, _, Some(d)) => InputParameter(n, d.toJson)
+      case `AWS::SNS::Topic_Parameter`(n, _, Some(d), None) => InputParameter(n, d.toJson)
+      case `AWS::SNS::Topic_Parameter`(n, _, None, None) => InputParameter(n)
     }))
 }

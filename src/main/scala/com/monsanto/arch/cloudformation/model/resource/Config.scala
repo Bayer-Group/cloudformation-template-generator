@@ -176,12 +176,12 @@ object Source extends DefaultJsonProtocol {
 
 case class `AWS::Config::ConfigRule`(
                                       name:                       String,
-                                      ConfigRuleName:             String,
-                                      Description:                String,
-                                      InputParameter:             Map[String, String],
-                                      MaximumExecutionFrequency:  ExecutionFrequency,
-                                      Scope:                      Scope,
-                                      Source:                     Source,
+                                      ConfigRuleName:             Option[String] = None,
+                                      Description:                Option[String] = None,
+                                      InputParameters:            Option[Map[String, Token[String]]] = None,
+                                      MaximumExecutionFrequency:  Option[ExecutionFrequency] = None,
+                                      Scope:                      Option[Scope] = None,
+                                      Source:                     Option[Source] = None,
                                       override val Condition:  Option[ConditionRef] = None
                                     ) extends Resource[`AWS::Config::ConfigRule`] {
   override def when(newCondition: Option[ConditionRef]): `AWS::Config::ConfigRule` = copy(Condition = newCondition)
@@ -203,7 +203,7 @@ case class `AWS::Config::ConfigurationRecorder`(
   name:               String,
   Name:               Option[String],
   RecordingGroup:     Option[RecordingGroup],
-  RoleARN:            Token[ResourceRef[`AWS::IAM::Role`]],
+  RoleARN:            Token[String],
   override val Condition:  Option[ConditionRef] = None
 ) extends Resource[`AWS::Config::ConfigurationRecorder`] {
   override def when(newCondition: Option[ConditionRef]): `AWS::Config::ConfigurationRecorder` = copy(Condition = newCondition)
@@ -223,9 +223,9 @@ case class `AWS::Config::DeliveryChannel`(
   name:                                 String,
   ConfigSnapshotDeliveryProperties:     Option[ConfigSnapshotDeliveryProperties],
   Name:                                 Option[String],
-  S3BucketName:                         Option[Token[ResourceRef[`AWS::S3::Bucket`]]],
+  S3BucketName:                         Option[Token[String]],
   S3KeyPrefix:                          Option[String],
-  SnsTopicARN:                          Option[Token[ResourceRef[`AWS::SNS::Topic`]]],
+  SnsTopicARN:                          Option[Token[String]],
   override val Condition:               Option[ConditionRef] = None
 ) extends Resource[`AWS::Config::DeliveryChannel`] {
   override def when(newCondition: Option[ConditionRef]): `AWS::Config::DeliveryChannel` = copy(Condition = newCondition)

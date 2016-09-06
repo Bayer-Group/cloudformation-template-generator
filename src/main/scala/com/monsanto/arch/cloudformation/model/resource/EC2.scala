@@ -402,17 +402,18 @@ object IPMask {
 }
 
 case class CidrBlock(a: IPAddressSegment, b: IPAddressSegment, c: IPAddressSegment, d: IPAddressSegment, mask: IPMask) {
-  def toJsString: JsString =  JsString( Seq(a, b, c, d).map(_.value.toString).mkString(".") + "/" + mask.value.toString )
+  def toPlainString: String = Seq(a, b, c, d).map(_.value.toString).mkString(".") + "/" + mask.value.toString
+  def toJsString: JsString =  JsString( toPlainString )
 }
 object CidrBlock extends DefaultJsonProtocol {
+  def apply(s: String): CidrBlock = {
+    val parts = s.split(Array('.','/')).map(_.toInt)
+    CidrBlock(parts(0), parts(1), parts(2), parts(3), parts(4))
+  }
+
   implicit val format: JsonFormat[CidrBlock] = new JsonFormat[CidrBlock] {
     def write(obj: CidrBlock) = obj.toJsString
-
-    def read(json: JsValue) = {
-      val parts = json.convertTo[String].split(Array('.','/')).map(_.toInt)
-
-      CidrBlock(parts(0), parts(1), parts(2), parts(3), parts(4))
-    }
+    def read(json: JsValue) =  CidrBlock(json.convertTo[String])
   }
 }
 

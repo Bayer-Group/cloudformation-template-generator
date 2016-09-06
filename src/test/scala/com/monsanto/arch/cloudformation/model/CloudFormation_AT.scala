@@ -134,7 +134,7 @@ object StaxTemplate {
     Description           = Some("MapName for the update channel AMI to use when launching CoreOS instances"),
     AllowedValues         = Some(Seq("CoreOSStableAMI","CoreOSBetaAMI","CoreOSAlphaAMI")),
     ConstraintDescription = Some("Value should be 'CoreOSStableAMI', 'CoreOSBetaAMI', or 'CoreOSAlphaAMI'"),
-    Default               = Some(UNSAFEToken[MappingRef[AMIId]]("CoreOSStableAMI"))
+    Default               = Some("CoreOSStableAMI")
   )
 
   private val appParam = StringParameter(

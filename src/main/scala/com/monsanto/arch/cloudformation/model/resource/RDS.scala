@@ -74,7 +74,7 @@ case class `AWS::RDS::DBInstance` private[resource] (
   MasterUserPassword:          Option[Token[String]],
   MultiAZ:                     Option[Boolean],
   OptionGroupName:             Option[String],
-  Port:                        Option[String],
+  Port:                        Option[Token[String]],
   PreferredBackupWindow:       Option[String],
   PreferredMaintenanceWindow:  Option[String],
   PubliclyAccessible:          Option[Boolean],
@@ -444,7 +444,7 @@ object RdsBuilder {
     engineVersion:              Option[String]                                    = None,
     licenseModel:               Option[`AWS::RDS::DBInstance::LicenseModel`]      = None,
     optionGroupName:            Option[String]                                    = None,
-    port:                       Option[String]                                    = None,
+    port:                       Option[Token[String]]                             = None,
     preferredMaintenanceWindow: Option[String]                                    = None,
     publiclyAccessible:         Option[Boolean]                                   = None,
     tags:                       Option[Seq[AmazonTag]]                            = None,
@@ -505,7 +505,8 @@ sealed trait `AWS::RDS::DBInstance::Engine`
 object `AWS::RDS::DBInstance::Engine` extends DefaultJsonProtocol {
   case object MySQL    extends `AWS::RDS::DBInstance::Engine`
   case object postgres extends `AWS::RDS::DBInstance::Engine`
-  val values = Seq(MySQL, postgres)
+  case object MariaDB extends `AWS::RDS::DBInstance::Engine`
+  val values = Seq(MySQL, postgres, MariaDB)
   implicit val format: JsonFormat[`AWS::RDS::DBInstance::Engine`] =
     new EnumFormat[`AWS::RDS::DBInstance::Engine`](values)
 }

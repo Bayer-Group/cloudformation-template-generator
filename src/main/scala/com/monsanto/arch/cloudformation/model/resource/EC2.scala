@@ -629,6 +629,9 @@ object `AWS::EC2::Volume` extends DefaultJsonProtocol {
   def io2(name: String, az: Token[String], size: Token[Int], tags: Seq[AmazonTag], iops: Int, encrypted: Boolean = true ) =
     `AWS::EC2::Volume`(name, az, Some(encrypted), None, Some(size), None, tags, "io2")
 
+  def io1(name: String, az: Token[String], size: Token[Int], tags: Seq[AmazonTag], iops: Int, encrypted: Boolean = true ) =
+  `AWS::EC2::Volume`(name, az, Some(encrypted), Some(iops), Some(size), None, tags, "io1")
+
   //require( size >= 1 && size <= 1024 )
   def standard(name: String, az: Token[String], size: Token[Int], tags: Seq[AmazonTag], encrypted: Boolean = true ) =
     `AWS::EC2::Volume`(name, az, Some(encrypted), None, Some(size), None, tags, "standard")

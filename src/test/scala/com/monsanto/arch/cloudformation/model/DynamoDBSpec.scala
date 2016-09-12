@@ -1,5 +1,6 @@
 package com.monsanto.arch.cloudformation.model
 
+import com.monsanto.arch.cloudformation.model.resource.DeletionPolicy.Retain
 import com.monsanto.arch.cloudformation.model.resource._
 import org.scalatest.{FunSpec, Matchers}
 import spray.json.{JsString, JsonWriter}
@@ -39,7 +40,8 @@ class DynamoDBSpec extends FunSpec with Matchers with JsonWritingMatcher {
         ReadCapacityUnits = 1,
         WriteCapacityUnits = 1
       ),
-      TableName = "Table1"
+      TableName = "Table1",
+      DeletionPolicy = Some(Retain)
     )
     val resource: Resource[`AWS::DynamoDB::Table`] = dynamoDbTable
 
@@ -47,6 +49,7 @@ class DynamoDBSpec extends FunSpec with Matchers with JsonWritingMatcher {
       """
         |{
         | "Type": "AWS::DynamoDB::Table",
+        | "DeletionPolicy" : "Retain",
         | "Properties": {
         | "LocalSecondaryIndexes":[
         |   {

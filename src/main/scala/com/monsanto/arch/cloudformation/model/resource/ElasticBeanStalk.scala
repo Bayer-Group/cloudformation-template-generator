@@ -78,7 +78,7 @@ case class `AWS::ElasticBeanstalk::Environment`(
                                                  OptionSettings: Option[Seq[OptionSetting]] = None,
                                                  SolutionStackName: Option[String] = None,
                                                  Tags: Option[Seq[ResourceTag]] = None,
-                                                 TemplateName: Option[String] = None,
+                                                 TemplateName: Option[ResourceRef[`AWS::ElasticBeanstalk::ConfigurationTemplate`]] = None,
                                                  Tier: Option[EnvironmentTier] = None,
                                                  VersionLabel: Option[String] = None,
                                                  override val Condition: Option[ConditionRef] = None

@@ -515,6 +515,19 @@ object `AWS::EC2::SubnetRouteTableAssociation` extends DefaultJsonProtocol {
   implicit val format: JsonFormat[`AWS::EC2::SubnetRouteTableAssociation`] = jsonFormat4(`AWS::EC2::SubnetRouteTableAssociation`.apply)
 }
 
+case class `AWS::EC2::SubnetNetworkAclAssociation`(
+  name:         String,
+  SubnetId:     Token[ResourceRef[`AWS::EC2::Subnet`]],
+  NetworkAclId: Token[ResourceRef[`AWS::EC2::NetworkAcl`]],
+  override val Condition: Option[ConditionRef] = None
+  ) extends Resource[`AWS::EC2::SubnetNetworkAclAssociation`]{
+
+  def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
+}
+object `AWS::EC2::SubnetNetworkAclAssociation` extends DefaultJsonProtocol {
+  implicit val format: JsonFormat[`AWS::EC2::SubnetNetworkAclAssociation`] = jsonFormat4(`AWS::EC2::SubnetNetworkAclAssociation`.apply)
+}
+
 case class `AWS::EC2::VPC`(name: String, CidrBlock: Token[CidrBlock], Tags: Seq[AmazonTag], EnableDnsSupport: Boolean = true, EnableDnsHostnames: Boolean = false,
   override val Condition: Option[ConditionRef] = None) extends Resource[`AWS::EC2::VPC`]{
 

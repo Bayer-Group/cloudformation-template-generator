@@ -126,6 +126,7 @@ describe("Template Lookup") {
 - AWS::EC2::VPNGateway
 - AWS::EC2::Volume
 - AWS::EC2::VolumeAttachment
+- AWS::ECR::Repository
 - AWS::ElastiCache::CacheCluser
 - AWS::ElastiCache::SubnetGroup
 - AWS::Elasticsearch::Domain

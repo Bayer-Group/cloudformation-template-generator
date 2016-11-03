@@ -41,7 +41,8 @@ class DynamoDBSpec extends FunSpec with Matchers with JsonWritingMatcher {
         WriteCapacityUnits = 1
       ),
       TableName = "Table1",
-      DeletionPolicy = Some(Retain)
+      DeletionPolicy = Some(Retain),
+      DependsOn = Some(Seq("myothertable"))
     )
     val resource: Resource[`AWS::DynamoDB::Table`] = dynamoDbTable
 
@@ -50,6 +51,7 @@ class DynamoDBSpec extends FunSpec with Matchers with JsonWritingMatcher {
         |{
         | "Type": "AWS::DynamoDB::Table",
         | "DeletionPolicy" : "Retain",
+        | "DependsOn": ["myothertable"],
         | "Properties": {
         | "LocalSecondaryIndexes":[
         |   {

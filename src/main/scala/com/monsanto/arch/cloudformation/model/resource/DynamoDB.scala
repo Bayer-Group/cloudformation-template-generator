@@ -20,7 +20,8 @@ case class `AWS::DynamoDB::Table`(
                                    StreamSpecification : Option[StreamSpecification] = None,
                                    TableName: Token[String],
                                    override val Condition: Option[ConditionRef] = None,
-                                   override val DeletionPolicy: Option[DeletionPolicy] = None
+                                   override val DeletionPolicy: Option[DeletionPolicy] = None,
+                                   override val DependsOn: Option[Seq[String]] = None
                                  ) extends Resource[`AWS::DynamoDB::Table`] with HasArn {
 
   override def arn = aws"arn:aws:dynamodb:${`AWS::Region`}:${`AWS::AccountId`}:table/${ResourceRef(this)}"
@@ -34,7 +35,7 @@ case class `AWS::DynamoDB::Table`(
 }
 
 object `AWS::DynamoDB::Table` {
-  implicit val format: JsonFormat[`AWS::DynamoDB::Table`] = jsonFormat10(`AWS::DynamoDB::Table`.apply)
+  implicit val format: JsonFormat[`AWS::DynamoDB::Table`] = jsonFormat11(`AWS::DynamoDB::Table`.apply)
 }
 
 sealed abstract class StreamViewType(val name : String)

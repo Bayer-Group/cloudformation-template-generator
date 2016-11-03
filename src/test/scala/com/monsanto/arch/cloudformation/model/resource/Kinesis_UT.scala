@@ -6,13 +6,22 @@ import spray.json._
 
 class Kinesis_UT extends FunSpec with Matchers {
   describe("Stream") {
+    val streamName = "stream"
+    val shardCount = 1
+    val stream = `AWS::Kinesis::Stream`(streamName, shardCount, Seq(AmazonTag("Name", streamName)))
+
     it("should write a valid Kinesis stream") {
-      val stream = `AWS::Kinesis::Stream`("stream", 1, Seq(AmazonTag("Name", "stream")))
       stream.toJson shouldEqual JsObject(Map(
         "name" -> JsString("stream"),
         "ShardCount" -> JsNumber(1),
         "Tags" -> JsArray(JsObject(Map("Key" -> JsString("Name"), "Value" -> JsString("stream"))))
       ))
+    }
+
+    it("should have properly set public fields") {
+      stream.name shouldEqual streamName
+      stream.ShardCount shouldEqual IntToken(shardCount)
+      stream.Tags.get shouldEqual Seq(AmazonTag("Name", streamName))
     }
   }
 }

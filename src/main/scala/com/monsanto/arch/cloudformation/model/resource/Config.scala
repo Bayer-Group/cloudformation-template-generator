@@ -93,10 +93,10 @@ object ResourceType extends DefaultJsonProtocol {
 }
 
 case class Scope(
-  ComplianceResourceId:       Option[Token[ResourceRef[_]]] = None,
-  ComplianceResourceTypes:    Option[List[ResourceType]] = None,
-  TagKey:                     Option[String] = None,
-  TagValue:                   Option[String] = None
+  ComplianceResourceId:       Option[Token[ResourceRef[_]]]   = None,
+  ComplianceResourceTypes:    Option[List[ResourceType]]      = None,
+  TagKey:                     Option[Token[String]]           = None,
+  TagValue:                   Option[Token[String]]           = None
 )
 object Scope extends DefaultJsonProtocol {
   implicit val format = jsonFormat4(Scope.apply)
@@ -157,18 +157,18 @@ object MessageType extends DefaultJsonProtocol {
 }
 
 case class SourceDetail(
-                         EventSource:                Option[EventSource] = None,
-                         MaximumExecutionFrequency:  Option[ExecutionFrequency] = None,
-                         MessageType:                Option[MessageType] = None
+                         EventSource:                Option[EventSource]         = None,
+                         MaximumExecutionFrequency:  Option[ExecutionFrequency]  = None,
+                         MessageType:                Option[MessageType]         = None
                        )
 object SourceDetail extends DefaultJsonProtocol {
   implicit val format = jsonFormat3(SourceDetail.apply)
 }
 
-case class Source(
-                   Owner:                Option[SourceOwner] = None,
+case class Source (
+                   Owner:                SourceOwner,
                    SourceDetails:        Option[List[SourceDetail]] = None,
-                   SourceIdentifier:     Option[Token[ResourceRef[_]]] = None
+                   SourceIdentifier:     Token[String]
                  )
 object Source extends DefaultJsonProtocol {
   implicit val format = jsonFormat3(Source.apply)
@@ -176,12 +176,12 @@ object Source extends DefaultJsonProtocol {
 
 case class `AWS::Config::ConfigRule`(
                                       name:                       String,
-                                      ConfigRuleName:             String,
-                                      Description:                String,
-                                      InputParameter:             Map[String, String],
-                                      MaximumExecutionFrequency:  ExecutionFrequency,
-                                      Scope:                      Scope,
-                                      Source:                     Source,
+                                      ConfigRuleName:             Option[String],
+                                      Description:                Option[String],
+                                      InputParameter:             Option[Token[Map[String, String]]],
+                                      MaximumExecutionFrequency:  Option[Token[ExecutionFrequency]],
+                                      Scope:                      Option[Token[Scope]],
+                                      Source:                     Token[Source],
                                       override val Condition:  Option[ConditionRef] = None
                                     ) extends Resource[`AWS::Config::ConfigRule`] {
   override def when(newCondition: Option[ConditionRef]): `AWS::Config::ConfigRule` = copy(Condition = newCondition)

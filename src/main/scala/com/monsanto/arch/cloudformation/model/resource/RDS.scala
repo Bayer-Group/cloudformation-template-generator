@@ -74,7 +74,7 @@ case class `AWS::RDS::DBInstance` private[resource] (
   MasterUserPassword:          Option[Token[String]],
   MultiAZ:                     Option[Boolean],
   OptionGroupName:             Option[String],
-  Port:                        Option[String],
+  Port:                        Option[Token[String]],
   PreferredBackupWindow:       Option[String],
   PreferredMaintenanceWindow:  Option[String],
   PubliclyAccessible:          Option[Boolean],
@@ -444,7 +444,7 @@ object RdsBuilder {
     engineVersion:              Option[String]                                    = None,
     licenseModel:               Option[`AWS::RDS::DBInstance::LicenseModel`]      = None,
     optionGroupName:            Option[String]                                    = None,
-    port:                       Option[String]                                    = None,
+    port:                       Option[Token[String]]                             = None,
     preferredMaintenanceWindow: Option[String]                                    = None,
     publiclyAccessible:         Option[Boolean]                                   = None,
     tags:                       Option[Seq[AmazonTag]]                            = None,
@@ -504,7 +504,7 @@ object RdsBuilder {
 sealed trait `AWS::RDS::DBInstance::Engine`
 object `AWS::RDS::DBInstance::Engine` extends DefaultJsonProtocol {
   case object MySQL           extends `AWS::RDS::DBInstance::Engine`
-  case object mariadb         extends `AWS::RDS::DBInstance::Engine`
+  case object MariaDB         extends `AWS::RDS::DBInstance::Engine`
   case object `oracle-se1`    extends `AWS::RDS::DBInstance::Engine`
   case object `oracle-se2`    extends `AWS::RDS::DBInstance::Engine`
   case object `oracle-se`     extends `AWS::RDS::DBInstance::Engine`
@@ -518,7 +518,7 @@ object `AWS::RDS::DBInstance::Engine` extends DefaultJsonProtocol {
 
   val values = Seq(
     MySQL,
-    mariadb,
+    MariaDB,
     `oracle-se1`,
     `oracle-se2`,
     `oracle-se`,

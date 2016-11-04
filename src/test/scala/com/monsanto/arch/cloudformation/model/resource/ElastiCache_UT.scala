@@ -71,14 +71,14 @@ class ElastiCache_UT extends FunSpec with Matchers {
     val cacheName = "cache"
     val cache = `AWS::ElastiCache::CacheCluster`(
       name = cacheName,
-      ClusterName = "fakeCluster",
+      ClusterName = Some("fakeCluster"),
       CacheNodeType = "cache.t1.micro",
-      CacheSubnetGroupName = cacheSubnetGroup,
+      CacheSubnetGroupName = Some(cacheSubnetGroup),
       VpcSecurityGroupIds = Some(
         Seq(`Fn::Join`("", Seq(`Fn::GetAtt`(Seq(cacheSg.name, "GroupId")))))
       ),
-      Engine = "redis",
-      NumCacheNodes = "1"
+      Engine = ElastiCacheEngine.redis,
+      NumCacheNodes = StringBackedInt(1)
     )
 
     it("should create a valid new ElastiCache instance") {

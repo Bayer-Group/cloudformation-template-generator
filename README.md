@@ -116,6 +116,7 @@ describe("Template Lookup") {
 - AWS::EC2::SecurityGroupEgress
 - AWS::EC2::SecurityGroupIngress
 - AWS::EC2::Subnet
+- AWS::EC2::SubnetNetworkAclAssociation
 - AWS::EC2::SubnetRouteTableAssociation
 - AWS::EC2::VPC
 - AWS::EC2::VPCGatewayAttachment
@@ -125,6 +126,9 @@ describe("Template Lookup") {
 - AWS::EC2::VPNGateway
 - AWS::EC2::Volume
 - AWS::EC2::VolumeAttachment
+- AWS::ECR::Repository
+- AWS::ElastiCache::CacheCluser
+- AWS::ElastiCache::SubnetGroup
 - AWS::Elasticsearch::Domain
 - AWS::ElasticLoadBalancing::LoadBalancer
 - AWS::ElasticBeanstalk::Application

@@ -638,25 +638,37 @@ object `AWS::EC2::Volume` extends DefaultJsonProtocol {
     `AWS::EC2::Volume`(name, az, Some(encrypted), None, Some(size), None, tags, "gp2")
 
   //require( size >= 4 && size <= 16384 )
-  //require( iops <= size * 30 && iops >= 100 && iops <= 20000)
-  def io2(name: String, az: Token[String], size: Token[Int], tags: Seq[AmazonTag], iops: Int, encrypted: Boolean = true ) =
-    `AWS::EC2::Volume`(name, az, Some(encrypted), None, Some(size), None, tags, "io2")
-
+  //require( iops <= size * 50 && iops >= 100 && iops <= 20000)
   def io1(name: String, az: Token[String], size: Token[Int], tags: Seq[AmazonTag], iops: Int, encrypted: Boolean = true ) =
-  `AWS::EC2::Volume`(name, az, Some(encrypted), Some(iops), Some(size), None, tags, "io1")
+    `AWS::EC2::Volume`(name, az, Some(encrypted), Some(iops), Some(size), None, tags, "io1")
 
   //require( size >= 1 && size <= 1024 )
   def standard(name: String, az: Token[String], size: Token[Int], tags: Seq[AmazonTag], encrypted: Boolean = true ) =
     `AWS::EC2::Volume`(name, az, Some(encrypted), None, Some(size), None, tags, "standard")
 
+  //require( size >= 500 && size <= 16384 )
+  def sc1(name: String, az: Token[String], size: Token[Int], tags: Seq[AmazonTag], encrypted: Boolean = true ) =
+  `AWS::EC2::Volume`(name, az, Some(encrypted), None, Some(size), None, tags, "sc1")
+
+  //require( size >= 500 && size <= 16384 )
+  def st1(name: String, az: Token[String], size: Token[Int], tags: Seq[AmazonTag], encrypted: Boolean = true ) =
+  `AWS::EC2::Volume`(name, az, Some(encrypted), None, Some(size), None, tags, "st1")
+
   def gp2Snapshot(name: String, az: Token[String], snapshotID: String, tags: Seq[AmazonTag], encrypted: Boolean = true ) =
     `AWS::EC2::Volume`(name, az, Some(encrypted), None, None, Some(snapshotID), tags, "gp2")
 
-  def io2Snapshot(name: String, az: Token[String], snapshotID: String, tags: Seq[AmazonTag], encrypted: Boolean = true ) =
-    `AWS::EC2::Volume`(name, az, Some(encrypted), None, None, Some(snapshotID), tags, "io2")
+  def io1Snapshot(name: String, az: Token[String], snapshotID: String, tags: Seq[AmazonTag], iops: Int, encrypted: Boolean = true ) =
+    `AWS::EC2::Volume`(name, az, Some(encrypted), Some(iops), None, Some(snapshotID), tags, "io1")
 
   def standardSnapshot(name: String, az: Token[String], snapshotID: String, tags: Seq[AmazonTag], encrypted: Boolean = true ) =
     `AWS::EC2::Volume`(name, az, Some(encrypted), None, None, Some(snapshotID), tags, "standard")
+
+  def sc1Snapshot(name: String, az: Token[String], snapshotID: String, tags: Seq[AmazonTag], encrypted: Boolean = true ) =
+    `AWS::EC2::Volume`(name, az, Some(encrypted), None, None, Some(snapshotID), tags, "sc1")
+
+  def st1Snapshot(name: String, az: Token[String], snapshotID: String, tags: Seq[AmazonTag], encrypted: Boolean = true ) =
+    `AWS::EC2::Volume`(name, az, Some(encrypted), None, None, Some(snapshotID), tags, "st1")
+
 }
 
 case class `AWS::EC2::VolumeAttachment`(

@@ -503,10 +503,33 @@ object RdsBuilder {
 
 sealed trait `AWS::RDS::DBInstance::Engine`
 object `AWS::RDS::DBInstance::Engine` extends DefaultJsonProtocol {
-  case object MySQL    extends `AWS::RDS::DBInstance::Engine`
-  case object postgres extends `AWS::RDS::DBInstance::Engine`
-  case object MariaDB extends `AWS::RDS::DBInstance::Engine`
-  val values = Seq(MySQL, postgres, MariaDB)
+  case object MySQL           extends `AWS::RDS::DBInstance::Engine`
+  case object MariaDB         extends `AWS::RDS::DBInstance::Engine`
+  case object `oracle-se1`    extends `AWS::RDS::DBInstance::Engine`
+  case object `oracle-se2`    extends `AWS::RDS::DBInstance::Engine`
+  case object `oracle-se`     extends `AWS::RDS::DBInstance::Engine`
+  case object `oracl-ee`      extends `AWS::RDS::DBInstance::Engine`
+  case object `sqlserver-ee`  extends `AWS::RDS::DBInstance::Engine`
+  case object `sqlserver-se`  extends `AWS::RDS::DBInstance::Engine`
+  case object `sqlserver-ex`  extends `AWS::RDS::DBInstance::Engine`
+  case object `sqlserver-web` extends `AWS::RDS::DBInstance::Engine`
+  case object postgres        extends `AWS::RDS::DBInstance::Engine`
+  case object aurora          extends `AWS::RDS::DBInstance::Engine`
+
+  val values = Seq(
+    MySQL,
+    MariaDB,
+    `oracle-se1`,
+    `oracle-se2`,
+    `oracle-se`,
+    `oracl-ee`,
+    `sqlserver-ee`,
+    `sqlserver-se`,
+    `sqlserver-ex`,
+    `sqlserver-web`,
+    postgres,
+    aurora
+  )
   implicit val format: JsonFormat[`AWS::RDS::DBInstance::Engine`] =
     new EnumFormat[`AWS::RDS::DBInstance::Engine`](values)
 }

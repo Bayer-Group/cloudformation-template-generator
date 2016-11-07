@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [3.3.5] - 2016-07-14
+## [3.4.0] - 2016-11-07
 
 ### Added
 
@@ -14,6 +14,24 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 -   Ports in Security groups can now be parameterized (see [#101](https://github.com/MonsantoCo/cloudformation-template-generator/pull/101))
 
 -   Add stream specification for DynamoDB (see [#94](https://github.com/MonsantoCo/cloudformation-template-generator/pull/94))
+
+-   Add support for built-in AWS policies (see [#108](https://github.com/MonsantoCo/cloudformation-template-generator/pull/108))
+
+-   Add deletion policy to AWS::DynamoDB::Table (see [#109](https://github.com/MonsantoCo/cloudformation-template-generator/pull/109))
+
+-   Added the following resources: (see [#111](https://github.com/MonsantoCo/cloudformation-template-generator/pull/111))
+    - AWS::EC2::SubnetNetworkAclAssociation
+    - AWS::ElastiCache::CacheCluser
+    - AWS::ElastiCache::SubnetGroup
+    - AWS::ECR::Repository
+
+-   Added all supported database engines to `AWS::RDS::DBInstance::Engine` (see [#111](https://github.com/MonsantoCo/cloudformation-template-generator/pull/111))
+
+-   Added all supported disk types to `AWS::EC2::Volume` (see [#111](https://github.com/MonsantoCo/cloudformation-template-generator/pull/111))
+
+-   Add Kinesis support (see [#112](https://github.com/MonsantoCo/cloudformation-template-generator/pull/112))
+
+-   Add "DependsOn" to AWS::DynamoDb::Table (see [#115](https://github.com/MonsantoCo/cloudformation-template-generator/pull/115))
 
 
 ## [3.3.4] - 2016-05-06

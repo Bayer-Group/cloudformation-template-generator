@@ -142,6 +142,7 @@ describe("Template Lookup") {
 - AWS::IAM::Policy
 - AWS::IAM::Role
 - AWS::IAM::User
+- AWS::Kinesis::Stream
 - AWS::Lambda::EventSourceMapping
 - AWS::Lambda::Function
 - AWS::Lambda::Permission

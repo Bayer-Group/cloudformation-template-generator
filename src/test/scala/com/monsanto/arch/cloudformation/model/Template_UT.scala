@@ -135,6 +135,54 @@ class Template_UT extends FlatSpec with Matchers with VPC with Subnet with Avail
       """.stripMargin
   }
 
+
+  it should "be able to add an output of type Token[String] with a static export" in new JsonWritingMatcher {
+    import spray.json._
+    val token : Token[String] = ResourceRef(resource1)
+    val output = Output(
+      name = "out1",
+      Description = "test",
+      Value = token,
+      Export = Some("export-test")
+    )
+    output.toJson shouldMatch
+      s"""
+         |{
+         | "Description": "test",
+         | "Value": {
+         |   "Ref": "${resource1.name}"
+         | },
+         | "Export": {
+         |   "Name": "export-test"
+         | }
+         |}
+      """.stripMargin
+  }
+
+
+  it should "be able to add an output of type Token[String] with a function export" in new JsonWritingMatcher {
+    import spray.json._
+    val token : Token[String] = ResourceRef(resource1)
+    val output = Output(
+      name = "out1",
+      Description = "test",
+      Value = token,
+      Export = Some(`Fn::Sub`(s"$${AWS::StackName}-test-export"))
+    )
+    output.toJson shouldMatch
+      s"""
+         |{
+         | "Description": "test",
+         | "Value": {
+         |   "Ref": "${resource1.name}"
+         | },
+         | "Export": {
+         |   "Name": {"Fn::Sub": "$${AWS::StackName}-test-export"}
+         | }
+         |}
+      """.stripMargin
+  }
+
   it should "be able to add outputs" in {
     val outputs = Seq(output1, output2)
     val template = Template.EMPTY ++ outputs

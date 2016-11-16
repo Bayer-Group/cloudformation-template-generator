@@ -35,6 +35,8 @@ object AmazonFunctionCall extends DefaultJsonProtocol {
         case not: `Fn::Not`            => implicitly[JsonWriter[`Fn::Not`#CFBackingType]         ].write(not.arguments)
         case and: `Fn::And`            => implicitly[JsonWriter[`Fn::And`#CFBackingType]         ].write(and.arguments)
         case or:  `Fn::Or`             => implicitly[JsonWriter[`Fn::Or`#CFBackingType]          ].write(or.arguments)
+        case sub: `Fn::Sub`            => sub.serializeArguments
+        case imp: `Fn::ImportValue`    => implicitly[JsonWriter[`Fn::ImportValue`#CFBackingType] ].write(imp.arguments)
         case cfr:  ConditionFnRef      => implicitly[JsonWriter[ConditionFnRef#CFBackingType]    ].write(cfr.arguments)
         case s:   `Fn::Select`[_]      => s.serializeArguments
         case f:   `Fn::If`[_]          => f.serializeArguments
@@ -131,6 +133,19 @@ case class `Fn::FindInMap`[R](mapName: Token[MappingRef[R]], outerKey: Token[Str
 case class `Fn::Base64`(toEncode: Token[String])
   extends AmazonFunctionCall[String]("Fn::Base64"){type CFBackingType = Token[String] ; val arguments = toEncode}
 
+case class `Fn::ImportValue`(importValue: Token[String])
+  extends AmazonFunctionCall[String]("Fn::ImportValue"){type CFBackingType = Token[String] ; val arguments = importValue}
+
+case class `Fn::Sub`(template: Token[String], subs: Option[Map[Token[String], Token[String]]] = None)
+  extends AmazonFunctionCall[String]("Fn::Sub"){
+  type CFBackingType = (Token[String], Option[Map[Token[String], Token[String]]]) ;
+  val arguments = (template, subs)
+  def serializeArguments = arguments._2 match {
+    case Some(x) => arguments.toJson
+    case None => arguments._1.toJson
+  }
+}
+
 case class `Fn::Equals`(a: Token[String], b: Token[String])
   extends NestableAmazonFunctionCall[String]("Fn::Equals")
 {type CFBackingType = (Token[String], Token[String]) ; val arguments = (a, b)}
@@ -183,10 +198,12 @@ object `Fn::Base64` extends DefaultJsonProtocol {
 // but you also want to be able to pass a literal ResourceRef[R]
 sealed trait Token[R]
 object Token extends DefaultJsonProtocol {
+  implicit def fromAnyTup[R1: JsonFormat, R2: JsonFormat](r: (R1, R2)): (AnyToken[R1], AnyToken[R2]) = (AnyToken(r._1), AnyToken(r._2))
   implicit def fromAnySeq[R: JsonFormat](r: Seq[R]): AnyToken[Seq[R]] = AnyToken(r)
   implicit def fromAny[R: JsonFormat](r: R): AnyToken[R] = AnyToken(r)
   implicit def fromOptionAny[R: JsonFormat](or: Option[R]): Option[AnyToken[R]] = or.map(r => Token.fromAny(r))
   implicit def fromString(s: String): StringToken = StringToken(s)
+  implicit def fromStrTup(r: (String, String)): (StringToken, StringToken) = (StringToken(r._1), StringToken(r._2))
   implicit def fromBoolean(s: Boolean): BooleanToken = BooleanToken(s)
   implicit def fromInt(s: Int): IntToken = IntToken(s)
   implicit def fromFunction[R](f: AmazonFunctionCall[R]): FunctionCallToken[R] = FunctionCallToken[R](f)

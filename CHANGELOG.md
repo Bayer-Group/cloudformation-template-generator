@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.5.0] - (unreleased)
+
+-   Support for AWS's new features supporting [cross template references](https://aws.amazon.com/blogs/aws/aws-cloudformation-update-yaml-cross-stack-references-simplified-substitution/).  (see [#119](https://github.com/MonsantoCo/cloudformation-template-generator/pull/119))
+
+-   Support for [Fn::Sub](https://aws.amazon.com/blogs/aws/aws-cloudformation-update-yaml-cross-stack-references-simplified-substitution/), which provides a cleaner alternative to `Fn::Join` and `Fn::GetAtt`.  (see [#119](https://github.com/MonsantoCo/cloudformation-template-generator/pull/119))
+
 ## [3.4.0] - 2016-11-07
 
 ### Added

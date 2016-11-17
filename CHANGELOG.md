@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [3.5.0] - 2016-11-17
+## [3.5.0] - (unreleased)
 
 -   Support for AWS's new features supporting [cross template references](https://aws.amazon.com/blogs/aws/aws-cloudformation-update-yaml-cross-stack-references-simplified-substitution/).  (see [#119](https://github.com/MonsantoCo/cloudformation-template-generator/pull/119))
 

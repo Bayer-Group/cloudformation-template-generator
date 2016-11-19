@@ -86,7 +86,7 @@ object `AWS::ApiGateway::ClientCertificate` {
 case class `AWS::ApiGateway::Deployment`(
                                           name: String,
                                           Description: Option[String] = None,
-                                          RestApiId: Token[Token[String]],
+                                          RestApiId: Token[String],
                                           StageDescription: Option[StageDescription] = None,
                                           StageName: Option[Token[String]] = None,
                                           override val Condition: Option[ConditionRef] = None,
@@ -139,8 +139,8 @@ case class `AWS::ApiGateway::Method`(
                                       MethodResponses: Option[Seq[MethodResponse]] = None,
                                       RequestModels: Option[Map[String, Token[String]]] = None,
                                       RequestParameters: Option[Map[String, Token[Boolean]]] = None,
-                                      ResourceId: Token[Token[String]],
-                                      RestApiId: Token[Token[String]],
+                                      ResourceId: Token[String],
+                                      RestApiId: Token[String],
                                       override val Condition: Option[ConditionRef] = None
                                     ) extends Resource[`AWS::ApiGateway::Method`] {
   override def when(newCondition: Option[ConditionRef]) = copy(Condition = newCondition)

@@ -9,32 +9,28 @@ startYear := Some(2014)
 // scala versions and options
 
 scalaVersion := "2.11.7"
+crossScalaVersions := Seq("2.11.7", "2.12.0")
 
 // These options will be used for *all* versions.
 
-scalacOptions ++= Seq(
-  "-deprecation"
-  ,"-unchecked"
-  ,"-encoding", "UTF-8"
-  ,"-Xlint"
-  // "-optimise"   // this option will slow your build
-)
-
-scalacOptions ++= Seq(
-  "-Yclosure-elim",
-  "-Yinline"
-)
-
-// These language flags will be used only for 2.10.x.
-
-scalacOptions <++= scalaVersion map { sv =>
-  if (sv startsWith "2.11") List(
-    "-Xverify"
-    ,"-feature"
-    ,"-language:postfixOps"
-  )
-  else Nil
+def crossVersionScalaOptions(scalaVersion: String) = {
+   CrossVersion.partialVersion(scalaVersion) match {
+    case Some((2, 11)) => Seq(
+      "-Yclosure-elim",
+      "-Yinline"
+    )
+    case _ => Nil
+  }
 }
+scalacOptions ++= Seq(
+    "-unchecked",
+    "-deprecation",
+    "-Xlint",
+    "-Xverify",
+    "-encoding", "UTF-8",
+    "-feature",
+    "-language:postfixOps"
+  ) ++ crossVersionScalaOptions(scalaVersion.value)
 
 javacOptions ++= Seq("-Xlint:unchecked", "-Xlint:deprecation")
 
@@ -42,7 +38,7 @@ javacOptions ++= Seq("-Xlint:unchecked", "-Xlint:deprecation")
 
 libraryDependencies ++= Seq (
   // -- testing --
-   "org.scalatest"  %% "scalatest"     % "2.2.1"  % "test"
+   "org.scalatest"  %% "scalatest"     % "3.0.0"  % "test"
   // -- json --
   ,"io.spray"       %%  "spray-json"   % "1.3.2"
   // -- reflection --

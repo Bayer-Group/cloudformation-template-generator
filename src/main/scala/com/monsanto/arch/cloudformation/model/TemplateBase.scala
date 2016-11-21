@@ -16,7 +16,7 @@ import com.monsanto.arch.cloudformation.model.simple.SecurityGroupRoutable
   *   <li>Output</li>
   * </ul>
   */
-trait TemplateBase {
+trait TemplateBase extends HasTemplate {
 
   private def extract[A: Manifest]: Option[Seq[A]] = {
     val objs = getClass.getMethods

@@ -135,6 +135,7 @@ describe("Template Lookup") {
 - AWS::ElasticBeanstalk::ApplicationVersion
 - AWS::ElasticBeanstalk::ConfigurationTemplate
 - AWS::ElasticBeanstalk::Environment
+- AWS::EMR::Cluster
 - AWS::IAM::AccessKey
 - AWS::IAM::Group
 - AWS::IAM::InstanceProfile

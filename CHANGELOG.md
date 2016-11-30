@@ -5,9 +5,21 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [3.5.0] - (unreleased)
 
--   Support for AWS's new features supporting [cross template references](https://aws.amazon.com/blogs/aws/aws-cloudformation-update-yaml-cross-stack-references-simplified-substitution/).  (see [#119](https://github.com/MonsantoCo/cloudformation-template-generator/pull/119))
+-   Support for AWS's new features supporting [cross template references](https://aws.amazon.com/blogs/aws/aws-cloudformation-update-yaml-cross-stack-references-simplified-substitution/)  (see [#119](https://github.com/MonsantoCo/cloudformation-template-generator/pull/119))
 
--   Support for [Fn::Sub](https://aws.amazon.com/blogs/aws/aws-cloudformation-update-yaml-cross-stack-references-simplified-substitution/), which provides a cleaner alternative to `Fn::Join` and `Fn::GetAtt`.  (see [#119](https://github.com/MonsantoCo/cloudformation-template-generator/pull/119))
+-   Support for [Fn::Sub](https://aws.amazon.com/blogs/aws/aws-cloudformation-update-yaml-cross-stack-references-simplified-substitution/), which provides a cleaner alternative to `Fn::Join` and `Fn::GetAtt`  (see [#119](https://github.com/MonsantoCo/cloudformation-template-generator/pull/119))
+
+-   Add TemplateBase to auto discover template components (see [#120](https://github.com/MonsantoCo/cloudformation-template-generator/pull/120))
+
+-   Add `AWS::EMR::Cluster` support (see [#121](https://github.com/MonsantoCo/cloudformation-template-generator/pull/121))
+
+-   Add KMS support (see [#125](https://github.com/MonsantoCo/cloudformation-template-generator/pull/125))
+
+-   Add support for Scala 2.12 (see [#122](https://github.com/MonsantoCo/cloudformation-template-generator/pull/122))
+
+-   Fixed `AWS::ApiGateway::Deployment` to change `Token[Token[String]]` to just `Token[String]` (see [#123](https://github.com/MonsantoCo/cloudformation-template-generator/pull/123/files))
+
+-   Changed nested stack parameters to take `Map[String, Token[String]]` (see [#126](https://github.com/MonsantoCo/cloudformation-template-generator/pull/126))
 
 ## [3.4.0] - 2016-11-07
 

@@ -17,7 +17,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 -   Add support for Scala 2.12 (see [#122](https://github.com/MonsantoCo/cloudformation-template-generator/pull/122))
 
--   Fixed `AWS::ApiGateway::Deployment` to change `Token[Token[String]]` to just `Token[String]` (see [#123](https://github.com/MonsantoCo/cloudformation-template-generator/pull/123/files))
+-   Fixed `AWS::ApiGateway::Deployment`, changing `Token[Token[String]]` to just `Token[String]` (see [#123](https://github.com/MonsantoCo/cloudformation-template-generator/pull/123/files))
 
 -   Changed nested stack parameters to take `Map[String, Token[String]]` (see [#126](https://github.com/MonsantoCo/cloudformation-template-generator/pull/126))
 

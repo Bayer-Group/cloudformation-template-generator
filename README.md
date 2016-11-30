@@ -143,6 +143,8 @@ describe("Template Lookup") {
 - AWS::IAM::Role
 - AWS::IAM::User
 - AWS::Kinesis::Stream
+- AWS::KMS::Alias
+- AWS::KMS::Key
 - AWS::Lambda::EventSourceMapping
 - AWS::Lambda::Function
 - AWS::Lambda::Permission

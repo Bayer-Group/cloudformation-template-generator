@@ -41,7 +41,7 @@ object `AWS::CloudFormation::WaitCondition` {
 case class `AWS::CloudFormation::Stack`(name: String,
                                         TemplateURL: Token[String],
                                         TimeoutInMinutes: Option[StringBackedInt] = None,
-                                        Parameters: Option[Map[String, String]] = None,
+                                        Parameters: Option[Map[String, Token[String]]] = None,
                                         NotificationARNs: Option[Seq[Token[String]]] = None,
                                         override val Condition: Option[ConditionRef] = None)
     extends Resource[`AWS::CloudFormation::Stack`]

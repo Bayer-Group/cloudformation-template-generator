@@ -192,5 +192,5 @@ This project uses the sbt release plugin.  After the changes you want to
 release are committed on the master branch, you simple need to run two
 commands to publish the library and its documentation.
 
-    sbt release
+    sbt "+ release"
     sbt ghpages-push-site

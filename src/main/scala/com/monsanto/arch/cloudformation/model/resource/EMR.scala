@@ -49,11 +49,6 @@ object ClusterConfiguration {
   }
 }
 
-case class CloudformationTags(Key: Token[String], Value: Token[String])
-object CloudformationTags {
-  implicit val format = jsonFormat2(CloudformationTags.apply)
-}
-
 case class VolumeSpecification(Iops: Option[Token[Int]], SizeInGB: Token[Int], VolumeType: Token[String])
 object VolumeSpecification {
   implicit val format = jsonFormat3(VolumeSpecification.apply)
@@ -116,7 +111,7 @@ case class `AWS::EMR::Cluster`(name: String,
                                Name: Token[String],
                                ReleaseLabel: Option[Token[String]],
                                ServiceRole: Token[String],
-                               Tags: Option[CloudformationTags],
+                               Tags: Option[Seq[AmazonTag]],
                                VisibileToAllUsers: Option[Token[Boolean]],
                                override val Condition: Option[ConditionRef] = None
                               ) extends Resource[`AWS::EMR::Cluster`] {

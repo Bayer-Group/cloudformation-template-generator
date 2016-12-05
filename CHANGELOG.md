@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.5.1] - 2016-12-05
+
+-   Added `Environment`, `KmsKeyArn`, and `VpcConfig` as optional parameters for `AWS::Lambda::Function`.  They are defaulted to `None`, thus the change will be backwards compatible.  (see [#117](https://github.com/MonsantoCo/cloudformation-template-generator/pull/127))
+
 ## [3.5.0] - 2016-11-30
 
 -   Support for AWS's new features supporting [cross template references](https://aws.amazon.com/blogs/aws/aws-cloudformation-update-yaml-cross-stack-references-simplified-substitution/)  (see [#119](https://github.com/MonsantoCo/cloudformation-template-generator/pull/119))

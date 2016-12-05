@@ -2,6 +2,7 @@ package com.monsanto.arch.cloudformation.model.resource
 
 import com.monsanto.arch.cloudformation.model._
 import spray.json.{JsString, JsValue, JsonFormat, DefaultJsonProtocol}
+import DefaultJsonProtocol._
 
 class Runtime(val runtime: String)
 
@@ -33,6 +34,9 @@ case class `AWS::Lambda::Function`(name: String,
                                    MemorySize: Option[Token[Int]] = None,
                                    Role: Token[String],
                                    Timeout: Option[Token[Int]] = None,
+                                   Environment : Option[Map[Token[String], Token[String]]] = None,
+                                   KmsKeyArn : Option[Token[String]] = None,
+                                   VpcConfig : Option[LambdaVpcConfig] = None,
                                    override val Condition: Option[ConditionRef] = None)
   extends Resource[`AWS::Lambda::Function`] with HasArn with Subscribable {
 
@@ -47,8 +51,14 @@ case class `AWS::Lambda::Function`(name: String,
 
 }
 
-object `AWS::Lambda::Function` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::Lambda::Function`] = jsonFormat9(`AWS::Lambda::Function`.apply)
+object `AWS::Lambda::Function` {
+  implicit val format: JsonFormat[`AWS::Lambda::Function`] = jsonFormat12(`AWS::Lambda::Function`.apply)
+}
+
+case class LambdaVpcConfig(SecurityGroupIds : Seq[Token[String]], SubnetIds : Seq[Token[String]])
+
+object LambdaVpcConfig {
+  implicit val format : JsonFormat[LambdaVpcConfig] = jsonFormat2(LambdaVpcConfig.apply)
 }
 
 case class Code(S3Bucket: Option[Token[String]],
@@ -56,7 +66,7 @@ case class Code(S3Bucket: Option[Token[String]],
                 S3ObjectVersion: Option[Token[String]],
                 ZipFile: Option[String])
 
-object Code extends DefaultJsonProtocol {
+object Code {
   implicit val format: JsonFormat[Code] = jsonFormat4(Code.apply)
 }
 
@@ -71,7 +81,7 @@ case class `AWS::Lambda::Permission`(name: String,
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
 }
 
-object `AWS::Lambda::Permission` extends DefaultJsonProtocol {
+object `AWS::Lambda::Permission` {
   implicit val format: JsonFormat[`AWS::Lambda::Permission`] = jsonFormat7(`AWS::Lambda::Permission`.apply)
 }
 
@@ -88,7 +98,7 @@ case class `AWS::Lambda::EventSourceMapping`(
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
 }
 
-object `AWS::Lambda::EventSourceMapping` extends DefaultJsonProtocol {
+object `AWS::Lambda::EventSourceMapping` {
   implicit val format: JsonFormat[`AWS::Lambda::EventSourceMapping`] = jsonFormat7(`AWS::Lambda::EventSourceMapping`.apply)
 }
 

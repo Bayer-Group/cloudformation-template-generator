@@ -34,7 +34,7 @@ case class `AWS::Lambda::Function`(name: String,
                                    MemorySize: Option[Token[Int]] = None,
                                    Role: Token[String],
                                    Timeout: Option[Token[Int]] = None,
-                                   Environment : Option[Map[Token[String], Token[String]]] = None,
+                                   Environment : Option[LambdaEnvironment] = None,
                                    KmsKeyArn : Option[Token[String]] = None,
                                    VpcConfig : Option[LambdaVpcConfig] = None,
                                    override val Condition: Option[ConditionRef] = None)
@@ -53,6 +53,11 @@ case class `AWS::Lambda::Function`(name: String,
 
 object `AWS::Lambda::Function` {
   implicit val format: JsonFormat[`AWS::Lambda::Function`] = jsonFormat12(`AWS::Lambda::Function`.apply)
+}
+
+case class LambdaEnvironment(Variables : Option[Map[String, Token[String]]])
+object LambdaEnvironment {
+  implicit val format : JsonFormat[LambdaEnvironment] = jsonFormat1(LambdaEnvironment.apply)
 }
 
 case class LambdaVpcConfig(SecurityGroupIds : Seq[Token[String]], SubnetIds : Seq[Token[String]])

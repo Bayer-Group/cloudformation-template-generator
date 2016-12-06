@@ -2,7 +2,7 @@ package com.monsanto.arch.cloudformation.model.resource
 
 import com.monsanto.arch.cloudformation.model._
 import org.scalatest.{FunSpec, Matchers}
-import spray.json.{JsString, _}
+import spray.json.{JsObject, JsString, _}
 
 class EC2_UT extends FunSpec with Matchers {
 
@@ -182,6 +182,47 @@ class EC2_UT extends FunSpec with Matchers {
         )
       )
       Seq[Resource[_]](nAclEntry).toJson should be(expected)
+    }
+  }
+
+  describe("AWS::EC2::SubnetNetworkAclAssociation") {
+    val vpc = `AWS::EC2::VPC`(name = "vpc", CidrBlock(1, 1, 1, 1, 16), Seq())
+
+    val nAclName = "nACL"
+    val nAcl = `AWS::EC2::NetworkAcl`(
+      nAclName,
+      vpc,
+      Seq()
+    )
+
+    val subnetName = "subnet1a"
+    val subnet = `AWS::EC2::Subnet`(
+      name = subnetName,
+      AvailabilityZone = Some("ap-northeast-1a"),
+      VpcId = vpc,
+      CidrBlock = CidrBlock(1, 1, 1, 1, 24),
+      MapPublicIpOnLaunch = Some(true),
+      Tags = Seq()
+    )
+
+    val subnetNAclAssocName = "subnetNAclAssoc"
+    val subnetNAclAssoc = `AWS::EC2::SubnetNetworkAclAssociation`(
+      subnetNAclAssocName,
+      ResourceRef(subnet),
+      ResourceRef(nAcl)
+    )
+
+    it("should write a valid subnet network acl association entry") {
+      val expected = JsObject(
+        subnetNAclAssocName -> JsObject(
+          "Type" -> JsString("AWS::EC2::SubnetNetworkAclAssociation"),
+          "Properties" -> JsObject(
+            "SubnetId" -> JsObject("Ref" -> JsString(subnetName)),
+            "NetworkAclId" -> JsObject("Ref" -> JsString(nAclName))
+          )
+        )
+      )
+      Seq[Resource[_]](subnetNAclAssoc).toJson should be(expected)
     }
   }
 

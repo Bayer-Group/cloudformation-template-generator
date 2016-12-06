@@ -27,6 +27,7 @@ trait Conditions {
 trait Outputs {
   implicit class RichResource[R <: Resource[R]](r: R) {
     def andOutput(name: String, description: String) = Template.fromResource(r) ++ Template.fromOutput( Output(name, description, ResourceRef(r)) )
+    def andOutput(name: String, description: String, export: Token[String]) = Template.fromResource(r) ++ Template.fromOutput( Output(name, description, ResourceRef(r), Some(export)) )
   }
 }
 
@@ -185,7 +186,7 @@ trait Subnet extends AvailabilityZone with Outputs {
       Tags = AmazonTag.fromName(name)
     )
 
-    f(sub) ++ sub.andOutput(name, name)
+    f(sub) ++ sub.andOutput(name, name, `Fn::Sub`(s"$${AWS::StackName}-${name}"))
   }
 
   def nat(routeTables: Seq[`AWS::EC2::RouteTable`], ga: `AWS::EC2::VPCGatewayAttachment`)
@@ -536,7 +537,7 @@ trait VPC extends Outputs {
       EnableDnsHostnames = true
     )
 
-    f(vpc) ++ vpc.andOutput("VPCID", "VPC Info")
+    f(vpc) ++ vpc.andOutput("VPCID", "VPC Info", `Fn::Sub`(s"$${AWS::StackName}-VPCID"))
   }
 }
 

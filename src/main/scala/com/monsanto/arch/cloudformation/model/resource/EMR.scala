@@ -112,7 +112,7 @@ case class `AWS::EMR::Cluster`(name: String,
                                ReleaseLabel: Option[Token[String]],
                                ServiceRole: Token[String],
                                Tags: Option[Seq[AmazonTag]],
-                               VisibileToAllUsers: Option[Token[Boolean]],
+                               VisibleToAllUsers: Option[Token[Boolean]],
                                override val Condition: Option[ConditionRef] = None
                               ) extends Resource[`AWS::EMR::Cluster`] {
   override def when(newCondition: Option[ConditionRef]): `AWS::EMR::Cluster` = copy(

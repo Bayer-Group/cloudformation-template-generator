@@ -70,8 +70,8 @@ case class `AWS::IAM::ManagedPolicy`(
   Description:    Option[String] = None,
   Path:           Option[String] = None,
   Groups:         Option[Seq[ResourceRef[`AWS::IAM::Group`]]] = None,
-  Roles:          Option[Seq[ResourceRef[`AWS::IAM::Group`]]] = None,
-  Users:          Option[Seq[ResourceRef[`AWS::IAM::Group`]]] = None,
+  Roles:          Option[Seq[ResourceRef[`AWS::IAM::Role`]]] = None,
+  Users:          Option[Seq[ResourceRef[`AWS::IAM::User`]]] = None,
   override val Condition: Option[ConditionRef] = None
   ) extends Resource[`AWS::IAM::ManagedPolicy`] {
 

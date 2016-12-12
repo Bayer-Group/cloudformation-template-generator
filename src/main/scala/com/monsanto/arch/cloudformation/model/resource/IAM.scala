@@ -15,9 +15,11 @@ case class `AWS::IAM::InstanceProfile`(
   Path:  String,
   Roles: Seq[ResourceRef[`AWS::IAM::Role`]],
   override val Condition: Option[ConditionRef] = None
-  ) extends Resource[`AWS::IAM::InstanceProfile`]{
+  ) extends Resource[`AWS::IAM::InstanceProfile`] with HasArn {
 
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
+
+  override def arn : Token[String] = `Fn::GetAtt`(Seq(name, "Arn"))
 }
 object `AWS::IAM::InstanceProfile` extends DefaultJsonProtocol {
   implicit val format: JsonFormat[`AWS::IAM::InstanceProfile`] = jsonFormat4(`AWS::IAM::InstanceProfile`.apply)

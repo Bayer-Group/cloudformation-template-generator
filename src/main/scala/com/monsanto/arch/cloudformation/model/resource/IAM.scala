@@ -15,9 +15,11 @@ case class `AWS::IAM::InstanceProfile`(
   Path:  String,
   Roles: Seq[ResourceRef[`AWS::IAM::Role`]],
   override val Condition: Option[ConditionRef] = None
-  ) extends Resource[`AWS::IAM::InstanceProfile`]{
+  ) extends Resource[`AWS::IAM::InstanceProfile`] with HasArn {
 
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
+
+  override def arn : Token[String] = `Fn::GetAtt`(Seq(name, "Arn"))
 }
 object `AWS::IAM::InstanceProfile` extends DefaultJsonProtocol {
   implicit val format: JsonFormat[`AWS::IAM::InstanceProfile`] = jsonFormat4(`AWS::IAM::InstanceProfile`.apply)
@@ -70,8 +72,8 @@ case class `AWS::IAM::ManagedPolicy`(
   Description:    Option[String] = None,
   Path:           Option[String] = None,
   Groups:         Option[Seq[ResourceRef[`AWS::IAM::Group`]]] = None,
-  Roles:          Option[Seq[ResourceRef[`AWS::IAM::Group`]]] = None,
-  Users:          Option[Seq[ResourceRef[`AWS::IAM::Group`]]] = None,
+  Roles:          Option[Seq[ResourceRef[`AWS::IAM::Role`]]] = None,
+  Users:          Option[Seq[ResourceRef[`AWS::IAM::User`]]] = None,
   override val Condition: Option[ConditionRef] = None
   ) extends Resource[`AWS::IAM::ManagedPolicy`] {
 
@@ -107,6 +109,7 @@ case class `AWS::IAM::Role`(
   ManagedPolicyArns:        Option[Seq[ManagedPolicyARN]] = None,
   Path:                     Option[Token[String]] = None,
   Policies:                 Option[Seq[Policy]] = None,
+  RoleName:                 Option[Token[String]] = None,
   override val Condition: Option[ConditionRef] = None
   ) extends Resource[`AWS::IAM::Role`] with HasArn {
 
@@ -115,7 +118,7 @@ case class `AWS::IAM::Role`(
   override def arn = `Fn::GetAtt`(Seq(name, "Arn"))
 }
 object `AWS::IAM::Role` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::IAM::Role`] = jsonFormat6(`AWS::IAM::Role`.apply)
+  implicit val format: JsonFormat[`AWS::IAM::Role`] = jsonFormat7(`AWS::IAM::Role`.apply)
 }
 
 sealed trait PolicyConditionValue

@@ -112,7 +112,7 @@ case class `AWS::EMR::Cluster`(name: String,
                                ReleaseLabel: Option[Token[String]],
                                ServiceRole: Token[String],
                                Tags: Option[Seq[AmazonTag]],
-                               VisibileToAllUsers: Option[Token[Boolean]],
+                               VisibleToAllUsers: Option[Token[Boolean]],
                                override val Condition: Option[ConditionRef] = None
                               ) extends Resource[`AWS::EMR::Cluster`] {
   override def when(newCondition: Option[ConditionRef]): `AWS::EMR::Cluster` = copy(
@@ -121,4 +121,32 @@ case class `AWS::EMR::Cluster`(name: String,
 }
 object `AWS::EMR::Cluster` {
   implicit val format : JsonFormat[`AWS::EMR::Cluster`] = jsonFormat14(`AWS::EMR::Cluster`.apply)
+}
+
+case class `AWS::EMR::Step`(
+                             name: String,
+                             ActionOnFailure: String,
+                             HadoopJarStep: HadoopJarStep,
+                             JobFlowId: Token[String],
+                             Name: Token[String],
+                             override val Condition: Option[ConditionRef] = None,
+                             override val DependsOn: Option[Seq[String]] = None
+                           ) extends Resource[`AWS::EMR::Step`] {
+  override def when(newCondition: Option[ConditionRef]): `AWS::EMR::Step` = copy(Condition = newCondition)
+}
+
+object `AWS::EMR::Step` {
+  implicit val format: RootJsonFormat[`AWS::EMR::Step`] = jsonFormat7(`AWS::EMR::Step`.apply)
+}
+
+case class HadoopJarStep(Args: Option[Seq[Token[String]]], Jar: Token[String], MainClass: Option[Token[String]], StepProperties: Option[StepProperties])
+
+object HadoopJarStep {
+  implicit val format: RootJsonFormat[HadoopJarStep] = jsonFormat4(HadoopJarStep.apply)
+}
+
+case class StepProperties(Key: Option[String], Value: Option[Token[String]])
+
+object StepProperties {
+  implicit val format: RootJsonFormat[StepProperties] = jsonFormat2(StepProperties.apply)
 }

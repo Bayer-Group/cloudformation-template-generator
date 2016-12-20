@@ -18,13 +18,17 @@ case class `AWS::DynamoDB::Table`(
                                    LocalSecondaryIndexes: Seq[LocalSecondaryIndex],
                                    ProvisionedThroughput: ProvisionedThroughput,
                                    StreamSpecification : Option[StreamSpecification] = None,
-                                   TableName: Token[String],
+                                   TableName: Option[Token[String]],
                                    override val Condition: Option[ConditionRef] = None,
                                    override val DeletionPolicy: Option[DeletionPolicy] = None,
                                    override val DependsOn: Option[Seq[String]] = None
                                  ) extends Resource[`AWS::DynamoDB::Table`] with HasArn {
 
   override def arn = aws"arn:aws:dynamodb:${`AWS::Region`}:${`AWS::AccountId`}:table/${ResourceRef(this)}"
+
+  def streamArn : Token[String] = `Fn::GetAtt`(Seq("StreamArn", name))
+
+  def tableName : Token[String] = ResourceRef(this)
 
   private def indexArns(indexes : Seq[_ <: DynamoIndex]) = indexes.map(_.IndexName).map(indexName => aws"$arn/index/$indexName")
   def localSecondaryIndexArns = indexArns(LocalSecondaryIndexes)

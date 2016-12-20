@@ -40,7 +40,7 @@ class DynamoDBSpec extends FunSpec with Matchers with JsonWritingMatcher {
         ReadCapacityUnits = 1,
         WriteCapacityUnits = 1
       ),
-      TableName = "Table1",
+      TableName = Some("Table1"),
       DeletionPolicy = Some(Retain),
       DependsOn = Some(Seq("myothertable"))
     )

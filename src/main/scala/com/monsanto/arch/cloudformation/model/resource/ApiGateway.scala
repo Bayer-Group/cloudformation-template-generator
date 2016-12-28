@@ -86,7 +86,7 @@ object `AWS::ApiGateway::ClientCertificate` {
 case class `AWS::ApiGateway::Deployment`(
                                           name: String,
                                           Description: Option[String] = None,
-                                          RestApiId: Token[Token[String]],
+                                          RestApiId: Token[String],
                                           StageDescription: Option[StageDescription] = None,
                                           StageName: Option[Token[String]] = None,
                                           override val Condition: Option[ConditionRef] = None,
@@ -107,7 +107,7 @@ case class StageDescription(
                              MethodSettings: Option[Seq[MethodSetting]] = None,
                              RestApiId: Option[Token[String]] = None,
                              StageName: Option[Token[String]] = None,
-                             Variables: Option[Seq[Map[String, Token[String]]]] = None
+                             Variables: Option[Map[String, Token[String]]] = None
                            )
 object StageDescription {
   implicit val format : JsonFormat[StageDescription] = jsonFormat9(StageDescription.apply)
@@ -137,10 +137,10 @@ case class `AWS::ApiGateway::Method`(
                                       HttpMethod: String,
                                       Integration: Option[Integration] = None,
                                       MethodResponses: Option[Seq[MethodResponse]] = None,
-                                      RequestModels: Option[Seq[Map[String, Token[String]]]] = None,
-                                      RequestParameters: Option[Seq[Map[String, Token[Boolean]]]] = None,
-                                      ResourceId: Token[Token[String]],
-                                      RestApiId: Token[Token[String]],
+                                      RequestModels: Option[Map[String, Token[String]]] = None,
+                                      RequestParameters: Option[Map[String, Token[Boolean]]] = None,
+                                      ResourceId: Token[String],
+                                      RestApiId: Token[String],
                                       override val Condition: Option[ConditionRef] = None
                                     ) extends Resource[`AWS::ApiGateway::Method`] {
   override def when(newCondition: Option[ConditionRef]) = copy(Condition = newCondition)
@@ -155,8 +155,8 @@ case class Integration(
                         Credentials: Option[Token[String]] = None,
                         IntegrationHttpMethod: Option[String] = None,
                         IntegrationResponses: Option[Seq[IntegrationResponse]] = None,
-                        RequestParameters: Option[Seq[Map[String, Token[String]]]] = None,
-                        RequestTemplates: Option[Seq[Map[String, Token[String]]]] = None,
+                        RequestParameters: Option[Map[String, Token[String]]] = None,
+                        RequestTemplates: Option[Map[String, Token[String]]] = None,
                         Type: Option[String] = None,
                         Uri: Option[Token[String]] = None
                       )

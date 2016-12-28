@@ -27,7 +27,7 @@ and the dependency
 
 ```scala
 libraryDependencies ++= Seq (
-  "com.monsanto.arch" %% "cloud-formation-template-generator" % "3.3.2"
+  "com.monsanto.arch" %% "cloud-formation-template-generator" % "3.3.5"
 ).map(_.force())
 ```
 
@@ -94,6 +94,7 @@ describe("Template Lookup") {
 - AWS::AutoScaling::AutoScalingGroup
 - AWS::AutoScaling::LaunchConfiguration
 - AWS::AutoScaling::ScalingPolicy
+- AWS::CloudFormation::Stack
 - AWS::CloudFormation::WaitCondition
 - AWS::CloudFormation::WaitConditionHandle
 - AWS::CloudTrail::Trail
@@ -115,6 +116,7 @@ describe("Template Lookup") {
 - AWS::EC2::SecurityGroupEgress
 - AWS::EC2::SecurityGroupIngress
 - AWS::EC2::Subnet
+- AWS::EC2::SubnetNetworkAclAssociation
 - AWS::EC2::SubnetRouteTableAssociation
 - AWS::EC2::VPC
 - AWS::EC2::VPCGatewayAttachment
@@ -124,12 +126,17 @@ describe("Template Lookup") {
 - AWS::EC2::VPNGateway
 - AWS::EC2::Volume
 - AWS::EC2::VolumeAttachment
+- AWS::ECR::Repository
+- AWS::ElastiCache::CacheCluser
+- AWS::ElastiCache::SubnetGroup
 - AWS::Elasticsearch::Domain
 - AWS::ElasticLoadBalancing::LoadBalancer
 - AWS::ElasticBeanstalk::Application
 - AWS::ElasticBeanstalk::ApplicationVersion
 - AWS::ElasticBeanstalk::ConfigurationTemplate
 - AWS::ElasticBeanstalk::Environment
+- AWS::EMR::Cluster
+- AWS::EMR::Step
 - AWS::IAM::AccessKey
 - AWS::IAM::Group
 - AWS::IAM::InstanceProfile
@@ -137,6 +144,9 @@ describe("Template Lookup") {
 - AWS::IAM::Policy
 - AWS::IAM::Role
 - AWS::IAM::User
+- AWS::Kinesis::Stream
+- AWS::KMS::Alias
+- AWS::KMS::Key
 - AWS::Lambda::EventSourceMapping
 - AWS::Lambda::Function
 - AWS::Lambda::Permission
@@ -167,13 +177,15 @@ This project packages certain useful custom CloudFormation types.  These are Lam
 tasks that CloudFormation does not natively support.  In order to use them, you must upload the Lambda function
 to your account and region.  The code for these functions is found in this repo under assets/custom-types.
 
-## Remote Route 53 entries
+#### Remote Route 53 entries
 A given domain (or hosted zone, more specifically) must be managed out of a single AWS account.  This poses problems if you want to create resources under that domain in templates that will run out of other accounts.  A CloudFormation template can only work in one given account.  However, with Cloud Formation's custom type functionality, we use custom code to assume a role in the account that owns the hosted zone.  This requires some setup steps for each hosted zone and each account.  For instructions, please see: https://github.com/MonsantoCo/cloudformation-template-generator/blob/master/assets/custom-types/remote-route53/README.md for more. 
 
 ## Working with Cloudformation Concatenating
 In the CloudFormation DSL, there is support for concatenating strings, parameters, and function calls together to build strings.
 This can get really ugly as they are chained together.
 There is a [string interpolator](http://monsantoco.github.io/cloudformation-template-generator/latest/api/#com.monsanto.arch.cloudformation.model.package$$AwsStringInterpolator) to make this easier.
+
+**Update 11/17/2016:** While we are not deprecating this functionality at this time, CFTG now supports `Fn::Sub`, a native way to do something very similar.  It can replace both `Fn::Join` and many uses of `Fn::GetAtt`.  Read more [here](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-sub.html).
 
 ## Releasing
 

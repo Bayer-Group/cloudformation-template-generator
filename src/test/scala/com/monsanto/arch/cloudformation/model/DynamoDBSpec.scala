@@ -1,7 +1,9 @@
 package com.monsanto.arch.cloudformation.model
 
+import com.monsanto.arch.cloudformation.model.resource.DeletionPolicy.Retain
 import com.monsanto.arch.cloudformation.model.resource._
-import org.scalatest.{Matchers, FunSpec}
+import org.scalatest.{FunSpec, Matchers}
+import spray.json.{JsString, JsonWriter}
 
 /**
   * Created by Tyler Southwick on 11/24/15.
@@ -38,7 +40,9 @@ class DynamoDBSpec extends FunSpec with Matchers with JsonWritingMatcher {
         ReadCapacityUnits = 1,
         WriteCapacityUnits = 1
       ),
-      TableName = "Table1"
+      TableName = "Table1",
+      DeletionPolicy = Some(Retain),
+      DependsOn = Some(Seq("myothertable"))
     )
     val resource: Resource[`AWS::DynamoDB::Table`] = dynamoDbTable
 
@@ -46,6 +50,8 @@ class DynamoDBSpec extends FunSpec with Matchers with JsonWritingMatcher {
       """
         |{
         | "Type": "AWS::DynamoDB::Table",
+        | "DeletionPolicy" : "Retain",
+        | "DependsOn": ["myothertable"],
         | "Properties": {
         | "LocalSecondaryIndexes":[
         |   {
@@ -95,5 +101,15 @@ class DynamoDBSpec extends FunSpec with Matchers with JsonWritingMatcher {
         |  }
         |}
       """.stripMargin
+  }
+  for {(obj, value) <- Seq[(StreamViewType, String)](
+    NEW_IMAGE -> "NEW_IMAGE",
+    OLD_IMAGE -> "OLD_IMAGE",
+    NEW_AND_OLD_IMAGES -> "NEW_AND_OLD_IMAGES",
+    KEYS_ONLY -> "KEYS_ONLY"
+  )} {
+    it(s"should render $obj as $value") {
+      implicitly[JsonWriter[StreamViewType]].write(obj) shouldEqual JsString(value)
+    }
   }
 }

@@ -3,7 +3,85 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [3.3.2] - 2015-04-08
+## [3.5.1] - 2016-12-05
+
+-   Added `Environment`, `KmsKeyArn`, and `VpcConfig` as optional parameters for `AWS::Lambda::Function`.  They are defaulted to `None`, thus the change will be backwards compatible.  (see [#117](https://github.com/MonsantoCo/cloudformation-template-generator/pull/127))
+
+## [3.5.0] - 2016-11-30
+
+-   Support for AWS's new features supporting [cross template references](https://aws.amazon.com/blogs/aws/aws-cloudformation-update-yaml-cross-stack-references-simplified-substitution/)  (see [#119](https://github.com/MonsantoCo/cloudformation-template-generator/pull/119))
+
+-   Support for [Fn::Sub](https://aws.amazon.com/blogs/aws/aws-cloudformation-update-yaml-cross-stack-references-simplified-substitution/), which provides a cleaner alternative to `Fn::Join` and `Fn::GetAtt`  (see [#119](https://github.com/MonsantoCo/cloudformation-template-generator/pull/119))
+
+-   Add TemplateBase to auto discover template components (see [#120](https://github.com/MonsantoCo/cloudformation-template-generator/pull/120))
+
+-   Add `AWS::EMR::Cluster` support (see [#121](https://github.com/MonsantoCo/cloudformation-template-generator/pull/121))
+
+-   Add KMS support (see [#125](https://github.com/MonsantoCo/cloudformation-template-generator/pull/125))
+
+-   Add support for Scala 2.12 (see [#122](https://github.com/MonsantoCo/cloudformation-template-generator/pull/122))
+
+-   Fixed `AWS::ApiGateway::Deployment`, changing `Token[Token[String]]` to just `Token[String]` (see [#123](https://github.com/MonsantoCo/cloudformation-template-generator/pull/123/files))
+
+-   Changed nested stack parameters to take `Map[String, Token[String]]` (see [#126](https://github.com/MonsantoCo/cloudformation-template-generator/pull/126))
+
+## [3.4.0] - 2016-11-07
+
+### Added
+
+-   Support for AWS::CloudFormation::Stack (see [#100](https://github.com/MonsantoCo/cloudformation-template-generator/pull/100))
+
+-   Change Description property of Function to Option[Token[String]] so it can contain CloudFormation expressions  (see [#97](https://github.com/MonsantoCo/cloudformation-template-generator/issues/97))
+
+-   Ports in Security groups can now be parameterized (see [#101](https://github.com/MonsantoCo/cloudformation-template-generator/pull/101))
+
+-   Add stream specification for DynamoDB (see [#94](https://github.com/MonsantoCo/cloudformation-template-generator/pull/94))
+
+-   Add support for built-in AWS policies (see [#108](https://github.com/MonsantoCo/cloudformation-template-generator/pull/108))
+
+-   Add deletion policy to AWS::DynamoDB::Table (see [#109](https://github.com/MonsantoCo/cloudformation-template-generator/pull/109))
+
+-   Added the following resources: (see [#111](https://github.com/MonsantoCo/cloudformation-template-generator/pull/111))
+    - AWS::EC2::SubnetNetworkAclAssociation
+    - AWS::ElastiCache::CacheCluser
+    - AWS::ElastiCache::SubnetGroup
+    - AWS::ECR::Repository
+
+-   Added all supported database engines to `AWS::RDS::DBInstance::Engine` (see [#111](https://github.com/MonsantoCo/cloudformation-template-generator/pull/111))
+
+-   Added all supported disk types to `AWS::EC2::Volume` (see [#111](https://github.com/MonsantoCo/cloudformation-template-generator/pull/111))
+
+-   Add Kinesis support (see [#112](https://github.com/MonsantoCo/cloudformation-template-generator/pull/112))
+
+-   Add "DependsOn" to AWS::DynamoDb::Table (see [#115](https://github.com/MonsantoCo/cloudformation-template-generator/pull/115))
+
+
+## [3.3.4] - 2016-05-06
+
+**Note: This breaks backwards compatibility for some people using ApiGateways.**
+
+### Changed
+
+-   Datatypes for ApiGateway (see [#93](https://github.com/MonsantoCo/cloudformation-template-generator/pull/93))
+
+
+## [3.3.3] - 2016-04-29
+
+### Added
+
+-   Support for AWS::CloudFront:Distribution (see [#71](https://github.com/MonsantoCo/cloudformation-template-generator/pull/71))
+
+-   Support for tokens in an output (see [#74](https://github.com/MonsantoCo/cloudformation-template-generator/pull/74))
+
+-   AWS/Lambda CloudWatch Alarm Namespace (see [#87](https://github.com/MonsantoCo/cloudformation-template-generator/pull/87))
+
+-   Support for NodeJs4.3 as a Lambda rutime (see [#88](https://github.com/MonsantoCo/cloudformation-template-generator/pull/88))
+
+-   Support for AWS::ApiGateway (see [#89](https://github.com/MonsantoCo/cloudformation-template-generator/pull/89))
+
+-   Support for IAMPolicyVersions (see [#90](https://github.com/MonsantoCo/cloudformation-template-generator/pull/90))
+
+## [3.3.2] - 2016-04-08
 
 ### Added
 
@@ -16,13 +94,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 -   Ability to use Subnet parameters for EC2 (see [#81](https://github.com/MonsantoCo/cloudformation-template-generator/issues/81))
 
 
-## [3.3.1] - 2015-03-30
+## [3.3.1] - 2016-03-30
 
 ### Changed
 
 -   Modified Fn::Not to be a NestableAmazonFunctionCall to support using the function within an Fn::And block
 
-## [3.3.0] - 2015-03-18
+## [3.3.0] - 2016-03-18
 
 **Note: This breaks backwards compatibility for anyone using custom NAT Gateways.**
 
@@ -85,7 +163,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 -   Changed how implicits are handle in creating `AWS::EC2::Route` to simplify the code
 
-## [3.0.6] - 2015-01-19
+## [3.0.6] - 2016-01-19
 
 ### Added
 
@@ -105,7 +183,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 -   Have predictable order in the output JSON (fixes [#45](https://github.com/MonsantoCo/cloudformation-template-generator/issues/45))
 
-## [3.0.5] - 2015-01-07
+## [3.0.5] - 2016-01-07
 
 ### Added
 

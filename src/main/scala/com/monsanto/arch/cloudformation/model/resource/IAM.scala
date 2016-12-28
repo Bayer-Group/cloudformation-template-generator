@@ -15,9 +15,11 @@ case class `AWS::IAM::InstanceProfile`(
   Path:  String,
   Roles: Seq[ResourceRef[`AWS::IAM::Role`]],
   override val Condition: Option[ConditionRef] = None
-  ) extends Resource[`AWS::IAM::InstanceProfile`]{
+  ) extends Resource[`AWS::IAM::InstanceProfile`] with HasArn {
 
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
+
+  override def arn : Token[String] = `Fn::GetAtt`(Seq(name, "Arn"))
 }
 object `AWS::IAM::InstanceProfile` extends DefaultJsonProtocol {
   implicit val format: JsonFormat[`AWS::IAM::InstanceProfile`] = jsonFormat4(`AWS::IAM::InstanceProfile`.apply)
@@ -70,8 +72,8 @@ case class `AWS::IAM::ManagedPolicy`(
   Description:    Option[String] = None,
   Path:           Option[String] = None,
   Groups:         Option[Seq[ResourceRef[`AWS::IAM::Group`]]] = None,
-  Roles:          Option[Seq[ResourceRef[`AWS::IAM::Group`]]] = None,
-  Users:          Option[Seq[ResourceRef[`AWS::IAM::Group`]]] = None,
+  Roles:          Option[Seq[ResourceRef[`AWS::IAM::Role`]]] = None,
+  Users:          Option[Seq[ResourceRef[`AWS::IAM::User`]]] = None,
   override val Condition: Option[ConditionRef] = None
   ) extends Resource[`AWS::IAM::ManagedPolicy`] {
 
@@ -81,12 +83,33 @@ object `AWS::IAM::ManagedPolicy` extends DefaultJsonProtocol {
   implicit val format: JsonFormat[`AWS::IAM::ManagedPolicy`] = jsonFormat8(`AWS::IAM::ManagedPolicy`.apply)
 }
 
+
+case class AWSManagedPolicy(name: String) {
+  def buildARN = s"arn:aws:iam::aws:policy/$name"
+}
+
+case class ManagedPolicyARN private(resource: Either[ResourceRef[`AWS::IAM::ManagedPolicy`], AWSManagedPolicy])
+object ManagedPolicyARN extends DefaultJsonProtocol {
+  implicit val format: JsonFormat[ManagedPolicyARN] = new JsonFormat[ManagedPolicyARN]{
+    def write(obj: ManagedPolicyARN) =
+      obj.resource match {
+        case Left(ref) => ref.toJson
+        case Right(arn) => JsString(arn.buildARN)
+      }
+    def read(json: JsValue) = ???
+  }
+
+  implicit def fromAWSManagedPolicy(p: AWSManagedPolicy): ManagedPolicyARN = ManagedPolicyARN(Right(p))
+  implicit def fromManagedPolicy(p: ResourceRef[`AWS::IAM::ManagedPolicy`]): ManagedPolicyARN = ManagedPolicyARN(Left(p))
+}
+
 case class `AWS::IAM::Role`(
   name:                     String,
   AssumeRolePolicyDocument: PolicyDocument,
-  ManagedPolicyArns:        Option[Seq[ResourceRef[`AWS::IAM::ManagedPolicy`]]] = None,
+  ManagedPolicyArns:        Option[Seq[ManagedPolicyARN]] = None,
   Path:                     Option[Token[String]] = None,
   Policies:                 Option[Seq[Policy]] = None,
+  RoleName:                 Option[Token[String]] = None,
   override val Condition: Option[ConditionRef] = None
   ) extends Resource[`AWS::IAM::Role`] with HasArn {
 
@@ -95,7 +118,7 @@ case class `AWS::IAM::Role`(
   override def arn = `Fn::GetAtt`(Seq(name, "Arn"))
 }
 object `AWS::IAM::Role` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::IAM::Role`] = jsonFormat6(`AWS::IAM::Role`.apply)
+  implicit val format: JsonFormat[`AWS::IAM::Role`] = jsonFormat7(`AWS::IAM::Role`.apply)
 }
 
 sealed trait PolicyConditionValue
@@ -205,7 +228,17 @@ case class Policy(PolicyName: String, PolicyDocument: PolicyDocument)
 object Policy extends DefaultJsonProtocol {
   implicit val format: JsonFormat[Policy] = jsonFormat2(Policy.apply)
 }
-case class PolicyDocument(Statement: Seq[PolicyStatement], Version : Option[String] = None)
+
+case class PolicyDocument(Statement: Seq[PolicyStatement], Version : Option[IAMPolicyVersion] = None)
 object PolicyDocument extends DefaultJsonProtocol {
   implicit val format: JsonFormat[PolicyDocument] = jsonFormat2(PolicyDocument.apply)
+}
+
+sealed trait IAMPolicyVersion
+object IAMPolicyVersion extends DefaultJsonProtocol {
+  case object `2012-10-17`      extends IAMPolicyVersion
+  case object `2008-10-17`      extends IAMPolicyVersion
+
+  val values = Seq(`2012-10-17`, `2008-10-17`)
+  implicit val format: JsonFormat[IAMPolicyVersion] = new EnumFormat[IAMPolicyVersion](values)
 }

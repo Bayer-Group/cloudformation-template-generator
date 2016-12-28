@@ -2,7 +2,7 @@
 
 role=lambda-execution-cf-remote-route53
 function_name=cf-remote-route53
-account_id=$(aws iam get-user | jq -r .User.Arn |  perl -pe 's/arn:aws:iam::(\d+):.*/$1/')
+account_id=$(aws ec2 describe-security-groups --group-names default | jq -r .SecurityGroups[0].OwnerId)
 
 for region in $(aws ec2 describe-regions | jq -r .Regions[].RegionName) ; do
     echo "Checking region $region"

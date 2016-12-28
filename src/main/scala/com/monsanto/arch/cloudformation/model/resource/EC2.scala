@@ -473,8 +473,8 @@ case class `AWS::EC2::SecurityGroupIngress`(
   name:                  String,
   GroupId:               Token[ResourceRef[`AWS::EC2::SecurityGroup`]],
   IpProtocol:            String,
-  FromPort:              String,
-  ToPort:                String,
+  FromPort:              Token[String],
+  ToPort:                Token[String],
   CidrIp:                Option[Token[CidrBlock]] = None, // either CidrIp or SourceSecurityGroupId required
   SourceSecurityGroupId: Option[Token[ResourceRef[`AWS::EC2::SecurityGroup`]]] = None, // either CidrIp or SourceSecurityGroupId required
   override val Condition: Option[ConditionRef] = None
@@ -513,6 +513,19 @@ case class `AWS::EC2::SubnetRouteTableAssociation`(
 }
 object `AWS::EC2::SubnetRouteTableAssociation` extends DefaultJsonProtocol {
   implicit val format: JsonFormat[`AWS::EC2::SubnetRouteTableAssociation`] = jsonFormat4(`AWS::EC2::SubnetRouteTableAssociation`.apply)
+}
+
+case class `AWS::EC2::SubnetNetworkAclAssociation`(
+  name:         String,
+  SubnetId:     Token[ResourceRef[`AWS::EC2::Subnet`]],
+  NetworkAclId: Token[ResourceRef[`AWS::EC2::NetworkAcl`]],
+  override val Condition: Option[ConditionRef] = None
+  ) extends Resource[`AWS::EC2::SubnetNetworkAclAssociation`]{
+
+  def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
+}
+object `AWS::EC2::SubnetNetworkAclAssociation` extends DefaultJsonProtocol {
+  implicit val format: JsonFormat[`AWS::EC2::SubnetNetworkAclAssociation`] = jsonFormat4(`AWS::EC2::SubnetNetworkAclAssociation`.apply)
 }
 
 case class `AWS::EC2::VPC`(name: String, CidrBlock: Token[CidrBlock], Tags: Seq[AmazonTag], EnableDnsSupport: Boolean = true, EnableDnsHostnames: Boolean = false,
@@ -625,22 +638,37 @@ object `AWS::EC2::Volume` extends DefaultJsonProtocol {
     `AWS::EC2::Volume`(name, az, Some(encrypted), None, Some(size), None, tags, "gp2")
 
   //require( size >= 4 && size <= 16384 )
-  //require( iops <= size * 30 && iops >= 100 && iops <= 20000)
-  def io2(name: String, az: Token[String], size: Token[Int], tags: Seq[AmazonTag], iops: Int, encrypted: Boolean = true ) =
-    `AWS::EC2::Volume`(name, az, Some(encrypted), None, Some(size), None, tags, "io2")
+  //require( iops <= size * 50 && iops >= 100 && iops <= 20000)
+  def io1(name: String, az: Token[String], size: Token[Int], tags: Seq[AmazonTag], iops: Int, encrypted: Boolean = true ) =
+    `AWS::EC2::Volume`(name, az, Some(encrypted), Some(iops), Some(size), None, tags, "io1")
 
   //require( size >= 1 && size <= 1024 )
   def standard(name: String, az: Token[String], size: Token[Int], tags: Seq[AmazonTag], encrypted: Boolean = true ) =
     `AWS::EC2::Volume`(name, az, Some(encrypted), None, Some(size), None, tags, "standard")
 
+  //require( size >= 500 && size <= 16384 )
+  def sc1(name: String, az: Token[String], size: Token[Int], tags: Seq[AmazonTag], encrypted: Boolean = true ) =
+  `AWS::EC2::Volume`(name, az, Some(encrypted), None, Some(size), None, tags, "sc1")
+
+  //require( size >= 500 && size <= 16384 )
+  def st1(name: String, az: Token[String], size: Token[Int], tags: Seq[AmazonTag], encrypted: Boolean = true ) =
+  `AWS::EC2::Volume`(name, az, Some(encrypted), None, Some(size), None, tags, "st1")
+
   def gp2Snapshot(name: String, az: Token[String], snapshotID: String, tags: Seq[AmazonTag], encrypted: Boolean = true ) =
     `AWS::EC2::Volume`(name, az, Some(encrypted), None, None, Some(snapshotID), tags, "gp2")
 
-  def io2Snapshot(name: String, az: Token[String], snapshotID: String, tags: Seq[AmazonTag], encrypted: Boolean = true ) =
-    `AWS::EC2::Volume`(name, az, Some(encrypted), None, None, Some(snapshotID), tags, "io2")
+  def io1Snapshot(name: String, az: Token[String], snapshotID: String, tags: Seq[AmazonTag], iops: Int, encrypted: Boolean = true ) =
+    `AWS::EC2::Volume`(name, az, Some(encrypted), Some(iops), None, Some(snapshotID), tags, "io1")
 
   def standardSnapshot(name: String, az: Token[String], snapshotID: String, tags: Seq[AmazonTag], encrypted: Boolean = true ) =
     `AWS::EC2::Volume`(name, az, Some(encrypted), None, None, Some(snapshotID), tags, "standard")
+
+  def sc1Snapshot(name: String, az: Token[String], snapshotID: String, tags: Seq[AmazonTag], encrypted: Boolean = true ) =
+    `AWS::EC2::Volume`(name, az, Some(encrypted), None, None, Some(snapshotID), tags, "sc1")
+
+  def st1Snapshot(name: String, az: Token[String], snapshotID: String, tags: Seq[AmazonTag], encrypted: Boolean = true ) =
+    `AWS::EC2::Volume`(name, az, Some(encrypted), None, None, Some(snapshotID), tags, "st1")
+
 }
 
 case class `AWS::EC2::VolumeAttachment`(

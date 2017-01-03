@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.5.2] - 2017-01-03
+
+-   Add `AWS::EMR::Step` support (see [#129](https://github.com/MonsantoCo/cloudformation-template-generator/pull/129))
+
+-   Fixed a type bug in `AWS::IAM::Role` (see [#131](https://github.com/MonsantoCo/cloudformation-template-generator/pull/131))
+
+-   Changed `TableName` in `AWS::DynamoDB::Table` to be optional in accordance with the AWS docs (see [#133](https://github.com/MonsantoCo/cloudformation-template-generator/pull/133))
+
+-   Add `AWS::Lambda::Alias` and `AWS::Lambda::Version` support (see [#96](https://github.com/MonsantoCo/cloudformation-template-generator/pull/96))
+
 ## [3.5.1] - 2016-12-05
 
 -   Added `Environment`, `KmsKeyArn`, and `VpcConfig` as optional parameters for `AWS::Lambda::Function`.  They are defaulted to `None`, thus the change will be backwards compatible.  (see [#117](https://github.com/MonsantoCo/cloudformation-template-generator/pull/127))

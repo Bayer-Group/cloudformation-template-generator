@@ -147,9 +147,11 @@ describe("Template Lookup") {
 - AWS::Kinesis::Stream
 - AWS::KMS::Alias
 - AWS::KMS::Key
+- AWS::Lambda::Alias
 - AWS::Lambda::EventSourceMapping
 - AWS::Lambda::Function
 - AWS::Lambda::Permission
+- AWS::Lambda::Version
 - AWS::DataPipeline::Pipeline
 - AWS::RDS::DBInstance::Engine
 - AWS::RDS::DBInstance::StorageType

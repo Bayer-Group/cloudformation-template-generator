@@ -128,9 +128,9 @@ object `AWS::Lambda::Version` extends DefaultJsonProtocol {
 }
 
 case class `AWS::Lambda::Alias`(name: String,
-                                AliasName: Token[String],
+                                Name: Token[String],
                                 FunctionName: Token[ResourceRef[`AWS::Lambda::Function`]],
-                                FunctionVersion: Token[String],
+                                FunctionVersion: Token[ResourceRef[`AWS::Lambda::Version`]],
                                 Description: Option[Token[String]] = None,
                                 override val Condition: Option[ConditionRef] = None)
     extends Resource[`AWS::Lambda::Alias`]
@@ -142,12 +142,5 @@ case class `AWS::Lambda::Alias`(name: String,
 }
 
 object `AWS::Lambda::Alias` extends DefaultJsonProtocol {
-  //implicit val format: JsonFormat[`AWS::Lambda::Alias`] = jsonFormat6(`AWS::Lambda::Alias`.apply)
-  implicit val format: JsonFormat[`AWS::Lambda::Alias`] = jsonFormat(`AWS::Lambda::Alias`.apply,
-                                                                     "name",
-                                                                     "Name",
-                                                                     "FunctionName",
-                                                                     "FunctionVersion",
-                                                                     "Description",
-                                                                     "Condition")
+  implicit val format: JsonFormat[`AWS::Lambda::Alias`] = jsonFormat6(`AWS::Lambda::Alias`.apply)
 }

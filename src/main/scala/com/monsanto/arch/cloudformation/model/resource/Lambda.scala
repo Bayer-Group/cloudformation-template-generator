@@ -107,3 +107,47 @@ object `AWS::Lambda::EventSourceMapping` {
   implicit val format: JsonFormat[`AWS::Lambda::EventSourceMapping`] = jsonFormat7(`AWS::Lambda::EventSourceMapping`.apply)
 }
 
+case class `AWS::Lambda::Version`(name: String,
+                                  FunctionName: Token[ResourceRef[`AWS::Lambda::Function`]],
+                                  Description: Option[String] = None,
+                                  CodeSha256: Option[Token[String]] = None,
+                                  override val Condition: Option[ConditionRef] = None)
+    extends Resource[`AWS::Lambda::Version`]
+    with HasArn {
+
+  override def arn = `Fn::GetAtt`(Seq(name, "Arn"))
+
+  def version = `Fn::GetAtt`(Seq(name, "Version"))
+
+  def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
+}
+
+object `AWS::Lambda::Version` extends DefaultJsonProtocol {
+  implicit val format: JsonFormat[`AWS::Lambda::Version`] = jsonFormat5(
+      `AWS::Lambda::Version`.apply)
+}
+
+case class `AWS::Lambda::Alias`(name: String,
+                                AliasName: Token[String],
+                                FunctionName: Token[ResourceRef[`AWS::Lambda::Function`]],
+                                FunctionVersion: Token[String],
+                                Description: Option[Token[String]] = None,
+                                override val Condition: Option[ConditionRef] = None)
+    extends Resource[`AWS::Lambda::Alias`]
+    with HasArn {
+
+  override def arn = `Fn::GetAtt`(Seq(name, "Arn"))
+
+  def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
+}
+
+object `AWS::Lambda::Alias` extends DefaultJsonProtocol {
+  //implicit val format: JsonFormat[`AWS::Lambda::Alias`] = jsonFormat6(`AWS::Lambda::Alias`.apply)
+  implicit val format: JsonFormat[`AWS::Lambda::Alias`] = jsonFormat(`AWS::Lambda::Alias`.apply,
+                                                                     "name",
+                                                                     "Name",
+                                                                     "FunctionName",
+                                                                     "FunctionVersion",
+                                                                     "Description",
+                                                                     "Condition")
+}

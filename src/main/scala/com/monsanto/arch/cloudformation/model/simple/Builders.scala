@@ -45,7 +45,7 @@ trait Route {
         visibility + "RouteTable" + routeTableOrdinal + "Route" + routeOrdinal,
         RouteTableId           = ResourceRef(rt),
         DestinationCidrBlock   = cidr,
-        connectionBobber:             ValidRouteComboOption,
+        connectionBobber       = connectionBobber,
         DependsOn              = dependsOn
       )
 
@@ -202,8 +202,9 @@ trait Subnet extends AvailabilityZone with Outputs {
   def nat(eip: `AWS::EC2::EIP`, routeTables: Seq[`AWS::EC2::RouteTable`], ga: `AWS::EC2::VPCGatewayAttachment`)
          (implicit s: `AWS::EC2::Subnet`): Template = {
     val nat = `AWS::EC2::NatGateway`(s.name + "Nat", `Fn::GetAtt`(Seq(eip.name, "AllocationId")), s)
+    val natRoute : ValidRouteComboOption = NatGatewayRoute(nat)
     val routes = routeTables.map{ rt =>
-      `AWS::EC2::Route`(s.name + "Nat" + rt.name, rt, CidrBlock(0, 0, 0, 0, 0), nat)
+      `AWS::EC2::Route`(s.name + "Nat" + rt.name, rt, CidrBlock(0, 0, 0, 0, 0), natRoute)
     }
     Template.fromResource(nat) ++ eip ++ routes
   }
@@ -517,7 +518,7 @@ trait Gateway {
     val attachment = `AWS::EC2::VPCGatewayAttachment`(
       attName,
       VpcId = vpc,
-      gatewayId = gateway
+      gatewayId = InternetGateway(gateway)
     )
 
     (gateway, attachment)

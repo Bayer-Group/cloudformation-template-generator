@@ -16,7 +16,7 @@ trait SecurityGroupRoutableMaker[R <: Resource[R]]{
     SecurityGroupRoutable(withSG(r, ResourceRef(sg)), sg)
   }
 }
-object SecurityGroupRoutableMaker {
+object SecurityGroupRoutableMaker extends SecurityGroupRoutableMakerExtensions {
   implicit object EC2Maker extends SecurityGroupRoutableMaker[`AWS::EC2::Instance`] {
     def withSG(r: `AWS::EC2::Instance`, sgr: ResourceRef[`AWS::EC2::SecurityGroup`]) = r.copy(SecurityGroupIds = r.SecurityGroupIds :+ sgr)
   }
@@ -29,11 +29,6 @@ object SecurityGroupRoutableMaker {
   implicit object AutoScalingLaunchMaker extends SecurityGroupRoutableMaker[`AWS::AutoScaling::LaunchConfiguration`] {
     def withSG(r: `AWS::AutoScaling::LaunchConfiguration`, sgr: ResourceRef[`AWS::EC2::SecurityGroup`]) =
       r.copy(SecurityGroups = r.SecurityGroups :+ Token.fromAny(sgr))
-  }
-
-  implicit object RDSMaker extends SecurityGroupRoutableMaker[`AWS::RDS::DBInstance`] {
-    def withSG(r: `AWS::RDS::DBInstance`, sgr: ResourceRef[`AWS::EC2::SecurityGroup`]) =
-      r.copy(VPCSecurityGroups = Some(r.VPCSecurityGroups.getOrElse(Seq()) :+ sgr))
   }
 }
 

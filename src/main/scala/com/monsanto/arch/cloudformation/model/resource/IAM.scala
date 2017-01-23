@@ -83,9 +83,8 @@ object `AWS::IAM::ManagedPolicy` extends DefaultJsonProtocol {
   implicit val format: JsonFormat[`AWS::IAM::ManagedPolicy`] = jsonFormat8(`AWS::IAM::ManagedPolicy`.apply)
 }
 
-
-case class AWSManagedPolicy(name: String) {
-  def buildARN = s"arn:aws:iam::aws:policy/$name"
+case class AWSManagedPolicy(name: Token[String], accountId : Token[String] = "aws") {
+  def buildARN = aws"arn:aws:iam::$accountId:policy/$name"
 }
 
 case class ManagedPolicyARN private(resource: Either[ResourceRef[`AWS::IAM::ManagedPolicy`], AWSManagedPolicy])
@@ -94,7 +93,7 @@ object ManagedPolicyARN extends DefaultJsonProtocol {
     def write(obj: ManagedPolicyARN) =
       obj.resource match {
         case Left(ref) => ref.toJson
-        case Right(arn) => JsString(arn.buildARN)
+        case Right(arn) => implicitly[JsonWriter[Token[String]]].write(arn.buildARN)
       }
     def read(json: JsValue) = ???
   }

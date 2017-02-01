@@ -12,6 +12,7 @@ case class `AWS::SQS::Queue`(name: String,
                              MessageRetentionPeriod: Token[Int],
                              ReceiveMessageWaitTimeSeconds: Token[Int],
                              VisibilityTimeout: Token[Int],
+                             RedrivePolicy: Option[RedrivePolicy] = None,
                              override val Condition: Option[ConditionRef] = None)
   extends Resource[`AWS::SQS::Queue`] with HasArn with Subscribable {
 
@@ -27,7 +28,7 @@ case class `AWS::SQS::Queue`(name: String,
 }
 
 object `AWS::SQS::Queue` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::SQS::Queue`] = jsonFormat7(`AWS::SQS::Queue`.apply)
+  implicit val format: JsonFormat[`AWS::SQS::Queue`] = jsonFormat8(`AWS::SQS::Queue`.apply)
 }
 
 case class `AWS::SQS::QueuePolicy`(name: String,
@@ -40,4 +41,14 @@ case class `AWS::SQS::QueuePolicy`(name: String,
 
 object `AWS::SQS::QueuePolicy` extends DefaultJsonProtocol {
   implicit val format: JsonFormat[`AWS::SQS::QueuePolicy`] = jsonFormat4(`AWS::SQS::QueuePolicy`.apply)
+}
+
+
+case class RedrivePolicy(
+                          deadLetterTargetArn: Token[String],
+                          maxReceiveCount: Token[Int]
+                        )
+
+object RedrivePolicy extends DefaultJsonProtocol {
+  implicit val format: JsonFormat[RedrivePolicy] = jsonFormat2(RedrivePolicy.apply)
 }

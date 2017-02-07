@@ -150,10 +150,11 @@ case class PolicyStatement(
   Principal: Option[PolicyPrincipal] = None,
   Action:    Seq[String],
   Resource:  Option[Token[String]] = None,
-  Condition: Option[Map[String, Map[String, PolicyConditionValue]]] = None
+  Condition: Option[Map[String, Map[String, PolicyConditionValue]]] = None,
+  Sid:       Option[String] = None
 )
 object PolicyStatement extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[PolicyStatement] = jsonFormat5(PolicyStatement.apply)
+  implicit val format: JsonFormat[PolicyStatement] = jsonFormat6(PolicyStatement.apply)
 }
 
 case class `AWS::IAM::Group`(
@@ -229,9 +230,9 @@ object Policy extends DefaultJsonProtocol {
   implicit val format: JsonFormat[Policy] = jsonFormat2(Policy.apply)
 }
 
-case class PolicyDocument(Statement: Seq[PolicyStatement], Version : Option[IAMPolicyVersion] = None)
+case class PolicyDocument(Statement: Seq[PolicyStatement], Version : Option[IAMPolicyVersion] = None, Id: Option[String] = None)
 object PolicyDocument extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[PolicyDocument] = jsonFormat2(PolicyDocument.apply)
+  implicit val format: JsonFormat[PolicyDocument] = jsonFormat3(PolicyDocument.apply)
 }
 
 sealed trait IAMPolicyVersion

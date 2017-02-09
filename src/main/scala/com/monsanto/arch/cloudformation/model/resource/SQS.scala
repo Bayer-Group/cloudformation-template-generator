@@ -1,7 +1,8 @@
 package com.monsanto.arch.cloudformation.model.resource
 
-import com.monsanto.arch.cloudformation.model.{FunctionCallToken, `Fn::GetAtt`, Token, ConditionRef}
-import spray.json.{JsonFormat, DefaultJsonProtocol}
+import com.monsanto.arch.cloudformation.model.Token.TokenSeq
+import com.monsanto.arch.cloudformation.model.{ConditionRef, Token, `Fn::GetAtt`}
+import spray.json.{DefaultJsonProtocol, JsonFormat}
 
 /**
   * Created by Tyler Southwick on 11/18/15.
@@ -33,7 +34,7 @@ object `AWS::SQS::Queue` extends DefaultJsonProtocol {
 
 case class `AWS::SQS::QueuePolicy`(name: String,
                                    PolicyDocument: PolicyDocument,
-                                   Queues: Seq[Token[String]],
+                                   Queues: TokenSeq[String],
                                    override val Condition: Option[ConditionRef] = None
                                   ) extends Resource[`AWS::SQS::QueuePolicy`] {
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)

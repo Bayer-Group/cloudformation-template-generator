@@ -1,6 +1,7 @@
 package com.monsanto.arch.cloudformation.model.resource
 
 import com.monsanto.arch.cloudformation.model._
+import com.monsanto.arch.cloudformation.model.Token.TokenSeq
 import spray.json._
 
 import scala.annotation.implicitNotFound
@@ -125,7 +126,7 @@ sealed trait PolicyConditionValue
 case class ListPolicyConditionValue(values : Seq[String]) extends PolicyConditionValue
 case class SimplePolicyConditionValue(value : String) extends PolicyConditionValue
 case class TokenPolicyConditionValue(value : Token[String]) extends PolicyConditionValue
-case class TokenListPolicyConditionValue(value : Seq[Token[String]]) extends PolicyConditionValue
+case class TokenListPolicyConditionValue(value : TokenSeq[String]) extends PolicyConditionValue
 
 object PolicyConditionValue extends DefaultJsonProtocol {
   implicit object format extends JsonFormat[PolicyConditionValue] {
@@ -221,7 +222,7 @@ object PolicyPrincipal extends DefaultJsonProtocol {
     def read(json: JsValue) = ???
   }
 }
-case class DefinedPrincipal(targets: Map[String, Seq[Token[String]]]) extends PolicyPrincipal
+case class DefinedPrincipal(targets: Map[String, TokenSeq[String]]) extends PolicyPrincipal
 case object WildcardPrincipal extends PolicyPrincipal
 
 case class Policy(PolicyName: String, PolicyDocument: PolicyDocument)

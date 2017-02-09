@@ -1,13 +1,14 @@
 package com.monsanto.arch.cloudformation.model.resource
 
 import com.monsanto.arch.cloudformation.model.{ConditionRef, Token}
+import com.monsanto.arch.cloudformation.model.Token.TokenSeq
 import spray.json.{DefaultJsonProtocol, JsObject, JsValue, JsonFormat, RootJsonFormat}
 import DefaultJsonProtocol._
 
 
 case class Application(
                         AdditionalInfo: Option[Map[String, Token[String]]],
-                        Args: Option[Seq[Token[String]]],
+                        Args: Option[TokenSeq[String]],
                         Name: Option[Token[String]],
                         Version: Option[Token[String]]
                       )
@@ -16,7 +17,7 @@ object Application {
   implicit val format = jsonFormat4(Application.apply)
 }
 
-case class ScriptBootstrapAction(Args: Option[Seq[Token[String]]], Path: Token[String])
+case class ScriptBootstrapAction(Args: Option[TokenSeq[String]], Path: Token[String])
 object ScriptBootstrapAction {
   implicit val format = jsonFormat2(ScriptBootstrapAction.apply)
 }
@@ -83,8 +84,8 @@ object PlacementType {
   implicit val format = jsonFormat1(PlacementType.apply)
 }
 
-case class JobFlowInstancesConfig(AdditionalMasterSecurityGroups: Option[Seq[Token[String]]],
-                                  AdditionalSlaveSecurityGroups: Option[Seq[Token[String]]],
+case class JobFlowInstancesConfig(AdditionalMasterSecurityGroups: Option[TokenSeq[String]],
+                                  AdditionalSlaveSecurityGroups: Option[TokenSeq[String]],
                                   CoreInstanceGroup: InstanceGroupConfig,
                                   Ec2KeyName: Option[Token[String]],
                                   Ec2SubnetId: Option[Token[String]],
@@ -139,7 +140,7 @@ object `AWS::EMR::Step` {
   implicit val format: RootJsonFormat[`AWS::EMR::Step`] = jsonFormat7(`AWS::EMR::Step`.apply)
 }
 
-case class HadoopJarStep(Args: Option[Seq[Token[String]]], Jar: Token[String], MainClass: Option[Token[String]], StepProperties: Option[StepProperties])
+case class HadoopJarStep(Args: Option[TokenSeq[String]], Jar: Token[String], MainClass: Option[Token[String]], StepProperties: Option[StepProperties])
 
 object HadoopJarStep {
   implicit val format: RootJsonFormat[HadoopJarStep] = jsonFormat4(HadoopJarStep.apply)

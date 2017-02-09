@@ -1,8 +1,9 @@
 package com.monsanto.arch.cloudformation.model.resource
 
 import com.monsanto.arch.cloudformation.model._
-import spray.json.{JsString, JsValue, JsonFormat, DefaultJsonProtocol}
+import spray.json.{DefaultJsonProtocol, JsString, JsValue, JsonFormat}
 import DefaultJsonProtocol._
+import com.monsanto.arch.cloudformation.model.Token.TokenSeq
 
 class Runtime(val runtime: String)
 
@@ -60,7 +61,7 @@ object LambdaEnvironment {
   implicit val format : JsonFormat[LambdaEnvironment] = jsonFormat1(LambdaEnvironment.apply)
 }
 
-case class LambdaVpcConfig(SecurityGroupIds : Seq[Token[String]], SubnetIds : Seq[Token[String]])
+case class LambdaVpcConfig(SecurityGroupIds : TokenSeq[String], SubnetIds : TokenSeq[String])
 
 object LambdaVpcConfig {
   implicit val format : JsonFormat[LambdaVpcConfig] = jsonFormat2(LambdaVpcConfig.apply)

@@ -1,6 +1,7 @@
 package com.monsanto.arch.cloudformation.model.resource
 
 import com.monsanto.arch.cloudformation.model._
+import com.monsanto.arch.cloudformation.model.Token.TokenSeq
 import spray.json._
 
 /**
@@ -9,7 +10,7 @@ import spray.json._
 
 case class `AWS::AutoScaling::AutoScalingGroup`(
     name:                    String,
-    AvailabilityZones:       Seq[Token[String]],
+    AvailabilityZones:       TokenSeq[String],
     LaunchConfigurationName: Token[ResourceRef[`AWS::AutoScaling::LaunchConfiguration`]],
     MinSize:                 StringBackedInt,
     MaxSize:                 StringBackedInt,
@@ -129,7 +130,7 @@ case class AutoScalingRollingUpdate(
     MaxBatchSize: Option[Token[Int]] = None,
     MinInstancesInService: Option[Token[Int]] = None,
     PauseTime: Option[Token[String]] = None,
-    SuspendProcesses: Option[Seq[Token[String]]] = None,
+    SuspendProcesses: Option[TokenSeq[String]] = None,
     WaitOnResourceSignals: Option[Token[Boolean]] = None)
 
 object AutoScalingRollingUpdate extends DefaultJsonProtocol {

@@ -1,6 +1,7 @@
 package com.monsanto.arch.cloudformation.model.resource
 
 import com.monsanto.arch.cloudformation.model.{ConditionRef, ResourceRef, Token, `Fn::GetAtt`}
+import com.monsanto.arch.cloudformation.model.Token.TokenSeq
 import spray.json.{DefaultJsonProtocol, JsonFormat}
 import DefaultJsonProtocol._
 
@@ -219,7 +220,7 @@ case class `AWS::ApiGateway::RestApi`(
                                        CloneFrom: Option[Token[String]] = None,
                                        Description: Option[String] = None,
                                        FailOnWarnings: Option[Boolean] = None,
-                                       Parameters: Option[Seq[Token[String]]] = None,
+                                       Parameters: Option[TokenSeq[String]] = None,
                                        override val Condition: Option[ConditionRef] = None
                                      ) extends Resource[`AWS::ApiGateway::RestApi`] {
   override def when(newCondition: Option[ConditionRef]) = copy(Condition = newCondition)

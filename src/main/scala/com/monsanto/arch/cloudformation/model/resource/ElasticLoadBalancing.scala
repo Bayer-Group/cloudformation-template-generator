@@ -1,6 +1,7 @@
 package com.monsanto.arch.cloudformation.model.resource
 
 import com.monsanto.arch.cloudformation.model._
+import com.monsanto.arch.cloudformation.model.Token.TokenSeq
 import spray.json._
 
 /**
@@ -15,7 +16,7 @@ case class `AWS::ElasticLoadBalancing::LoadBalancer` private (
   Listeners:                 Seq[ELBListener],
   AccessLoggingPolicy:       Option[ELBAccessLoggingPolicy],
   AppCookieStickinessPolicy: Option[ELBAppCookieStickinessPolicy],
-  AvailabilityZones:         Seq[Token[String]],
+  AvailabilityZones:         TokenSeq[String],
   ConnectionDrainingPolicy:  Option[ELBConnectionDrainingPolicy],
   ConnectionSettings:        Option[ELBConnectionSettings],
   CrossZone:                 Option[Boolean],
@@ -126,7 +127,7 @@ object `AWS::ElasticLoadBalancing::LoadBalancer` extends DefaultJsonProtocol {
     Listeners:                 Seq[ELBListener],
     AccessLoggingPolicy:       Option[ELBAccessLoggingPolicy]                     = None,
     AppCookieStickinessPolicy: Option[ELBAppCookieStickinessPolicy]               = None,
-    AvailabilityZones:         Seq[Token[String]]                                 = Seq.empty,
+    AvailabilityZones:         TokenSeq[String]                                   = Seq.empty,
     ConnectionDrainingPolicy:  Option[ELBConnectionDrainingPolicy]                = None,
     ConnectionSettings:        Option[ELBConnectionSettings]                      = None,
     CrossZone:                 Option[Boolean]                                    = None,
@@ -220,7 +221,7 @@ case class ELBListener(
   LoadBalancerPort: String,
   Protocol:         ELBListenerProtocol,
   InstanceProtocol: Option[ELBListenerProtocol] = Some(ELBListenerProtocol.HTTP),
-  PolicyNames:      Seq[Token[String]] = Seq.empty,
+  PolicyNames:      TokenSeq[String] = Seq.empty,
   SSLCertificateId: Option[Token[String]] = None
 )
 object ELBListener extends DefaultJsonProtocol {

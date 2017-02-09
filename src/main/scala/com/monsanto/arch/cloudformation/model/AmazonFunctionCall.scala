@@ -1,10 +1,10 @@
 package com.monsanto.arch.cloudformation.model
 
 import com.monsanto.arch.cloudformation.model.resource.Resource
+import spray.json.DefaultJsonProtocol._
 import spray.json._
-import DefaultJsonProtocol._
-import scala.language.existentials
-import scala.language.implicitConversions
+
+import scala.language.{existentials, higherKinds, implicitConversions}
 
 /**
  * Created by Ryan Richt on 2/15/15
@@ -12,7 +12,6 @@ import scala.language.implicitConversions
 
 sealed abstract class AmazonFunctionCall[LogicalReturnType](val funName: String){type CFBackingType ; val arguments: CFBackingType}
 object AmazonFunctionCall extends DefaultJsonProtocol {
-
   def lazyWriter[T](format: => JsonWriter[T]) = new JsonWriter[T] {
     lazy val delegate = format
     def write(x: T) = delegate.write(x)
@@ -28,6 +27,7 @@ object AmazonFunctionCall extends DefaultJsonProtocol {
         case ga:  `Fn::GetAtt`         => implicitly[JsonWriter[`Fn::GetAtt`#CFBackingType]      ].write(ga.arguments)
         case azs: `Fn::GetAZs`         => implicitly[JsonWriter[`Fn::GetAZs`#CFBackingType]      ].write(azs.arguments)
         case j:   `Fn::Join`           => implicitly[JsonWriter[`Fn::Join`#CFBackingType]        ].write(j.arguments)
+        case s:   `Fn::Split`          => implicitly[JsonWriter[`Fn::Split`#CFBackingType]       ].write(s.arguments)
         case fim: `Fn::FindInMap`[_]   => implicit val foo = MappingRef.formatUnderscore
                                           implicitly[JsonWriter[`Fn::FindInMap`[_]#CFBackingType]].write(fim.arguments)
         case b64: `Fn::Base64`         => implicitly[JsonWriter[`Fn::Base64`#CFBackingType]      ].write(b64.arguments)
@@ -127,6 +127,12 @@ case class `Fn::GetAZs`(region: Token[String])
 case class `Fn::Join`(joinChar: String, toJoin: Seq[Token[String]])
   extends AmazonFunctionCall[String]("Fn::Join"){type CFBackingType = (String, Seq[Token[String]]) ; val arguments = (joinChar, toJoin)}
 
+case class `Fn::Split`(delimiterChar: String, toSplit: Token[String])
+  extends AmazonFunctionCall[Seq[String]]("Fn::Split"){
+  override type CFBackingType = (String, Token[String])
+  override val arguments: (String, Token[String]) = (delimiterChar, toSplit)
+}
+
 case class `Fn::FindInMap`[R](mapName: Token[MappingRef[R]], outerKey: Token[String], innerKey: Token[String])
   extends AmazonFunctionCall[R]("Fn::FindInMap"){type CFBackingType = (Token[MappingRef[_]], Token[String], Token[String]); val arguments = (mapName.asInstanceOf[Token[MappingRef[_]]], outerKey, innerKey)}
 
@@ -207,6 +213,12 @@ object Token extends DefaultJsonProtocol {
   implicit def fromBoolean(s: Boolean): BooleanToken = BooleanToken(s)
   implicit def fromInt(s: Int): IntToken = IntToken(s)
   implicit def fromFunction[R](f: AmazonFunctionCall[R]): FunctionCallToken[R] = FunctionCallToken[R](f)
+
+  implicit def fromFunctionSeq[R](f: AmazonFunctionCall[Seq[R]]): TokenSeq[R] = Left(FunctionCallSeqToken(f))
+  implicit def fromSeqToken[R](s: Seq[Token[R]]): TokenSeq[R] = Right(s)
+  implicit def fromSeqToken[R, S](s: Seq[R])(implicit ev1: R ⇒ Token[S]): TokenSeq[S] = Right(s.map(ev1))
+  implicit def tokenSeqInOption[R, P](oR: Option[Seq[R]])(implicit ev1: Seq[Token[P]] ⇒ TokenSeq[P], ev2: R ⇒ Token[P]): Option[TokenSeq[P]] = oR.map(x ⇒ ev1(x.map(ev2)))
+
   implicit def fromSome[R](oR: Some[R])(implicit ev1: R => Token[R]): Some[Token[R]] = oR.map(ev1).asInstanceOf[Some[Token[R]]]
   implicit def fromOption[R](oR: Option[R])(implicit ev1: R => Token[R]): Option[Token[R]] = oR.map(ev1)
 
@@ -218,21 +230,33 @@ object Token extends DefaultJsonProtocol {
   implicit def format[R : JsonFormat]: JsonFormat[Token[R]] = lazyFormat(new JsonFormat[Token[R]] {
     def write(obj: Token[R]) = {
       obj match {
-        case a: AnyToken[R]          => a.value.toJson
-        case s: StringToken          => s.value.toJson
-        case i: IntToken             => i.value.toJson
-        case b: BooleanToken         => b.value.toJson
-        case s: UNSAFEToken[_]       => s.value.toJson
+        case a: AnyToken[R]                => a.value.toJson
+        case s: StringToken                => s.value.toJson
+        case i: IntToken                   => i.value.toJson
+        case b: BooleanToken               => b.value.toJson
+        case s: UNSAFEToken[_]             => s.value.toJson
           // its OK to erase the return type of AmazonFunctionCalls b/c they are only used at compile time for checking
           // not for de/serialization logic or JSON representation
-        case f: FunctionCallToken[_] => implicitly[JsonWriter[AmazonFunctionCall[_]]].write(f.call)
-        case p: PseudoParameterRef   => p.toJson
-        case r: ResourceRef[_]       => r.toJson
+        case f: FunctionCallToken[_]       => implicitly[JsonWriter[AmazonFunctionCall[_]]].write(f.call)
+        case f: FunctionCallSeqToken[_]    => implicitly[JsonWriter[AmazonFunctionCall[_]]].write(f.call)
+        case p: PseudoParameterRef         => p.toJson
+        case r: ResourceRef[_]             => r.toJson
       }
     }
 
     // TODO: BLERG, for now, to make Tuple formats work
     def read(json: JsValue) = ???
+  })
+
+  type TokenSeq[A] = Either[FunctionCallSeqToken[A], Seq[Token[A]]]
+
+  implicit def eitherFormat[R: JsonFormat]: JsonFormat[TokenSeq[R]] = lazyFormat(new JsonFormat[TokenSeq[R]] {
+    override def write(obj: TokenSeq[R]): JsValue = obj match {
+      case Left(f) ⇒ implicitly[JsonWriter[Token[Seq[R]]]].write(f)
+      case Right(s) ⇒ implicitly[JsonWriter[Seq[Token[R]]]].write(s)
+    }
+
+    override def read(json: JsValue): TokenSeq[R] = ???
   })
 }
 case class AnyToken[R : JsonFormat](value: R) extends Token[R]
@@ -240,6 +264,8 @@ case class StringToken(value: String) extends Token[String]
 case class BooleanToken(value: Boolean) extends Token[Boolean]
 case class IntToken(value: Int) extends Token[Int]
 case class FunctionCallToken[R](call: AmazonFunctionCall[R]) extends Token[R]
+
+case class FunctionCallSeqToken[R](call: AmazonFunctionCall[Seq[R]]) extends Token[Seq[R]]
 
 @deprecated("use ParameterRef or ResourceRef instead", "Feb 20 2015")
 case class UNSAFEToken[R](value: String) extends Token[R]

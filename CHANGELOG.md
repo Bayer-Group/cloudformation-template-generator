@@ -5,7 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [3.5.3] - Unreleased
 
--  Add support for Id and Sid to IAM policies and statements (see [#139])
+-  Add support for Id and Sid to IAM policies and statements (see [#139](https://github.com/MonsantoCo/cloudformation-template-generator/pull/139))
 
 ## [3.5.2] - 2017-01-03
 

@@ -191,9 +191,13 @@ There is a [string interpolator](http://monsantoco.github.io/cloudformation-temp
 
 ## Releasing
 
+Make sure the changes for the release are included in CHANGELOG.md.
+
 This project uses the sbt release plugin.  After the changes you want to
 release are committed on the master branch, you simple need to run two
 commands to publish the library and its documentation.
 
     sbt release
     sbt ghpages-push-site
+
+After publishing, create a new release under Github [releases](https://github.com/MonsantoCo/cloudformation-template-generator/releases), copying the portion of the change log for this release from CHANGELOG.md.

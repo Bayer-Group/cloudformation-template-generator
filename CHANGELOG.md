@@ -3,10 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [3.5.3] - Unreleased
+## [3.5.3] - 2017-02-16
 
 -  Add support for Id and Sid to IAM policies and statements (see [#139](https://github.com/MonsantoCo/cloudformation-template-generator/pull/139))
 -  Add support for Fn::Split (see [#141](https://github.com/MonsantoCo/cloudformation-template-generator/pull/141))
+-  Add RedrivePolicy for SQS (see [#137](https://github.com/MonsantoCo/cloudformation-template-generator/pull/137))
 
 ## [3.5.2] - 2017-01-03
 

@@ -1,6 +1,7 @@
 package com.monsanto.arch.cloudformation.model.resource
 
 import com.monsanto.arch.cloudformation.model.{ConditionRef, EnumFormat, ResourceRef, StringBackedInt, Token}
+import com.monsanto.arch.cloudformation.model.Token.TokenSeq
 import spray.json._
 
 /**
@@ -90,13 +91,13 @@ case class `AWS::ElastiCache::CacheCluster`(
   NotificationTopicArn :      Option[Token[String]]                                           = None,
   Port:                       Option[Token[Int]]                                              = None,
   PreferredAvailabilityZone : Option[Token[String]]                                           = None,
-  PreferredAvailabilityZones: Option[Token[Seq[String]]]                                      = None,
+  PreferredAvailabilityZones: Option[TokenSeq[String]]                                        = None,
   PreferredMaintenanceWindow: Option[Token[String]]                                           = None,
   SnapshotArns:               Option[Token[Seq[String]]]                                      = None,
   SnapshotName:               Option[Token[String]]                                           = None,
   SnapshotRetentionLimit:     Option[Token[Int]]                                              = None,
   SnapshotWindow:             Option[Token[String]]                                           = None,
-  VpcSecurityGroupIds:        Option[Seq[Token[String]]]                                      = None,
+  VpcSecurityGroupIds:        Option[TokenSeq[String]]                                        = None,
   Tags:                       Option[Seq[AmazonTag]]                                          = None,
   override val Condition:     Option[ConditionRef]                                            = None
   ) extends Resource[`AWS::ElastiCache::CacheCluster`] {

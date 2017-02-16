@@ -1,8 +1,11 @@
 package com.monsanto.arch.cloudformation.model.simple
 
 import java.util.UUID
-import com.monsanto.arch.cloudformation.model.resource._
+
+import com.monsanto.arch.cloudformation.model.Token.TokenSeq
 import com.monsanto.arch.cloudformation.model._
+import com.monsanto.arch.cloudformation.model.resource._
+
 import scala.language.implicitConversions
 
 object Builders extends
@@ -78,6 +81,7 @@ trait Route {
 }
 
 trait Instance {
+  import Token._
 
   implicit class RichInstance(ec2: `AWS::EC2::Instance`) {
 
@@ -289,7 +293,7 @@ trait Autoscaling {
       maxSize:     Int,
       desiredSize: Token[Int],
       tag:         String,
-      azs:         Seq[Token[String]],
+      azs:         TokenSeq[String],
       subnets:     Seq[Token[ResourceRef[`AWS::EC2::Subnet`]]],
       elbs:        Option[Seq[Token[ResourceRef[`AWS::ElasticLoadBalancing::LoadBalancer`]]]] = None
     )(implicit vpc: `AWS::EC2::VPC`) = {

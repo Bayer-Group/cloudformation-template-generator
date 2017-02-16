@@ -1,6 +1,7 @@
 package com.monsanto.arch.cloudformation.model.resource
 
 import com.monsanto.arch.cloudformation.model._
+import com.monsanto.arch.cloudformation.model.Token.TokenSeq
 import spray.json._
 
 /**
@@ -13,7 +14,7 @@ sealed trait Route53RecordSetBaseFields {
   def RecordType:      Route53RecordType
   def HostedZoneName:  Option[Token[String]]
   def HostedZoneId:    Option[Token[String]]
-  def ResourceRecords: Option[Seq[Token[String]]]
+  def ResourceRecords: Option[TokenSeq[String]]
   def TTL:             Option[Token[String]]
   def AliasTarget:     Option[Route53AliasTarget]
   def Condition: Option[ConditionRef]
@@ -51,7 +52,7 @@ class `AWS::Route53::RecordSet` protected (
   val RecordType:      Route53RecordType,
   val HostedZoneName:  Option[Token[String]], // The parent domain, with a . after it.  Must be route 53 managed already.
   val HostedZoneId:    Option[Token[String]], // the id of the hosted zone
-  val ResourceRecords: Option[Seq[Token[String]]] = None,
+  val ResourceRecords: Option[TokenSeq[String]] = None,
   val TTL:             Option[Token[String]] = None,
   val AliasTarget:     Option[Route53AliasTarget] = None,
   override val Condition: Option[ConditionRef] = None
@@ -77,7 +78,7 @@ object `AWS::Route53::RecordSet` extends DefaultJsonProtocol {
       RecordName:      Token[String], // The subdomain, with a . after it.
       RecordType:      Route53RecordType,
       HostedZoneName:  Token[String], // The parent domain, with a . after it.  Must be route 53 managed already.
-      ResourceRecords: Seq[Token[String]],
+      ResourceRecords: TokenSeq[String],
       TTL:             Token[String],
       Condition:       Option[ConditionRef] = None
     ) = new `AWS::Route53::RecordSet`(name, RecordName, RecordType, Some(HostedZoneName), None, Some(ResourceRecords), Some(TTL), Condition = Condition)
@@ -87,7 +88,7 @@ object `AWS::Route53::RecordSet` extends DefaultJsonProtocol {
                      RecordName:      Token[String], // The subdomain, with a . after it.
                      RecordType:      Route53RecordType,
                      HostedZoneID:    Token[String], 
-                     ResourceRecords: Seq[Token[String]],
+                     ResourceRecords: TokenSeq[String],
                      TTL:             Token[String],
                      Condition:       Option[ConditionRef] = None
      ) = new `AWS::Route53::RecordSet`(name, RecordName, RecordType, None, Some(HostedZoneID), Some(ResourceRecords), Some(TTL), Condition = Condition)
@@ -110,7 +111,7 @@ class `Custom::RemoteRoute53RecordSet` private(
                                           val RecordType:      Route53RecordType,
                                           val HostedZoneName:  Option[Token[String]], // The parent domain, with a . after it.  Must be route 53 managed already.
                                           val HostedZoneId:    Option[Token[String]], // the id of the hosted zone
-                                          val ResourceRecords: Option[Seq[Token[String]]] = None,
+                                          val ResourceRecords: Option[TokenSeq[String]] = None,
                                           val TTL:             Option[Token[String]] = None,
                                           val AliasTarget:     Option[Route53AliasTarget] = None,
                                           override val Condition: Option[ConditionRef] = None
@@ -145,7 +146,7 @@ object `Custom::RemoteRoute53RecordSet` {
                      RecordName:      Token[String], // The subdomain, with a . after it.
                      RecordType:      Route53RecordType,
                      HostedZoneName:  Token[String], // The parent domain, with a . after it.  Must be route 53 managed already.
-                     ResourceRecords: Seq[Token[String]],
+                     ResourceRecords: TokenSeq[String],
                      TTL:             Token[String],
                      Condition:       Option[ConditionRef] = None
                    ) = new `Custom::RemoteRoute53RecordSet`(name, ServiceToken, DestinationRole, RecordName, RecordType, Some(HostedZoneName), None, Some(ResourceRecords), Some(TTL), Condition = Condition)
@@ -157,7 +158,7 @@ object `Custom::RemoteRoute53RecordSet` {
                          RecordName:      Token[String], // The subdomain, with a . after it.
                          RecordType:      Route53RecordType,
                          HostedZoneID:    Token[String],
-                         ResourceRecords: Seq[Token[String]],
+                         ResourceRecords: TokenSeq[String],
                          TTL:             Token[String],
                          Condition:       Option[ConditionRef] = None
                        ) = new `Custom::RemoteRoute53RecordSet`(name, ServiceToken, DestinationRole, RecordName, RecordType, None, Some(HostedZoneID), Some(ResourceRecords), Some(TTL), Condition = Condition)

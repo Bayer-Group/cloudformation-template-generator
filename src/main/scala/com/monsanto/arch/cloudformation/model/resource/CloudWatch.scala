@@ -1,6 +1,7 @@
 package com.monsanto.arch.cloudformation.model.resource
 
 import com.monsanto.arch.cloudformation.model._
+import com.monsanto.arch.cloudformation.model.Token.TokenSeq
 import spray.json._
 
 /**
@@ -19,12 +20,12 @@ case class `AWS::CloudWatch::Alarm`(
   Statistic:               `AWS::CloudWatch::Alarm::Statistic`,
   Threshold:               String, //BackedInt,
   ActionsEnabled:          Option[Boolean] = None,
-  AlarmActions:            Option[Seq[Token[String]]] = None,
+  AlarmActions:            Option[TokenSeq[String]] = None,
   AlarmDescription:        Option[String] = None,
   AlarmName:               Option[Token[String]] = None,
   Dimensions:              Option[Seq[`AWS::CloudWatch::Alarm::Dimension`]] = None,
-  InsufficientDataActions: Option[Seq[Token[String]]] = None,
-  OKActions:               Option[Seq[Token[String]]] = None,
+  InsufficientDataActions: Option[TokenSeq[String]] = None,
+  OKActions:               Option[TokenSeq[String]] = None,
   Unit:                    Option[`AWS::CloudWatch::Alarm::Unit`] = None,
   override val Condition: Option[ConditionRef] = None
   ) extends Resource[`AWS::CloudWatch::Alarm`]{

@@ -536,9 +536,21 @@ Parameters and Mappings.  A Condition is created but not used.
                         </a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
+                        <a class="class" href="Fn$colon$colonSplit.html" title=""></a>
+                        <a href="Fn$colon$colonSplit.html" title="">
+                          Fn::Split
+                        </a>
+                      </li><li class="current-entities indented5">
+                        <span class="separator"></span>
                         <a class="class" href="Fn$colon$colonSub.html" title=""></a>
                         <a href="Fn$colon$colonSub.html" title="">
                           Fn::Sub
+                        </a>
+                      </li><li class="current-entities indented5">
+                        <span class="separator"></span>
+                        <a class="class" href="FunctionCallSeqToken.html" title=""></a>
+                        <a href="FunctionCallSeqToken.html" title="">
+                          FunctionCallSeqToken
                         </a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
@@ -790,6 +802,22 @@ and builds a template from them.">
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>StandardFormats</dd></dl></div>
+    </li><li name="com.monsanto.arch.cloudformation.model.Token.TokenSeq" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="TokenSeq[A]=Either[com.monsanto.arch.cloudformation.model.FunctionCallSeqToken[A],Seq[com.monsanto.arch.cloudformation.model.Token[A]]]"></a><a id="TokenSeq[A]:TokenSeq[A]"></a>
+      <span class="permalink">
+      <a href="../../../../../com/monsanto/arch/cloudformation/model/Token$.html#TokenSeq[A]=Either[com.monsanto.arch.cloudformation.model.FunctionCallSeqToken[A],Seq[com.monsanto.arch.cloudformation.model.Token[A]]]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">type</span>
+      </span>
+      <span class="symbol">
+        <span class="name">TokenSeq</span><span class="tparams">[<span name="A">A</span>]</span><span class="result alias"> = <span class="extype" name="scala.util.Either">Either</span>[<a href="FunctionCallSeqToken.html" class="extype" name="com.monsanto.arch.cloudformation.model.FunctionCallSeqToken">FunctionCallSeqToken</a>[<span class="extype" name="com.monsanto.arch.cloudformation.model.Token.TokenSeq.A">A</span>], <span class="extype" name="scala.Seq">Seq</span>[<a href="Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="com.monsanto.arch.cloudformation.model.Token.TokenSeq.A">A</span>]]]</span>
+      </span>
+      
+      
     </li></ol>
             </div>
 
@@ -900,6 +928,22 @@ and builds a template from them.">
     </span>)</span>
               
         </dd></dl></div>
+    </li><li name="com.monsanto.arch.cloudformation.model.Token#eitherFormat" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="eitherFormat[R](implicitevidence$10:spray.json.JsonFormat[R]):spray.json.JsonFormat[com.monsanto.arch.cloudformation.model.Token.TokenSeq[R]]"></a><a id="eitherFormat[R](JsonFormat[R]):JsonFormat[TokenSeq[R]]"></a>
+      <span class="permalink">
+      <a href="../../../../../com/monsanto/arch/cloudformation/model/Token$.html#eitherFormat[R](implicitevidence$10:spray.json.JsonFormat[R]):spray.json.JsonFormat[com.monsanto.arch.cloudformation.model.Token.TokenSeq[R]]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">eitherFormat</span><span class="tparams">[<span name="R">R</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="spray.json.JsonFormat">JsonFormat</span>[<span class="extype" name="com.monsanto.arch.cloudformation.model.Token.eitherFormat.R">R</span>]</span>)</span><span class="result">: <span class="extype" name="spray.json.JsonFormat">JsonFormat</span>[<a href="#TokenSeq[A]=Either[com.monsanto.arch.cloudformation.model.FunctionCallSeqToken[A],Seq[com.monsanto.arch.cloudformation.model.Token[A]]]" class="extmbr" name="com.monsanto.arch.cloudformation.model.Token.TokenSeq">TokenSeq</a>[<span class="extype" name="com.monsanto.arch.cloudformation.model.Token.eitherFormat.R">R</span>]]</span>
+      </span>
+      
+      
     </li><li name="spray.json.StandardFormats#eitherFormat" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eitherFormat[A,B](implicitevidence$3:StandardFormats.this.JF[A],implicitevidence$4:StandardFormats.this.JF[B]):StandardFormats.this.JF[Either[A,B]]"></a><a id="eitherFormat[A,B](JF[A],JF[B]):JF[Either[A,B]]"></a>
       <span class="permalink">
@@ -1098,6 +1142,22 @@ and builds a template from them.">
       </span>
       
       
+    </li><li name="com.monsanto.arch.cloudformation.model.Token#fromFunctionSeq" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="fromFunctionSeq[R](f:com.monsanto.arch.cloudformation.model.AmazonFunctionCall[Seq[R]]):com.monsanto.arch.cloudformation.model.Token.TokenSeq[R]"></a><a id="fromFunctionSeq[R](AmazonFunctionCall[Seq[R]]):TokenSeq[R]"></a>
+      <span class="permalink">
+      <a href="../../../../../com/monsanto/arch/cloudformation/model/Token$.html#fromFunctionSeq[R](f:com.monsanto.arch.cloudformation.model.AmazonFunctionCall[Seq[R]]):com.monsanto.arch.cloudformation.model.Token.TokenSeq[R]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">fromFunctionSeq</span><span class="tparams">[<span name="R">R</span>]</span><span class="params">(<span name="f">f: <a href="AmazonFunctionCall.html" class="extype" name="com.monsanto.arch.cloudformation.model.AmazonFunctionCall">AmazonFunctionCall</a>[<span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="com.monsanto.arch.cloudformation.model.Token.fromFunctionSeq.R">R</span>]]</span>)</span><span class="result">: <a href="#TokenSeq[A]=Either[com.monsanto.arch.cloudformation.model.FunctionCallSeqToken[A],Seq[com.monsanto.arch.cloudformation.model.Token[A]]]" class="extmbr" name="com.monsanto.arch.cloudformation.model.Token.TokenSeq">TokenSeq</a>[<span class="extype" name="com.monsanto.arch.cloudformation.model.Token.fromFunctionSeq.R">R</span>]</span>
+      </span>
+      
+      
     </li><li name="com.monsanto.arch.cloudformation.model.Token#fromInt" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="fromInt(s:Int):com.monsanto.arch.cloudformation.model.IntToken"></a><a id="fromInt(Int):IntToken"></a>
       <span class="permalink">
@@ -1175,6 +1235,38 @@ and builds a template from them.">
       </span>
       <span class="symbol">
         <span class="name">fromSeq</span><span class="tparams">[<span name="R">R &lt;: <a href="resource/Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a>[<span class="extype" name="com.monsanto.arch.cloudformation.model.Token.fromSeq.R">R</span>]</span>]</span><span class="params">(<span name="sR">sR: <span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="com.monsanto.arch.cloudformation.model.Token.fromSeq.R">R</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="toRef">toRef: (<span class="extype" name="com.monsanto.arch.cloudformation.model.Token.fromSeq.R">R</span>) ⇒ <a href="ResourceRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ResourceRef">ResourceRef</a>[<span class="extype" name="com.monsanto.arch.cloudformation.model.Token.fromSeq.R">R</span>]</span>)</span><span class="result">: <span class="extype" name="scala.Seq">Seq</span>[<a href="Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<a href="ResourceRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ResourceRef">ResourceRef</a>[<span class="extype" name="com.monsanto.arch.cloudformation.model.Token.fromSeq.R">R</span>]]]</span>
+      </span>
+      
+      
+    </li><li name="com.monsanto.arch.cloudformation.model.Token#fromSeqToken" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="fromSeqToken[R,S](s:Seq[R])(implicitev1:R=&gt;com.monsanto.arch.cloudformation.model.Token[S]):com.monsanto.arch.cloudformation.model.Token.TokenSeq[S]"></a><a id="fromSeqToken[R,S](Seq[R])((R)⇒Token[S]):TokenSeq[S]"></a>
+      <span class="permalink">
+      <a href="../../../../../com/monsanto/arch/cloudformation/model/Token$.html#fromSeqToken[R,S](s:Seq[R])(implicitev1:R=&gt;com.monsanto.arch.cloudformation.model.Token[S]):com.monsanto.arch.cloudformation.model.Token.TokenSeq[S]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">fromSeqToken</span><span class="tparams">[<span name="R">R</span>, <span name="S">S</span>]</span><span class="params">(<span name="s">s: <span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="com.monsanto.arch.cloudformation.model.Token.fromSeqToken.R">R</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="ev1">ev1: (<span class="extype" name="com.monsanto.arch.cloudformation.model.Token.fromSeqToken.R">R</span>) ⇒ <a href="Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="com.monsanto.arch.cloudformation.model.Token.fromSeqToken.S">S</span>]</span>)</span><span class="result">: <a href="#TokenSeq[A]=Either[com.monsanto.arch.cloudformation.model.FunctionCallSeqToken[A],Seq[com.monsanto.arch.cloudformation.model.Token[A]]]" class="extmbr" name="com.monsanto.arch.cloudformation.model.Token.TokenSeq">TokenSeq</a>[<span class="extype" name="com.monsanto.arch.cloudformation.model.Token.fromSeqToken.S">S</span>]</span>
+      </span>
+      
+      
+    </li><li name="com.monsanto.arch.cloudformation.model.Token#fromSeqToken" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="fromSeqToken[R](s:Seq[com.monsanto.arch.cloudformation.model.Token[R]]):com.monsanto.arch.cloudformation.model.Token.TokenSeq[R]"></a><a id="fromSeqToken[R](Seq[Token[R]]):TokenSeq[R]"></a>
+      <span class="permalink">
+      <a href="../../../../../com/monsanto/arch/cloudformation/model/Token$.html#fromSeqToken[R](s:Seq[com.monsanto.arch.cloudformation.model.Token[R]]):com.monsanto.arch.cloudformation.model.Token.TokenSeq[R]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">fromSeqToken</span><span class="tparams">[<span name="R">R</span>]</span><span class="params">(<span name="s">s: <span class="extype" name="scala.Seq">Seq</span>[<a href="Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="com.monsanto.arch.cloudformation.model.Token.fromSeqToken.R">R</span>]]</span>)</span><span class="result">: <a href="#TokenSeq[A]=Either[com.monsanto.arch.cloudformation.model.FunctionCallSeqToken[A],Seq[com.monsanto.arch.cloudformation.model.Token[A]]]" class="extmbr" name="com.monsanto.arch.cloudformation.model.Token.TokenSeq">TokenSeq</a>[<span class="extype" name="com.monsanto.arch.cloudformation.model.Token.fromSeqToken.R">R</span>]</span>
       </span>
       
       
@@ -2442,6 +2534,22 @@ and builds a template from them.">
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="com.monsanto.arch.cloudformation.model.Token#tokenSeqInOption" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="tokenSeqInOption[R,P](oR:Option[Seq[R]])(implicitev1:Seq[com.monsanto.arch.cloudformation.model.Token[P]]=&gt;com.monsanto.arch.cloudformation.model.Token.TokenSeq[P],implicitev2:R=&gt;com.monsanto.arch.cloudformation.model.Token[P]):Option[com.monsanto.arch.cloudformation.model.Token.TokenSeq[P]]"></a><a id="tokenSeqInOption[R,P](Option[Seq[R]])((Seq[Token[P]])⇒TokenSeq[P],(R)⇒Token[P]):Option[TokenSeq[P]]"></a>
+      <span class="permalink">
+      <a href="../../../../../com/monsanto/arch/cloudformation/model/Token$.html#tokenSeqInOption[R,P](oR:Option[Seq[R]])(implicitev1:Seq[com.monsanto.arch.cloudformation.model.Token[P]]=&gt;com.monsanto.arch.cloudformation.model.Token.TokenSeq[P],implicitev2:R=&gt;com.monsanto.arch.cloudformation.model.Token[P]):Option[com.monsanto.arch.cloudformation.model.Token.TokenSeq[P]]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">tokenSeqInOption</span><span class="tparams">[<span name="R">R</span>, <span name="P">P</span>]</span><span class="params">(<span name="oR">oR: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="com.monsanto.arch.cloudformation.model.Token.tokenSeqInOption.R">R</span>]]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="ev1">ev1: (<span class="extype" name="scala.Seq">Seq</span>[<a href="Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="com.monsanto.arch.cloudformation.model.Token.tokenSeqInOption.P">P</span>]]) ⇒ <a href="#TokenSeq[A]=Either[com.monsanto.arch.cloudformation.model.FunctionCallSeqToken[A],Seq[com.monsanto.arch.cloudformation.model.Token[A]]]" class="extmbr" name="com.monsanto.arch.cloudformation.model.Token.TokenSeq">TokenSeq</a>[<span class="extype" name="com.monsanto.arch.cloudformation.model.Token.tokenSeqInOption.P">P</span>]</span>, <span name="ev2">ev2: (<span class="extype" name="com.monsanto.arch.cloudformation.model.Token.tokenSeqInOption.R">R</span>) ⇒ <a href="Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="com.monsanto.arch.cloudformation.model.Token.tokenSeqInOption.P">P</span>]</span>)</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<a href="#TokenSeq[A]=Either[com.monsanto.arch.cloudformation.model.FunctionCallSeqToken[A],Seq[com.monsanto.arch.cloudformation.model.Token[A]]]" class="extmbr" name="com.monsanto.arch.cloudformation.model.Token.TokenSeq">TokenSeq</a>[<span class="extype" name="com.monsanto.arch.cloudformation.model.Token.tokenSeqInOption.P">P</span>]]</span>
+      </span>
+      
+      
     </li><li name="spray.json.StandardFormats#tuple1Format" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="tuple1Format[A](implicitevidence$5:StandardFormats.this.JF[A]):StandardFormats.this.JF[(A,)]"></a><a id="tuple1Format[A](JF[A]):JF[(A)]"></a>
       <span class="permalink">

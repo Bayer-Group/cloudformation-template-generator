@@ -283,7 +283,7 @@
                     "ec2:StartInstances",
                     "ec2:StopInstances"
                   ],
-                  "Resource":"*"
+                  "Resource":["*"]
                 }
               ]
             }
@@ -297,7 +297,7 @@
                   "Action":[
                     "s3:GetObject"
                   ],
-                  "Resource":{
+                  "Resource":[{
                     "Fn::Join":[
                       "",
                       [
@@ -306,7 +306,7 @@
                         "/*"
                       ]
                     ]
-                  }
+                  }]
                 }
               ]
             }

@@ -1,13 +1,9 @@
 package com.monsanto.arch.cloudformation.model
 
+import com.monsanto.arch.cloudformation.model.resource.ValidPolicyCombo._
 import com.monsanto.arch.cloudformation.model.resource._
-import ValidPolicyCombo._
-import org.scalatest.{Matchers, FunSpec}
+import org.scalatest.{FunSpec, Matchers}
 
-
-/**
- * Created by djdool on 7/9/15.
- */
 class IAMPolicy_UT extends FunSpec with Matchers with JsonWritingMatcher {
 
   describe("AWS::IAM::Policy") {
@@ -112,6 +108,21 @@ class IAMPolicy_UT extends FunSpec with Matchers with JsonWritingMatcher {
           |    "Action": ["*"]
           |  }],
           |  "Version": "2012-10-17"
+          |}
+        """.stripMargin
+    }
+
+    it("should generate policy statement with resources") {
+      PolicyDocument(
+        Statement = Seq(PolicyStatement(Effect = "Allow",Action = Seq("*"), Resource = Some(Seq("arn:1", "arn:2"))))
+      ) shouldMatch
+        """
+          |{
+          |  "Statement": [{
+          |    "Effect": "Allow",
+          |    "Action": ["*"],
+          |    "Resource": ["arn:1", "arn:2"]
+          |  }]
           |}
         """.stripMargin
     }

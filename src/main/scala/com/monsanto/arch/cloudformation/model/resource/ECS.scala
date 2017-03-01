@@ -4,6 +4,7 @@ import com.monsanto.arch.cloudformation.model.Token.TokenSeq
 import com.monsanto.arch.cloudformation.model._
 import spray.json._
 
+import scala.annotation.implicitNotFound
 import scala.language.implicitConversions
 
 case class `AWS::ECS::Cluster`(name: String,
@@ -81,32 +82,32 @@ object `AWS::ECS::TaskDefinition` extends DefaultJsonProtocol {
   implicit val format: JsonFormat[`AWS::ECS::TaskDefinition`] = jsonFormat7(`AWS::ECS::TaskDefinition`.apply)
 }
 
-case class ContainerDefinition(Command: Option[TokenSeq[String]] = None,
-                               Cpu: Option[Int] = None,
-                               DisableNetworking: Option[Boolean] = None,
-                               DnsSearchDomains: Option[TokenSeq[String]] = None,
-                               DnsServers: Option[TokenSeq[String]] = None,
-                               DockerLabels: Option[Map[Token[String], Token[String]]] = None,
-                               DockerSecurityOptions: Option[TokenSeq[String]] = None,
-                               EntryPoint: Option[TokenSeq[String]] = None,
-                               Environment: Option[Seq[Environment]] = None,
-                               Essential: Option[Boolean] = None,
-                               ExtraHosts: Option[Seq[HostEntry]] = None,
-                               Hostname: Option[Token[String]] = None,
-                               Image: Token[String],
-                               Links: Option[TokenSeq[String]] = None,
-                               LogConfiguration: Option[LogConfiguration] = None,
-                               Memory: Option[Int] = None,
-                               MemoryReservation: Option[Int] = None,
-                               Name: String,
-                               PortMappings: Option[Seq[PortMapping]] = None,
-                               Privileged: Option[Boolean] = None,
-                               ReadonlyRootFilesystem: Option[Boolean] = None,
-                               Ulimits: Option[Seq[Ulimit]] = None,
-                               User: Option[Token[String]] = None,
-                               VolumesFrom: Option[Seq[VolumesFrom]] = None,
-                               WorkingDirectory: Option[Token[String]] = None) {
-  require(Memory.isDefined || MemoryReservation.isDefined, "either Memory or MemoryReservation must be defined")
+case class ContainerDefinition private(Command: Option[TokenSeq[String]],
+                                       Cpu: Option[Int],
+                                       DisableNetworking: Option[Boolean],
+                                       DnsSearchDomains: Option[TokenSeq[String]],
+                                       DnsServers: Option[TokenSeq[String]],
+                                       DockerLabels: Option[Map[Token[String], Token[String]]],
+                                       DockerSecurityOptions: Option[TokenSeq[String]],
+                                       EntryPoint: Option[TokenSeq[String]],
+                                       Environment: Option[Seq[Environment]],
+                                       Essential: Option[Boolean],
+                                       ExtraHosts: Option[Seq[HostEntry]],
+                                       Hostname: Option[Token[String]],
+                                       Image: Token[String],
+                                       Links: Option[TokenSeq[String]],
+                                       LogConfiguration: Option[LogConfiguration],
+                                       Memory: Option[Int],
+                                       MemoryReservation: Option[Int],
+                                       Name: String,
+                                       PortMappings: Option[Seq[PortMapping]],
+                                       Privileged: Option[Boolean],
+                                       ReadonlyRootFilesystem: Option[Boolean],
+                                       Ulimits: Option[Seq[Ulimit]],
+                                       User: Option[Token[String]],
+                                       VolumesFrom: Option[Seq[VolumesFrom]],
+                                       WorkingDirectory: Option[Token[String]],
+                                       dummy: Option[Unit]) {
   require((for {
     memory ← Memory
     memoryReservation ← MemoryReservation
@@ -116,6 +117,32 @@ case class ContainerDefinition(Command: Option[TokenSeq[String]] = None,
 }
 
 object ContainerDefinition extends DefaultJsonProtocol {
+
+  def apply[M <: Option[Int], R <: Option[Int]](Command: Option[TokenSeq[String]] = None,
+                                                Cpu: Option[Int] = None,
+                                                DisableNetworking: Option[Boolean] = None,
+                                                DnsSearchDomains: Option[TokenSeq[String]] = None,
+                                                DnsServers: Option[TokenSeq[String]] = None,
+                                                DockerLabels: Option[Map[Token[String], Token[String]]] = None,
+                                                DockerSecurityOptions: Option[TokenSeq[String]] = None,
+                                                EntryPoint: Option[TokenSeq[String]] = None,
+                                                Environment: Option[Seq[Environment]] = None,
+                                                Essential: Option[Boolean] = None,
+                                                ExtraHosts: Option[Seq[HostEntry]] = None,
+                                                Hostname: Option[Token[String]] = None,
+                                                Image: Token[String],
+                                                Links: Option[TokenSeq[String]] = None,
+                                                LogConfiguration: Option[LogConfiguration] = None,
+                                                Memory: M = None,
+                                                MemoryReservation: R = None,
+                                                Name: String,
+                                                PortMappings: Option[Seq[PortMapping]] = None,
+                                                Privileged: Option[Boolean] = None,
+                                                ReadonlyRootFilesystem: Option[Boolean] = None,
+                                                Ulimits: Option[Seq[Ulimit]] = None,
+                                                User: Option[Token[String]] = None,
+                                                VolumesFrom: Option[Seq[VolumesFrom]] = None,
+                                                WorkingDirectory: Option[Token[String]] = None)(implicit ev1: MemoryRequirement[M, R]): ContainerDefinition = ContainerDefinition(Command, Cpu, DisableNetworking, DnsSearchDomains, DnsServers, DockerLabels, DockerSecurityOptions, EntryPoint, Environment, Essential, ExtraHosts, Hostname, Image, Links, LogConfiguration, Memory, MemoryReservation, Name, PortMappings, Privileged, ReadonlyRootFilesystem, Ulimits, User, VolumesFrom, WorkingDirectory, None)
   implicit val format: JsonFormat[ContainerDefinition] = new RootJsonFormat[ContainerDefinition] {
     override def write(cd: ContainerDefinition) = {
       val obj = JsObject(
@@ -151,6 +178,17 @@ object ContainerDefinition extends DefaultJsonProtocol {
     //noinspection NotImplementedCode
     override def read(json: JsValue) = ???
   }
+
+  @implicitNotFound("one or both of Memory and MemoryReservation must be defined")
+  sealed trait MemoryRequirement[M, R]
+  implicit object both extends MemoryRequirement[Some[Int], Some[Int]]
+  implicit object bothOption extends MemoryRequirement[Option[Int], Option[Int]]
+  implicit object bothMixed1 extends MemoryRequirement[Some[Int], Option[Int]]
+  implicit object bothMixed2 extends MemoryRequirement[Option[Int], Some[Int]]
+  implicit object onlyMemory extends MemoryRequirement[Some[Int], None.type]
+  implicit object onlyMemoryOption extends MemoryRequirement[Option[Int], None.type]
+  implicit object onlyMemoryReservation extends MemoryRequirement[None.type, Some[Int]]
+  implicit object onlyMemoryReservationOption extends MemoryRequirement[None.type, Option[Int]]
 }
 
 case class VolumeDefinition(Name: String, Host: Option[Host] = None)

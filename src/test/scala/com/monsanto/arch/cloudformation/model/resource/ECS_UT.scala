@@ -11,7 +11,7 @@ class ECS_UT extends FunSpec with Matchers {
     it("should serialize to JSON") {
       val resource = `AWS::ECS::TaskDefinition`("test",
         ContainerDefinitions = Seq(
-          ContainerDefinition(Name = "hello", Image = "hello-world", Memory = Option(64))
+          ContainerDefinition(Name = "hello", Image = "hello-world", Memory = Some(64))
         )
       )
 
@@ -62,31 +62,6 @@ class ECS_UT extends FunSpec with Matchers {
       )
 
       resource.toJson should be(expected)
-    }
-
-    it("should throw an exception if neither Memory nor MemoryReservation is specified") {
-      assertThrows[IllegalArgumentException] {
-        `AWS::ECS::TaskDefinition`("test",
-          ContainerDefinitions = Seq(
-            ContainerDefinition(Name = "hello", Image = "hello-world")
-          )
-        )
-      }
-    }
-
-    it("should throw an exception if Memory is less than MemoryReservation if both are set") {
-      assertThrows[IllegalArgumentException] {
-        `AWS::ECS::TaskDefinition`("test",
-          ContainerDefinitions = Seq(
-            ContainerDefinition(
-              Name = "hello",
-              Image = "hello-world",
-              Memory = Option(0),
-              MemoryReservation = Option(1)
-            )
-          )
-        )
-      }
     }
 
     it("should serialize Map[String, String] to key/value pairs") {
@@ -228,6 +203,61 @@ class ECS_UT extends FunSpec with Matchers {
       )
 
       resource.toJson should be(expected)
+    }
+  }
+
+  describe("ContainerDefinition") {
+    it("should accept Memory as an Option[Int]") {
+      ContainerDefinition(Name = "hello", Image = "hello-world", Memory = Option(64))
+    }
+
+    it("should accept Memory as a Some[Int]") {
+      ContainerDefinition(Name = "hello", Image = "hello-world", Memory = Some(64))
+    }
+
+    it("should accept MemoryReservation as an Option[Int]") {
+      ContainerDefinition(Name = "hello", Image = "hello-world", MemoryReservation = Option(64))
+    }
+
+    it("should accept MemoryReservation as a Some[Int]") {
+      ContainerDefinition(Name = "hello", Image = "hello-world", MemoryReservation = Some(64))
+    }
+
+    it("should accept both Memory and MemoryReservation as Option[Int]") {
+      ContainerDefinition(Name = "hello", Image = "hello-world", Memory = Option(128), MemoryReservation = Option(64))
+    }
+
+    it("should accept Memory and MemoryReservation as Some[Int]") {
+      ContainerDefinition(Name = "hello", Image = "hello-world", Memory = Some(128), MemoryReservation = Some(64))
+    }
+
+    it("should accept Memory as Option[Int] and MemoryReservation as Some[Int]") {
+      ContainerDefinition(Name = "hello", Image = "hello-world", Memory = Option(128), MemoryReservation = Some(64))
+    }
+
+    it("should accept Memory as Some[Int] and MemoryReservation as Option[Int]") {
+      ContainerDefinition(Name = "hello", Image = "hello-world", Memory = Some(128), MemoryReservation = Option(64))
+    }
+
+    it("should fail to compile if neither Memory nor MemoryReservation is specified") {
+      assertTypeError(
+        """`AWS::ECS::TaskDefinition`("test",
+          |  ContainerDefinitions = Seq(
+          |    ContainerDefinition(Name = "hello", Image = "hello-world")
+          |  )
+          |)
+        """.stripMargin)
+    }
+
+    it("should throw an exception if Memory is less than MemoryReservation if both are set") {
+      assertThrows[IllegalArgumentException] {
+        ContainerDefinition(
+          Name = "hello",
+          Image = "hello-world",
+          Memory = Option(0),
+          MemoryReservation = Option(1)
+        )
+      }
     }
   }
 }

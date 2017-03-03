@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.5.4] - 2017-03-03
+
+- Update IAM Policy Statements to support multiple resources (see [#143](https://github.com/MonsantoCo/cloudformation-template-generator/pull/143))
+- Add support for ECS Task Definitions, Services, and Clusters (see [#142](https://github.com/MonsantoCo/cloudformation-template-generator/pull/142))
+
 ## [3.5.3] - 2017-02-16
 
 -  Add support for Id and Sid to IAM policies and statements (see [#139](https://github.com/MonsantoCo/cloudformation-template-generator/pull/139))

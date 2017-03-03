@@ -258,6 +258,9 @@ object Token extends DefaultJsonProtocol {
 
     override def read(json: JsValue): TokenSeq[R] = ???
   })
+
+  implicit def tokenStringToTokenSeqString(ts: Token[String]): TokenSeq[String] = Seq(ts)
+  implicit def tokenizableToTokenSeqString[T](ts: T)(implicit ev1: T ⇒ Token[String]): TokenSeq[String] = tokenStringToTokenSeqString(ts)
 }
 case class AnyToken[R : JsonFormat](value: R) extends Token[R]
 case class StringToken(value: String) extends Token[String]

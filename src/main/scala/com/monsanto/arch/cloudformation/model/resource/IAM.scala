@@ -145,12 +145,11 @@ object PolicyConditionValue extends DefaultJsonProtocol {
   implicit def tokenList2Value(s : Seq[Token[String]]): PolicyConditionValue = TokenListPolicyConditionValue(s)
 }
 
-
 case class PolicyStatement(
   Effect:    String,
   Principal: Option[PolicyPrincipal] = None,
   Action:    Seq[String],
-  Resource:  Option[Token[String]] = None,
+  Resource:  Option[TokenSeq[String]] = None,
   Condition: Option[Map[String, Map[String, PolicyConditionValue]]] = None,
   Sid:       Option[String] = None
 )

@@ -3,6 +3,7 @@ package com.monsanto.arch.cloudformation.model
 import com.monsanto.arch.cloudformation.model.resource._
 import spray.json._
 import DefaultJsonProtocol._
+
 import scala.collection.immutable.ListMap
 import scala.language.implicitConversions
 
@@ -28,6 +29,7 @@ object Parameter extends DefaultJsonProtocol {
           case n:  NumberParameter                          => n.toJson
           case c:  CidrBlockParameter                       => c.toJson
           case cl: CidrBlockListParameter                   => cl.toJson(CidrBlockListParameter.format)
+          case b:  BooleanParameter                         => b.toJson
           case a:  AMIIdParameter                           => a.toJson
           case c:  `AWS::EC2::SecurityGroup_Parameter`      => c.toJson
           case k:  `AWS::EC2::KeyPair::KeyName_Parameter`   => k.toJson
@@ -52,6 +54,29 @@ object StringBackedInt extends DefaultJsonProtocol {
   implicit val format: JsonFormat[StringBackedInt] = new JsonFormat[StringBackedInt]{
     def write(obj: StringBackedInt) = JsString(obj.value.toString)
     def read(json: JsValue) = StringBackedInt( json.convertTo[String].toInt )
+  }
+}
+
+case class BooleanParameter(name:                  String,
+                            Description:           Option[String]          = None,
+                            Default:               Option[Boolean]          = None,
+                            ConfigDefault:         Option[String]          = None
+                           ) extends Parameter("String"){
+  type Rep = Boolean
+  val AllowedValues = Seq("true", "false")
+}
+
+object BooleanParameter extends DefaultJsonProtocol {
+  implicit val format: JsonFormat[BooleanParameter] = new RootJsonFormat[BooleanParameter] {
+    override def write(p: BooleanParameter) = JsObject(Map(
+      "name" -> JsString(p.name),
+      "AllowedValues" -> JsArray(p.AllowedValues.map(JsString(_)).toVector))++
+      p.Description.map("Description" -> JsString(_)) ++
+      p.Default.map(s => "Default" -> JsString(s.toString)) ++
+      p.ConfigDefault.map("ConfigDefault" -> JsString(_))
+    )
+
+    override def read(json: JsValue) = ???
   }
 }
 
@@ -233,6 +258,9 @@ object InputParameter extends DefaultJsonProtocol {
       case NumberParameter(n, _, _, _, _, _, _, Some(d)) => InputParameter(n, d.toJson)
       case NumberParameter(n, _, _, _, _, Some(d), _, None) => InputParameter(n, d.toJson)
       case NumberParameter(n, _, _, _, _, None, _, None) => InputParameter(n)
+      case BooleanParameter(n, _, _, Some(d)) => InputParameter(n, d.toJson)
+      case BooleanParameter(n, _, Some(d), None) => InputParameter(n, d.toJson)
+      case BooleanParameter(n, _, None, None) => InputParameter(n)
       case `AWS::EC2::KeyPair::KeyName_Parameter`(n, _, _, _, Some(d)) => InputParameter(n, d.toJson)
       case `AWS::EC2::KeyPair::KeyName_Parameter`(n, _, _, Some(d), None) => InputParameter(n, d.toJson)
       case `AWS::EC2::KeyPair::KeyName_Parameter`(n, _, _, None, None) => InputParameter(n)

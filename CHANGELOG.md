@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.5.5] - 2017-03-13
+
+- Added BooleanParameter (see [#144](https://github.com/MonsantoCo/cloudformation-template-generator/pull/144))
+- Added ElasticsearchVersion (see [#145](https://github.com/MonsantoCo/cloudformation-template-generator/pull/145))
+
 ## [3.5.4] - 2017-03-03
 
 - Update IAM Policy Statements to support multiple resources (see [#143](https://github.com/MonsantoCo/cloudformation-template-generator/pull/143))

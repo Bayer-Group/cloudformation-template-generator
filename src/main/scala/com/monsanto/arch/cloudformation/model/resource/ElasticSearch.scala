@@ -37,6 +37,7 @@ case class `AWS::Elasticsearch::Domain` (
                                           AdvancedOptions:            Option[Token[Map[String, String]]]    = None,
                                           EBSOptions:                 Option[EBSOptions]                    = None,
                                           ElasticsearchClusterConfig: Option[ElasticsearchClusterConfig]    = None,
+                                          ElasticsearchVersion:       Option[Token[String]]                 = None,
                                           SnapshotOptions:            Option[SnapshotOptions]               = None,
                                           override val Condition:     Option[ConditionRef]                  = None,
                                           override val DependsOn:     Option[Seq[String]]                   = None
@@ -44,5 +45,5 @@ case class `AWS::Elasticsearch::Domain` (
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
 }
 object `AWS::Elasticsearch::Domain` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::Elasticsearch::Domain`] = jsonFormat9(`AWS::Elasticsearch::Domain`.apply)
+  implicit val format: JsonFormat[`AWS::Elasticsearch::Domain`] = jsonFormat10(`AWS::Elasticsearch::Domain`.apply)
 }

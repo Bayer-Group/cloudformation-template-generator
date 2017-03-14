@@ -413,6 +413,12 @@ Parameters and Mappings.  A Condition is created but not used.
                           AwsStringInterpolator
                         </a>
                       </li><li class="current-entities indented5">
+                        <a class="object" href="BooleanParameter$.html" title=""></a>
+                        <a class="class" href="BooleanParameter.html" title=""></a>
+                        <a href="BooleanParameter.html" title="">
+                          BooleanParameter
+                        </a>
+                      </li><li class="current-entities indented5">
                         <span class="separator"></span>
                         <a class="class" href="BooleanToken.html" title=""></a>
                         <a href="BooleanToken.html" title="">
@@ -1080,6 +1086,24 @@ Parameters and Mappings.  A Condition is created but not used.
 
 <span class="kw">val</span> param = ParameterRef(StringParameter(<span class="lit">"that"</span>))
 <span class="kw">val</span> fun = aws<span class="lit">"test$param"</span></pre><p>Will generate the following FunctionCall definition:</p><pre>FunctionCallToken(`Fn::Join`(<span class="lit">""</span>, <span class="std">Seq</span>(StringToken(<span class="lit">"test"</span>), param)))</pre></div></div>
+    </li><li name="com.monsanto.arch.cloudformation.model.BooleanParameter" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="BooleanParameterextendsParameterwithProductwithSerializable"></a><a id="BooleanParameter:BooleanParameter"></a>
+      <span class="permalink">
+      <a href="../../../../../com/monsanto/arch/cloudformation/model/index.html#BooleanParameterextendsParameterwithProductwithSerializable" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="BooleanParameter.html">
+              <span class="name">BooleanParameter</span>
+            </a><span class="params">(<span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="Description">Description: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">None</span></span>, <span name="Default">Default: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Boolean">Boolean</span>] = <span class="symbol">None</span></span>, <span name="ConfigDefault">ConfigDefault: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">None</span></span>)</span><span class="result"> extends <a href="Parameter.html" class="extype" name="com.monsanto.arch.cloudformation.model.Parameter">Parameter</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      
+      
     </li><li name="com.monsanto.arch.cloudformation.model.BooleanToken" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="BooleanTokenextendsToken[Boolean]withProductwithSerializable"></a><a id="BooleanToken:BooleanToken"></a>
       <span class="permalink">
@@ -2270,6 +2294,24 @@ and builds a template from them. This search for:</p><ul><li>Parameter</li><li>C
       </span>
       
       <p class="shortcomment cmt">Created by Tyler Southwick on 11/20/15.</p>
+    </li><li name="com.monsanto.arch.cloudformation.model.BooleanParameter" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="BooleanParameter"></a><a id="BooleanParameter:BooleanParameter"></a>
+      <span class="permalink">
+      <a href="../../../../../com/monsanto/arch/cloudformation/model/index.html#BooleanParameter" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="BooleanParameter$.html">
+              <span class="name">BooleanParameter</span>
+            </a><span class="result"> extends <span class="extype" name="spray.json.DefaultJsonProtocol">DefaultJsonProtocol</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      
+      
     </li><li name="com.monsanto.arch.cloudformation.model.CidrBlockListParameter" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="CidrBlockListParameter"></a><a id="CidrBlockListParameter:CidrBlockListParameter"></a>
       <span class="permalink">

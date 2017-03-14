@@ -259,7 +259,7 @@ object InputParameter extends DefaultJsonProtocol {
       case NumberParameter(n, _, _, _, _, Some(d), _, None) => InputParameter(n, d.toJson)
       case NumberParameter(n, _, _, _, _, None, _, None) => InputParameter(n)
       case BooleanParameter(n, _, _, Some(d)) => InputParameter(n, d.toJson)
-      case BooleanParameter(n, _, Some(d), None) => InputParameter(n, d.toJson)
+      case BooleanParameter(n, _, Some(d), None) => InputParameter(n, d.toString.toJson)
       case BooleanParameter(n, _, None, None) => InputParameter(n)
       case `AWS::EC2::KeyPair::KeyName_Parameter`(n, _, _, _, Some(d)) => InputParameter(n, d.toJson)
       case `AWS::EC2::KeyPair::KeyName_Parameter`(n, _, _, Some(d), None) => InputParameter(n, d.toJson)

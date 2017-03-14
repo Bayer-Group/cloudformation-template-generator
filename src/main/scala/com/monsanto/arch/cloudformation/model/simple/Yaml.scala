@@ -7,7 +7,10 @@ object Yaml {
     private def build(parts: Seq[String], args: Seq[Any]): Seq[String] = {
       def padding(part: String) = part.length - part.lastIndexOf("\n") - 1
 
-      def pad(part: String, pad: Int) = part.replaceAll("\n", "\n" + " " * pad)
+      def stripTrailingNewLine(part: String) = if (part.length == 0) part
+        else if (part.last == '\n') part.substring(0, part.length - 1) else part
+
+      def pad(part: String, pad: Int) = stripTrailingNewLine(part).replaceAll("\n", "\n" + " " * pad)
 
       def readFile(path: String): String = {
         val s = getClass().getResourceAsStream(path)
@@ -44,7 +47,7 @@ object Yaml {
 
     def yaml(args: Any*): String = {
       sc.checkLengths(args)
-      build(sc.parts, args).mkString.trim + "\n"
+      build(sc.parts, args).mkString.trim
     }
   }
 

@@ -1,4 +1,5 @@
-import com.monsanto.arch.cloudformation.model._
+package com.monsanto.arch.cloudformation.model
+
 import com.monsanto.arch.cloudformation.model.resource._
 import org.scalatest.{Matchers, FunSpec}
 import spray.json._

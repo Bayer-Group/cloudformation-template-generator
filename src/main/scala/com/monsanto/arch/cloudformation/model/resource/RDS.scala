@@ -53,33 +53,33 @@ case class `AWS::RDS::DBInstance` private[resource] (
   name:                        String,
   AllocatedStorage:            Either[Int, Token[Int]],
   DBInstanceClass:             Token[String],
-  AllowMajorVersionUpgrade:    Option[Boolean],
-  AutoMinorVersionUpgrade:     Option[Boolean],
-  AvailabilityZone:            Option[String],
-  BackupRetentionPeriod:       Option[String],
+  AllowMajorVersionUpgrade:    Option[Token[Boolean]],
+  AutoMinorVersionUpgrade:     Option[Token[Boolean]],
+  AvailabilityZone:            Option[Token[String]],
+  BackupRetentionPeriod:       Option[Token[String]],
   //CharacterSetName:          Option[Token[`AWS::RDS::DBInstance::CharacterSetName`]], // Oracle specific http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Appendix.OracleCharacterSets.html
   //DBClusterIdentifier:       Option[Token[String]], // only for aurora
   DBInstanceIdentifier:        Option[Token[String]],
   DBName:                      Option[Token[String]],
   DBParameterGroupName:        Option[ResourceRef[`AWS::RDS::DBParameterGroup`]],
   DBSecurityGroups:            Option[Seq[ResourceRef[`AWS::RDS::DBSecurityGroup`]]],
-  DBSnapshotIdentifier:        Option[String],
+  DBSnapshotIdentifier:        Option[Token[String]],
   DBSubnetGroupName:           Option[Token[ResourceRef[`AWS::RDS::DBSubnetGroup`]]],
   Engine:                      Option[Token[`AWS::RDS::DBInstance::Engine`]],
-  EngineVersion:               Option[String],
+  EngineVersion:               Option[Token[String]],
   Iops:                        Option[Either[Int, Token[Int]]],
   KmsKeyId:                    Option[Token[String]],
   LicenseModel:                Option[`AWS::RDS::DBInstance::LicenseModel`],
   MasterUsername:              Option[Token[String]],
   MasterUserPassword:          Option[Token[String]],
-  MultiAZ:                     Option[Boolean],
-  OptionGroupName:             Option[String],
+  MultiAZ:                     Option[Token[Boolean]],
+  OptionGroupName:             Option[Token[String]],
   Port:                        Option[Token[String]],
-  PreferredBackupWindow:       Option[String],
-  PreferredMaintenanceWindow:  Option[String],
-  PubliclyAccessible:          Option[Boolean],
+  PreferredBackupWindow:       Option[Token[String]],
+  PreferredMaintenanceWindow:  Option[Token[String]],
+  PubliclyAccessible:          Option[Token[Boolean]],
   SourceDBInstanceIdentifier:  Option[Token[ResourceRef[`AWS::RDS::DBInstance`]]],
-  StorageEncrypted:            Option[Boolean],
+  StorageEncrypted:            Option[Token[Boolean]],
   StorageType:                 Option[`AWS::RDS::DBInstance::StorageType`],
   Tags:                        Option[Seq[AmazonTag]],
   VPCSecurityGroups:           Option[Seq[ResourceRef[`AWS::EC2::SecurityGroup`]]],
@@ -177,7 +177,7 @@ sealed trait RdsAvailabilityZone {
   *
   * @param az AWS::RDS::DBInstance(AvailabilityZone), e.g., Some("us-east-1a")
   */
-case class RdsSingleAZ(az: Option[String] = None) extends RdsAvailabilityZone {
+case class RdsSingleAZ(az: Option[Token[String]] = None) extends RdsAvailabilityZone {
   private[resource] def az(rdsInstance: `AWS::RDS::DBInstance`): `AWS::RDS::DBInstance` =
     rdsInstance.copy(AvailabilityZone = az, MultiAZ = None)
 }
@@ -186,7 +186,7 @@ case class RdsSingleAZ(az: Option[String] = None) extends RdsAvailabilityZone {
   *
   * @param multiAz AWS::RDS::DBInstance(MultiAZ)
   */
-case class RdsMultiAZ(multiAz: Boolean = true) extends RdsAvailabilityZone {
+case class RdsMultiAZ(multiAz: Token[Boolean] = true) extends RdsAvailabilityZone {
   private[resource] def az(rdsInstance: `AWS::RDS::DBInstance`): `AWS::RDS::DBInstance` =
     rdsInstance.copy(MultiAZ = Some(multiAz), AvailabilityZone = None)
 }
@@ -263,9 +263,9 @@ case class NewRds(
   engine:                Token[`AWS::RDS::DBInstance::Engine`],
   masterUsername:        Token[String],
   masterUserPassword:    Token[String],
-  backupRetentionPeriod: Option[String]         = None,
+  backupRetentionPeriod: Option[Token[String]]  = None,
   dbName:                Option[Token[String]]  = None,
-  preferredBackupWindow: Option[String]         = None,
+  preferredBackupWindow: Option[Token[String]]  = None,
   deletionPolicy:        Option[DeletionPolicy] = None
 ) extends RdsSource {
   private[resource] def source(rdsInstance: `AWS::RDS::DBInstance`): `AWS::RDS::DBInstance` =
@@ -300,12 +300,12 @@ case class NewRds(
 case class FromSnapshot(
   rdsAvailabilityZone:   RdsAvailabilityZone,
   dbSnapshotIdentifier:  String,
-  backupRetentionPeriod: Option[String]                                = None,
+  backupRetentionPeriod: Option[Token[String]]                         = None,
   dbName:                Option[Token[String]]                         = None,
   engine:                Option[Token[`AWS::RDS::DBInstance::Engine`]] = None,
   masterUsername:        Option[Token[String]]                         = None,
   masterUserPassword:    Option[Token[String]]                         = None,
-  preferredBackupWindow: Option[String]                                = None,
+  preferredBackupWindow: Option[Token[String]]                         = None,
   deletionPolicy:        Option[DeletionPolicy]                        = None
 ) extends RdsSource {
   private[resource] def source(rdsInstance: `AWS::RDS::DBInstance`): `AWS::RDS::DBInstance` =
@@ -329,7 +329,7 @@ case class FromSnapshot(
   */
 case class ReadReplica(
   sourceDBInstanceIdentifier: Token[ResourceRef[`AWS::RDS::DBInstance`]],
-  availabilityZone:           Option[String] = None
+  availabilityZone:           Option[Token[String]] = None
 ) extends RdsSource {
   private[resource] def source(rdsInstance: `AWS::RDS::DBInstance`): `AWS::RDS::DBInstance` =
     RdsSingleAZ(availabilityZone).az(RdsEncryptionNone().encryption(rdsInstance.copy(
@@ -441,12 +441,12 @@ object RdsBuilder {
     autoMinorVersionUpgrade:    Option[Boolean]                                   = None,
     dbInstanceIdentifier:       Option[Token[String]]                             = None,
     dbParameterGroupName:       Option[ResourceRef[`AWS::RDS::DBParameterGroup`]] = None,
-    engineVersion:              Option[String]                                    = None,
+    engineVersion:              Option[Token[String]]                             = None,
     licenseModel:               Option[`AWS::RDS::DBInstance::LicenseModel`]      = None,
-    optionGroupName:            Option[String]                                    = None,
+    optionGroupName:            Option[Token[String]]                             = None,
     port:                       Option[Token[String]]                             = None,
-    preferredMaintenanceWindow: Option[String]                                    = None,
-    publiclyAccessible:         Option[Boolean]                                   = None,
+    preferredMaintenanceWindow: Option[Token[String]]                             = None,
+    publiclyAccessible:         Option[Token[Boolean]]                            = None,
     tags:                       Option[Seq[AmazonTag]]                            = None,
     condition:                  Option[ConditionRef]                              = None,
     dependsOn:                  Option[Seq[String]]                               = None
@@ -597,7 +597,7 @@ case class RDSDBSecurityGroupRule(
   CIDRIP:                  Option[Token[CidrBlock]],
   EC2SecurityGroupId:      Option[Token[ResourceRef[`AWS::EC2::SecurityGroup`]]],
   EC2SecurityGroupName:    Option[Token[ResourceRef[`AWS::EC2::SecurityGroup`]]],
-  EC2SecurityGroupOwnerId: Option[String]
+  EC2SecurityGroupOwnerId: Option[Token[String]]
 )
 object RDSDBSecurityGroupRule extends DefaultJsonProtocol {
   implicit val format: JsonFormat[RDSDBSecurityGroupRule] = jsonFormat4(RDSDBSecurityGroupRule.apply)

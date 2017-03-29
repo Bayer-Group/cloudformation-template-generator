@@ -9,13 +9,14 @@ import scala.language.implicitConversions
 
 case class `AWS::ECS::Cluster`(name: String,
                                ClusterName: Option[Token[String]] = None,
-                               override val Condition: Option[ConditionRef] = None
+                               override val Condition: Option[ConditionRef] = None,
+                               override val DependsOn: Option[Seq[String]] = None
                               ) extends Resource[`AWS::ECS::Cluster`] {
   override def when(newCondition: Option[ConditionRef]): `AWS::ECS::Cluster` = copy(Condition = newCondition)
 }
 
 object `AWS::ECS::Cluster` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::ECS::Cluster`] = jsonFormat3(`AWS::ECS::Cluster`.apply)
+  implicit val format: JsonFormat[`AWS::ECS::Cluster`] = jsonFormat4(`AWS::ECS::Cluster`.apply)
 }
 
 case class `AWS::ECS::Service`(name: String,
@@ -25,7 +26,8 @@ case class `AWS::ECS::Service`(name: String,
                                LoadBalancers: Option[Seq[EcsLoadBalancer]] = None,
                                Role: Option[Token[String]] = None,
                                TaskDefinition: Token[String],
-                               override val Condition: Option[ConditionRef] = None
+                               override val Condition: Option[ConditionRef] = None,
+                               override val DependsOn: Option[Seq[String]] = None
                               ) extends Resource[`AWS::ECS::Service`] with HasArn {
   override def when(newCondition: Option[ConditionRef]): `AWS::ECS::Service` = copy(Condition = newCondition)
 
@@ -33,7 +35,7 @@ case class `AWS::ECS::Service`(name: String,
 }
 
 object `AWS::ECS::Service` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::ECS::Service`] = jsonFormat8(`AWS::ECS::Service`.apply)
+  implicit val format: JsonFormat[`AWS::ECS::Service`] = jsonFormat9(`AWS::ECS::Service`.apply)
 }
 
 case class DeploymentConfiguration(MaximumPercent: Option[Int], MinimumHealthyPercent: Option[Int])

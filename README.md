@@ -100,6 +100,9 @@ describe("Template Lookup") {
 - AWS::CloudTrail::Trail
 - AWS::CloudFront:Distribution:
 - AWS::CloudWatch::Alarm
+- AWS::CodeBuild::Project
+- AWS::CodePipeline::CustomActionType
+- AWS::CodePipeline::Pipeline
 - AWS::DynamoDB::Table
 - AWS::EC2::CustomerGateway
 - AWS::EC2::EIP

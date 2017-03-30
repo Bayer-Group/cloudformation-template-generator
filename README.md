@@ -137,6 +137,7 @@ describe("Template Lookup") {
 - AWS::ElasticBeanstalk::Environment
 - AWS::EMR::Cluster
 - AWS::EMR::Step
+- AWS::Events::Rule
 - AWS::IAM::AccessKey
 - AWS::IAM::Group
 - AWS::IAM::InstanceProfile

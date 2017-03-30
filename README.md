@@ -134,6 +134,10 @@ describe("Template Lookup") {
 - AWS::ElastiCache::SubnetGroup
 - AWS::Elasticsearch::Domain
 - AWS::ElasticLoadBalancing::LoadBalancer
+- AWS::ElasticLoadBalancingV2::Listener
+- AWS::ElasticLoadBalancingV2::ListenerRule
+- AWS::ElasticLoadBalancingV2::LoadBalancer
+- AWS::ElasticLoadBalancingV2::TargetGroup
 - AWS::ElasticBeanstalk::Application
 - AWS::ElasticBeanstalk::ApplicationVersion
 - AWS::ElasticBeanstalk::ConfigurationTemplate

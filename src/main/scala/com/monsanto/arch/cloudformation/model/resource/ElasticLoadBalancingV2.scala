@@ -244,8 +244,21 @@ object ELBSecurityPolicy extends DefaultJsonProtocol {
   case object `ELBSecurityPolicy-TLS-1-2-2017-01` extends ELBSecurityPolicy
   case object `ELBSecurityPolicy-TLS-1-1-2017-01` extends ELBSecurityPolicy
   case object `ELBSecurityPolicy-2015-05`         extends ELBSecurityPolicy
+  case class  Custom(name: String)                extends ELBSecurityPolicy
+
   val values = Seq(`ELBSecurityPolicy-2016-08`, `ELBSecurityPolicy-TLS-1-2-2017-01`, `ELBSecurityPolicy-TLS-1-1-2017-01`, `ELBSecurityPolicy-2015-05`)
-  implicit val format: JsonFormat[ELBSecurityPolicy] = new EnumFormat[ELBSecurityPolicy](values)
+
+  implicit val format: JsonFormat[ELBSecurityPolicy] = new EnumFormat[ELBSecurityPolicy](values, stringifier = {
+    case Custom(name) => name
+    case other        => other.toString
+  }) {
+    override def read(json: JsValue): ELBSecurityPolicy = try super.read(json) catch {
+      case e: DeserializationException => json match {
+        case JsString(value) => Custom(value)
+        case _               => throw e
+      }
+    }
+  }
 }
 
 

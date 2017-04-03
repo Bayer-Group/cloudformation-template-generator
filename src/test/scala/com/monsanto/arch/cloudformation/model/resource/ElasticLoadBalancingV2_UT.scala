@@ -234,4 +234,32 @@ class ElasticLoadBalancingV2_UT extends FunSpec with Matchers {
       Seq[Resource[_]](targetGroup).toJson shouldBe expectedJson
     }
   }
+
+  describe("ELBSecurityPolicy") {
+    import ELBSecurityPolicy._
+
+    case class DeserializeHelper(secPol: ELBSecurityPolicy)
+    implicit val deserializeHelperFmt = jsonFormat1(DeserializeHelper.apply)
+    implicit def strToHelper(str: String): DeserializeHelper = str.parseJson.convertTo[DeserializeHelper]
+
+    it("should de/serialize defined values") {
+      `ELBSecurityPolicy-2016-08`.asInstanceOf[ELBSecurityPolicy].toJson shouldBe JsString("ELBSecurityPolicy-2016-08")
+      """{"secPol": "ELBSecurityPolicy-2016-08"}""".secPol shouldBe `ELBSecurityPolicy-2016-08`
+
+      `ELBSecurityPolicy-2015-05`.asInstanceOf[ELBSecurityPolicy].toJson shouldBe JsString("ELBSecurityPolicy-2015-05")
+      """{"secPol": "ELBSecurityPolicy-2015-05"}""".secPol shouldBe `ELBSecurityPolicy-2015-05`
+
+      `ELBSecurityPolicy-TLS-1-1-2017-01`.asInstanceOf[ELBSecurityPolicy].toJson shouldBe JsString("ELBSecurityPolicy-TLS-1-1-2017-01")
+      """{"secPol": "ELBSecurityPolicy-TLS-1-1-2017-01"}""".secPol shouldBe `ELBSecurityPolicy-TLS-1-1-2017-01`
+
+      `ELBSecurityPolicy-TLS-1-2-2017-01`.asInstanceOf[ELBSecurityPolicy].toJson shouldBe JsString("ELBSecurityPolicy-TLS-1-2-2017-01")
+      """{"secPol": "ELBSecurityPolicy-TLS-1-2-2017-01"}""".secPol shouldBe `ELBSecurityPolicy-TLS-1-2-2017-01`
+
+    }
+
+    it("should de/serialize custom values") {
+      Custom("Jim_Bob").asInstanceOf[ELBSecurityPolicy].toJson shouldBe JsString("Jim_Bob")
+      """{"secPol": "Jim_Bob"}""".secPol shouldBe Custom("Jim_Bob")
+    }
+  }
 }

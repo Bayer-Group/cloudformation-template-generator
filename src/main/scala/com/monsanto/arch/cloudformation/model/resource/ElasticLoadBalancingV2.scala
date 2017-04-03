@@ -80,8 +80,8 @@ case class `AWS::ElasticLoadBalancingV2::Listener`(
   override val Condition: Option[ConditionRef] = None
 ) extends Resource[`AWS::ElasticLoadBalancingV2::Listener`] with HasArn {
 
-  if (Protocol == ALBProtocol.HTTPS && (!Certificates.exists(_.nonEmpty) || SslPolicy.isEmpty))
-    throw new IllegalArgumentException("Certificates and SslPolicy are both required for an HTTPS listener")
+  if (Protocol == ALBProtocol.HTTPS && !Certificates.exists(_.nonEmpty))
+    throw new IllegalArgumentException("Certificates is required for an HTTPS listener")
 
   def when(newCondition: Option[ConditionRef] = Condition): `AWS::ElasticLoadBalancingV2::Listener` = copy(Condition = newCondition)
   def arn: Token[String] = ResourceRef(this)
@@ -107,13 +107,13 @@ object `AWS::ElasticLoadBalancingV2::Listener` extends DefaultJsonProtocol {
                LoadBalancerArn: Token[String],
                Certificates:    Seq[Certificate],
                Port:            Token[Int] = 443,
-               SslPolicy:       ELBSecurityPolicy = ELBSecurityPolicy.`ELBSecurityPolicy-2016-08`,
+               SslPolicy:       Option[ELBSecurityPolicy] = None,
                Condition:       Option[ConditionRef] = None): `AWS::ElasticLoadBalancingV2::Listener` =
     `AWS::ElasticLoadBalancingV2::Listener`(
       name = name,
       Protocol = ALBProtocol.HTTPS,
       Certificates = Some(Certificates),
-      SslPolicy = Some(SslPolicy),
+      SslPolicy = SslPolicy,
       DefaultActions = DefaultActions,
       LoadBalancerArn = LoadBalancerArn,
       Port = Port,

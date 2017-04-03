@@ -43,7 +43,8 @@ class ElasticLoadBalancingV2_UT extends FunSpec with Matchers {
     name = "testy-https-listener",
     DefaultActions = Seq(ListenerAction.forward(targetGroup.arn)),
     LoadBalancerArn = loadBalancer.arn,
-    Certificates = Seq(Certificate("cert-1234"))
+    Certificates = Seq(Certificate("cert-1234")),
+    SslPolicy = Some(ELBSecurityPolicy.`ELBSecurityPolicy-2016-08`)
   )
 
   private val listenerRule = `AWS::ElasticLoadBalancingV2::ListenerRule`(
@@ -150,17 +151,6 @@ class ElasticLoadBalancingV2_UT extends FunSpec with Matchers {
           Port = 12345,
           Protocol = ALBProtocol.HTTPS,
           Certificates = Some(Seq.empty)
-        )
-      }
-
-      assertThrows[IllegalArgumentException] {
-        `AWS::ElasticLoadBalancingV2::Listener`(
-          name = "testy-http-listener",
-          DefaultActions = Seq(ListenerAction.forward(targetGroup.arn)),
-          LoadBalancerArn = loadBalancer.arn,
-          Port = 12345,
-          Protocol = ALBProtocol.HTTPS,
-          Certificates = Some(Seq(Certificate("cert-12345")))
         )
       }
 

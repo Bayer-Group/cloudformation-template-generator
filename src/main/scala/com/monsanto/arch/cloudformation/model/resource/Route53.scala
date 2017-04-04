@@ -101,6 +101,14 @@ object `AWS::Route53::RecordSet` extends DefaultJsonProtocol {
       AliasTarget:    Route53AliasTarget,
       Condition: Option[ConditionRef] = None
     ) = new `AWS::Route53::RecordSet`(name, RecordName, Route53RecordType.A, Some(HostedZoneName), None, None, None, Some(AliasTarget), Condition)
+
+  def aliasRecordByID(
+      name:           String,
+      RecordName:     Token[String], // The subdomain, with a . after it.
+      HostedZoneID:   Token[String],
+      AliasTarget:    Route53AliasTarget,
+      Condition: Option[ConditionRef] = None
+    ) = new `AWS::Route53::RecordSet`(name, RecordName, Route53RecordType.A, None, Some(HostedZoneID), None, None, Some(AliasTarget), Condition)
 }
 
 class `Custom::RemoteRoute53RecordSet` private(

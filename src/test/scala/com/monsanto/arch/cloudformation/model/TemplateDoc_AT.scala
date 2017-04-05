@@ -1,3 +1,5 @@
+package com.monsanto.arch.cloudformation.model
+
 import org.scalatest.{Matchers, FunSpec}
 
 /**
@@ -7,7 +9,6 @@ class TemplateDoc_AT extends FunSpec with Matchers {
   describe("com.monsanto.arch.cloudformation") {
     // if this test fails, update it and the package documentation example
     it("should verify that the template in the package documentation compiles"){
-      import com.monsanto.arch.cloudformation.model._
       import com.monsanto.arch.cloudformation.model.resource._
       import com.monsanto.arch.cloudformation.model.simple.Builders._
 

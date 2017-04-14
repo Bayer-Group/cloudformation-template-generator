@@ -46,6 +46,7 @@ case class `AWS::ApiGateway::Authorizer`(
                                           IdentitySource: Option[Token[String]] = None,
                                           IdentityValidationExpression: Option[Token[String]] = None,
                                           Name: Option[Token[String]] = None,
+                                          ProviderArns: Option[Seq[String]] = None,
                                           RestApiId: Option[Token[String]] = None,
                                           Type: Option[String] = None,
                                           override val Condition: Option[ConditionRef] = None
@@ -55,7 +56,7 @@ case class `AWS::ApiGateway::Authorizer`(
   override def when(newCondition: Option[ConditionRef]) = copy(Condition = newCondition)
 }
 object `AWS::ApiGateway::Authorizer` {
-  implicit val format: JsonFormat[`AWS::ApiGateway::Authorizer`] = jsonFormat10(`AWS::ApiGateway::Authorizer`.apply)
+  implicit val format: JsonFormat[`AWS::ApiGateway::Authorizer`] = jsonFormat11(`AWS::ApiGateway::Authorizer`.apply)
 }
 
 

@@ -42,7 +42,7 @@ case class `AWS::ApiGateway::Authorizer`(
                                           name: String,
                                           AuthorizerCredentials: Option[Token[String]] = None,
                                           AuthorizerResultTtlInSeconds: Option[Token[Int]] = None,
-                                          AuthorizerUri: Token[String],
+                                          AuthorizerUri: Option[Token[String]] = None,
                                           IdentitySource: Option[Token[String]] = None,
                                           IdentityValidationExpression: Option[Token[String]] = None,
                                           Name: Option[Token[String]] = None,

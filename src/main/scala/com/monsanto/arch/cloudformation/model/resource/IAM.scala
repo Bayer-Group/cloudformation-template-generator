@@ -13,7 +13,7 @@ import scala.language.implicitConversions
 
 case class `AWS::IAM::InstanceProfile`(
   name:  String,
-  Path:  String,
+  Path:  Token[String],
   Roles: Seq[ResourceRef[`AWS::IAM::Role`]],
   override val Condition: Option[ConditionRef] = None
   ) extends Resource[`AWS::IAM::InstanceProfile`] with HasArn {
@@ -71,7 +71,7 @@ case class `AWS::IAM::ManagedPolicy`(
   name:           String,
   PolicyDocument: PolicyDocument,
   Description:    Option[String] = None,
-  Path:           Option[String] = None,
+  Path:           Option[Token[String]] = None,
   Groups:         Option[Seq[ResourceRef[`AWS::IAM::Group`]]] = None,
   Roles:          Option[Seq[ResourceRef[`AWS::IAM::Role`]]] = None,
   Users:          Option[Seq[ResourceRef[`AWS::IAM::User`]]] = None,

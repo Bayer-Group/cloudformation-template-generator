@@ -12,7 +12,7 @@ case class `AWS::S3::Bucket`(name:                      String,
                              CorsConfiguration:         Option[S3CorsRules] = None,
                              LifecycleConfiguration:    Option[S3LifecycleConfigurationRules] = None,
                              LoggingConfiguration:      Option[S3LoggingConfiguration] = None,
-                             NotificationConfiguration: Option[TopicConfigurations] = None,
+                             NotificationConfiguration: Option[NotificationConfiguration] = None,
                              VersioningConfiguration:   Option[S3VersioningConfiguration] = None,
                              WebsiteConfiguration:      Option[S3WebsiteConfiguration] = None,
                              Tags:                      Option[Seq[AmazonTag]] = None,
@@ -119,9 +119,14 @@ object S3LoggingConfiguration extends DefaultJsonProtocol {
   implicit val format: JsonFormat[S3LoggingConfiguration] = jsonFormat2(S3LoggingConfiguration.apply)
 }
 
-case class TopicConfigurations(TopicConfigurations: Seq[TopicConfiguration])
-object TopicConfigurations extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[TopicConfigurations] = jsonFormat1(TopicConfigurations.apply)
+case class NotificationConfiguration(TopicConfigurations: Option[Seq[TopicConfiguration]] = None, LambdaConfigurations : Option[Seq[LambdaConfiguration]] = None)
+object NotificationConfiguration extends DefaultJsonProtocol {
+  implicit val format: JsonFormat[NotificationConfiguration] = jsonFormat2(NotificationConfiguration.apply)
+}
+
+case class LambdaConfiguration(Event: S3Event, Function: Token[String])
+object LambdaConfiguration extends DefaultJsonProtocol {
+  implicit val format: JsonFormat[LambdaConfiguration] = jsonFormat2(LambdaConfiguration.apply)
 }
 
 case class TopicConfiguration(Event: S3Event,

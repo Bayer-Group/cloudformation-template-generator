@@ -160,6 +160,11 @@ describe("Template Lookup") {
 - AWS::Lambda::Function
 - AWS::Lambda::Permission
 - AWS::Lambda::Version
+- AWS::Logs::Destination
+- AWS::Logs::LogGroup
+- AWS::Logs::LogStream
+- AWS::Logs::MetricFilter
+- AWS::Logs::SubscriptionFilter
 - AWS::DataPipeline::Pipeline
 - AWS::RDS::DBInstance::Engine
 - AWS::RDS::DBInstance::StorageType

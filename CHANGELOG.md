@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.6.0] - 2017-04-19
+
+**Note: This contains a small change to `AWS::IAM::ManagedPolicy` that may not be backwards compatible if you were relying on the implicit conversion from `T` to `Option[T]`.  If you were already specifying your `Path` as `Some("blah")`, you're fine.  Otherwise, it should be a simple change in your code to update it.  See [#149](https://github.com/MonsantoCo/cloudformation-template-generator/pull/149) for more details.**
+
+- Implement support for ElasticLoadBalancingV2 (see [#147](https://github.com/MonsantoCo/cloudformation-template-generator/pull/147))
+- Change `Path` type in IAM resources to be `Token[String]` (see [#149](https://github.com/MonsantoCo/cloudformation-template-generator/pull/149))
+- Change `AWS::RDS::DBInstance`'s `Option[A]`s to `Option[Token[A]]` (see [#152](https://github.com/MonsantoCo/cloudformation-template-generator/pull/152))
+- Add DependsOn parameter to AWS::ECS::Service and AWS::ECS::Cluster (see [#153](https://github.com/MonsantoCo/cloudformation-template-generator/pull/153))
+- Add AWS::Events::Rule (see [#155](https://github.com/MonsantoCo/cloudformation-template-generator/pull/155))
+- Allow creation of alias records by hosted zone ID (see [#157](https://github.com/MonsantoCo/cloudformation-template-generator/pull/157))
+- Add ProviderArns to `AWS::ApiGateway::Authorizer` (see [#158](https://github.com/MonsantoCo/cloudformation-template-generator/pull/158))
+- Add support for AWS::Logs::*  (see [#159](https://github.com/MonsantoCo/cloudformation-template-generator/pull/159))
+
 ## [3.5.5] - 2017-03-13
 
 - Added BooleanParameter (see [#144](https://github.com/MonsantoCo/cloudformation-template-generator/pull/144))

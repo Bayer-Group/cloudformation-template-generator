@@ -75,6 +75,10 @@ case class `AWS::ECS::TaskDefinition`(name: String,
                                       TaskRoleArn: Option[Token[String]] = None,
                                       Volumes: Seq[VolumeDefinition] = Seq.empty[VolumeDefinition],
                                       override val Condition: Option[ConditionRef] = None) extends Resource[`AWS::ECS::TaskDefinition`] with HasArn {
+  ContainerDefinitions.flatMap(_.MountPoints).flatten.foreach { mp =>
+    require(Volumes.exists(_.Name == mp.SourceVolume), s"$mp specifies a source volume, ${mp.SourceVolume}, that does not exist in task definition $name")
+  }
+
   def when(newCondition: Option[ConditionRef] = Condition): `AWS::ECS::TaskDefinition` = copy(Condition = newCondition)
 
   override def arn: Token[String] = ResourceRef(this)
@@ -101,6 +105,7 @@ case class ContainerDefinition private(Command: Option[TokenSeq[String]],
                                        LogConfiguration: Option[LogConfiguration],
                                        Memory: Option[Int],
                                        MemoryReservation: Option[Int],
+                                       MountPoints: Option[Seq[MountPoint]],
                                        Name: String,
                                        PortMappings: Option[Seq[PortMapping]],
                                        Privileged: Option[Boolean],
@@ -137,6 +142,7 @@ object ContainerDefinition extends DefaultJsonProtocol {
                                                 LogConfiguration: Option[LogConfiguration] = None,
                                                 Memory: M = None,
                                                 MemoryReservation: R = None,
+                                                MountPoints: Option[Seq[MountPoint]] = None,
                                                 Name: String,
                                                 PortMappings: Option[Seq[PortMapping]] = None,
                                                 Privileged: Option[Boolean] = None,
@@ -144,7 +150,14 @@ object ContainerDefinition extends DefaultJsonProtocol {
                                                 Ulimits: Option[Seq[Ulimit]] = None,
                                                 User: Option[Token[String]] = None,
                                                 VolumesFrom: Option[Seq[VolumesFrom]] = None,
-                                                WorkingDirectory: Option[Token[String]] = None)(implicit ev1: MemoryRequirement[M, R]): ContainerDefinition = ContainerDefinition(Command, Cpu, DisableNetworking, DnsSearchDomains, DnsServers, DockerLabels, DockerSecurityOptions, EntryPoint, Environment, Essential, ExtraHosts, Hostname, Image, Links, LogConfiguration, Memory, MemoryReservation, Name, PortMappings, Privileged, ReadonlyRootFilesystem, Ulimits, User, VolumesFrom, WorkingDirectory, None)
+                                                WorkingDirectory: Option[Token[String]] = None)(implicit ev1: MemoryRequirement[M, R]): ContainerDefinition =
+    ContainerDefinition(
+      Command, Cpu, DisableNetworking, DnsSearchDomains, DnsServers, DockerLabels, DockerSecurityOptions,
+      EntryPoint, Environment, Essential, ExtraHosts, Hostname, Image, Links, LogConfiguration, Memory,
+      MemoryReservation, MountPoints, Name, PortMappings, Privileged, ReadonlyRootFilesystem, Ulimits, User,
+      VolumesFrom, WorkingDirectory, None
+    )
+
   implicit val format: JsonFormat[ContainerDefinition] = new RootJsonFormat[ContainerDefinition] {
     override def write(cd: ContainerDefinition) = {
       val obj = JsObject(
@@ -221,6 +234,12 @@ case class LogConfiguration(LogDriver: Token[String], Options: Option[Map[String
 
 object LogConfiguration extends DefaultJsonProtocol {
   implicit val format: JsonFormat[LogConfiguration] = jsonFormat2(LogConfiguration.apply)
+}
+
+case class MountPoint(ContainerPath: Token[String], SourceVolume: String, ReadOnly: Option[Boolean] = None)
+
+object MountPoint extends DefaultJsonProtocol {
+  implicit val format: JsonFormat[MountPoint] = jsonFormat3(MountPoint.apply)
 }
 
 case class PortMapping(ContainerPort: Int, HostPort: Option[Int], Protocol: Option[Token[String]])

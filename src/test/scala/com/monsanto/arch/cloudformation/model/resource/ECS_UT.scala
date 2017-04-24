@@ -84,6 +84,50 @@ class ECS_UT extends FunSpec with Matchers {
 
       resource.arn should be(ResourceRef(resource))
     }
+
+    it("should not allow MountPoint without matching VolumeDefinition") {
+
+      val ex = intercept[IllegalArgumentException] {
+        `AWS::ECS::TaskDefinition`("test",
+          ContainerDefinitions = Seq(
+            ContainerDefinition(
+              Name = "hello",
+              Image = "",
+              MemoryReservation = Option(64),
+              MountPoints = Seq(
+                MountPoint(
+                  ContainerPath = "aba",
+                  SourceVolume = "aba"
+                )
+              )
+            )
+          )
+        )
+      }
+
+      ex.getMessage should include ("MountPoint(StringToken(aba),aba,None) specifies a source volume, aba, that does not exist in task definition test")
+    }
+
+    it("should allow MountPoint with matching VolumeDefinition") {
+      `AWS::ECS::TaskDefinition`("test",
+        Volumes = Seq(
+          VolumeDefinition("aba", Host = Some(Host(Some("/somewhere-on-the-host"))))
+        ),
+        ContainerDefinitions = Seq(
+          ContainerDefinition(
+            Name = "hello",
+            Image = "",
+            MemoryReservation = Option(64),
+            MountPoints = Seq(
+              MountPoint(
+                ContainerPath = "/somewhere-on-the-container",
+                SourceVolume = "aba"
+              )
+            )
+          )
+        )
+      )
+    }
   }
 
   describe("AWS::ECS::Service") {

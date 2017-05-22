@@ -1440,6 +1440,12 @@ to send them.">
                           EnvironmentTierType
                         </a>
                       </li><li class="current-entities indented6">
+                        <span class="separator"></span>
+                        <a class="class" href="ExternalManagedPolicy.html" title=""></a>
+                        <a href="ExternalManagedPolicy.html" title="">
+                          ExternalManagedPolicy
+                        </a>
+                      </li><li class="current-entities indented6">
                         <a class="object" href="Field$.html" title=""></a>
                         <a class="trait" href="Field.html" title=""></a>
                         <a href="Field.html" title="">
@@ -1672,6 +1678,12 @@ to send them.">
                         <a class="class" href="Logging.html" title=""></a>
                         <a href="Logging.html" title="">
                           Logging
+                        </a>
+                      </li><li class="current-entities indented6">
+                        <span class="separator"></span>
+                        <a class="trait" href="ManagedPolicy.html" title=""></a>
+                        <a href="ManagedPolicy.html" title="">
+                          ManagedPolicy
                         </a>
                       </li><li class="current-entities indented6">
                         <a class="object" href="ManagedPolicyARN$.html" title=""></a>
@@ -2063,6 +2075,12 @@ created from a snapshot, or a read replica of another RDS instance.">
                         <a href="Resource.html" title="Created by Ryan Richt on 2/15/15
 ">
                           Resource
+                        </a>
+                      </li><li class="current-entities indented6">
+                        <span class="separator"></span>
+                        <a class="class" href="ResourceRefManagedPolicy.html" title=""></a>
+                        <a href="ResourceRefManagedPolicy.html" title="">
+                          ResourceRefManagedPolicy
                         </a>
                       </li><li class="current-entities indented6">
                         <a class="object" href="ResourceTag$.html" title=""></a>
@@ -4785,9 +4803,9 @@ then you can either use parameters or custom resources to talk to lambda or some
       
       
     </li><li name="com.monsanto.arch.cloudformation.model.resource.AWSManagedPolicy" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="AWSManagedPolicyextendsProductwithSerializable"></a><a id="AWSManagedPolicy:AWSManagedPolicy"></a>
+      <a id="AWSManagedPolicyextendsManagedPolicywithProductwithSerializable"></a><a id="AWSManagedPolicy:AWSManagedPolicy"></a>
       <span class="permalink">
-      <a href="../../../../../../com/monsanto/arch/cloudformation/model/resource/index.html#AWSManagedPolicyextendsProductwithSerializable" title="Permalink">
+      <a href="../../../../../../com/monsanto/arch/cloudformation/model/resource/index.html#AWSManagedPolicyextendsManagedPolicywithProductwithSerializable" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -4798,7 +4816,7 @@ then you can either use parameters or custom resources to talk to lambda or some
       <span class="symbol">
         <a title="" href="AWSManagedPolicy.html">
               <span class="name">AWSManagedPolicy</span>
-            </a><span class="params">(<span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+            </a><span class="params">(<span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <a href="ManagedPolicy.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.ManagedPolicy">ManagedPolicy</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       
@@ -5976,6 +5994,24 @@ then you can either use parameters or custom resources to talk to lambda or some
       </span>
       
       
+    </li><li name="com.monsanto.arch.cloudformation.model.resource.ExternalManagedPolicy" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ExternalManagedPolicyextendsManagedPolicywithProductwithSerializable"></a><a id="ExternalManagedPolicy:ExternalManagedPolicy"></a>
+      <span class="permalink">
+      <a href="../../../../../../com/monsanto/arch/cloudformation/model/resource/index.html#ExternalManagedPolicyextendsManagedPolicywithProductwithSerializable" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="ExternalManagedPolicy.html">
+              <span class="name">ExternalManagedPolicy</span>
+            </a><span class="params">(<span name="name">name: <a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="accountId">accountId: <a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>)</span><span class="result"> extends <a href="ManagedPolicy.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.ManagedPolicy">ManagedPolicy</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      
+      
     </li><li name="com.monsanto.arch.cloudformation.model.resource.Field" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
       <a id="FieldextendsAnyRef"></a><a id="Field:Field"></a>
       <span class="permalink">
@@ -6605,6 +6641,24 @@ the AWS::RDS::DBInstance case class.
         <a title="" href="Logging.html">
               <span class="name">Logging</span>
             </a><span class="params">(<span name="Bucket">Bucket: <a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="IncludeCookies">IncludeCookies: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Boolean">Boolean</span>] = <span class="symbol">None</span></span>, <span name="Prefix">Prefix: <span class="extype" name="scala.Option">Option</span>[<a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol">None</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      
+      
+    </li><li name="com.monsanto.arch.cloudformation.model.resource.ManagedPolicy" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="ManagedPolicyextendsAnyRef"></a><a id="ManagedPolicy:ManagedPolicy"></a>
+      <span class="permalink">
+      <a href="../../../../../../com/monsanto/arch/cloudformation/model/resource/index.html#ManagedPolicyextendsAnyRef" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">sealed </span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="ManagedPolicy.html">
+              <span class="name">ManagedPolicy</span>
+            </a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
       
@@ -7595,6 +7649,24 @@ created from a snapshot, or a read replica of another RDS instance.</p>
       
       <p class="shortcomment cmt">Created by Ryan Richt on 2/15/15
 </p>
+    </li><li name="com.monsanto.arch.cloudformation.model.resource.ResourceRefManagedPolicy" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ResourceRefManagedPolicyextendsManagedPolicywithProductwithSerializable"></a><a id="ResourceRefManagedPolicy:ResourceRefManagedPolicy"></a>
+      <span class="permalink">
+      <a href="../../../../../../com/monsanto/arch/cloudformation/model/resource/index.html#ResourceRefManagedPolicyextendsManagedPolicywithProductwithSerializable" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="ResourceRefManagedPolicy.html">
+              <span class="name">ResourceRefManagedPolicy</span>
+            </a><span class="params">(<span name="ref">ref: <a href="../ResourceRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ResourceRef">ResourceRef</a>[<a href="AWS$colon$colonIAM$colon$colonManagedPolicy.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::IAM::ManagedPolicy">AWS::IAM::ManagedPolicy</a>]</span>)</span><span class="result"> extends <a href="ManagedPolicy.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.ManagedPolicy">ManagedPolicy</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      
+      
     </li><li name="com.monsanto.arch.cloudformation.model.resource.ResourceTag" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="ResourceTagextendsProductwithSerializable"></a><a id="ResourceTag:ResourceTag"></a>
       <span class="permalink">

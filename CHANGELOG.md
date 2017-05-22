@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.6.1] - 2017-05-22
+
+- Add accountId to managed policies (see [#135](https://github.com/MonsantoCo/cloudformation-template-generator/pull/135))
+
 ## [3.6.0] - 2017-04-19
 
 **Note: This contains a small change to `AWS::IAM::ManagedPolicy` that may not be backwards compatible if you were relying on the implicit conversion from `T` to `Option[T]`.  If you were already specifying your `Path` as `Some("blah")`, you're fine.  Otherwise, it should be a simple change in your code to update it.  See [#149](https://github.com/MonsantoCo/cloudformation-template-generator/pull/149) for more details.**

@@ -138,4 +138,11 @@ object Template extends DefaultJsonProtocol {
 
   implicit def fromOutput(o: Output[_]): Template = Template("", None, None, None, None, None, Some(Seq(o)))
   implicit def fromOutputs(os: Seq[Output[_]]): Template = Template("", None, None, None, None, None, Some(os))
+
+  implicit def toHasTemplate(template : Template) : HasTemplate = {
+    val thatTemplate = template
+    new HasTemplate {
+      override def template: Template = thatTemplate
+    }
+  }
 }

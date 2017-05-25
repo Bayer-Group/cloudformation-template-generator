@@ -42,9 +42,9 @@ object StringField {
 
 case class `AWS::DataPipeline::Pipeline`(
                                           name: String,
-                                          Activate: Option[Boolean],
-                                          Description: Option[String],
-                                          Name: String,
+                                          Activate: Option[Token[Boolean]],
+                                          Description: Option[Token[String]],
+                                          Name: Token[String],
                                           ParameterObjects: Option[Seq[ParameterObject]],
                                           ParameterValues: Option[Seq[ParameterValue]],
                                           PipelineObjects: Seq[PipelineObject],

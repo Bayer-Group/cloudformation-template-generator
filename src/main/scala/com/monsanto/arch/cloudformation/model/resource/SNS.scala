@@ -43,3 +43,18 @@ object `AWS::SNS::TopicPolicy` extends DefaultJsonProtocol {
 trait Subscribable {
   def asSubscription : Token[Subscription]
 }
+
+case class `AWS::SNS::Subscription`(
+  name : String,
+  Endpoint : Option[Token[String]],
+  Protocol : Token[String],
+  TopicArn : Token[String],
+  override val Condition : Option[ConditionRef] = None)
+  extends Resource[`AWS::SNS::Subscription`] {
+
+  override def when(newCondition: Option[ConditionRef]): `AWS::SNS::Subscription` = copy(Condition = newCondition)
+}
+
+object `AWS::SNS::Subscription` extends DefaultJsonProtocol {
+  implicit val format : JsonFormat[`AWS::SNS::Subscription`] = jsonFormat5(`AWS::SNS::Subscription`.apply)
+}

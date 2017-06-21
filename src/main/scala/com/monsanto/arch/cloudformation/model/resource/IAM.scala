@@ -167,7 +167,7 @@ object PolicyStatement extends DefaultJsonProtocol {
 
 case class `AWS::IAM::Group`(
   name:              String,
-  ManagedPolicyArns: Option[Seq[ResourceRef[`AWS::IAM::ManagedPolicy`]]] = None,
+  ManagedPolicyArns: Option[Seq[ManagedPolicyARN]] = None,
   Path:              Option[Token[String]] = None,
   Policies:          Option[Seq[Policy]] = None,
   override val Condition: Option[ConditionRef] = None

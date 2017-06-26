@@ -1,5 +1,17 @@
 language: scala
+
 jdk:
   - oraclejdk8
+
+before_cache:
+  - find $HOME/.ivy2 -name "ivydata-*.properties" | xargs rm
+  - find $HOME/.sbt -name "*.lock" | xargs rm
+
+cache:
+  directories:
+  - $HOME/.ivy2/cache/
+  - $HOME/.sbt/boot/
+
 script: "sbt +clean +coverage +test"
+
 after_success: "sbt +coveralls"

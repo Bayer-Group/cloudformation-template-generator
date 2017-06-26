@@ -412,6 +412,12 @@ case class RuleCondition private (Field: Option[Token[String]] = None, Values: O
 
 object RuleCondition extends DefaultJsonProtocol {
   /**
+    * @param Values The value for the host-header.
+    * @return
+    */
+  def `host-header`(Values: Seq[String]): RuleCondition = RuleCondition(Some("host-header"), Some(Values))
+
+  /**
     * @param Values The value for the path-pattern.
     * @return
     */

@@ -47,12 +47,20 @@ class ElasticLoadBalancingV2_UT extends FunSpec with Matchers {
     SslPolicy = Some(ELBSecurityPolicy.`ELBSecurityPolicy-2016-08`)
   )
 
-  private val listenerRule = `AWS::ElasticLoadBalancingV2::ListenerRule`(
+  private val pathPatternListenerRule = `AWS::ElasticLoadBalancingV2::ListenerRule`(
     name = "testy-listener-rule",
     Actions = Seq(ListenerAction.forward(targetGroup.arn)),
     Conditions = Seq(RuleCondition.`path-pattern`(Seq("/"))),
     ListenerArn = httpListener.arn,
     Priority = 1
+  )
+
+  private val hostHeaderListenerRule = `AWS::ElasticLoadBalancingV2::ListenerRule`(
+    name = "testy-listener-rule",
+    Actions = Seq(ListenerAction.forward(targetGroup.arn)),
+    Conditions = Seq(RuleCondition.`host-header`(Seq("example.com"))),
+    ListenerArn = httpListener.arn,
+    Priority = 2
   )
 
   describe("AWS::ElasticLoadBalancingV2::LoadBalancer") {
@@ -168,7 +176,7 @@ class ElasticLoadBalancingV2_UT extends FunSpec with Matchers {
   }
 
   describe("AWS::ElasticLoadBalancingV2::ListenerRule") {
-    it("should serialize correctly") {
+    it("should serialize path-pattern correctly") {
       val expectedJson = JsObject(
         "testy-listener-rule" -> JsObject(
           "Type" -> JsString("AWS::ElasticLoadBalancingV2::ListenerRule"),
@@ -191,7 +199,33 @@ class ElasticLoadBalancingV2_UT extends FunSpec with Matchers {
         )
       )
 
-      Seq[Resource[_]](listenerRule).toJson shouldBe expectedJson
+      Seq[Resource[_]](pathPatternListenerRule).toJson shouldBe expectedJson
+    }
+
+    it("should serialize host-header correctly") {
+      val expectedJson = JsObject(
+        "testy-listener-rule" -> JsObject(
+          "Type" -> JsString("AWS::ElasticLoadBalancingV2::ListenerRule"),
+          "Properties" -> JsObject(
+            "Priority" -> JsNumber(2),
+            "ListenerArn" -> JsObject("Ref" -> JsString("testy-http-listener")),
+            "Actions" -> JsArray(
+              JsObject(
+                "TargetGroupArn" -> JsObject("Ref" -> JsString("testy-target-group")),
+                "Type" -> JsString("forward")
+              )
+            ),
+            "Conditions" -> JsArray(
+              JsObject(
+                "Field" -> JsString("host-header"),
+                "Values" -> JsArray(JsString("example.com"))
+              )
+            )
+          )
+        )
+      )
+
+      Seq[Resource[_]](hostHeaderListenerRule).toJson shouldBe expectedJson
     }
   }
 

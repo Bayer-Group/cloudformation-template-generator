@@ -178,6 +178,7 @@ object ContainerDefinition extends DefaultJsonProtocol {
         "LogConfiguration" → cd.LogConfiguration.toJson,
         "Memory" → cd.Memory.toJson,
         "MemoryReservation" → cd.MemoryReservation.toJson,
+        "MountPoints" → cd.MountPoints.toJson,
         "Name" → cd.Name.toJson,
         "PortMappings" → cd.PortMappings.toJson,
         "Privileged" → cd.Privileged.toJson,

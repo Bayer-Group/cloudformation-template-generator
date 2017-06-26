@@ -109,7 +109,7 @@ class ECS_UT extends FunSpec with Matchers {
     }
 
     it("should allow MountPoint with matching VolumeDefinition") {
-      `AWS::ECS::TaskDefinition`("test",
+      val resource = `AWS::ECS::TaskDefinition`("test",
         Volumes = Seq(
           VolumeDefinition("aba", Host = Some(Host(Some("/somewhere-on-the-host"))))
         ),
@@ -127,6 +127,14 @@ class ECS_UT extends FunSpec with Matchers {
           )
         )
       )
+
+      val js = resource.toJson
+
+      val jsContainerDef = js.asJsObject.fields("ContainerDefinitions").asInstanceOf[JsArray].elements(0).asJsObject
+
+      jsContainerDef.fields should contain key "MountPoints"
+      js.prettyPrint should include (""""ContainerPath": "/somewhere-on-the-container"""")
+      js.prettyPrint should include (""""SourcePath": "/somewhere-on-the-host"""")
     }
   }
 

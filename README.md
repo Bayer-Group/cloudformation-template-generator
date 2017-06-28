@@ -181,6 +181,7 @@ describe("Template Lookup") {
 - AWS::Route53::RecordSet
 - AWS::S3::Bucket
 - AWS::S3::BucketPolicy
+- AWS::SNS::Subscription
 - AWS::SNS::Topic
 - AWS::SNS::TopicPolicy
 - AWS::SQS::Queue

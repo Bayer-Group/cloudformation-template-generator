@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.6.2] - 2017-06-29
+
+- Add InstanceProfileName (see [#168](https://github.com/MonsantoCo/cloudformation-template-generator/pull/168))
+- Add AWS::SNS::Subscription (see [#170](https://github.com/MonsantoCo/cloudformation-template-generator/pull/170))
+- Add support for ContainerDefinition MountPoints (see [#164](https://github.com/MonsantoCo/cloudformation-template-generator/pull/164))
+- Cache the ivy cache, compiled compiler interface, etc. (see [#175](https://github.com/MonsantoCo/cloudformation-template-generator/pull/175))
+- Add `host-header` RuleCondition builder method (see [#176](https://github.com/MonsantoCo/cloudformation-template-generator/pull/176))
+- Improve has template (see [#169](https://github.com/MonsantoCo/cloudformation-template-generator/pull/169))
+- Make AllocatedStorage optional for non-NewRds instances (see [#174](https://github.com/MonsantoCo/cloudformation-template-generator/pull/174))
+
 ## [3.6.1] - 2017-05-22
 
 - Add accountId to managed policies (see [#135](https://github.com/MonsantoCo/cloudformation-template-generator/pull/135))

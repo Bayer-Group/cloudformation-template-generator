@@ -14,7 +14,7 @@ object EncryptionKey {
 }
 
 case class ArtifactStore(EncryptionKey : Option[EncryptionKey]= None,
-                         Location : String,
+                         Location : Token[String],
                          Type : String)
 object ArtifactStore {
   implicit lazy val format = jsonFormat3(ArtifactStore.apply)

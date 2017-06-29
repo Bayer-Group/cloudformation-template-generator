@@ -47,10 +47,11 @@ object `AWS::CloudWatch::Alarm::ComparisonOperator` extends DefaultJsonProtocol 
     new EnumFormat[`AWS::CloudWatch::Alarm::ComparisonOperator`](values)
 }
 
-case class `AWS::CloudWatch::Alarm::Dimension`(Name: String, Value: Token[ResourceRef[_]])
+case class `AWS::CloudWatch::Alarm::Dimension`(Name: String, Value: Token[String])
 object `AWS::CloudWatch::Alarm::Dimension` extends DefaultJsonProtocol {
   implicit val format: JsonFormat[`AWS::CloudWatch::Alarm::Dimension`] = jsonFormat2(`AWS::CloudWatch::Alarm::Dimension`.apply)
-  def from[A <: Resource[A]](name: String, value: Token[ResourceRef[A]]): `AWS::CloudWatch::Alarm::Dimension` = `AWS::CloudWatch::Alarm::Dimension`(name, value.asInstanceOf[Token[ResourceRef[_]]])
+  def from[A <: Resource[A]](name: String, value: ResourceRef[A]): `AWS::CloudWatch::Alarm::Dimension` = `AWS::CloudWatch::Alarm::Dimension`(name, value)
+  def from[A <: Resource[A]](name: String, value: Token[String]): `AWS::CloudWatch::Alarm::Dimension` = `AWS::CloudWatch::Alarm::Dimension`(name, value)
 }
 
 sealed trait `AWS::CloudWatch::Alarm::Namespace`

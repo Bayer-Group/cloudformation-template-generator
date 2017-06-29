@@ -51,7 +51,7 @@ import spray.json._
   */
 case class `AWS::RDS::DBInstance` private[resource] (
   name:                        String,
-  AllocatedStorage:            Either[Int, Token[Int]],
+  AllocatedStorage:            Option[Either[Int, Token[Int]]],
   DBInstanceClass:             Token[String],
   AllowMajorVersionUpgrade:    Option[Token[Boolean]],
   AutoMinorVersionUpgrade:     Option[Token[Boolean]],
@@ -379,15 +379,18 @@ case class RdsStorageTypeGp2() extends RdsStorageType {
   * @param iops This value is constrained. See http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Storage.html for details.
   */
 case class RdsStorageTypeIo1(iops: Either[Int, Token[Int]]) extends RdsStorageType {
-  private def isIopsValueValid(storage: Either[Int, Token[Int]]): Boolean = (iops, storage) match {
-    case (Left(i), Left(s)) =>
-      i >= 1000 &&
-        i <= 30000 &&
-        i % s == 0 &&
-        i / s >= 3 &&
-        i / s <= 10
-    case _ => true
-  }
+  private def isIopsValueValid(storage: Option[Either[Int, Token[Int]]]): Boolean =
+    storage.forall { storageVal =>
+      (iops, storageVal) match {
+        case (Left(i), Left(s)) =>
+          i >= 1000 &&
+            i <= 30000 &&
+            i % s == 0 &&
+            i / s >= 3 &&
+            i / s <= 10
+        case _ => true
+      }
+    }
 
   private[resource] def storage(rdsInstance: `AWS::RDS::DBInstance`): `AWS::RDS::DBInstance` = {
     val storage = rdsInstance.AllocatedStorage
@@ -434,7 +437,7 @@ object RdsBuilder {
     name:                       String,
     rdsSource:                  RdsSource,
     rdsLocation:                RdsLocation,
-    allocatedStorage:           Either[Int,Token[Int]],
+    allocatedStorage:           Option[Either[Int,Token[Int]]],
     dbInstanceClass:            Token[String],
     rdsStorageType:             RdsStorageType                                    = RdsStorageTypeDefault(),
     allowMajorVersionUpgrade:   Option[Boolean]                                   = None,
@@ -456,12 +459,18 @@ object RdsBuilder {
       case NewRds(_, RdsEncryptionStorage(_), _, _, _, _, _, _, _) => true
       case _                                                      => false
     }
+
     val isVpc: Boolean = rdsLocation match {
       case RdsVpc(_, _) => true
       case _            => false
     }
+
     if (isEncrypted && !isVpc)
       throw new IllegalArgumentException("You cannot use storage encryption in non-VPC RDS instances")
+
+    if (rdsSource.isInstanceOf[NewRds] && allocatedStorage.isEmpty)
+      throw new IllegalArgumentException("You must allocate storage for a new RDS instance")
+
     rdsSource.source(rdsLocation.location(rdsStorageType.storage(`AWS::RDS::DBInstance`(
       name                       = name,
       AllocatedStorage           = allocatedStorage,

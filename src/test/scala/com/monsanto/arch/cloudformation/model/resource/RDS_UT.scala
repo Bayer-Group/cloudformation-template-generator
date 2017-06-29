@@ -65,6 +65,19 @@ class RDS_UT extends FunSpec with Matchers {
       Seq[Resource[_]](rdsInstance).toJson should be (expected)
     }
 
+    it("should throw exception if a NewRds does not allocate storage") {
+      intercept[IllegalArgumentException] {
+        RdsBuilder.buildRds(
+          name = "TestRds",
+          rdsSource = newEncryptedRds,
+          rdsLocation = rdsInVpc,
+          allocatedStorage = None,
+          dbInstanceClass = instanceClass,
+          rdsStorageType = RdsStorageTypeStandard()
+        )
+      }
+    }
+
     it("should create a valid new RDS database instance when DBSubnetGroupName is passed in as a parameter") {
       val dbSubnetGroupParamName = "dbSubnetGroup"
       val dbSubnetGroupParam = `AWS::RDS::DBSubnetGroup_Parameter`(dbSubnetGroupParamName , "Subnet group where RDS instances are created.")
@@ -156,6 +169,52 @@ class RDS_UT extends FunSpec with Matchers {
           )
         )
       )
+      Seq[Resource[_]](rdsInstance).toJson should be (expected)
+    }
+
+    it("should create a valid pIOPS RDS database instance from snapshot without allocated storage") {
+      val secGroupName = "SecurityGroup"
+
+      val secGroup = `AWS::RDS::DBSecurityGroup`(
+        name                   = secGroupName,
+        DBSecurityGroupIngress = Seq(),
+        GroupDescription       = "Not a real group"
+      )
+
+      val dbSnapshotId = "NotARealSnapshot"
+
+      val az = "us-east-1d"
+
+      val rdsFromSnapshot = FromSnapshot(
+        rdsAvailabilityZone  = RdsSingleAZ(az = Some(az)),
+        dbSnapshotIdentifier = dbSnapshotId
+      )
+
+      val iops = 2000
+
+      val rdsInstance = RdsBuilder.buildRds(
+        name             = "TestRdsFromSnapshot",
+        rdsSource        = rdsFromSnapshot,
+        rdsLocation      = RdsClassic(dbSecurityGroups = Some(Seq(ResourceRef(secGroup)))),
+        allocatedStorage = None,
+        dbInstanceClass  = instanceClass,
+        rdsStorageType   = RdsStorageTypeIo1(iops = Left(iops))
+      )
+
+      val expected = JsObject(
+        "TestRdsFromSnapshot" -> JsObject(
+          "Type" -> JsString("AWS::RDS::DBInstance"),
+          "Properties" -> JsObject(
+            "AvailabilityZone" -> JsString(az),
+            "DBInstanceClass" -> JsString(instanceClass),
+            "DBSecurityGroups" -> JsArray(JsObject("Ref" -> JsString(secGroupName))),
+            "DBSnapshotIdentifier" -> JsString(dbSnapshotId),
+            "Iops" -> JsNumber(iops),
+            "StorageType" -> JsString("io1")
+          )
+        )
+      )
+      
       Seq[Resource[_]](rdsInstance).toJson should be (expected)
     }
 
@@ -254,7 +313,7 @@ class RDS_UT extends FunSpec with Matchers {
           dbName                = Some(dbName)
         ),
         rdsLocation                = RdsClassic(),
-        allocatedStorage           = Right(ParameterRef(rdsAllocatedStorage)),
+        allocatedStorage           = Some(Right(ParameterRef(rdsAllocatedStorage))),
         dbInstanceClass            = ParameterRef(rdsInstanceClass),
         rdsStorageType             = RdsStorageTypeGp2(),
         allowMajorVersionUpgrade   = Some(false),

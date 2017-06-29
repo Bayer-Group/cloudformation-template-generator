@@ -12,6 +12,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Add `host-header` RuleCondition builder method (see [#176](https://github.com/MonsantoCo/cloudformation-template-generator/pull/176))
 - Improve has template (see [#169](https://github.com/MonsantoCo/cloudformation-template-generator/pull/169))
 - Make AllocatedStorage optional for non-NewRds instances (see [#174](https://github.com/MonsantoCo/cloudformation-template-generator/pull/174))
+- Cloudwatch dimension general token (see [#177](https://github.com/MonsantoCo/cloudformation-template-generator/pull/177))
 
 ## [3.6.1] - 2017-05-22
 

@@ -138,7 +138,7 @@ package object model {
   implicit def parameter2TokenString(parameter : StringParameter) : Token[String] = ParameterRef(parameter)
 
   implicit def eitherAfuncA2OptionEitherAfuncA[A](v: Either[A, AmazonFunctionCall[A]]): Option[Either[A, Token[A]]] =
-    Some(v.map(Token.fromFunction[A]))
+    Some(v.right.map(Token.fromFunction[A]))
 
   /**
     * Provides a string interpolator to assist in the concatenation of

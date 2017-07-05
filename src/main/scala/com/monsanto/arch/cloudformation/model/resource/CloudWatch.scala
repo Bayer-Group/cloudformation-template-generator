@@ -95,8 +95,20 @@ object `AWS::CloudWatch::Alarm::Namespace` extends DefaultJsonProtocol {
     `AWS/StorageGateway`,
     `AWS/Lambda`
   )
-  implicit val format: JsonFormat[`AWS::CloudWatch::Alarm::Namespace`] =
-    new EnumFormat[`AWS::CloudWatch::Alarm::Namespace`](values)
+
+  implicit val format : JsonFormat[`AWS::CloudWatch::Alarm::Namespace`] = new JsonFormat[`AWS::CloudWatch::Alarm::Namespace`] {
+    val _format = new EnumFormat[`AWS::CloudWatch::Alarm::Namespace`](values)
+    def write(namespace : `AWS::CloudWatch::Alarm::Namespace`) : JsValue = namespace match {
+      case CustomNamespace(ns) => JsString(ns)
+      case _ => _format.write(namespace)
+    }
+    def read(js : JsValue) = ???
+  }
+
+  case class CustomNamespace(namespace : String) extends `AWS::CloudWatch::Alarm::Namespace`
+  def apply(namespace : String) : `AWS::CloudWatch::Alarm::Namespace` = CustomNamespace(namespace)
+  import scala.language.implicitConversions
+  implicit def customNamespace(namespace : String) : `AWS::CloudWatch::Alarm::Namespace` = apply(namespace)
 }
 
 sealed trait `AWS::CloudWatch::Alarm::Statistic`

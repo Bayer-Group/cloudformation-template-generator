@@ -77,7 +77,8 @@ case class `AWS::ElasticLoadBalancingV2::Listener`(
   Protocol:               ALBProtocol,
   Certificates:           Option[Seq[Certificate]] = None,
   SslPolicy:              Option[ELBSecurityPolicy] = None,
-  override val Condition: Option[ConditionRef] = None
+  override val Condition: Option[ConditionRef] = None,
+  override val DependsOn: Option[Seq[String]] = None
 ) extends Resource[`AWS::ElasticLoadBalancingV2::Listener`] with HasArn {
 
   if (Protocol == ALBProtocol.HTTPS && !Certificates.exists(_.nonEmpty))
@@ -92,14 +93,16 @@ object `AWS::ElasticLoadBalancingV2::Listener` extends DefaultJsonProtocol {
               DefaultActions:  Seq[ListenerAction],
               LoadBalancerArn: Token[String],
               Port:            Token[Int] = 80,
-              Condition:       Option[ConditionRef] = None): `AWS::ElasticLoadBalancingV2::Listener` =
+              Condition:       Option[ConditionRef] = None,
+              DependsOn:       Option[Seq[String]] = None): `AWS::ElasticLoadBalancingV2::Listener` =
     `AWS::ElasticLoadBalancingV2::Listener`(
       name = name,
       Protocol = ALBProtocol.HTTP,
       DefaultActions = DefaultActions,
       LoadBalancerArn = LoadBalancerArn,
       Port = Port,
-      Condition = Condition
+      Condition = Condition,
+      DependsOn = DependsOn
     )
 
   def forHttps(name:            String,
@@ -108,7 +111,8 @@ object `AWS::ElasticLoadBalancingV2::Listener` extends DefaultJsonProtocol {
                Certificates:    Seq[Certificate],
                Port:            Token[Int] = 443,
                SslPolicy:       Option[ELBSecurityPolicy] = None,
-               Condition:       Option[ConditionRef] = None): `AWS::ElasticLoadBalancingV2::Listener` =
+               Condition:       Option[ConditionRef] = None,
+               DependsOn:       Option[Seq[String]] = None): `AWS::ElasticLoadBalancingV2::Listener` =
     `AWS::ElasticLoadBalancingV2::Listener`(
       name = name,
       Protocol = ALBProtocol.HTTPS,
@@ -117,10 +121,11 @@ object `AWS::ElasticLoadBalancingV2::Listener` extends DefaultJsonProtocol {
       DefaultActions = DefaultActions,
       LoadBalancerArn = LoadBalancerArn,
       Port = Port,
-      Condition = Condition
+      Condition = Condition,
+      DependsOn = DependsOn
     )
 
-  implicit val format: JsonFormat[`AWS::ElasticLoadBalancingV2::Listener`] = jsonFormat8(`AWS::ElasticLoadBalancingV2::Listener`.apply)
+  implicit val format: JsonFormat[`AWS::ElasticLoadBalancingV2::Listener`] = jsonFormat9(`AWS::ElasticLoadBalancingV2::Listener`.apply)
 }
 
 
@@ -146,14 +151,15 @@ case class `AWS::ElasticLoadBalancingV2::ListenerRule`(
   Conditions:             Seq[RuleCondition],
   ListenerArn:            Token[String],
   Priority:               Token[Int],
-  override val Condition: Option[ConditionRef] = None
+  override val Condition: Option[ConditionRef] = None,
+  override val DependsOn: Option[Seq[String]] = None
 ) extends Resource[`AWS::ElasticLoadBalancingV2::ListenerRule`] with HasArn {
   def when(newCondition: Option[ConditionRef] = Condition): `AWS::ElasticLoadBalancingV2::ListenerRule` = copy(Condition = newCondition)
   def arn: Token[String] = ResourceRef(this)
 }
 
 object `AWS::ElasticLoadBalancingV2::ListenerRule` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::ElasticLoadBalancingV2::ListenerRule`] = jsonFormat6(`AWS::ElasticLoadBalancingV2::ListenerRule`.apply)
+  implicit val format: JsonFormat[`AWS::ElasticLoadBalancingV2::ListenerRule`] = jsonFormat7(`AWS::ElasticLoadBalancingV2::ListenerRule`.apply)
 }
 
 

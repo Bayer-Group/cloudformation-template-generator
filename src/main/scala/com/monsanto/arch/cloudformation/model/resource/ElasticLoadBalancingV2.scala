@@ -408,20 +408,20 @@ object ListenerAction extends DefaultJsonProtocol {
   *              on the URL of the request).
   * @param Values The value for the field that you specified in the Field property.
   */
-case class RuleCondition private (Field: Option[Token[String]] = None, Values: Option[Seq[String]] = None)
+case class RuleCondition private (Field: Option[Token[String]] = None, Values: Option[Seq[Token[String]]] = None)
 
 object RuleCondition extends DefaultJsonProtocol {
   /**
     * @param Values The value for the host-header.
     * @return
     */
-  def `host-header`(Values: Seq[String]): RuleCondition = RuleCondition(Some("host-header"), Some(Values))
+  def `host-header`(Values: Seq[Token[String]]): RuleCondition = RuleCondition(Some("host-header"), Some(Values))
 
   /**
     * @param Values The value for the path-pattern.
     * @return
     */
-  def `path-pattern`(Values: Seq[String]): RuleCondition = RuleCondition(Some("path-pattern"), Some(Values))
+  def `path-pattern`(Values: Seq[Token[String]]): RuleCondition = RuleCondition(Some("path-pattern"), Some(Values))
 
   implicit val format: JsonFormat[RuleCondition] = jsonFormat2(RuleCondition.apply)
 }

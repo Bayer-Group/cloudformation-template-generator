@@ -70,12 +70,13 @@ object AccessKeyStatus extends DefaultJsonProtocol{
 
 case class `AWS::IAM::ManagedPolicy`(
   name:           String,
-  PolicyDocument: PolicyDocument,
-  Description:    Option[String] = None,
-  Path:           Option[Token[String]] = None,
-  Groups:         Option[Seq[ResourceRef[`AWS::IAM::Group`]]] = None,
-  Roles:          Option[Seq[ResourceRef[`AWS::IAM::Role`]]] = None,
-  Users:          Option[Seq[ResourceRef[`AWS::IAM::User`]]] = None,
+  PolicyDocument:     PolicyDocument,
+  ManagedPolicyName:  Option[Token[String]] = None,
+  Description:        Option[String] = None,
+  Path:               Option[Token[String]] = None,
+  Groups:             Option[Seq[ResourceRef[`AWS::IAM::Group`]]] = None,
+  Roles:              Option[Seq[ResourceRef[`AWS::IAM::Role`]]] = None,
+  Users:              Option[Seq[ResourceRef[`AWS::IAM::User`]]] = None,
   override val Condition: Option[ConditionRef] = None
   ) extends Resource[`AWS::IAM::ManagedPolicy`] {
 
@@ -83,7 +84,7 @@ case class `AWS::IAM::ManagedPolicy`(
 }
 
 object `AWS::IAM::ManagedPolicy` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::IAM::ManagedPolicy`] = jsonFormat8(`AWS::IAM::ManagedPolicy`.apply)
+  implicit val format: JsonFormat[`AWS::IAM::ManagedPolicy`] = jsonFormat9(`AWS::IAM::ManagedPolicy`.apply)
 }
 
 sealed trait ManagedPolicy
@@ -168,7 +169,8 @@ object PolicyStatement extends DefaultJsonProtocol {
 
 case class `AWS::IAM::Group`(
   name:              String,
-  ManagedPolicyArns: Option[Seq[ResourceRef[`AWS::IAM::ManagedPolicy`]]] = None,
+  GroupName:         Option[Token[String]] = None,
+  ManagedPolicyArns: Option[Seq[ManagedPolicyARN]] = None,
   Path:              Option[Token[String]] = None,
   Policies:          Option[Seq[Policy]] = None,
   override val Condition: Option[ConditionRef] = None
@@ -176,7 +178,7 @@ case class `AWS::IAM::Group`(
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
 }
 object `AWS::IAM::Group` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::IAM::Group`] = jsonFormat5(`AWS::IAM::Group`.apply)
+  implicit val format: JsonFormat[`AWS::IAM::Group`] = jsonFormat6(`AWS::IAM::Group`.apply)
 }
 
 @implicitNotFound("you can only specify one of Groups, Roles, or Users")

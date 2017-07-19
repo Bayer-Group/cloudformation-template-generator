@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.6.3] - 2017-07-19
+- Add support for custom namespace in cloudwatch (see [#178](https://github.com/MonsantoCo/cloudformation-template-generator/pull/178))
+- Make RuleCondition accept Option[Seq[Token[String]]] (see [#182](https://github.com/MonsantoCo/cloudformation-template-generator/pull/182))
+- Add DependsOn attribute to ElasticLoadBalancingV2 resources (see [#183](https://github.com/MonsantoCo/cloudformation-template-generator/pull/183))
+- Align managed policy arns parameter types (see [#179](https://github.com/MonsantoCo/cloudformation-template-generator/pull/179))
+
 ## [3.6.2] - 2017-06-29
 
 - Add InstanceProfileName (see [#168](https://github.com/MonsantoCo/cloudformation-template-generator/pull/168))

@@ -91,6 +91,8 @@ describe("Template Lookup") {
 - AWS::ApiGateway::Resource
 - AWS::ApiGateway::RestApi
 - AWS::ApiGateway::Stage
+- AWS::ApiGateway::UsagePlan
+- AWS::ApiGateway::UsagePlanKey
 - AWS::AutoScaling::AutoScalingGroup
 - AWS::AutoScaling::LaunchConfiguration
 - AWS::AutoScaling::ScalingPolicy

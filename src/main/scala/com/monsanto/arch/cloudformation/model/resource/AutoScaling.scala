@@ -14,7 +14,7 @@ case class `AWS::AutoScaling::AutoScalingGroup`(
     LaunchConfigurationName: Token[ResourceRef[`AWS::AutoScaling::LaunchConfiguration`]],
     MinSize:                 StringBackedInt,
     MaxSize:                 StringBackedInt,
-    DesiredCapacity:         Token[Int],
+    DesiredCapacity:         Option[Token[Int]],
     HealthCheckType:         String,
     VPCZoneIdentifier:       Seq[Token[ResourceRef[`AWS::EC2::Subnet`]]],
     Tags:                    Seq[AmazonTag],

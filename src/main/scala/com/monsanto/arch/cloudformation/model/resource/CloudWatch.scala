@@ -25,6 +25,7 @@ case class `AWS::CloudWatch::Alarm`(
   AlarmName:               Option[Token[String]] = None,
   Dimensions:              Option[Seq[`AWS::CloudWatch::Alarm::Dimension`]] = None,
   InsufficientDataActions: Option[TokenSeq[String]] = None,
+  TreatMissingData:        Option[MissingDataTreatment] = None,
   OKActions:               Option[TokenSeq[String]] = None,
   Unit:                    Option[`AWS::CloudWatch::Alarm::Unit`] = None,
   override val Condition: Option[ConditionRef] = None
@@ -33,7 +34,7 @@ case class `AWS::CloudWatch::Alarm`(
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
 }
 object `AWS::CloudWatch::Alarm` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::CloudWatch::Alarm`] = jsonFormat17(`AWS::CloudWatch::Alarm`.apply)
+  implicit val format: JsonFormat[`AWS::CloudWatch::Alarm`] = jsonFormat18(`AWS::CloudWatch::Alarm`.apply)
 }
 
 sealed trait `AWS::CloudWatch::Alarm::ComparisonOperator`
@@ -183,4 +184,22 @@ object `AWS::CloudWatch::Alarm::Unit` extends DefaultJsonProtocol {
   )
   implicit val format: JsonFormat[`AWS::CloudWatch::Alarm::Unit`] =
     new EnumFormat[`AWS::CloudWatch::Alarm::Unit`](values)
+}
+
+sealed trait MissingDataTreatment
+object MissingDataTreatment extends DefaultJsonProtocol {
+  case object breaching extends MissingDataTreatment
+  case object notBreaching extends MissingDataTreatment
+  case object ignore extends MissingDataTreatment
+  case object missing extends MissingDataTreatment
+
+  val values = Seq(
+    breaching,
+    notBreaching,
+    ignore,
+    missing
+  )
+
+  implicit val format: EnumFormat[MissingDataTreatment] =
+    new EnumFormat[MissingDataTreatment](values)
 }

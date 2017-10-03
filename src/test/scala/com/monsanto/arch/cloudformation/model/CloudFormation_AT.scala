@@ -911,7 +911,7 @@ object StaxTemplate {
     LaunchConfigurationName = ResourceRef(coreOSServerLaunchConfigResource),
     MinSize = StringBackedInt(2),
     MaxSize = StringBackedInt(12),
-    DesiredCapacity = ParameterRef(clusterSizeParam),
+    DesiredCapacity = Some(ParameterRef(clusterSizeParam)),
     HealthCheckType = "EC2",
     VPCZoneIdentifier = Seq(ResourceRef(priSubnet1), ResourceRef(priSubnet2)),
     Tags = standardTagsNoNetworkPropagate("container"),
@@ -1090,7 +1090,7 @@ object StaxTemplate {
                                             LoadBalancerNames = Some(Seq(ResourceRef(routerELBResource))),
                                             MinSize = StringBackedInt(2),
                                             MaxSize = StringBackedInt(12),
-                                            DesiredCapacity = ParameterRef(routerClusterSizeParam),
+                                            DesiredCapacity = Some(ParameterRef(routerClusterSizeParam)),
                                             HealthCheckType = "EC2",
                                             VPCZoneIdentifier = Seq(ResourceRef(priSubnet1), ResourceRef(priSubnet2)),
                                             Tags = standardTagsNoNetworkPropagate("router")

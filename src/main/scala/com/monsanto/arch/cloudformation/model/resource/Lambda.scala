@@ -38,6 +38,7 @@ case class `AWS::Lambda::Function`(name: String,
                                    Environment : Option[LambdaEnvironment] = None,
                                    KmsKeyArn : Option[Token[String]] = None,
                                    VpcConfig : Option[LambdaVpcConfig] = None,
+                                   override val DependsOn: Option[Seq[String]] = None,
                                    override val Condition: Option[ConditionRef] = None)
   extends Resource[`AWS::Lambda::Function`] with HasArn with Subscribable {
 
@@ -53,7 +54,7 @@ case class `AWS::Lambda::Function`(name: String,
 }
 
 object `AWS::Lambda::Function` {
-  implicit val format: JsonFormat[`AWS::Lambda::Function`] = jsonFormat12(`AWS::Lambda::Function`.apply)
+  implicit val format: JsonFormat[`AWS::Lambda::Function`] = jsonFormat13(`AWS::Lambda::Function`.apply)
 }
 
 case class LambdaEnvironment(Variables : Option[Map[String, Token[String]]])

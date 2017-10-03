@@ -99,6 +99,7 @@ case class `AWS::Lambda::EventSourceMapping`(
                                               EventSourceArn: Token[String],
                                               FunctionName: Token[ResourceRef[`AWS::Lambda::Function`]],
                                               StartingPosition: Token[String],
+                                              override val DependsOn: Option[Seq[String]] = None,
                                               override val Condition: Option[ConditionRef] = None
                                               ) extends Resource[`AWS::Lambda::EventSourceMapping`] {
 
@@ -106,7 +107,7 @@ case class `AWS::Lambda::EventSourceMapping`(
 }
 
 object `AWS::Lambda::EventSourceMapping` {
-  implicit val format: JsonFormat[`AWS::Lambda::EventSourceMapping`] = jsonFormat7(`AWS::Lambda::EventSourceMapping`.apply)
+  implicit val format: JsonFormat[`AWS::Lambda::EventSourceMapping`] = jsonFormat8(`AWS::Lambda::EventSourceMapping`.apply)
 }
 
 case class `AWS::Lambda::Version`(name: String,

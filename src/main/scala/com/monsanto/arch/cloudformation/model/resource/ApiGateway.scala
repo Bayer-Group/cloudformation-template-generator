@@ -2,7 +2,7 @@ package com.monsanto.arch.cloudformation.model.resource
 
 import com.monsanto.arch.cloudformation.model.{ConditionRef, ResourceRef, Token, `Fn::GetAtt`}
 import com.monsanto.arch.cloudformation.model.Token.TokenSeq
-import spray.json.{DefaultJsonProtocol, JsonFormat}
+import spray.json.{DefaultJsonProtocol, JsString, JsValue, JsonFormat}
 import DefaultJsonProtocol._
 
 case class `AWS::ApiGateway::Account`(
@@ -259,4 +259,90 @@ case class `AWS::ApiGateway::Stage`(
 }
 object `AWS::ApiGateway::Stage` {
   implicit val format: JsonFormat[`AWS::ApiGateway::Stage`] = jsonFormat11(`AWS::ApiGateway::Stage`.apply)
+}
+
+case class ApiStage(
+                     ApiId: Option[Token[String]] = None,
+                     Stage: Option[Token[String]] = None
+                   )
+object ApiStage {
+  implicit val format : JsonFormat[ApiStage] = jsonFormat2(ApiStage.apply)
+}
+
+sealed trait Period
+
+object Period extends DefaultJsonProtocol {
+  private type T = Period
+  case object DAY extends T
+  case object WEEK extends T
+  case object MONTH extends T
+
+  implicit val format : JsonFormat[T] = new JsonFormat[T] {
+    override def write(obj: T): JsValue = JsString(obj.toString)
+    override def read(json: JsValue): T = json.toString match {
+      case "DAY" => DAY
+      case "WEEK" => WEEK
+      case "MONTH" => MONTH
+    }
+  }
+}
+
+case class QuotaSettings(
+                          Limit: Option[Int] = None,
+                          Offset: Option[Int] = None,
+                          Period: Option[Period] = None
+                        )
+object QuotaSettings {
+  implicit val format: JsonFormat[QuotaSettings] = jsonFormat3(QuotaSettings.apply)
+}
+
+case class ThrottleSettings(
+                             BurstLimit: Option[Int] = None,
+                             RateLimit: Option[Double] = None
+                           )
+object ThrottleSettings {
+  implicit val format: JsonFormat[ThrottleSettings] = jsonFormat2(ThrottleSettings.apply)
+}
+
+case class `AWS::ApiGateway::UsagePlan`(
+                                         name: String,
+                                         ApiStages: Option[Seq[ApiStage]] = None,
+                                         Description: Option[String] = None,
+                                         Quota: Option[QuotaSettings] = None,
+                                         Throttle: Option[ThrottleSettings] = None,
+                                         UsagePlanName: Option[Token[String]] = None,
+                                         override val Condition: Option[ConditionRef] = None,
+                                         override val DependsOn: Option[Seq[String]] = None
+                                       ) extends Resource[`AWS::ApiGateway::UsagePlan`] {
+  override def when(newCondition: Option[ConditionRef]) = copy(Condition = newCondition)
+}
+object `AWS::ApiGateway::UsagePlan` {
+  implicit val format: JsonFormat[`AWS::ApiGateway::UsagePlan`] = jsonFormat8(`AWS::ApiGateway::UsagePlan`.apply)
+}
+
+sealed trait UsagePlanKeyType
+
+object UsagePlanKeyType extends DefaultJsonProtocol {
+  private type T = UsagePlanKeyType
+  case object API_KEY extends T
+  implicit val format : JsonFormat[T] = new JsonFormat[T] {
+    override def write(obj: T): JsValue = JsString(obj.toString)
+    override def read(json: JsValue): T = json.toString match {
+      case "API_KEY" => API_KEY
+    }
+  }
+}
+
+case class `AWS::ApiGateway::UsagePlanKey`(
+                                            name: String,
+                                            KeyId: Token[String],
+                                            KeyType: UsagePlanKeyType,
+                                            UsagePlanId: Token[String],
+                                            override val Condition: Option[ConditionRef] = None,
+                                            override val DependsOn: Option[Seq[String]] = None
+                                          ) extends Resource[`AWS::ApiGateway::UsagePlanKey`] {
+  override def when(newCondition: Option[ConditionRef]) = copy(Condition = newCondition)
+}
+object `AWS::ApiGateway::UsagePlanKey` {
+  implicit val format: JsonFormat[`AWS::ApiGateway::UsagePlanKey`] = jsonFormat6(`AWS::ApiGateway::UsagePlanKey`.apply)
 }

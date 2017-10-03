@@ -9,7 +9,7 @@ case class CodeBuildProjectArtifacts(
                                       Name: Option[Token[String]],
                                       NamespaceTag: Option[Token[String]] = None,
                                       Packaging: Option[String] = None,
-                                      Path: Option[String] = None,
+                                      Path: Option[Token[String]] = None,
                                       Type: String
                                     )
 object CodeBuildProjectArtifacts {

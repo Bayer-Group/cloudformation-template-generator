@@ -60,7 +60,7 @@ object `AWS::Batch::ComputeEnvironment` extends DefaultJsonProtocol {
   *                         compute environment.
   * @param BidPercentage The minimum percentage that a Spot Instance price must be when compared with the On-Demand price
   *                      for that instance type before instances are launched. For example, if your bid percentage is 20%,
-  *                     then the Spot price must be below 20% of the current On-Demand price for that EC2 instance.
+  *                      then the Spot price must be below 20% of the current On-Demand price for that EC2 instance.
   * @param Tags Key-value pair tags to be applied to resources that are launched in the compute environment.
   */
 case class ComputeResources(

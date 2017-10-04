@@ -23,7 +23,7 @@ import spray.json.{DefaultJsonProtocol, JsonFormat}
 case class `AWS::Batch::ComputeEnvironment`(
   name:                   String,
   Type:                   ComputeEnvironmentType,
-  ServiceRole:            Token[String],
+  ServiceRole:            ResourceRef[`AWS::IAM::Role`],
   ComputeEnvironmentName: Option[Token[String]],
   ComputeResources:       ComputeResources,
   State:                  Option[ComputeEnvironmentState],
@@ -73,8 +73,8 @@ case class ComputeResources(
   Subnets:          Seq[ResourceRef[`AWS::EC2::Subnet`]],
   ImageId:          Option[Token[String]],
   Ec2KeyPair:       Option[Token[String]],
-  InstanceRole:     Token[String],
-  SpotIamFleetRole: Token[String],
+  InstanceRole:     ResourceRef[`AWS::IAM::InstanceProfile`],
+  SpotIamFleetRole: Option[ResourceRef[`AWS::IAM::Role`]],
   BidPercentage:    Option[Token[Int]],
   Tags:             Option[Seq[AmazonTag]]
 )

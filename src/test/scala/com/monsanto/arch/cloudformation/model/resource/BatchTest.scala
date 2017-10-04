@@ -123,13 +123,13 @@ class BatchTest extends FunSpec with Matchers {
     it("should serialize") {
       val theQueue = `AWS::Batch::JobQueue`(
         name = "bobq",
+        JobQueueName = Some("bobqueue"),
         ComputeEnvironmentOrder = Seq(
           ComputeEnvironmentOrder("abc", 123),
           ComputeEnvironmentOrder("xyz", 890)
         ),
-        7,
-        State = Some(JobQueueState.VALID),
-        JobQueueName = Some("bobqueue")
+        Priority = 7,
+        State = Some(JobQueueState.VALID)
       )
 
       theQueue.toJson.prettyPrint shouldBe """{

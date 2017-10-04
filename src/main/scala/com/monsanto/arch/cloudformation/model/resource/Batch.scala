@@ -22,10 +22,10 @@ import spray.json.{DefaultJsonProtocol, JsonFormat}
   */
 case class `AWS::Batch::ComputeEnvironment`(
   name:                   String,
-  Type:                   ComputeEnvironmentType,
-  ServiceRole:            ResourceRef[`AWS::IAM::Role`],
   ComputeEnvironmentName: Option[Token[String]],
+  Type:                   ComputeEnvironmentType,
   ComputeResources:       ComputeResources,
+  ServiceRole:            ResourceRef[`AWS::IAM::Role`],
   State:                  Option[ComputeEnvironmentState],
   override val Condition: Option[ConditionRef] = None
 ) extends Resource[`AWS::Batch::ComputeEnvironment`] with HasArn {
@@ -91,15 +91,15 @@ case class ComputeResources(
   InstanceTypes:    Seq[Token[String]],
   MinvCpus:         Token[Int],
   MaxvCpus:         Token[Int],
-  DesiredvCpus:     Option[Token[Int]],
   SecurityGroupIds: Seq[ResourceRef[`AWS::EC2::SecurityGroup`]],
   Subnets:          Seq[ResourceRef[`AWS::EC2::Subnet`]],
   ImageId:          Option[Token[String]],
   Ec2KeyPair:       Option[Token[String]],
   InstanceRole:     ResourceRef[`AWS::IAM::InstanceProfile`],
-  SpotIamFleetRole: Option[ResourceRef[`AWS::IAM::Role`]],
-  BidPercentage:    Option[Token[Int]],
-  Tags:             Option[Seq[AmazonTag]]
+  DesiredvCpus:     Option[Token[Int]] = None,
+  SpotIamFleetRole: Option[ResourceRef[`AWS::IAM::Role`]] = None,
+  BidPercentage:    Option[Token[Int]] = None,
+  Tags:             Option[Seq[AmazonTag]] = None
 )
 
 object ComputeResources extends DefaultJsonProtocol {
@@ -220,11 +220,11 @@ object ComputeEnvironmentType extends DefaultJsonProtocol {
   */
 case class `AWS::Batch::JobDefinition`(
   name:                   String,
-  Type:                   JobDefinitionType,
-  Parameters:             Map[String, Token[String]] = Map.empty,
-  ContainerProperties:    JobContainerProperties,
   JobDefinitionName:      Option[Token[String]],
-  RetryStrategy:          Option[JobRetryStrategy],
+  Type:                   JobDefinitionType,
+  ContainerProperties:    JobContainerProperties,
+  Parameters:             Map[String, Token[String]] = Map.empty,
+  RetryStrategy:          Option[JobRetryStrategy] = None,
   override val Condition: Option[ConditionRef] = None
 ) extends Resource[`AWS::Batch::JobDefinition`] with HasArn {
 
@@ -319,18 +319,18 @@ object JobDefinitionType extends DefaultJsonProtocol {
   *              - Images in other online repositories are qualified further by a domain name (for example, `quay.io/assemblyline/ubuntu`).
   */
 case class JobContainerProperties(
-  MountPoints:            Option[Seq[MountPoint]],
-  User:                   Option[Token[String]],
-  Volumes:                Option[Seq[VolumeDefinition]],
-  Command:                Option[Seq[Token[String]]],
+  Image:                  Token[String],
   Memory:                 Token[Int],
-  Privileged:             Option[Boolean],
-  Environment:            Option[Seq[Environment]],
-  JobRoleArn:             Option[Token[String]],
-  ReadonlyRootFilesystem: Option[Boolean],
-  Ulimits:                Option[Seq[Ulimit]],
   Vcpus:                  Token[Int],
-  Image:                  Token[String]
+  Command:                Option[Seq[Token[String]]] = None,
+  Environment:            Option[Seq[Environment]] = None,
+  JobRoleArn:             Option[Token[String]] = None,
+  MountPoints:            Option[Seq[MountPoint]] = None,
+  Volumes:                Option[Seq[VolumeDefinition]] = None,
+  User:                   Option[Token[String]] = None,
+  Privileged:             Option[Boolean] = None,
+  ReadonlyRootFilesystem: Option[Boolean] = None,
+  Ulimits:                Option[Seq[Ulimit]] = None
 )
 
 object JobContainerProperties extends DefaultJsonProtocol {
@@ -354,10 +354,10 @@ object JobContainerProperties extends DefaultJsonProtocol {
   */
 case class `AWS::Batch::JobQueue`(
   name:                    String,
+  JobQueueName:            Option[Token[String]],
   ComputeEnvironmentOrder: Seq[ComputeEnvironmentOrder],
   Priority:                Token[Int],
   State:                   Option[JobQueueState],
-  JobQueueName:            Option[Token[String]],
   override val Condition:  Option[ConditionRef] = None
 ) extends Resource[`AWS::Batch::JobQueue`] with HasArn {
   def arn: Token[String] = ResourceRef(this)

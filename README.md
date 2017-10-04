@@ -27,7 +27,7 @@ and the dependency
 
 ```scala
 libraryDependencies ++= Seq (
-  "com.monsanto.arch" %% "cloud-formation-template-generator" % "3.5.2"
+  "com.monsanto.arch" %% "cloud-formation-template-generator" % "3.7.0"
 ).map(_.force())
 ```
 
@@ -103,6 +103,7 @@ describe("Template Lookup") {
 - AWS::CloudFront:Distribution:
 - AWS::CloudWatch::Alarm
 - AWS::CodeBuild::Project
+- AWS::CodeCommit::Repository
 - AWS::CodePipeline::CustomActionType
 - AWS::CodePipeline::Pipeline
 - AWS::DynamoDB::Table
@@ -188,6 +189,9 @@ describe("Template Lookup") {
 - AWS::SNS::TopicPolicy
 - AWS::SQS::Queue
 - AWS::SQS::QueuePolicy
+- AWS::SSM::Association
+- AWS::SSM::Document
+- AWS::SSM::Parameter
 
 ### Custom types
 

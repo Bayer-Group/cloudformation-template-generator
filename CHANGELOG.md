@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.7.0] - 2017-10-04
+
+**Note: This contains a breaking change to `AWS::AutoScaling::AutoScalingGroup` to make DesiredCapacity an optional field. See [#196](https://github.com/MonsantoCo/cloudformation-template-generator/pull/196) for more details.**
+
+- Add support for AWS EC2 Systems Manager (SSM) (see [#195](https://github.com/MonsantoCo/cloudformation-template-generator/pull/195))
+- Add support for AWS::CodeCommit::Repository  (see [#200](https://github.com/MonsantoCo/cloudformation-template-generator/pull/200))
+- Add support for TreatMissingData parameter of AWS::CloudWatch::Alarm  (see [#197](https://github.com/MonsantoCo/cloudformation-template-generator/pull/197))
+- Add support for AWS::ApiGateway::{UsagePlan,UsagePlanKey}  (see [#187](https://github.com/MonsantoCo/cloudformation-template-generator/pull/187))
+
 ## [3.6.3] - 2017-07-19
 - Add support for custom namespace in cloudwatch (see [#178](https://github.com/MonsantoCo/cloudformation-template-generator/pull/178))
 - Make RuleCondition accept Option[Seq[Token[String]]] (see [#182](https://github.com/MonsantoCo/cloudformation-template-generator/pull/182))

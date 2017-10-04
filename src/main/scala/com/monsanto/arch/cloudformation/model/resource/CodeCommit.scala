@@ -20,7 +20,7 @@ object CodeCommitEvent {
       case JsString("updateReference") => updateReference
       case JsString("createReference") => createReference
       case JsString("deleteReference") => deleteReference
-      case _ => throw DeserializationException(s"Can't parse as CodeCommitEvent: ${json}")
+      case _ => throw DeserializationException(s"Can't parse as CodeCommitEvent: $json")
     }
   }
 }
@@ -39,8 +39,8 @@ object CodeCommitTrigger {
 
 case class `AWS::CodeCommit::Repository`(
                                           name: String,
-                                          RepositoryDescription: String,
-                                          RepositoryName: Option[String] = None,
+                                          RepositoryName: String,
+                                          RepositoryDescription: Option[String] = None,
                                           Triggers: Option[Seq[CodeCommitTrigger]] = None,
                                           override val Condition: Option[ConditionRef] = None
                                         ) extends Resource[`AWS::CodeCommit::Repository`] {

@@ -7,8 +7,8 @@ import spray.json._
 class CodeCommit_UT extends FunSpec with Matchers {
   val repo = `AWS::CodeCommit::Repository`(
     name = "RepoFoo",
-    RepositoryDescription = "",
-    RepositoryName = Some("RepoBar"),
+    RepositoryDescription = Some(""),
+    RepositoryName = "RepoBar",
     Triggers = Some(Seq(
       CodeCommitTrigger(
         Branches = Some(Seq("foo")),

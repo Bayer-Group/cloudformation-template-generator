@@ -36,6 +36,29 @@ case class `AWS::Batch::ComputeEnvironment`(
 
 object `AWS::Batch::ComputeEnvironment` extends DefaultJsonProtocol {
   implicit val format: JsonFormat[`AWS::Batch::ComputeEnvironment`] = jsonFormat7(`AWS::Batch::ComputeEnvironment`.apply)
+
+  /**
+    * Create the minimum required AWS Batch Service Role
+    *
+    * @param name CloudFormation logical name.
+    * @return the `AWS::IAM::Role` resource
+    */
+  def minimumServiceRole(name: String): `AWS::IAM::Role` =
+    `AWS::IAM::Role`(
+      name = name,
+      RoleName = Some(`Fn::Join`("-", Seq(name, `AWS::StackName`))),
+      Path = Some(`Fn::Join`("/", Seq("", `AWS::StackName`, ""))),
+      ManagedPolicyArns = Seq(
+        ManagedPolicyARN.fromAWSManagedPolicy(AWSManagedPolicy("service-role/AWSBatchServiceRole"))
+      ),
+      AssumeRolePolicyDocument = PolicyDocument(
+        Statement = Seq(PolicyStatement(
+          Effect    = "Allow",
+          Principal = Some(DefinedPrincipal(Map("Service" -> "batch.amazonaws.com"))),
+          Action    = Seq("sts:AssumeRole")
+        ))
+      )
+    )
 }
 
 /**
@@ -101,6 +124,52 @@ object ComputeResources extends DefaultJsonProtocol {
   val AcceleratedComputingG2: Seq[Token[String]] = Seq("g2.2xlarge", "g2.8xlarge")
   val AcceleratedComputingG3: Seq[Token[String]] = Seq("g3.4xlarge", "g3.8xlarge", "g3.16xlarge")
   val AcceleratedComputingP2: Seq[Token[String]] = Seq("p2.xlarge", "p2.8xlarge", "p2.16xlarge")
+
+  /**
+    * Create the minimum required AWS Batch EC2 Instance Role
+    *
+    * @param name CloudFormation logical name.
+    * @return the `AWS::IAM::Role` resource
+    */
+  def minimumInstanceRole(name: String): `AWS::IAM::Role` =
+    `AWS::IAM::Role`(
+      name = name,
+      RoleName = Some(`Fn::Join`("-", Seq(name, `AWS::StackName`))),
+      Path = Some(`Fn::Join`("/", Seq("", `AWS::StackName`, ""))),
+      ManagedPolicyArns = Seq(
+        ManagedPolicyARN.fromAWSManagedPolicy(AWSManagedPolicy("service-role/AmazonEC2ContainerServiceforEC2Role"))
+      ),
+      AssumeRolePolicyDocument = PolicyDocument(
+        Statement = Seq(PolicyStatement(
+          Effect    = "Allow",
+          Principal = Some(DefinedPrincipal(Map("Service" -> "ec2.amazonaws.com"))),
+          Action    = Seq("sts:AssumeRole")
+        ))
+      )
+    )
+
+  /**
+    * Create the minimum required AWS Batch EC2 Spot Fleet Role
+    *
+    * @param name CloudFormation logical name.
+    * @return the `AWS::IAM::Role` resource
+    */
+  def minimumSpotFleetRole(name: String): `AWS::IAM::Role` =
+    `AWS::IAM::Role`(
+      name = name,
+      RoleName = Some(`Fn::Join`("-", Seq(name, `AWS::StackName`))),
+      Path = Some(`Fn::Join`("/", Seq("", `AWS::StackName`, ""))),
+      ManagedPolicyArns = Seq(
+        ManagedPolicyARN.fromAWSManagedPolicy(AWSManagedPolicy("service-role/AmazonEC2SpotFleetRole"))
+      ),
+      AssumeRolePolicyDocument = PolicyDocument(
+        Statement = Seq(PolicyStatement(
+          Effect    = "Allow",
+          Principal = Some(DefinedPrincipal(Map("Service" -> "spotfleet.amazonaws.com"))),
+          Action    = Seq("sts:AssumeRole")
+        ))
+      )
+    )
 }
 
 sealed trait ComputeEnvironmentState

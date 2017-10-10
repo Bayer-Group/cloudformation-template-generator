@@ -10,8 +10,8 @@ import spray.json.{DefaultJsonProtocol, JsonFormat}
   *
   * @param name CloudFormation logical name.
   * @param Type The type of the compute environment.
-  * @param ServiceRole The service role associated with the compute environment that allows AWS Batch to make calls to
-  *                    AWS API operations on your behalf.
+  * @param ServiceRole The service role ARN associated with the compute environment that allows AWS Batch to make calls
+  *                    to AWS API operations on your behalf.
   * @param ComputeEnvironmentName The name of the compute environment.
   * @param ComputeResources The compute resources defined for the compute environment.
   * @param State The state of the compute environment. The valid values are ENABLED or DISABLED. An ENABLED state
@@ -25,7 +25,7 @@ case class `AWS::Batch::ComputeEnvironment`(
   ComputeEnvironmentName: Option[Token[String]],
   Type:                   ComputeEnvironmentType,
   ComputeResources:       ComputeResources,
-  ServiceRole:            ResourceRef[`AWS::IAM::Role`],
+  ServiceRole:            Token[String],
   State:                  Option[ComputeEnvironmentState],
   override val Condition: Option[ConditionRef] = None
 ) extends Resource[`AWS::Batch::ComputeEnvironment`] with HasArn {
@@ -78,7 +78,7 @@ object `AWS::Batch::ComputeEnvironment` extends DefaultJsonProtocol {
   * @param Subnets The VPC subnets into which the compute resources are launched.
   * @param ImageId The Amazon Machine Image (AMI) ID used for instances launched in the compute environment.
   * @param Ec2KeyPair The EC2 key pair that is used for instances launched in the compute environment.
-  * @param InstanceRole The Amazon ECS instance profile applied to Amazon EC2 instances in a compute environment.
+  * @param InstanceRole The Amazon ECS instance profile ARN applied to Amazon EC2 instances in a compute environment.
   * @param SpotIamFleetRole The Amazon Resource Name (ARN) of the Amazon EC2 Spot Fleet IAM role applied to a SPOT
   *                         compute environment.
   * @param BidPercentage The minimum percentage that a Spot Instance price must be when compared with the On-Demand price
@@ -95,9 +95,9 @@ case class ComputeResources(
   Subnets:          Seq[ResourceRef[`AWS::EC2::Subnet`]],
   ImageId:          Option[Token[String]],
   Ec2KeyPair:       Option[Token[String]],
-  InstanceRole:     ResourceRef[`AWS::IAM::InstanceProfile`],
+  InstanceRole:     Token[String],
   DesiredvCpus:     Option[Token[Int]] = None,
-  SpotIamFleetRole: Option[ResourceRef[`AWS::IAM::Role`]] = None,
+  SpotIamFleetRole: Option[Token[String]] = None,
   BidPercentage:    Option[Token[Int]] = None,
   Tags:             Option[Seq[AmazonTag]] = None
 )

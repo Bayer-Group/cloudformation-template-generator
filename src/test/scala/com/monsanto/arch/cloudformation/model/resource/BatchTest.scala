@@ -15,7 +15,7 @@ class BatchTest extends FunSpec with Matchers {
         ComputeEnvironmentName = Some("clusterbob"),
         ComputeResources = ComputeResources(
           Type = ComputeResourcesType.EC2,
-          InstanceTypes = ComputeResources.GeneralPurposeT2,
+          InstanceTypes = Left(Seq(ComputeResources.OptimalInstanceType)),
           MinvCpus = 0,
           MaxvCpus = 500,
           DesiredvCpus = None,
@@ -43,7 +43,7 @@ class BatchTest extends FunSpec with Matchers {
                                            |  },
                                            |  "ComputeEnvironmentName": "clusterbob",
                                            |  "ComputeResources": {
-                                           |    "InstanceTypes": ["t2.nano", "t2.micro", "t2.small", "t2.medium", "t2.large", "t2.xlarge", "t2.2xlarge"],
+                                           |    "InstanceTypes": ["optimal"],
                                            |    "Subnets": [],
                                            |    "SpotIamFleetRole": {
                                            |      "Ref": "clusterbobspot"

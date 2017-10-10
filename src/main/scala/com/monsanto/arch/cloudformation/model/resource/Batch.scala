@@ -89,7 +89,7 @@ object `AWS::Batch::ComputeEnvironment` extends DefaultJsonProtocol {
   */
 case class ComputeResources(
   Type:             ComputeResourcesType,
-  InstanceTypes:    Seq[Token[String]],
+  InstanceTypes:    Either[Seq[Token[String]], Token[Seq[String]]],
   MinvCpus:         Token[Int],
   MaxvCpus:         Token[Int],
   SecurityGroupIds: Seq[ResourceRef[`AWS::EC2::SecurityGroup`]],
@@ -106,25 +106,7 @@ case class ComputeResources(
 object ComputeResources extends DefaultJsonProtocol {
   implicit val format: JsonFormat[ComputeResources] = jsonFormat13(ComputeResources.apply)
 
-  val GeneralPurposeT2: Seq[Token[String]] = Seq("t2.nano", "t2.micro", "t2.small", "t2.medium", "t2.large", "t2.xlarge", "t2.2xlarge")
-  val GeneralPurposeM3: Seq[Token[String]] = Seq("m3.medium", "m3.large", "m3.xlarge", "m3.2xlarge")
-  val GeneralPurposeM4: Seq[Token[String]] = Seq("m4.large", "m4.xlarge", "m4.2xlarge", "m4.4xlarge", "m4.10xlarge", "m4.16xlarge")
-
-  val ComputeOptimizedC3: Seq[Token[String]] = Seq("c3.large", "c3.xlarge", "c3.2xlarge", "c3.4xlarge", "c3.8xlarge")
-  val ComputeOptimizedC4: Seq[Token[String]] = Seq("c4.large", "c4.xlarge", "c4.2xlarge", "c4.4xlarge", "c4.8xlarge")
-
-  val MemoryOptimizedR3: Seq[Token[String]] = Seq("r3.large", "r3.xlarge", "r3.2xlarge", "r3.4xlarge", "r3.8xlarge")
-  val MemoryOptimizedR4: Seq[Token[String]] = Seq("r4.large", "r4.xlarge", "r4.2xlarge", "r4.4xlarge", "r4.8xlarge", "r4.16xlarge")
-  val MemoryOptimizedX1: Seq[Token[String]] = Seq("x1.16xlarge", "x1.32xlarge", "x1e.32xlarge")
-
-  val StorageOptimizedD2: Seq[Token[String]] = Seq("d2.xlarge", "d2.2xlarge", "d2.4xlarge", "d2.8xlarge")
-  val StorageOptimizedI2: Seq[Token[String]] = Seq("i2.xlarge", "i2.2xlarge", "i2.4xlarge", "i2.8xlarge")
-  val StorageOptimizedI3: Seq[Token[String]] = Seq("i3.large", "i3.xlarge", "i3.2xlarge", "i3.4xlarge", "i3.8xlarge", "i3.16xlarge")
-
-  val AcceleratedComputingF1: Seq[Token[String]] = Seq("f1.2xlarge", "f1.16xlarge")
-  val AcceleratedComputingG2: Seq[Token[String]] = Seq("g2.2xlarge", "g2.8xlarge")
-  val AcceleratedComputingG3: Seq[Token[String]] = Seq("g3.4xlarge", "g3.8xlarge", "g3.16xlarge")
-  val AcceleratedComputingP2: Seq[Token[String]] = Seq("p2.xlarge", "p2.8xlarge", "p2.16xlarge")
+  val OptimalInstanceType: Token[String] = "optimal"
 
   /**
     * Create the minimum required AWS Batch EC2 Instance Role

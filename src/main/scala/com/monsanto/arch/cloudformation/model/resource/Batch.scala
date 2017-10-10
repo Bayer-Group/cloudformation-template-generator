@@ -375,10 +375,10 @@ object `AWS::Batch::JobQueue` extends DefaultJsonProtocol {
 sealed trait JobQueueState
 object JobQueueState extends DefaultJsonProtocol {
 
-  case object CREATING  extends JobQueueState
-  case object VALID     extends JobQueueState
+  case object ENABLED  extends JobQueueState
+  case object DISABLED extends JobQueueState
 
-  val values = Seq(CREATING, VALID)
+  val values = Seq(ENABLED, DISABLED)
   implicit val format: JsonFormat[JobQueueState] = new EnumFormat[JobQueueState](values)
 }
 

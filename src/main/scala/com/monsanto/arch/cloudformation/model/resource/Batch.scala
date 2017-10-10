@@ -94,8 +94,8 @@ case class ComputeResources(
   MaxvCpus:         Token[Int],
   SecurityGroupIds: Seq[ResourceRef[`AWS::EC2::SecurityGroup`]],
   Subnets:          Seq[ResourceRef[`AWS::EC2::Subnet`]],
-  ImageId:          Option[Token[String]],
-  Ec2KeyPair:       Option[Token[String]],
+  ImageId:          Option[Token[String]] = None,
+  Ec2KeyPair:       Option[Token[String]] = None,
   InstanceRole:     Token[String],
   DesiredvCpus:     Option[Token[Int]] = None,
   SpotIamFleetRole: Option[Token[String]] = None,
@@ -141,11 +141,13 @@ object ComputeResources extends DefaultJsonProtocol {
         ManagedPolicyARN.fromAWSManagedPolicy(AWSManagedPolicy("service-role/AmazonEC2ContainerServiceforEC2Role"))
       ),
       AssumeRolePolicyDocument = PolicyDocument(
-        Statement = Seq(PolicyStatement(
-          Effect    = "Allow",
-          Principal = Some(DefinedPrincipal(Map("Service" -> "ec2.amazonaws.com"))),
-          Action    = Seq("sts:AssumeRole")
-        ))
+        Statement = Seq(
+          PolicyStatement(
+            Effect    = "Allow",
+            Principal = Some(DefinedPrincipal(Map("Service" -> "ec2.amazonaws.com"))),
+            Action    = Seq("sts:AssumeRole")
+          )
+        )
       )
     )
 
@@ -164,11 +166,13 @@ object ComputeResources extends DefaultJsonProtocol {
         ManagedPolicyARN.fromAWSManagedPolicy(AWSManagedPolicy("service-role/AmazonEC2SpotFleetRole"))
       ),
       AssumeRolePolicyDocument = PolicyDocument(
-        Statement = Seq(PolicyStatement(
-          Effect    = "Allow",
-          Principal = Some(DefinedPrincipal(Map("Service" -> "spotfleet.amazonaws.com"))),
-          Action    = Seq("sts:AssumeRole")
-        ))
+        Statement = Seq(
+          PolicyStatement(
+            Effect    = "Allow",
+            Principal = Some(DefinedPrincipal(Map("Service" -> "spotfleet.amazonaws.com"))),
+            Action    = Seq("sts:AssumeRole")
+          )
+        )
       )
     )
 }

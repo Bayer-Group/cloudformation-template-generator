@@ -27,7 +27,8 @@ case class `AWS::Batch::ComputeEnvironment`(
   ComputeResources:       ComputeResources,
   ServiceRole:            Token[String],
   State:                  Option[ComputeEnvironmentState],
-  override val Condition: Option[ConditionRef] = None
+  override val Condition: Option[ConditionRef] = None,
+  override val DependsOn: Option[Seq[String]] = None
 ) extends Resource[`AWS::Batch::ComputeEnvironment`] with HasArn {
 
   def arn: Token[String] = ResourceRef(this)
@@ -35,7 +36,7 @@ case class `AWS::Batch::ComputeEnvironment`(
 }
 
 object `AWS::Batch::ComputeEnvironment` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::Batch::ComputeEnvironment`] = jsonFormat7(`AWS::Batch::ComputeEnvironment`.apply)
+  implicit val format: JsonFormat[`AWS::Batch::ComputeEnvironment`] = jsonFormat8(`AWS::Batch::ComputeEnvironment`.apply)
 
   /**
     * Create the minimum required AWS Batch Service Role
@@ -225,7 +226,8 @@ case class `AWS::Batch::JobDefinition`(
   ContainerProperties:    JobContainerProperties,
   Parameters:             Map[String, Token[String]] = Map.empty,
   RetryStrategy:          Option[JobRetryStrategy] = None,
-  override val Condition: Option[ConditionRef] = None
+  override val Condition: Option[ConditionRef] = None,
+  override val DependsOn: Option[Seq[String]] = None
 ) extends Resource[`AWS::Batch::JobDefinition`] with HasArn {
 
   def arn: Token[String] = ResourceRef(this)
@@ -233,7 +235,7 @@ case class `AWS::Batch::JobDefinition`(
 }
 
 object `AWS::Batch::JobDefinition` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::Batch::JobDefinition`] = jsonFormat7(`AWS::Batch::JobDefinition`.apply)
+  implicit val format: JsonFormat[`AWS::Batch::JobDefinition`] = jsonFormat8(`AWS::Batch::JobDefinition`.apply)
 }
 
 /**
@@ -358,7 +360,8 @@ case class `AWS::Batch::JobQueue`(
   ComputeEnvironmentOrder: Seq[ComputeEnvironmentOrder],
   Priority:                Token[Int],
   State:                   Option[JobQueueState],
-  override val Condition:  Option[ConditionRef] = None
+  override val Condition:  Option[ConditionRef] = None,
+  override val DependsOn:  Option[Seq[String]] = None
 ) extends Resource[`AWS::Batch::JobQueue`] with HasArn {
   def arn: Token[String] = ResourceRef(this)
 
@@ -366,7 +369,7 @@ case class `AWS::Batch::JobQueue`(
 }
 
 object `AWS::Batch::JobQueue` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::Batch::JobQueue`] = jsonFormat6(`AWS::Batch::JobQueue`.apply)
+  implicit val format: JsonFormat[`AWS::Batch::JobQueue`] = jsonFormat7(`AWS::Batch::JobQueue`.apply)
 }
 
 sealed trait JobQueueState

@@ -129,7 +129,7 @@ class BatchTest extends FunSpec with Matchers {
           ComputeEnvironmentOrder("xyz", 890)
         ),
         Priority = 7,
-        State = Some(JobQueueState.VALID)
+        State = Some(JobQueueState.ENABLED)
       )
 
       theQueue.toJson.prettyPrint shouldBe """{
@@ -143,7 +143,7 @@ class BatchTest extends FunSpec with Matchers {
                                              |  }],
                                              |  "JobQueueName": "bobqueue",
                                              |  "Priority": 7,
-                                             |  "State": "VALID"
+                                             |  "State": "ENABLED"
                                              |}""".stripMargin
     }
 

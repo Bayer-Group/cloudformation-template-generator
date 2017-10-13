@@ -11,9 +11,17 @@ case object NodeJS extends Runtime("nodejs")
 
 case object `NodeJS4.3` extends Runtime("nodejs4.3")
 
+case object `NodeJS4.3-edge` extends Runtime("nodejs4.3-edge")
+
+case object `NodeJS6.10` extends Runtime("nodejs6.10")
+
 case object Java8 extends Runtime("java8")
 
 case object Python27 extends Runtime("python2.7")
+
+case object Python36 extends Runtime("python3.6")
+
+case object DotNetCore10 extends Runtime("dotnetcore-1.0")
 
 object Runtime {
 

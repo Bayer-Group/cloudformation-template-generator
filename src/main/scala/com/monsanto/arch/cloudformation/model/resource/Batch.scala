@@ -89,7 +89,7 @@ object `AWS::Batch::ComputeEnvironment` extends DefaultJsonProtocol {
   */
 case class ComputeResources(
   Type:             ComputeResourcesType,
-  InstanceTypes:    Either[Seq[Token[String]], Token[Seq[String]]],
+  InstanceTypes:    Token.TokenSeq[String],
   MinvCpus:         Token[Int],
   MaxvCpus:         Token[Int],
   SecurityGroupIds: Seq[ResourceRef[`AWS::EC2::SecurityGroup`]],
@@ -106,7 +106,7 @@ case class ComputeResources(
 object ComputeResources extends DefaultJsonProtocol {
   implicit val format: JsonFormat[ComputeResources] = jsonFormat13(ComputeResources.apply)
 
-  val OptimalInstanceType: Token[String] = "optimal"
+  val OptimalInstanceType: Seq[String] = Seq("optimal")
 
   /**
     * Create the minimum required AWS Batch EC2 Instance Role
@@ -310,7 +310,7 @@ case class JobContainerProperties(
   Image:                  Token[String],
   Memory:                 Token[Int],
   Vcpus:                  Token[Int],
-  Command:                Option[Seq[Token[String]]] = None,
+  Command:                Option[Token.TokenSeq[String]] = None,
   Environment:            Option[Seq[Environment]] = None,
   JobRoleArn:             Option[Token[String]] = None,
   MountPoints:            Option[Seq[MountPoint]] = None,

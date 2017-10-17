@@ -15,7 +15,7 @@ class BatchTest extends FunSpec with Matchers {
         ComputeEnvironmentName = Some("clusterbob"),
         ComputeResources = ComputeResources(
           Type = ComputeResourcesType.EC2,
-          InstanceTypes = Left(Seq(ComputeResources.OptimalInstanceType)),
+          InstanceTypes = ComputeResources.OptimalInstanceType,
           MinvCpus = 0,
           MaxvCpus = 500,
           DesiredvCpus = None,

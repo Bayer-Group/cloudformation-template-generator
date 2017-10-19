@@ -49,13 +49,14 @@ case class `AWS::DataPipeline::Pipeline`(
                                           ParameterValues: Option[Seq[ParameterValue]],
                                           PipelineObjects: Seq[PipelineObject],
                                           PipelineTags: Option[Seq[PipelineTag]],
+                                          override val DependsOn: Option[Seq[String]] = None,
                                           override val Condition: Option[ConditionRef]
                                         ) extends Resource[`AWS::DataPipeline::Pipeline`] {
   override def when(newCondition: Option[ConditionRef]) = copy(Condition = newCondition)
 }
 
 object `AWS::DataPipeline::Pipeline` {
-  implicit val format: JsonFormat[`AWS::DataPipeline::Pipeline`] = jsonFormat9(`AWS::DataPipeline::Pipeline`.apply)
+  implicit val format: JsonFormat[`AWS::DataPipeline::Pipeline`] = jsonFormat10(`AWS::DataPipeline::Pipeline`.apply)
 }
 
 case class ParameterObject(

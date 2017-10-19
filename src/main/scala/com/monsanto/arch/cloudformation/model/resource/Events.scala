@@ -6,6 +6,7 @@ import spray.json.{DefaultJsonProtocol, JsonFormat}
 case class `AWS::Events::Rule`(name: String,
                                ScheduleExpression: Token[String],
                                Targets: Seq[Option[RuleTarget]],
+                               override val DependsOn: Option[Seq[String]] = None,
                                override val Condition: Option[ConditionRef] = None
                               ) extends Resource[`AWS::Events::Rule`] {
 
@@ -13,7 +14,7 @@ case class `AWS::Events::Rule`(name: String,
 }
 
 object `AWS::Events::Rule` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::Events::Rule`] = jsonFormat4(`AWS::Events::Rule`.apply)
+  implicit val format: JsonFormat[`AWS::Events::Rule`] = jsonFormat5(`AWS::Events::Rule`.apply)
 }
 
 case class RuleTarget(Id: String, Arn: Token[String])
@@ -21,4 +22,3 @@ case class RuleTarget(Id: String, Arn: Token[String])
 object RuleTarget extends DefaultJsonProtocol {
   implicit val format: JsonFormat[RuleTarget] = jsonFormat2(RuleTarget.apply)
 }
-

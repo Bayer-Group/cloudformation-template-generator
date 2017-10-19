@@ -10,11 +10,12 @@ case class `AWS::ECR::Repository`(
   name: String,
   RepositoryName: Option[Token[String]],
   RepositoryPolicyText: Option[Token[PolicyDocument]] = None,
-  override val Condition: Option[ConditionRef] = None)
-  extends Resource[`AWS::ECR::Repository`] {
+  override val DependsOn: Option[Seq[String]] = None,
+  override val Condition: Option[ConditionRef] = None
+) extends Resource[`AWS::ECR::Repository`] {
   def when(newCondition: Option[ConditionRef] = Condition) =
-    new `AWS::ECR::Repository`(name, RepositoryName, RepositoryPolicyText, newCondition)
+    new `AWS::ECR::Repository`(name, RepositoryName, RepositoryPolicyText, DependsOn, newCondition)
 }
 object `AWS::ECR::Repository` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::ECR::Repository`] = jsonFormat4(`AWS::ECR::Repository`.apply)
+  implicit val format: JsonFormat[`AWS::ECR::Repository`] = jsonFormat5(`AWS::ECR::Repository`.apply)
 }

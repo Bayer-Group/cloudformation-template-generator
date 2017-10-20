@@ -2,7 +2,7 @@ package com.monsanto.arch.cloudformation.model.resource
 
 import com.monsanto.arch.cloudformation.model.{ConditionRef, ResourceRef, Token, `Fn::GetAtt`}
 import com.monsanto.arch.cloudformation.model.Token.TokenSeq
-import spray.json.{DefaultJsonProtocol, JsString, JsValue, JsonFormat}
+import spray.json.{DefaultJsonProtocol, JsObject, JsString, JsValue, JsonFormat}
 import DefaultJsonProtocol._
 
 case class `AWS::ApiGateway::Account`(
@@ -216,7 +216,7 @@ object `AWS::ApiGateway::Resource` {
 case class `AWS::ApiGateway::RestApi`(
                                        name: String,
                                        Name: Token[String],
-                                       Body: Option[String] = None,
+                                       Body: Option[JsObject] = None,
                                        BodyS3Location: Option[S3Location] = None,
                                        CloneFrom: Option[Token[String]] = None,
                                        Description: Option[String] = None,

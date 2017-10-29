@@ -1,6 +1,6 @@
 package com.monsanto.arch.cloudformation.model.resource
 
-import com.monsanto.arch.cloudformation.model.{ResourceRef, ConditionRef, Token}
+import com.monsanto.arch.cloudformation.model.{ConditionRef, EnumFormat, ResourceRef, Token}
 import spray.json._
 
 /**
@@ -114,26 +114,64 @@ object `AWS::S3::BucketPolicy` extends DefaultJsonProtocol {
 }
 
 case class S3LoggingConfiguration(DestinationBucketName: Option[Token[ResourceRef[`AWS::S3::Bucket`]]] = None,
-                                  LogFilePrefix:         Option[Token[String]] = None)
+                                   LogFilePrefix:         Option[Token[String]] = None)
 object S3LoggingConfiguration extends DefaultJsonProtocol {
   implicit val format: JsonFormat[S3LoggingConfiguration] = jsonFormat2(S3LoggingConfiguration.apply)
 }
 
-case class NotificationConfiguration(TopicConfigurations: Option[Seq[TopicConfiguration]] = None, LambdaConfigurations : Option[Seq[LambdaConfiguration]] = None)
+case class NotificationConfiguration(TopicConfigurations:   Option[Seq[TopicConfiguration]]   = None,
+                                      LambdaConfigurations:   Option[Seq[LambdaConfiguration]]  = None,
+                                      QueueConfigurations:    Option[Seq[QueueConfiguration]]   = None)
 object NotificationConfiguration extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[NotificationConfiguration] = jsonFormat2(NotificationConfiguration.apply)
+  implicit val format: JsonFormat[NotificationConfiguration] = jsonFormat3(NotificationConfiguration.apply)
 }
 
-case class LambdaConfiguration(Event: S3Event, Function: Token[String])
+case class LambdaConfiguration(Event:      S3Event,
+                                Function:   Token[String],
+                                Filter:     Option[Token[NotificationFilter]] = None)
 object LambdaConfiguration extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[LambdaConfiguration] = jsonFormat2(LambdaConfiguration.apply)
+  implicit val format: JsonFormat[LambdaConfiguration] = jsonFormat3(LambdaConfiguration.apply)
 }
 
-case class TopicConfiguration(Event: S3Event,
-                              Topic: Token[`AWS::SNS::Topic`])
+case class TopicConfiguration(Event:      S3Event,
+                               Topic:      Token[`AWS::SNS::Topic`],
+                               Filter:     Option[Token[NotificationFilter]] = None)
 object TopicConfiguration extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[TopicConfiguration] = jsonFormat2(TopicConfiguration.apply)
+  implicit val format: JsonFormat[TopicConfiguration] = jsonFormat3(TopicConfiguration.apply)
 }
+
+case class QueueConfiguration(Event:      S3Event,
+                               Queue:      Token[`AWS::SQS::Queue`],
+                               Filter:     Option[Token[NotificationFilter]] = None)
+object QueueConfiguration extends DefaultJsonProtocol {
+  implicit val format: JsonFormat[QueueConfiguration] = jsonFormat3(QueueConfiguration.apply)
+}
+
+case class NotificationFilter(S3Key: S3Key)
+object NotificationFilter extends DefaultJsonProtocol {
+  implicit val format: JsonFormat[NotificationFilter] = jsonFormat1(NotificationFilter.apply)
+
+}
+
+case class S3Key(Rules: Seq[FilterRule])
+object S3Key extends DefaultJsonProtocol {
+  implicit val format: JsonFormat[S3Key] = jsonFormat1(S3Key.apply)
+}
+
+case class FilterRule(Name: FilterRuleName, Value: Token[String])
+object FilterRule extends DefaultJsonProtocol {
+  implicit val format: JsonFormat[FilterRule] = jsonFormat2(FilterRule.apply)
+}
+
+sealed trait FilterRuleName
+object FilterRuleName extends DefaultJsonProtocol {
+  case object prefix extends FilterRuleName
+  case object suffix extends FilterRuleName
+  val values = Seq(prefix, suffix)
+  implicit val format: JsonFormat[FilterRuleName] =
+    new EnumFormat[FilterRuleName](values)
+}
+
 
 /**
  * S3 events
@@ -151,22 +189,19 @@ object S3Event extends DefaultJsonProtocol {
   case object `s3:ObjectRemoved:DeleteMarkerCreated`     extends S3Event
   case object `s3:ReducedRedundancyLostObject`           extends S3Event
 
-  implicit val format: JsonFormat[S3Event] = new JsonFormat[S3Event] {
-    override def write(obj: S3Event)= JsString(obj.toString)
-    override def read(json: JsValue): S3Event = {
-      json.toString match {
-        case "s3:ObjectCreated:*"                       => `s3:ObjectCreated:*`
-        case "s3:ObjectCreated:Put"                     => `s3:ObjectCreated:Put`
-        case "s3:ObjectCreated:Post"                    => `s3:ObjectCreated:Post`
-        case "s3:ObjectCreated:Copy"                    => `s3:ObjectCreated:Copy`
-        case "s3:ObjectCreated:CompleteMultipartUpload" => `s3:ObjectCreated:CompleteMultipartUpload`
-        case "s3:ObjectRemoved:*"                       => `s3:ObjectRemoved:*`
-        case "s3:ObjectRemoved:Delete"                  => `s3:ObjectRemoved:Delete`
-        case "s3:ObjectRemoved:DeleteMarkerCreated"     => `s3:ObjectRemoved:DeleteMarkerCreated`
-        case "s3:ReducedRedundancyLostObject"           => `s3:ReducedRedundancyLostObject`
-      }
-    }
-  }
+  val values = Seq(
+      `s3:ObjectCreated:*`,
+      `s3:ObjectCreated:Put`,
+      `s3:ObjectCreated:Post`,
+      `s3:ObjectCreated:Copy`,
+      `s3:ObjectCreated:CompleteMultipartUpload`,
+      `s3:ObjectRemoved:*`,
+      `s3:ObjectRemoved:Delete`,
+      `s3:ObjectRemoved:DeleteMarkerCreated`,
+      `s3:ReducedRedundancyLostObject`
+  )
+
+  implicit val format: JsonFormat[S3Event] = new EnumFormat[S3Event](values)
 }
 
 case class S3VersioningConfiguration(Status: S3VersioningStatus)

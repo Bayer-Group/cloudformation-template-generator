@@ -21,18 +21,16 @@ import spray.json._
   *                  CloudFormation creates the associated resources.
   * @param DependsOn Declare dependencies for resources that must be created or deleted in a specific order.
   */
-case class `AWS::Logs::Destination` private (
+case class `AWS::Logs::Destination`(
   name:                   String,
   DestinationName:        Token[String],
-  DestinationPolicy:      ResourceRef[`AWS::IAM::Policy`],
+  DestinationPolicy:      JsonString[PolicyDocument],
   RoleArn:                Token[String],
   TargetArn:              Token[String],
   override val Condition: Option[ConditionRef] = None,
   override val DependsOn: Option[Seq[String]]  = None
 ) extends Resource[`AWS::Logs::Destination`] with HasArn {
-
   def when(newCondition: Option[ConditionRef] = Condition): `AWS::Logs::Destination` = copy(Condition = newCondition)
-
   override def arn: Token[String] = ResourceRef(this)
 }
 
@@ -54,7 +52,7 @@ object `AWS::Logs::Destination` extends DefaultJsonProtocol {
   *                  CloudFormation creates the associated resources.
   * @param DependsOn Declare dependencies for resources that must be created or deleted in a specific order.
   */
-case class `AWS::Logs::LogGroup` private (
+case class `AWS::Logs::LogGroup`(
   name:                   String,
   LogGroupName:           Option[Token[String]],
   RetentionInDays:        Token[Int],
@@ -83,7 +81,7 @@ object `AWS::Logs::LogGroup` extends DefaultJsonProtocol {
   *                  CloudFormation creates the associated resources.
   * @param DependsOn Declare dependencies for resources that must be created or deleted in a specific order.
   */
-case class `AWS::Logs::LogStream` private (
+case class `AWS::Logs::LogStream`(
   name:                   String,
   LogGroupName:           ResourceRef[`AWS::Logs::LogGroup`],
   LogStreamName:          Option[Token[String]],
@@ -116,7 +114,7 @@ object `AWS::Logs::LogStream` extends DefaultJsonProtocol {
   *                  CloudFormation creates the associated resources.
   * @param DependsOn Declare dependencies for resources that must be created or deleted in a specific order.
   */
-case class `AWS::Logs::MetricFilter` private (
+case class `AWS::Logs::MetricFilter`(
   name:                   String,
   FilterPattern:          Token[String],
   LogGroupName:           ResourceRef[`AWS::Logs::LogGroup`],
@@ -177,7 +175,7 @@ object MetricTransformation extends DefaultJsonProtocol {
   *                  CloudFormation creates the associated resources.
   * @param DependsOn Declare dependencies for resources that must be created or deleted in a specific order.
   */
-case class `AWS::Logs::SubscriptionFilter` private (
+case class `AWS::Logs::SubscriptionFilter`(
   name:                   String,
   DestinationArn:         Token[String],
   FilterPattern:          Token[String],

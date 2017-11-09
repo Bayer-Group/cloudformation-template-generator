@@ -21,18 +21,16 @@ import spray.json._
   *                  CloudFormation creates the associated resources.
   * @param DependsOn Declare dependencies for resources that must be created or deleted in a specific order.
   */
-case class `AWS::Logs::Destination` private (
+case class `AWS::Logs::Destination`(
   name:                   String,
   DestinationName:        Token[String],
-  DestinationPolicy:      ResourceRef[`AWS::IAM::Policy`],
+  DestinationPolicy:      Token[String],
   RoleArn:                Token[String],
   TargetArn:              Token[String],
   override val Condition: Option[ConditionRef] = None,
   override val DependsOn: Option[Seq[String]]  = None
 ) extends Resource[`AWS::Logs::Destination`] with HasArn {
-
   def when(newCondition: Option[ConditionRef] = Condition): `AWS::Logs::Destination` = copy(Condition = newCondition)
-
   override def arn: Token[String] = ResourceRef(this)
 }
 

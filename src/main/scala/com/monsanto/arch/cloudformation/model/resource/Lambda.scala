@@ -79,7 +79,7 @@ object LambdaVpcConfig {
 case class Code(S3Bucket: Option[Token[String]],
                 S3Key: Option[Token[String]],
                 S3ObjectVersion: Option[Token[String]],
-                ZipFile: Option[String])
+                ZipFile: Option[Token[String]])
 
 object Code {
   implicit val format: JsonFormat[Code] = jsonFormat4(Code.apply)

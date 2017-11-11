@@ -54,10 +54,10 @@ object `AWS::Logs::Destination` extends DefaultJsonProtocol {
   *                  CloudFormation creates the associated resources.
   * @param DependsOn Declare dependencies for resources that must be created or deleted in a specific order.
   */
-case class `AWS::Logs::LogGroup` private (
+case class `AWS::Logs::LogGroup`(
   name:                   String,
   LogGroupName:           Option[Token[String]],
-  RetentionInDays:        Token[Int],
+  RetentionInDays:        Option[Token[Int]] = None,
   override val Condition: Option[ConditionRef] = None,
   override val DependsOn: Option[Seq[String]]  = None
 ) extends Resource[`AWS::Logs::LogGroup`] with HasArn {

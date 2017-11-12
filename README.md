@@ -27,7 +27,7 @@ and the dependency
 
 ```scala
 libraryDependencies ++= Seq (
-  "com.monsanto.arch" %% "cloud-formation-template-generator" % "3.7.0"
+  "com.monsanto.arch" %% "cloud-formation-template-generator" % "3.7.1"
 ).map(_.force())
 ```
 
@@ -96,6 +96,9 @@ describe("Template Lookup") {
 - AWS::AutoScaling::AutoScalingGroup
 - AWS::AutoScaling::LaunchConfiguration
 - AWS::AutoScaling::ScalingPolicy
+- AWS::Batch::ComputeEnvironment
+- AWS::Batch::JobDefinition
+- AWS::Batch::JobQueue
 - AWS::CloudFormation::Stack
 - AWS::CloudFormation::WaitCondition
 - AWS::CloudFormation::WaitConditionHandle
@@ -133,6 +136,8 @@ describe("Template Lookup") {
 - AWS::EC2::Volume
 - AWS::EC2::VolumeAttachment
 - AWS::ECR::Repository
+- AWS::EFS::FileSystem
+- AWS::EFS::MountTarget
 - AWS::ElastiCache::CacheCluser
 - AWS::ElastiCache::SubnetGroup
 - AWS::Elasticsearch::Domain

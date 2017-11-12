@@ -58,6 +58,7 @@ object `AWS::CloudWatch::Alarm::Dimension` extends DefaultJsonProtocol {
 
 sealed trait `AWS::CloudWatch::Alarm::Namespace`
 object `AWS::CloudWatch::Alarm::Namespace` extends DefaultJsonProtocol {
+  case object `AWS/ApiGateway`       extends `AWS::CloudWatch::Alarm::Namespace`
   case object `AWS/AutoScaling`      extends `AWS::CloudWatch::Alarm::Namespace`
   case object `AWS/Billing`          extends `AWS::CloudWatch::Alarm::Namespace`
   case object `AWS/CloudFront`       extends `AWS::CloudWatch::Alarm::Namespace`
@@ -77,7 +78,9 @@ object `AWS::CloudWatch::Alarm::Namespace` extends DefaultJsonProtocol {
   case object `AWS/SQS`              extends `AWS::CloudWatch::Alarm::Namespace`
   case object `AWS/SWF`              extends `AWS::CloudWatch::Alarm::Namespace`
   case object `AWS/StorageGateway`   extends `AWS::CloudWatch::Alarm::Namespace`
-  val values = Seq(`AWS/AutoScaling`,
+  val values = Seq(
+    `AWS/ApiGateway`,
+    `AWS/AutoScaling`,
     `AWS/Billing`,
     `AWS/CloudFront`,
     `AWS/DynamoDB`,

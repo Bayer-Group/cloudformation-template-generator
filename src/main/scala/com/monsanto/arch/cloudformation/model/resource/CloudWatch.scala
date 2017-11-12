@@ -55,49 +55,114 @@ object `AWS::CloudWatch::Alarm::Dimension` extends DefaultJsonProtocol {
   def from[A <: Resource[A]](name: String, value: Token[String]): `AWS::CloudWatch::Alarm::Dimension` = `AWS::CloudWatch::Alarm::Dimension`(name, value)
 }
 
+
+
 sealed trait `AWS::CloudWatch::Alarm::Namespace`
 object `AWS::CloudWatch::Alarm::Namespace` extends DefaultJsonProtocol {
-  case object `AWS/ApiGateway`       extends `AWS::CloudWatch::Alarm::Namespace`
-  case object `AWS/AutoScaling`      extends `AWS::CloudWatch::Alarm::Namespace`
-  case object `AWS/Billing`          extends `AWS::CloudWatch::Alarm::Namespace`
-  case object `AWS/CloudFront`       extends `AWS::CloudWatch::Alarm::Namespace`
-  case object `AWS/DynamoDB`         extends `AWS::CloudWatch::Alarm::Namespace`
-  case object `AWS/ElastiCache`      extends `AWS::CloudWatch::Alarm::Namespace`
-  case object `AWS/EBS`              extends `AWS::CloudWatch::Alarm::Namespace`
-  case object `AWS/EC2`              extends `AWS::CloudWatch::Alarm::Namespace`
-  case object `AWS/ELB`              extends `AWS::CloudWatch::Alarm::Namespace`
-  case object `AWS/ElasticMapReduce` extends `AWS::CloudWatch::Alarm::Namespace`
-  case object `AWS/Lambda`           extends `AWS::CloudWatch::Alarm::Namespace`
-  case object `AWS/Kinesis`          extends `AWS::CloudWatch::Alarm::Namespace`
-  case object `AWS/OpsWorks`         extends `AWS::CloudWatch::Alarm::Namespace`
-  case object `AWS/Redshift`         extends `AWS::CloudWatch::Alarm::Namespace`
-  case object `AWS/RDS`              extends `AWS::CloudWatch::Alarm::Namespace`
-  case object `AWS/Route53`          extends `AWS::CloudWatch::Alarm::Namespace`
-  case object `AWS/SNS`              extends `AWS::CloudWatch::Alarm::Namespace`
-  case object `AWS/SQS`              extends `AWS::CloudWatch::Alarm::Namespace`
-  case object `AWS/SWF`              extends `AWS::CloudWatch::Alarm::Namespace`
-  case object `AWS/StorageGateway`   extends `AWS::CloudWatch::Alarm::Namespace`
+  case object `AWS/ApiGateway`        extends `AWS::CloudWatch::Alarm::Namespace`
+  case object `AWS/AppStream`         extends `AWS::CloudWatch::Alarm::Namespace`
+  case object `AWS/AutoScaling`       extends `AWS::CloudWatch::Alarm::Namespace`
+  case object `AWS/Billing`           extends `AWS::CloudWatch::Alarm::Namespace`
+  case object `AWS/CloudFront`        extends `AWS::CloudWatch::Alarm::Namespace`
+  case object `AWS/CloudSearch`       extends `AWS::CloudWatch::Alarm::Namespace`
+  case object `AWS/Events`            extends `AWS::CloudWatch::Alarm::Namespace`
+  case object `AWS/Logs`              extends `AWS::CloudWatch::Alarm::Namespace`
+  case object `AWS/DMS`               extends `AWS::CloudWatch::Alarm::Namespace`
+  case object `AWS/DX`                extends `AWS::CloudWatch::Alarm::Namespace`
+  case object `AWS/DynamoDB`          extends `AWS::CloudWatch::Alarm::Namespace`
+  case object `AWS/EC2`               extends `AWS::CloudWatch::Alarm::Namespace`
+  case object `AWS/EC2Spot`           extends `AWS::CloudWatch::Alarm::Namespace`
+  case object `AWS/ECS`               extends `AWS::CloudWatch::Alarm::Namespace`
+  case object `AWS/ElasticBeanstalk`  extends `AWS::CloudWatch::Alarm::Namespace`
+  case object `AWS/EBS`               extends `AWS::CloudWatch::Alarm::Namespace`
+  case object `AWS/EFS`               extends `AWS::CloudWatch::Alarm::Namespace`
+  case object `AWS/ELB`               extends `AWS::CloudWatch::Alarm::Namespace`
+  case object `AWS/ApplicationELB`    extends `AWS::CloudWatch::Alarm::Namespace`
+  case object `AWS/NetworkELB`        extends `AWS::CloudWatch::Alarm::Namespace`
+  case object `AWS/ElasticTranscoder` extends `AWS::CloudWatch::Alarm::Namespace`
+  case object `AWS/ElastiCache`       extends `AWS::CloudWatch::Alarm::Namespace`
+  case object `AWS/ES`                extends `AWS::CloudWatch::Alarm::Namespace`
+  case object `AWS/ElasticMapReduce`  extends `AWS::CloudWatch::Alarm::Namespace`
+  case object `AWS/GameLift`          extends `AWS::CloudWatch::Alarm::Namespace`
+  case object `AWS/Inspector`         extends `AWS::CloudWatch::Alarm::Namespace`
+  case object `AWS/IoT`               extends `AWS::CloudWatch::Alarm::Namespace`
+  case object `AWS/KMS`               extends `AWS::CloudWatch::Alarm::Namespace`
+  case object `AWS/KinesisAnalytics`  extends `AWS::CloudWatch::Alarm::Namespace`
+  case object `AWS/Firehose`          extends `AWS::CloudWatch::Alarm::Namespace`
+  case object `AWS/Kinesis`           extends `AWS::CloudWatch::Alarm::Namespace`
+  case object `AWS/Lambda`            extends `AWS::CloudWatch::Alarm::Namespace`
+  case object `AWS/Lex`               extends `AWS::CloudWatch::Alarm::Namespace`
+  case object `AWS/ML`                extends `AWS::CloudWatch::Alarm::Namespace`
+  case object `AWS/OpsWorks`          extends `AWS::CloudWatch::Alarm::Namespace`
+  case object `AWS/Polly`             extends `AWS::CloudWatch::Alarm::Namespace`
+  case object `AWS/Redshift`          extends `AWS::CloudWatch::Alarm::Namespace`
+  case object `AWS/RDS`               extends `AWS::CloudWatch::Alarm::Namespace`
+  case object `AWS/Route53`           extends `AWS::CloudWatch::Alarm::Namespace`
+  case object `AWS/DDoSProtection`    extends `AWS::CloudWatch::Alarm::Namespace`
+  case object `AWS/SES`               extends `AWS::CloudWatch::Alarm::Namespace`
+  case object `AWS/SNS`               extends `AWS::CloudWatch::Alarm::Namespace`
+  case object `AWS/SQS`               extends `AWS::CloudWatch::Alarm::Namespace`
+  case object `AWS/S3`                extends `AWS::CloudWatch::Alarm::Namespace`
+  case object `AWS/SWF`               extends `AWS::CloudWatch::Alarm::Namespace`
+  case object `AWS/States`            extends `AWS::CloudWatch::Alarm::Namespace`
+  case object `AWS/StorageGateway`    extends `AWS::CloudWatch::Alarm::Namespace`
+  case object `AWS/NATGateway`        extends `AWS::CloudWatch::Alarm::Namespace`
+  case object `AWS/VPN`               extends `AWS::CloudWatch::Alarm::Namespace`
+  case object `WAF`                   extends `AWS::CloudWatch::Alarm::Namespace`
+  case object `AWS/WorkSpaces`        extends `AWS::CloudWatch::Alarm::Namespace`
+
   val values = Seq(
     `AWS/ApiGateway`,
+    `AWS/AppStream`,
     `AWS/AutoScaling`,
     `AWS/Billing`,
     `AWS/CloudFront`,
+    `AWS/CloudSearch`,
+    `AWS/Events`,
+    `AWS/Logs`,
+    `AWS/DMS`,
+    `AWS/DX`,
     `AWS/DynamoDB`,
-    `AWS/ElastiCache`,
-    `AWS/EBS`,
     `AWS/EC2`,
+    `AWS/EC2Spot`,
+    `AWS/ECS`,
+    `AWS/ElasticBeanstalk`,
+    `AWS/EBS`,
+    `AWS/EFS`,
     `AWS/ELB`,
+    `AWS/ApplicationELB`,
+    `AWS/NetworkELB`,
+    `AWS/ElasticTranscoder`,
+    `AWS/ElastiCache`,
+    `AWS/ES`,
     `AWS/ElasticMapReduce`,
+    `AWS/GameLift`,
+    `AWS/Inspector`,
+    `AWS/IoT`,
+    `AWS/KMS`,
+    `AWS/KinesisAnalytics`,
+    `AWS/Firehose`,
     `AWS/Kinesis`,
+    `AWS/Lambda`,
+    `AWS/Lex`,
+    `AWS/ML`,
     `AWS/OpsWorks`,
+    `AWS/Polly`,
     `AWS/Redshift`,
     `AWS/RDS`,
     `AWS/Route53`,
+    `AWS/DDoSProtection`,
+    `AWS/SES`,
     `AWS/SNS`,
     `AWS/SQS`,
+    `AWS/S3`,
     `AWS/SWF`,
+    `AWS/States`,
     `AWS/StorageGateway`,
-    `AWS/Lambda`
+    `AWS/NATGateway`,
+    `AWS/VPN`,
+    `WAF`,
+    `AWS/WorkSpaces`
   )
 
   implicit val format : JsonFormat[`AWS::CloudWatch::Alarm::Namespace`] = new JsonFormat[`AWS::CloudWatch::Alarm::Namespace`] {

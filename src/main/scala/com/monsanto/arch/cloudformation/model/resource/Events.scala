@@ -14,7 +14,7 @@ case class `AWS::Events::Rule`(name: String,
                                override val Condition: Option[ConditionRef] = None
                               ) extends Resource[`AWS::Events::Rule`] {
   
-  requiure(EventPattern.isDefined || ScheduleExpression.isDefined, "AWS::Events::Rule must have either EventPattern and/or ScheduledExpression specified")
+  require(EventPattern.isDefined || ScheduleExpression.isDefined, "AWS::Events::Rule must have either EventPattern and/or ScheduledExpression specified")
   
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
 }

@@ -34,7 +34,7 @@ object PerformanceMode extends DefaultJsonProtocol {
 case class `AWS::EFS::FileSystem`(
     name: String,
     FileSystemTags: Option[Seq[AmazonTag]] = None,
-    Encrypted: Boolean = false,
+    Encrypted: Option[Boolean] = None,
     KmsKeyId: Option[ResourceRef[`AWS::KMS::Key`]] = None,
     PerformanceMode: Option[PerformanceMode] = None,
     override val Condition: Option[ConditionRef] = None,
@@ -42,7 +42,7 @@ case class `AWS::EFS::FileSystem`(
   ) extends Resource[`AWS::EFS::FileSystem`] {
 
   if (KmsKeyId.isDefined) {
-    require(Encrypted, "Encrypted must be true if KmsKeyId is also set")
+    require(Encrypted.isDefined && Encrypted.get, "Encrypted must be true if KmsKeyId is also set")
   }
 
   override def when(newCondition: Option[ConditionRef]): `AWS::EFS::FileSystem` =

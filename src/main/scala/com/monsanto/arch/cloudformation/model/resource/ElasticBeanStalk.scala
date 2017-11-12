@@ -8,13 +8,14 @@ case class `AWS::ElasticBeanstalk::Application`(
                                                  name: String,
                                                  ApplicationName: Option[Token[String]] = None,
                                                  Description: Option[String] = None,
+                                                 override val DependsOn: Option[Seq[String]] = None,
                                                  override val Condition: Option[ConditionRef] = None
                                                ) extends Resource[`AWS::ElasticBeanstalk::Application`] {
   override def when(newCondition: Option[ConditionRef]) = copy(Condition = newCondition)
 }
 
 object `AWS::ElasticBeanstalk::Application` {
-  implicit val format: JsonFormat[`AWS::ElasticBeanstalk::Application`] = jsonFormat4(`AWS::ElasticBeanstalk::Application`.apply)
+  implicit val format: JsonFormat[`AWS::ElasticBeanstalk::Application`] = jsonFormat5(`AWS::ElasticBeanstalk::Application`.apply)
 }
 
 case class `AWS::ElasticBeanstalk::ApplicationVersion`(
@@ -22,13 +23,14 @@ case class `AWS::ElasticBeanstalk::ApplicationVersion`(
                                                         ApplicationName: Token[String],
                                                         Description: Option[String] = None,
                                                         SourceBundle: SourceBundle,
+                                                        override val DependsOn: Option[Seq[String]] = None,
                                                         override val Condition: Option[ConditionRef] = None
                                                       ) extends Resource[`AWS::ElasticBeanstalk::ApplicationVersion`] {
   override def when(newCondition: Option[ConditionRef]) = copy(Condition = newCondition)
 }
 
 object `AWS::ElasticBeanstalk::ApplicationVersion` {
-  implicit val format: JsonFormat[`AWS::ElasticBeanstalk::ApplicationVersion`] = jsonFormat5(`AWS::ElasticBeanstalk::ApplicationVersion`.apply)
+  implicit val format: JsonFormat[`AWS::ElasticBeanstalk::ApplicationVersion`] = jsonFormat6(`AWS::ElasticBeanstalk::ApplicationVersion`.apply)
 }
 
 case class SourceBundle(
@@ -48,6 +50,7 @@ case class `AWS::ElasticBeanstalk::ConfigurationTemplate`(
                                                            OptionSettings: Option[Seq[OptionSetting]],
                                                            SolutionStackName: Option[String],
                                                            SourceConfiguration: Option[SourceConfiguration],
+                                                           override val DependsOn: Option[Seq[String]] = None,
                                                            override val Condition: Option[ConditionRef] = None
                                                          ) extends Resource[`AWS::ElasticBeanstalk::ConfigurationTemplate`] {
 
@@ -55,7 +58,7 @@ case class `AWS::ElasticBeanstalk::ConfigurationTemplate`(
 }
 
 object `AWS::ElasticBeanstalk::ConfigurationTemplate` {
-  implicit val format: JsonFormat[`AWS::ElasticBeanstalk::ConfigurationTemplate`] = jsonFormat8(`AWS::ElasticBeanstalk::ConfigurationTemplate`.apply)
+  implicit val format: JsonFormat[`AWS::ElasticBeanstalk::ConfigurationTemplate`] = jsonFormat9(`AWS::ElasticBeanstalk::ConfigurationTemplate`.apply)
 }
 
 case class SourceConfiguration(
@@ -81,6 +84,7 @@ case class `AWS::ElasticBeanstalk::Environment`(
                                                  TemplateName: Option[ResourceRef[`AWS::ElasticBeanstalk::ConfigurationTemplate`]] = None,
                                                  Tier: Option[EnvironmentTier] = None,
                                                  VersionLabel: Option[String] = None,
+                                                 override val DependsOn: Option[Seq[String]] = None,
                                                  override val Condition: Option[ConditionRef] = None
                                                ) extends Resource[`AWS::ElasticBeanstalk::Environment`] {
   def endpointUrl: Token[String] = `Fn::GetAtt`(Seq(name, "EndpointURL"))
@@ -89,7 +93,7 @@ case class `AWS::ElasticBeanstalk::Environment`(
 }
 
 object `AWS::ElasticBeanstalk::Environment` {
-  implicit val format: JsonFormat[`AWS::ElasticBeanstalk::Environment`] = jsonFormat12(`AWS::ElasticBeanstalk::Environment`.apply)
+  implicit val format: JsonFormat[`AWS::ElasticBeanstalk::Environment`] = jsonFormat13(`AWS::ElasticBeanstalk::Environment`.apply)
 }
 
 case class OptionSetting(
@@ -140,4 +144,3 @@ case class EnvironmentTier(
 object EnvironmentTier {
   implicit val format: JsonFormat[EnvironmentTier] = jsonFormat3(EnvironmentTier.apply)
 }
-

@@ -91,13 +91,14 @@ case class `AWS::Lambda::Permission`(name: String,
                                      Principal: Token[String],
                                      SourceAccount: Option[Token[String]],
                                      SourceArn: Option[Token[String]],
+                                     override val DependsOn: Option[Seq[String]] = None,
                                      override val Condition: Option[ConditionRef] = None)
   extends Resource[`AWS::Lambda::Permission`] {
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
 }
 
 object `AWS::Lambda::Permission` {
-  implicit val format: JsonFormat[`AWS::Lambda::Permission`] = jsonFormat7(`AWS::Lambda::Permission`.apply)
+  implicit val format: JsonFormat[`AWS::Lambda::Permission`] = jsonFormat8(`AWS::Lambda::Permission`.apply)
 }
 
 case class `AWS::Lambda::EventSourceMapping`(
@@ -122,6 +123,7 @@ case class `AWS::Lambda::Version`(name: String,
                                   FunctionName: Token[ResourceRef[`AWS::Lambda::Function`]],
                                   Description: Option[String] = None,
                                   CodeSha256: Option[Token[String]] = None,
+                                  override val DependsOn: Option[Seq[String]] = None,
                                   override val Condition: Option[ConditionRef] = None)
     extends Resource[`AWS::Lambda::Version`]
     with HasArn {
@@ -134,7 +136,7 @@ case class `AWS::Lambda::Version`(name: String,
 }
 
 object `AWS::Lambda::Version` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::Lambda::Version`] = jsonFormat5(
+  implicit val format: JsonFormat[`AWS::Lambda::Version`] = jsonFormat6(
       `AWS::Lambda::Version`.apply)
 }
 
@@ -143,6 +145,7 @@ case class `AWS::Lambda::Alias`(name: String,
                                 FunctionName: Token[ResourceRef[`AWS::Lambda::Function`]],
                                 FunctionVersion: Token[ResourceRef[`AWS::Lambda::Version`]],
                                 Description: Option[Token[String]] = None,
+                                override val DependsOn: Option[Seq[String]] = None,
                                 override val Condition: Option[ConditionRef] = None)
     extends Resource[`AWS::Lambda::Alias`]
     with HasArn {
@@ -153,5 +156,5 @@ case class `AWS::Lambda::Alias`(name: String,
 }
 
 object `AWS::Lambda::Alias` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::Lambda::Alias`] = jsonFormat6(`AWS::Lambda::Alias`.apply)
+  implicit val format: JsonFormat[`AWS::Lambda::Alias`] = jsonFormat7(`AWS::Lambda::Alias`.apply)
 }

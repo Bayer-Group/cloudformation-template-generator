@@ -74,7 +74,9 @@ case class `AWS::ECS::TaskDefinition`(name: String,
                                       NetworkMode: Option[Token[String]] = None,
                                       TaskRoleArn: Option[Token[String]] = None,
                                       Volumes: Seq[VolumeDefinition] = Seq.empty[VolumeDefinition],
-                                      override val Condition: Option[ConditionRef] = None) extends Resource[`AWS::ECS::TaskDefinition`] with HasArn {
+                                      override val DependsOn: Option[Seq[String]] = None,
+  override val Condition: Option[ConditionRef] = None
+) extends Resource[`AWS::ECS::TaskDefinition`] with HasArn {
   ContainerDefinitions.flatMap(_.MountPoints).flatten.foreach { mp =>
     require(Volumes.exists(_.Name == mp.SourceVolume), s"$mp specifies a source volume, ${mp.SourceVolume}, that does not exist in task definition $name")
   }
@@ -85,7 +87,7 @@ case class `AWS::ECS::TaskDefinition`(name: String,
 }
 
 object `AWS::ECS::TaskDefinition` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::ECS::TaskDefinition`] = jsonFormat7(`AWS::ECS::TaskDefinition`.apply)
+  implicit val format: JsonFormat[`AWS::ECS::TaskDefinition`] = jsonFormat8(`AWS::ECS::TaskDefinition`.apply)
 }
 
 case class ContainerDefinition private(Command: Option[TokenSeq[String]],

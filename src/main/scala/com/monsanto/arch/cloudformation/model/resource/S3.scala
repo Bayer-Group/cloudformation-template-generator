@@ -16,11 +16,12 @@ case class `AWS::S3::Bucket`(name:                      String,
                              VersioningConfiguration:   Option[S3VersioningConfiguration] = None,
                              WebsiteConfiguration:      Option[S3WebsiteConfiguration] = None,
                              Tags:                      Option[Seq[AmazonTag]] = None,
+                             override val DependsOn   : Option[Seq[String]] = None,
                              override val Condition:    Option[ConditionRef] = None) extends Resource[`AWS::S3::Bucket`] {
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
 }
 object `AWS::S3::Bucket` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::S3::Bucket`] = jsonFormat11(`AWS::S3::Bucket`.apply)
+  implicit val format: JsonFormat[`AWS::S3::Bucket`] = jsonFormat12(`AWS::S3::Bucket`.apply)
 }
 
 case class S3CorsRules(CorsRules: Seq[S3CorsRule])

@@ -5,9 +5,9 @@ import spray.json._
 
 case class `AWS::Kinesis::Stream`(
   name: String,
+  ShardCount: Token[Int],
   Name: Option[String] = None,
   RetentionPeriodHours: Option[Token[Int]] = None,
-  ShardCount: Token[Int],
   Tags: Option[Seq[AmazonTag]] = None,
   override val DependsOn: Option[Seq[String]] = None,
   override val Condition: Option[ConditionRef] = None

@@ -17,11 +17,12 @@ case class `AWS::CloudTrail::Trail`(
   S3KeyPrefix : Token[String],
   SnsTopicName : Option[Token[String]] = None,
   Tags : Seq[ResourceTag],
+  override val DependsOn: Option[Seq[String]] = None,
   override val Condition: Option[ConditionRef] = None
 ) extends Resource[`AWS::CloudTrail::Trail`] {
   override def when(newCondition: Option[ConditionRef]): `AWS::CloudTrail::Trail` = copy(Condition = newCondition)
 }
 
 object `AWS::CloudTrail::Trail` {
-  implicit val format : JsonFormat[`AWS::CloudTrail::Trail`] = jsonFormat13(`AWS::CloudTrail::Trail`.apply)
+  implicit val format : JsonFormat[`AWS::CloudTrail::Trail`] = jsonFormat14(`AWS::CloudTrail::Trail`.apply)
 }

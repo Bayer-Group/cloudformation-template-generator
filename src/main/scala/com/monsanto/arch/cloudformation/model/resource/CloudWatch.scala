@@ -28,13 +28,14 @@ case class `AWS::CloudWatch::Alarm`(
   TreatMissingData:        Option[MissingDataTreatment] = None,
   OKActions:               Option[TokenSeq[String]] = None,
   Unit:                    Option[`AWS::CloudWatch::Alarm::Unit`] = None,
+  override val DependsOn: Option[Seq[String]] = None,
   override val Condition: Option[ConditionRef] = None
   ) extends Resource[`AWS::CloudWatch::Alarm`]{
 
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
 }
 object `AWS::CloudWatch::Alarm` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::CloudWatch::Alarm`] = jsonFormat18(`AWS::CloudWatch::Alarm`.apply)
+  implicit val format: JsonFormat[`AWS::CloudWatch::Alarm`] = jsonFormat19(`AWS::CloudWatch::Alarm`.apply)
 }
 
 sealed trait `AWS::CloudWatch::Alarm::ComparisonOperator`

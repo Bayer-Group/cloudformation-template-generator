@@ -8,13 +8,14 @@ case class `AWS::KMS::Alias`(
                             name : String,
                             AliasName : Token[String],
                             TargetKeyId : Token[String],
+                            override val DependsOn: Option[Seq[String]] = None,
                             override val Condition : Option[ConditionRef] = None
                             ) extends Resource[`AWS::KMS::Alias`] {
   override def when(newCondition: Option[ConditionRef]): `AWS::KMS::Alias` = copy(Condition = newCondition)
 }
 object `AWS::KMS::Alias` {
 
-  implicit val format : RootJsonFormat[`AWS::KMS::Alias`] = jsonFormat4(`AWS::KMS::Alias`.apply)
+  implicit val format : RootJsonFormat[`AWS::KMS::Alias`] = jsonFormat5(`AWS::KMS::Alias`.apply)
 }
 
 case class `AWS::KMS::Key`(
@@ -23,6 +24,7 @@ case class `AWS::KMS::Key`(
                           Enabled : Option[Token[Boolean]] = None,
                           EnableKeyRotation : Option[Token[Boolean]] = None,
                           KeyPolicy : PolicyDocument,
+                          override val DependsOn: Option[Seq[String]] = None,
                           override val Condition: Option[ConditionRef] = None
                           ) extends Resource[`AWS::KMS::Key`] with HasArn {
   override def when(newCondition: Option[ConditionRef]): `AWS::KMS::Key` = copy(Condition = newCondition)
@@ -32,6 +34,5 @@ case class `AWS::KMS::Key`(
 
 object `AWS::KMS::Key` {
 
-  implicit val format : RootJsonFormat[`AWS::KMS::Key`] = jsonFormat6(`AWS::KMS::Key`.apply)
+  implicit val format : RootJsonFormat[`AWS::KMS::Key`] = jsonFormat7(`AWS::KMS::Key`.apply)
 }
-

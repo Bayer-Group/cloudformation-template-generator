@@ -95,6 +95,7 @@ case class `AWS::CodePipeline::Pipeline`(
                                           RestartExecutionOnUpdate: Option[Boolean] = None,
                                           RoleArn: Token[String],
                                           Stages: Seq[PipelineStage],
+                                          override val DependsOn: Option[Seq[String]] = None,
                                           override val Condition: Option[ConditionRef] = None
                                         ) extends Resource[`AWS::CodePipeline::Pipeline`] {
   override def when(newCondition: Option[ConditionRef]) = copy(Condition = newCondition)
@@ -103,7 +104,7 @@ case class `AWS::CodePipeline::Pipeline`(
 }
 
 object `AWS::CodePipeline::Pipeline` {
-  implicit lazy val format : RootJsonFormat[`AWS::CodePipeline::Pipeline`] = jsonFormat8(`AWS::CodePipeline::Pipeline`.apply)
+  implicit lazy val format : RootJsonFormat[`AWS::CodePipeline::Pipeline`] = jsonFormat9(`AWS::CodePipeline::Pipeline`.apply)
 }
 
 case class CustomActionConfigurationProperty(
@@ -128,11 +129,11 @@ case class `AWS::CodePipeline::CustomActionType`(
                                                   Provider : Token[String],
                                                   Settings : Option[CustomActionTypeSettings],
                                                   Version : Option[Token[String]],
+                                                  override val DependsOn: Option[Seq[String]] = None,
                                                   override val Condition : Option[ConditionRef] = None
                                                 ) extends Resource[`AWS::CodePipeline::CustomActionType`] {
   override def when(newCondition: Option[ConditionRef]): `AWS::CodePipeline::CustomActionType` = copy(Condition = newCondition)
 }
 object  `AWS::CodePipeline::CustomActionType` {
-  implicit lazy val format : RootJsonFormat[`AWS::CodePipeline::CustomActionType`] = jsonFormat9(`AWS::CodePipeline::CustomActionType`.apply)
+  implicit lazy val format : RootJsonFormat[`AWS::CodePipeline::CustomActionType`] = jsonFormat10(`AWS::CodePipeline::CustomActionType`.apply)
 }
-

@@ -114,6 +114,7 @@ case class `AWS::EMR::Cluster`(name: String,
                                ServiceRole: Token[String],
                                Tags: Option[Seq[AmazonTag]],
                                VisibleToAllUsers: Option[Token[Boolean]],
+                               override val DependsOn: Option[Seq[String]] = None,
                                override val Condition: Option[ConditionRef] = None
                               ) extends Resource[`AWS::EMR::Cluster`] {
   override def when(newCondition: Option[ConditionRef]): `AWS::EMR::Cluster` = copy(
@@ -121,7 +122,7 @@ case class `AWS::EMR::Cluster`(name: String,
   )
 }
 object `AWS::EMR::Cluster` {
-  implicit val format : JsonFormat[`AWS::EMR::Cluster`] = jsonFormat14(`AWS::EMR::Cluster`.apply)
+  implicit val format : JsonFormat[`AWS::EMR::Cluster`] = jsonFormat15(`AWS::EMR::Cluster`.apply)
 }
 
 case class `AWS::EMR::Step`(

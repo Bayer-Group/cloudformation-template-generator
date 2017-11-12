@@ -32,6 +32,7 @@ case class `AWS::Redshift::Cluster`(
     SnapshotClusterIdentifier: Option[Token[String]] = None,
     SnapshotIdentifier: Option[Token[String]] = None,
     VpcSecurityGroupIds: Option[Seq[ResourceRef[`AWS::EC2::SecurityGroup`]]] = None,
+    override val DependsOn: Option[Seq[String]] = None,
     override val Condition: Option[ConditionRef] = None)
   extends Resource[`AWS::Redshift::Cluster`] {
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
@@ -82,12 +83,13 @@ object `AWS::Redshift::Cluster` extends DefaultJsonProtocol {
 case class `AWS::Redshift::ClusterSecurityGroup`(
     name: String,
     Description: String,
+    override val DependsOn: Option[Seq[String]] = None,
     override val Condition: Option[ConditionRef] = None)
   extends Resource[`AWS::Redshift::ClusterSecurityGroup`] {
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
 }
 object `AWS::Redshift::ClusterSecurityGroup` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::Redshift::ClusterSecurityGroup`] = jsonFormat3(`AWS::Redshift::ClusterSecurityGroup`.apply)
+  implicit val format: JsonFormat[`AWS::Redshift::ClusterSecurityGroup`] = jsonFormat4(`AWS::Redshift::ClusterSecurityGroup`.apply)
 }
 
 case class `AWS::Redshift::ClusterSecurityGroupIngress`(
@@ -96,13 +98,14 @@ case class `AWS::Redshift::ClusterSecurityGroupIngress`(
     CIDRIP: Option[Token[String]] = None,
     EC2SecurityGroupName: Option[ResourceRef[`AWS::EC2::SecurityGroup`]] = None,
     EC2SecurityGroupOwnerId: Option[Token[String]] = None,
+    override val DependsOn: Option[Seq[String]] = None,
     override val Condition: Option[ConditionRef] = None)
   extends Resource[`AWS::Redshift::ClusterSecurityGroupIngress`] {
   require(CIDRIP.isDefined ^ (EC2SecurityGroupName.isDefined && EC2SecurityGroupOwnerId.isDefined))
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
 }
 object `AWS::Redshift::ClusterSecurityGroupIngress` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::Redshift::ClusterSecurityGroupIngress`] = jsonFormat6(`AWS::Redshift::ClusterSecurityGroupIngress`.apply)
+  implicit val format: JsonFormat[`AWS::Redshift::ClusterSecurityGroupIngress`] = jsonFormat7(`AWS::Redshift::ClusterSecurityGroupIngress`.apply)
 }
 
 case class `AWS::Redshift::ClusterParameterGroup`(
@@ -110,12 +113,13 @@ case class `AWS::Redshift::ClusterParameterGroup`(
     Description: String,
     ParameterGroupFamily: Token[String],
     Parameters: Option[Seq[RedshiftClusterParameter]] = None,
+    override val DependsOn: Option[Seq[String]] = None,
     override val Condition: Option[ConditionRef] = None)
   extends Resource[`AWS::Redshift::ClusterParameterGroup`] {
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
 }
 object `AWS::Redshift::ClusterParameterGroup` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::Redshift::ClusterParameterGroup`] = jsonFormat5(`AWS::Redshift::ClusterParameterGroup`.apply)
+  implicit val format: JsonFormat[`AWS::Redshift::ClusterParameterGroup`] = jsonFormat6(`AWS::Redshift::ClusterParameterGroup`.apply)
 }
 
 case class RedshiftClusterParameter(
@@ -129,10 +133,11 @@ case class `AWS::Redshift::ClusterSubnetGroup`(
     name: String,
     Description: String,
     SubnetIds: Seq[ResourceRef[`AWS::EC2::Subnet`]],
+    override val DependsOn: Option[Seq[String]] = None,
     override val Condition: Option[ConditionRef] = None)
   extends Resource[`AWS::Redshift::ClusterSubnetGroup`] {
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
 }
 object `AWS::Redshift::ClusterSubnetGroup` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::Redshift::ClusterSubnetGroup`] = jsonFormat4(`AWS::Redshift::ClusterSubnetGroup`.apply)
+  implicit val format: JsonFormat[`AWS::Redshift::ClusterSubnetGroup`] = jsonFormat5(`AWS::Redshift::ClusterSubnetGroup`.apply)
 }

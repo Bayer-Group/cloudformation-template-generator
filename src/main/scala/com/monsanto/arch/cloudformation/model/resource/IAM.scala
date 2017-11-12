@@ -16,6 +16,7 @@ case class `AWS::IAM::InstanceProfile`(
   Path:  Token[String],
   Roles: Seq[ResourceRef[`AWS::IAM::Role`]],
   InstanceProfileName : Option[Token[String]] = None,
+  override val DependsOn: Option[Seq[String]] = None,
   override val Condition: Option[ConditionRef] = None
   ) extends Resource[`AWS::IAM::InstanceProfile`] with HasArn {
 
@@ -24,20 +25,21 @@ case class `AWS::IAM::InstanceProfile`(
   override def arn : Token[String] = `Fn::GetAtt`(Seq(name, "Arn"))
 }
 object `AWS::IAM::InstanceProfile` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::IAM::InstanceProfile`] = jsonFormat5(`AWS::IAM::InstanceProfile`.apply)
+  implicit val format: JsonFormat[`AWS::IAM::InstanceProfile`] = jsonFormat6(`AWS::IAM::InstanceProfile`.apply)
 }
 
 case class `AWS::IAM::User`(
                             name: String,
                             Path: Option[Token[String]],
                             Groups: Option[Seq[ResourceRef[`AWS::IAM::Group`]]] = None,
+                            override val DependsOn: Option[Seq[String]] = None,
                             override val Condition: Option[ConditionRef] = None)
   extends Resource[`AWS::IAM::User`]{
 
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
 }
 object `AWS::IAM::User` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::IAM::User`] = jsonFormat4(`AWS::IAM::User`.apply)
+  implicit val format: JsonFormat[`AWS::IAM::User`] = jsonFormat5(`AWS::IAM::User`.apply)
 }
 
 case class `AWS::IAM::AccessKey`(
@@ -45,13 +47,14 @@ case class `AWS::IAM::AccessKey`(
                                   UserName: Token[String],
                                   Status: AccessKeyStatus,
                                   Serial: Option[StringBackedInt] = None,
+                                  override val DependsOn: Option[Seq[String]] = None,
                                   override val Condition: Option[ConditionRef] = None)
   extends Resource[`AWS::IAM::AccessKey`]{
 
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
 }
 object `AWS::IAM::AccessKey` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::IAM::AccessKey`] = jsonFormat5(`AWS::IAM::AccessKey`.apply)
+  implicit val format: JsonFormat[`AWS::IAM::AccessKey`] = jsonFormat6(`AWS::IAM::AccessKey`.apply)
 }
 
 sealed trait AccessKeyStatus
@@ -77,6 +80,7 @@ case class `AWS::IAM::ManagedPolicy`(
   Groups:             Option[Seq[ResourceRef[`AWS::IAM::Group`]]] = None,
   Roles:              Option[Seq[ResourceRef[`AWS::IAM::Role`]]] = None,
   Users:              Option[Seq[ResourceRef[`AWS::IAM::User`]]] = None,
+  override val DependsOn: Option[Seq[String]] = None,
   override val Condition: Option[ConditionRef] = None
   ) extends Resource[`AWS::IAM::ManagedPolicy`] {
 
@@ -84,7 +88,7 @@ case class `AWS::IAM::ManagedPolicy`(
 }
 
 object `AWS::IAM::ManagedPolicy` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::IAM::ManagedPolicy`] = jsonFormat9(`AWS::IAM::ManagedPolicy`.apply)
+  implicit val format: JsonFormat[`AWS::IAM::ManagedPolicy`] = jsonFormat10(`AWS::IAM::ManagedPolicy`.apply)
 }
 
 sealed trait ManagedPolicy
@@ -121,6 +125,7 @@ case class `AWS::IAM::Role`(
   Path:                     Option[Token[String]] = None,
   Policies:                 Option[Seq[Policy]] = None,
   RoleName:                 Option[Token[String]] = None,
+  override val DependsOn: Option[Seq[String]] = None,
   override val Condition: Option[ConditionRef] = None
   ) extends Resource[`AWS::IAM::Role`] with HasArn {
 
@@ -129,7 +134,7 @@ case class `AWS::IAM::Role`(
   override def arn = `Fn::GetAtt`(Seq(name, "Arn"))
 }
 object `AWS::IAM::Role` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::IAM::Role`] = jsonFormat7(`AWS::IAM::Role`.apply)
+  implicit val format: JsonFormat[`AWS::IAM::Role`] = jsonFormat8(`AWS::IAM::Role`.apply)
 }
 
 sealed trait PolicyConditionValue
@@ -173,12 +178,13 @@ case class `AWS::IAM::Group`(
   ManagedPolicyArns: Option[Seq[ManagedPolicyARN]] = None,
   Path:              Option[Token[String]] = None,
   Policies:          Option[Seq[Policy]] = None,
+  override val DependsOn: Option[Seq[String]] = None,
   override val Condition: Option[ConditionRef] = None
   ) extends Resource[`AWS::IAM::Group`]{
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
 }
 object `AWS::IAM::Group` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::IAM::Group`] = jsonFormat6(`AWS::IAM::Group`.apply)
+  implicit val format: JsonFormat[`AWS::IAM::Group`] = jsonFormat7(`AWS::IAM::Group`.apply)
 }
 
 @implicitNotFound("you can only specify one of Groups, Roles, or Users")
@@ -196,12 +202,13 @@ case class `AWS::IAM::Policy` private (
   Groups:         Option[Seq[ResourceRef[`AWS::IAM::Group`]]],
   Roles:          Option[Seq[ResourceRef[`AWS::IAM::Role`]]],
   Users:          Option[Seq[ResourceRef[`AWS::IAM::User`]]],
+  override val DependsOn: Option[Seq[String]] = None,
   override val Condition: Option[ConditionRef] = None
   ) extends Resource[`AWS::IAM::Policy`]{
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
 }
 object `AWS::IAM::Policy` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::IAM::Policy`] = jsonFormat7(`AWS::IAM::Policy`.apply)
+  implicit val format: JsonFormat[`AWS::IAM::Policy`] = jsonFormat8(`AWS::IAM::Policy`.apply)
 
   def from[
     G <: Option[Seq[ResourceRef[`AWS::IAM::Group`]]],
@@ -214,9 +221,10 @@ object `AWS::IAM::Policy` extends DefaultJsonProtocol {
     Groups:         G,
     Roles:          R,
     Users:          U,
+    DependsOn: Option[Seq[String]] = None,
     Condition: Option[ConditionRef] = None
   )(implicit ev1: ValidPolicyCombo[G,R,U]) =
-    new `AWS::IAM::Policy`(name, PolicyDocument, PolicyName, Groups, Roles, Users, Condition)
+    new `AWS::IAM::Policy`(name, PolicyDocument, PolicyName, Groups, Roles, Users, DependsOn, Condition)
 }
 
 // TODO: Make this not a string

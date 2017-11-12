@@ -51,11 +51,12 @@ case class `AWS::CodeBuild::Project`(
                                       Source: CodeBuildProjectSource,
                                       Tags: Option[Seq[AmazonTag]] = None,
                                       TimeoutInMinutes: Option[Int] = None,
-                                      override val Condition: Option[ConditionRef] = None
+                                      override val Condition: Option[ConditionRef] = None,
+                                      override val DependsOn: Option[Seq[String]] = None
                                     ) extends Resource[`AWS::CodeBuild::Project`] {
   override def when(newCondition: Option[ConditionRef]): `AWS::CodeBuild::Project` = copy(Condition = newCondition)
 }
 
 object `AWS::CodeBuild::Project` {
-  implicit lazy val format : RootJsonFormat[`AWS::CodeBuild::Project`] = jsonFormat11(`AWS::CodeBuild::Project`.apply)
+  implicit lazy val format : RootJsonFormat[`AWS::CodeBuild::Project`] = jsonFormat12(`AWS::CodeBuild::Project`.apply)
 }

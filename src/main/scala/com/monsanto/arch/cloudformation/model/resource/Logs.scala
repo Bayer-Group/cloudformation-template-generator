@@ -182,7 +182,7 @@ case class `AWS::Logs::SubscriptionFilter` private (
   DestinationArn:         Token[String],
   FilterPattern:          Token[String],
   LogGroupName:           ResourceRef[`AWS::Logs::LogGroup`],
-  RoleArn:                Option[Token[String]],
+  RoleArn:                Option[Token[String]] = None,
   override val Condition: Option[ConditionRef] = None,
   override val DependsOn: Option[Seq[String]]  = None
 ) extends Resource[`AWS::Logs::SubscriptionFilter`] {

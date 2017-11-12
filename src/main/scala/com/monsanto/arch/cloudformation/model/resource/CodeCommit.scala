@@ -42,11 +42,12 @@ case class `AWS::CodeCommit::Repository`(
                                           RepositoryName: String,
                                           RepositoryDescription: Option[String] = None,
                                           Triggers: Option[Seq[CodeCommitTrigger]] = None,
-                                          override val Condition: Option[ConditionRef] = None
+                                          override val Condition: Option[ConditionRef] = None,
+                                          override val DependsOn: Option[Seq[String]] = None
                                         ) extends Resource[`AWS::CodeCommit::Repository`] {
   override def when(newCondition: Option[ConditionRef]): `AWS::CodeCommit::Repository` = copy(Condition = newCondition)
 }
 
 object `AWS::CodeCommit::Repository` {
-  implicit lazy val format : RootJsonFormat[`AWS::CodeCommit::Repository`] = jsonFormat5(apply)
+  implicit lazy val format : RootJsonFormat[`AWS::CodeCommit::Repository`] = jsonFormat6(apply)
 }

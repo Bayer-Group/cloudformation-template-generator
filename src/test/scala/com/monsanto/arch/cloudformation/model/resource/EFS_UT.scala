@@ -11,7 +11,7 @@ class EFS_UT extends FunSpec with Matchers {
       FileSystemTags = Some(
         List(AmazonTag("Foo", "Bar"))
       ),
-      Encrypted = true,
+      Encrypted = Some(true),
       KmsKeyId = Some(`AWS::KMS::Key`(
         name = "test",
         KeyPolicy = PolicyDocument(

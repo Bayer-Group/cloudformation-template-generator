@@ -42,7 +42,8 @@ class EFS_UT extends FunSpec with Matchers {
     }
 
     it("throws an exception when KmsKeyId is set but Encrypted is false") {
-      an [IllegalArgumentException] should be thrownBy resource.copy(Encrypted = false)
+      an [IllegalArgumentException] should be thrownBy resource.copy(Encrypted = None)
+      an [IllegalArgumentException] should be thrownBy resource.copy(Encrypted = Some(false))
     }
   }
 

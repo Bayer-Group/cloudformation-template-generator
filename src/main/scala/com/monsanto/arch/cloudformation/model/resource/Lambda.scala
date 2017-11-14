@@ -37,7 +37,8 @@ object Runtime {
 
 case class `AWS::Lambda::Function`(name: String,
                                    Code: Code,
-                                   Description: Option[Token[String]],
+                                   Description: Option[Token[String]] = None,
+                                   FunctionName: Option[Token[String]] = None,
                                    Handler: String,
                                    Runtime: Runtime,
                                    MemorySize: Option[Token[Int]] = None,
@@ -62,7 +63,7 @@ case class `AWS::Lambda::Function`(name: String,
 }
 
 object `AWS::Lambda::Function` {
-  implicit val format: JsonFormat[`AWS::Lambda::Function`] = jsonFormat13(`AWS::Lambda::Function`.apply)
+  implicit val format: JsonFormat[`AWS::Lambda::Function`] = jsonFormat14(`AWS::Lambda::Function`.apply)
 }
 
 case class LambdaEnvironment(Variables : Option[Map[String, Token[String]]])

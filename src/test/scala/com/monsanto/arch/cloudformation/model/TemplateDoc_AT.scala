@@ -100,12 +100,11 @@ class TemplateDoc_AT extends FunSpec with Matchers {
         }
         val simpleTemplate = simpleResourceAndOutputs ++
           Template(
-            AWSTemplateFormatVersion = "2010-09-09",
-            Description = "Simple template",
+            Description = Some("Simple template"),
             Parameters = Some(simpleParameters),
             Conditions = Some(simpleConditions),
             Mappings = Some(simpleMappings),
-            Resources = None,
+            Resources = Seq(), // Illegal
             Outputs = None
           )
         writeStaxModule("vpc-simple.json", simpleTemplate)

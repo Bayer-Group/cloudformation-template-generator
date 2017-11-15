@@ -51,7 +51,7 @@ trait TemplateBase extends HasTemplate {
       Parameters = extract[Parameter],
       Conditions = extract[Condition],
       Mappings = extract[Mapping[_]],
-      Resources = extract[Resource[_]],
+      Resources = extract[Resource[_]] getOrElse Seq(),
       Routables = extract[SecurityGroupRoutable[_ <: Resource[_]]],
       Outputs = extract[Output[_]]
     )

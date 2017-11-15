@@ -13,16 +13,16 @@ case class `AWS::Events::Rule`(name: String,
                                override val DependsOn: Option[Seq[String]] = None,
                                override val Condition: Option[ConditionRef] = None
                               ) extends Resource[`AWS::Events::Rule`] {
-  
+
   require(EventPattern.isDefined || ScheduleExpression.isDefined, "AWS::Events::Rule must have either EventPattern and/or ScheduledExpression specified")
-  
+
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
 }
 
 object `AWS::Events::Rule` extends DefaultJsonProtocol {
   implicit val format: JsonFormat[`AWS::Events::Rule`] = jsonFormat9(`AWS::Events::Rule`.apply)
 
-  @deprecated("This method is broken.  Please update.")
+  @deprecated("This method is broken.  Please update.", "3.7.1")
   def apply(name: String,
             ScheduleExpression: Token[String],
             Targets: Seq[Option[RuleTarget]],
@@ -34,7 +34,7 @@ object `AWS::Events::Rule` extends DefaultJsonProtocol {
     Condition = Condition
   )
 
-  @deprecated("This method is broken.  Please update.")
+  @deprecated("This method is broken.  Please update.", "3.7.1")
   def apply(name: String,
             ScheduleExpression: Token[String],
             Targets: Seq[Option[RuleTarget]]): `AWS::Events::Rule` =

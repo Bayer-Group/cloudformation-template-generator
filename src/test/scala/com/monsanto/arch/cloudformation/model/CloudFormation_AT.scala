@@ -947,8 +947,8 @@ object StaxTemplate {
   )
 
   val itsaDockerStack = Template(
-    AWSTemplateFormatVersion = "2010-09-09",
-    Description = "Autoscaling group of Docker engines in dual AZ VPC with two NAT nodes in an active/active configuration. After successfully launching this CloudFormation stack, you will have 4 subnets in 2 AZs (a pair of public/private subnets in each AZ), a jump box, two NAT instances routing outbound traffic for their respective private subnets.  The NAT instances will automatically monitor each other and fix outbound routing problems if the other instance is unavailable.  The Docker engine autoscaling group will deploy to the private subnets.",
+    AWSTemplateFormatVersion = Some("2010-09-09"),
+    Description = Some("Autoscaling group of Docker engines in dual AZ VPC with two NAT nodes in an active/active configuration. After successfully launching this CloudFormation stack, you will have 4 subnets in 2 AZs (a pair of public/private subnets in each AZ), a jump box, two NAT instances routing outbound traffic for their respective private subnets.  The NAT instances will automatically monitor each other and fix outbound routing problems if the other instance is unavailable.  The Docker engine autoscaling group will deploy to the private subnets."),
     Parameters = Some(
       Seq(
 
@@ -998,7 +998,7 @@ object StaxTemplate {
       )
     ),
 
-    Resources = Some(
+    Resources =
       Seq(
         natRoleResource,
       natRoleProfileResource,
@@ -1113,7 +1113,6 @@ object StaxTemplate {
 
       coreOSServerAutoScaleResource.withPolicy("CoreOSServerAutoScaleUpPolicy", 1, ParameterRef(autoScaleCoolDownParam)),
       coreOSServerAutoScaleResource.withPolicy("CoreOSServerAutoScaleDownPolicy", -1, ParameterRef(autoScaleCoolDownParam))
-    )
     ),
 
     Outputs = Some(

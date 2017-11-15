@@ -66,13 +66,13 @@ class Template_UT extends FlatSpec with Matchers with VPC with Subnet with Avail
 
   it should "be able to add a resource" in {
     val template = Template.EMPTY ++ resource1
-    template should equal(Template.EMPTY.copy(Resources = Some(Seq(resource1))))
+    template should equal(Template.fromResource(resource1))
   }
 
   it should "be able to add resources" in {
     val resources = Seq(resource1, resource2)
     val template = Template.EMPTY ++ resources
-    template should equal(Template.EMPTY.copy(Resources = Some(resources)))
+    template should equal(Template.fromResources(resources))
   }
 
   val cidr = CidrBlock(10,1,1,1,32)

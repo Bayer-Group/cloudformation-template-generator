@@ -78,7 +78,7 @@ object LambdaVpcConfig {
 
 case class Code(S3Bucket: Option[Token[String]],
                 S3Key: Option[Token[String]],
-                S3ObjectVersion: Option[Token[String]],
+                S3ObjectVersion: Option[Token[String]] = None,
                 ZipFile: Option[Token[String]])
 
 object Code {

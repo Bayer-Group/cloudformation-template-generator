@@ -27,6 +27,8 @@ object AmazonFunctionCall extends DefaultJsonProtocol {
         case ga:  `Fn::GetAtt`         => implicitly[JsonWriter[`Fn::GetAtt`#CFBackingType]      ].write(ga.arguments)
         case azs: `Fn::GetAZs`         => implicitly[JsonWriter[`Fn::GetAZs`#CFBackingType]      ].write(azs.arguments)
         case j:   `Fn::Join`           => implicitly[JsonWriter[`Fn::Join`#CFBackingType]        ].write(j.arguments)
+        case j:   `Fn::GetParam`       => implicitly[JsonWriter[`Fn::GetParam`#CFBackingType]    ].write(j.arguments)
+        case j:   `Fn::GetArtifactAtt` => implicitly[JsonWriter[`Fn::GetArtifactAtt`#CFBackingType]].write(j.arguments)
         case s:   `Fn::Split`          => implicitly[JsonWriter[`Fn::Split`#CFBackingType]       ].write(s.arguments)
         case fim: `Fn::FindInMap`[_]   => implicit val foo = MappingRef.formatUnderscore
                                           implicitly[JsonWriter[`Fn::FindInMap`[_]#CFBackingType]].write(fim.arguments)
@@ -126,6 +128,16 @@ case class `Fn::GetAZs`(region: Token[String])
 
 case class `Fn::Join`(joinChar: String, toJoin: Seq[Token[String]])
   extends AmazonFunctionCall[String]("Fn::Join"){type CFBackingType = (String, Seq[Token[String]]) ; val arguments = (joinChar, toJoin)}
+
+// http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/continuous-delivery-codepipeline-parameter-override-functions.html
+// artifactName and attributeName must be String, not Token[String] since the JSON is string-encoded and a string literal is expected.
+case class `Fn::GetArtifactAtt`(artifactName: String, attributeName: String)
+  extends AmazonFunctionCall[String]("Fn::GetArtifactAtt"){type CFBackingType = Seq[String] ; val arguments = Seq(artifactName, attributeName)}
+
+// http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/continuous-delivery-codepipeline-parameter-override-functions.html
+// artifactName and attributeName must be String, not Token[String] since the JSON is string-encoded and a string literal is expected.
+case class `Fn::GetParam`(artifactName: String, jsonFileName: String, keyName: String)
+  extends AmazonFunctionCall[String]("Fn::GetParam"){type CFBackingType = Seq[String] ; val arguments = Seq(artifactName, jsonFileName, keyName)}
 
 case class `Fn::Split`(delimiterChar: String, toSplit: Token[String])
   extends AmazonFunctionCall[Seq[String]]("Fn::Split"){

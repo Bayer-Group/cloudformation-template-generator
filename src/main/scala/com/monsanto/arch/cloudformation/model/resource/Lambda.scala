@@ -103,8 +103,8 @@ object `AWS::Lambda::Permission` {
 
 case class `AWS::Lambda::EventSourceMapping`(
                                               name: String,
-                                              BatchSize: Option[Token[Int]],
-                                              Enabled: Option[Token[Boolean]],
+                                              BatchSize: Option[Token[Int]] = None,
+                                              Enabled: Option[Token[Boolean]] = None,
                                               EventSourceArn: Token[String],
                                               FunctionName: Token[ResourceRef[`AWS::Lambda::Function`]],
                                               StartingPosition: Token[String],

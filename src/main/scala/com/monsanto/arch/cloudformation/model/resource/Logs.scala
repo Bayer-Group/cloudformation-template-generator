@@ -52,10 +52,10 @@ object `AWS::Logs::Destination` extends DefaultJsonProtocol {
   *                  CloudFormation creates the associated resources.
   * @param DependsOn Declare dependencies for resources that must be created or deleted in a specific order.
   */
-case class `AWS::Logs::LogGroup` private (
+case class `AWS::Logs::LogGroup`(
   name:                   String,
   LogGroupName:           Option[Token[String]],
-  RetentionInDays:        Token[Int],
+  RetentionInDays:        Option[Token[Int]] = None,
   override val Condition: Option[ConditionRef] = None,
   override val DependsOn: Option[Seq[String]]  = None
 ) extends Resource[`AWS::Logs::LogGroup`] with HasArn {
@@ -67,6 +67,11 @@ case class `AWS::Logs::LogGroup` private (
 
 object `AWS::Logs::LogGroup` extends DefaultJsonProtocol {
   implicit val format: JsonFormat[`AWS::Logs::LogGroup`] = jsonFormat5(`AWS::Logs::LogGroup`.apply)
+  @deprecated("RetentionInDays should be optional", "3.7.2")
+  def apply(name: String,
+            LogGroupName: Option[Token[String]],
+            RetentionInDays: Token[Int]): `AWS::Logs::LogGroup` =
+    apply(name, LogGroupName, Some(RetentionInDays))
 }
 
 

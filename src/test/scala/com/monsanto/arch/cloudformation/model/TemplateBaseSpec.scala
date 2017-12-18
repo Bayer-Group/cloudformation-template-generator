@@ -1,5 +1,5 @@
 package com.monsanto.arch.cloudformation.model
-
+import scala.language.reflectiveCalls
 import com.monsanto.arch.cloudformation.model.resource.`AWS::SQS::Queue`
 import org.scalatest.{FunSpec, Matchers}
 
@@ -21,7 +21,7 @@ class TemplateBaseSpec extends FunSpec with Matchers {
 
     MyTemplate.template.Outputs.toSeq.flatten should contain(MyTemplate.out1)
     MyTemplate.template.Parameters.toSeq.flatten should contain(MyTemplate.param1)
-    MyTemplate.template.Resources.toSeq.flatten should contain(MyTemplate.resource1)
+    MyTemplate.template.Resources should contain(MyTemplate.resource1)
   }
 
   it("should find instances of HasTemplate") {
@@ -50,8 +50,8 @@ class TemplateBaseSpec extends FunSpec with Matchers {
       }
     }
 
-    MyTemplate.template.Resources.toSeq.flatten should contain(MyTemplate.anotherTemplate.resource1)
-    MyTemplate.template.Resources.toSeq.flatten should contain(MyTemplate.anotherTemplate2.resource)
+    MyTemplate.template.Resources should contain(MyTemplate.anotherTemplate.resource1)
+    MyTemplate.template.Resources should contain(MyTemplate.anotherTemplate2.resource)
   }
 
   it("should find instances of Template") {
@@ -69,7 +69,7 @@ class TemplateBaseSpec extends FunSpec with Matchers {
 
     }
 
-    MyTemplate.template.Resources.toSeq.flatten should contain(queue)
+    MyTemplate.template.Resources should contain(queue)
   }
 
 }

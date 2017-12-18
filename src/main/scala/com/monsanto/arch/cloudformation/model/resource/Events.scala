@@ -44,7 +44,7 @@ case class `AWS::Events::Rule`(name: String,
                               ) extends Resource[`AWS::Events::Rule`] with HasArn {
   
   require(EventPattern.isDefined || ScheduleExpression.isDefined, "AWS::Events::Rule must have either EventPattern and/or ScheduledExpression specified")
-  
+
   def when(newCondition: Option[ConditionRef] = Condition): `AWS::Events::Rule` = copy(Condition = newCondition)
 
   def arn: Token[String] = `Fn::GetAtt`(Seq(name, "Arn"))

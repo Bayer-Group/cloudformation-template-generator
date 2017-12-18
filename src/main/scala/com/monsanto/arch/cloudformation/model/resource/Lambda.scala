@@ -6,6 +6,7 @@ import com.monsanto.arch.cloudformation.model.Token.TokenSeq
 
 class Runtime(val runtime: String)
 
+@deprecated("Node v0.10.42 is currently marked as deprecated by AWS.")
 case object NodeJS extends Runtime("nodejs")
 
 case object `NodeJS4.3` extends Runtime("nodejs4.3")
@@ -87,12 +88,12 @@ object Runtime {
   *                  CloudFormation creates the associated resources.
   */
 case class `AWS::Lambda::Function`(name: String,
-                                   FunctionName: Option[Token[String]],
                                    Code: Code,
-                                   Description: Option[Token[String]],
                                    Handler: String,
                                    Runtime: Runtime,
                                    Role: Token[String],
+                                   FunctionName: Option[Token[String]] = None,
+                                   Description: Option[Token[String]] = None,
                                    DeadLetterConfig: Option[DeadLetterConfig] = None,
                                    MemorySize: Option[Token[Int]] = None,
                                    Timeout: Option[Token[Int]] = None,

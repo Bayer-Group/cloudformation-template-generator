@@ -2,7 +2,7 @@ package com.monsanto.arch.cloudformation.model.resource
 
 import com.monsanto.arch.cloudformation.model._
 import spray.json.DefaultJsonProtocol._
-import spray.json.RootJsonFormat
+import spray.json.{ JsonFormat, RootJsonFormat }
 
 case class CodeBuildProjectArtifacts(
                                       Location: Option[Token[String]],
@@ -40,9 +40,27 @@ object CodeBuildProjectSource {
   implicit lazy val format = jsonFormat3(CodeBuildProjectSource.apply)
 }
 
+final case class CodeBuildProjectCache(Location: Token[String], Type: CodeBuildProjectCacheType)
+
+object CodeBuildProjectCache {
+  private type T = CodeBuildProjectCache
+  implicit lazy val format : RootJsonFormat[T] = jsonFormat2(apply)
+}
+
+sealed trait CodeBuildProjectCacheType extends Product with Serializable
+
+object CodeBuildProjectCacheType {
+  private type T = CodeBuildProjectCacheType
+  case object NO_CACHE extends T
+  case object S3 extends T
+  val values = Seq(NO_CACHE, S3)
+  implicit val format: JsonFormat[T] = new EnumFormat[T](values)
+}
+
 case class `AWS::CodeBuild::Project`(
                                       name: String,
                                       Artifacts: CodeBuildProjectArtifacts,
+                                      Cache: Option[CodeBuildProjectCache] = None,
                                       Description: Option[Token[String]] = None,
                                       EncryptionKey: Option[Token[String]] = None,
                                       Environment: CodeBuildProjectEnvironment,
@@ -58,5 +76,5 @@ case class `AWS::CodeBuild::Project`(
 }
 
 object `AWS::CodeBuild::Project` {
-  implicit lazy val format : RootJsonFormat[`AWS::CodeBuild::Project`] = jsonFormat12(`AWS::CodeBuild::Project`.apply)
+  implicit lazy val format : RootJsonFormat[`AWS::CodeBuild::Project`] = jsonFormat13(`AWS::CodeBuild::Project`.apply)
 }

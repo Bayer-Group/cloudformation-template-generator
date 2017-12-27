@@ -13,9 +13,9 @@ object Subscription extends DefaultJsonProtocol {
 
 case class `AWS::SNS::Topic`(
   name: String,
-  DisplayName: Option[Token[String]],
-  Subscription: Option[Seq[Token[Subscription]]],
-  TopicName: Option[Token[String]],
+  DisplayName: Option[Token[String]] = None,
+  Subscription: Option[Seq[Token[Subscription]]] = None,
+  TopicName: Option[Token[String]] = None,
   override val DependsOn: Option[Seq[String]] = None,
   override val Condition: Option[ConditionRef] = None)
   extends Resource[`AWS::SNS::Topic`] with HasArn {
@@ -48,7 +48,7 @@ trait Subscribable {
 
 case class `AWS::SNS::Subscription`(
   name : String,
-  Endpoint : Option[Token[String]],
+  Endpoint : Option[Token[String]] = None,
   Protocol : Token[String],
   TopicArn : Token[String],
   override val DependsOn: Option[Seq[String]] = None,

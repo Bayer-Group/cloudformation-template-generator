@@ -42,7 +42,7 @@ case class `AWS::Events::Rule`(name: String,
                                override val DependsOn: Option[Seq[String]] = None,
                                override val Condition: Option[ConditionRef] = None
                               ) extends Resource[`AWS::Events::Rule`] with HasArn {
-  
+
   require(EventPattern.isDefined || ScheduleExpression.isDefined, "AWS::Events::Rule must have either EventPattern and/or ScheduledExpression specified")
 
   def when(newCondition: Option[ConditionRef] = Condition): `AWS::Events::Rule` = copy(Condition = newCondition)
@@ -81,7 +81,7 @@ object `AWS::Events::Rule` extends DefaultJsonProtocol {
 case class RuleTarget(Arn: Token[String],
                       Id: String,
                       EcsParameters: Option[RuleEcsParameters] = None,
-                      Input: Option[JsValue] = None,
+                      Input: Option[Token[String]] = None,
                       InputPath: Option[Token[String]] = None,
                       InputTransformer: Option[RuleInputTransformer] = None,
                       KinesisParameters: Option[RuleKinesisParameters] = None,

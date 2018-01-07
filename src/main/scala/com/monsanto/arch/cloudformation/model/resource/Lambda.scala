@@ -6,7 +6,7 @@ import com.monsanto.arch.cloudformation.model.Token.TokenSeq
 
 class Runtime(val runtime: String)
 
-@deprecated("Node v0.10.42 is currently marked as deprecated by AWS.")
+@deprecated("Node v0.10.42 is currently marked as deprecated by AWS.", "3.6.3")
 case object NodeJS extends Runtime("nodejs")
 
 case object `NodeJS4.3` extends Runtime("nodejs4.3")

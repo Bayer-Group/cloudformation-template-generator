@@ -187,44 +187,21 @@ object `AWS::IAM::Group` extends DefaultJsonProtocol {
   implicit val format: JsonFormat[`AWS::IAM::Group`] = jsonFormat7(`AWS::IAM::Group`.apply)
 }
 
-@implicitNotFound("you can only specify one of Groups, Roles, or Users")
-trait ValidPolicyCombo[G,R,U]
-object ValidPolicyCombo {
-  implicit object onlyG extends ValidPolicyCombo[Some[Seq[ResourceRef[`AWS::IAM::Group`]]], None.type, None.type]
-  implicit object onlyR extends ValidPolicyCombo[None.type, Some[Seq[ResourceRef[`AWS::IAM::Role`]]], None.type]
-  implicit object onlyU extends ValidPolicyCombo[None.type, None.type, Some[Seq[ResourceRef[`AWS::IAM::User`]]]]
-}
-
-case class `AWS::IAM::Policy` private (
+case class `AWS::IAM::Policy`(
   name:           String,
   PolicyDocument: PolicyDocument,
   PolicyName:     String,
-  Groups:         Option[Seq[ResourceRef[`AWS::IAM::Group`]]],
-  Roles:          Option[Seq[ResourceRef[`AWS::IAM::Role`]]],
-  Users:          Option[Seq[ResourceRef[`AWS::IAM::User`]]],
+  Groups:         Option[TokenSeq[String]] = None,
+  Roles:          Option[TokenSeq[String]] = None,
+  Users:          Option[TokenSeq[String]] = None,
   override val DependsOn: Option[Seq[String]] = None,
   override val Condition: Option[ConditionRef] = None
   ) extends Resource[`AWS::IAM::Policy`]{
+  require(Groups.nonEmpty || Roles.nonEmpty || Users.nonEmpty)
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
 }
 object `AWS::IAM::Policy` extends DefaultJsonProtocol {
   implicit val format: JsonFormat[`AWS::IAM::Policy`] = jsonFormat8(`AWS::IAM::Policy`.apply)
-
-  def from[
-    G <: Option[Seq[ResourceRef[`AWS::IAM::Group`]]],
-    R <: Option[Seq[ResourceRef[`AWS::IAM::Role`]]],
-    U <: Option[Seq[ResourceRef[`AWS::IAM::User`]]]
-  ](
-    name:           String,
-    PolicyDocument: PolicyDocument,
-    PolicyName:     String,
-    Groups:         G,
-    Roles:          R,
-    Users:          U,
-    DependsOn: Option[Seq[String]] = None,
-    Condition: Option[ConditionRef] = None
-  )(implicit ev1: ValidPolicyCombo[G,R,U]) =
-    new `AWS::IAM::Policy`(name, PolicyDocument, PolicyName, Groups, Roles, Users, DependsOn, Condition)
 }
 
 // TODO: Make this not a string

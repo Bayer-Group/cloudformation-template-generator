@@ -1,6 +1,5 @@
 package com.monsanto.arch.cloudformation.model
 
-import com.monsanto.arch.cloudformation.model.resource.ValidPolicyCombo._
 import com.monsanto.arch.cloudformation.model.resource._
 import org.scalatest.{FunSpec, Matchers}
 
@@ -22,7 +21,7 @@ class IAMPolicy_UT extends FunSpec with Matchers with JsonWritingMatcher {
           ),
         Path = Some("/")
       )
-      val policyForRoles = `AWS::IAM::Policy`.from(
+      val policyForRoles = `AWS::IAM::Policy`(
         "S3GetPolicy",
         PolicyDocument(
           Statement = Seq(
@@ -123,6 +122,27 @@ class IAMPolicy_UT extends FunSpec with Matchers with JsonWritingMatcher {
           |    "Action": ["*"],
           |    "Resource": ["arn:1", "arn:2"]
           |  }]
+          |}
+        """.stripMargin
+    }
+
+    it("should allow existing IAM role") {
+      `AWS::IAM::Policy`(
+        name = "Foo",
+        PolicyDocument = PolicyDocument(Seq.empty),
+        PolicyName = "Foo",
+        Roles = Some(Seq("ExistingFoo"))
+      ) shouldMatch
+        """
+          |{
+          | "Type": "AWS::IAM::Policy",
+          | "Properties": {
+          |   "PolicyDocument": {
+          |     "Statement": []
+          |   },
+          |   "PolicyName": "Foo",
+          |   "Roles": ["ExistingFoo"]
+          | }
           |}
         """.stripMargin
     }

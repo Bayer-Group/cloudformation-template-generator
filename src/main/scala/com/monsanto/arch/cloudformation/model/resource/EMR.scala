@@ -7,10 +7,10 @@ import DefaultJsonProtocol._
 
 
 case class Application(
-                        AdditionalInfo: Option[Map[String, Token[String]]],
-                        Args: Option[TokenSeq[String]],
+                        AdditionalInfo: Option[Map[String, Token[String]]] = None,
+                        Args: Option[TokenSeq[String]] = None,
                         Name: Option[Token[String]],
-                        Version: Option[Token[String]]
+                        Version: Option[Token[String]] = None
                       )
 
 object Application {
@@ -67,13 +67,13 @@ object EbsConfiguration {
 }
 
 case class InstanceGroupConfig(
-                                BidPrice: Option[Token[String]],
-                                Configurations: Option[Seq[ClusterConfiguration]],
-                                EbsConfiguration: Option[EbsConfiguration],
+                                BidPrice: Option[Token[String]] = None,
+                                Configurations: Option[Seq[ClusterConfiguration]] = None,
+                                EbsConfiguration: Option[EbsConfiguration] = None,
                                 InstanceCount: Token[Int],
                                 InstanceType: Token[String],
-                                Market: Option[Token[String]],
-                                Name: Option[Token[String]]
+                                Market: Option[Token[String]] = None,
+                                Name: Option[Token[String]] = None
                               )
 object InstanceGroupConfig {
   implicit val format = jsonFormat7(InstanceGroupConfig.apply)
@@ -84,36 +84,37 @@ object PlacementType {
   implicit val format = jsonFormat1(PlacementType.apply)
 }
 
-case class JobFlowInstancesConfig(AdditionalMasterSecurityGroups: Option[TokenSeq[String]],
-                                  AdditionalSlaveSecurityGroups: Option[TokenSeq[String]],
+case class JobFlowInstancesConfig(
+                                  AdditionalMasterSecurityGroups: Option[TokenSeq[String]] = None,
+                                  AdditionalSlaveSecurityGroups: Option[TokenSeq[String]] = None,
                                   CoreInstanceGroup: InstanceGroupConfig,
-                                  Ec2KeyName: Option[Token[String]],
-                                  Ec2SubnetId: Option[Token[String]],
-                                  EmrManagedMasterSecurityGroup: Option[Token[String]],
-                                  EmrManagedSlaveSecurityGroup: Option[Token[String]],
-                                  HadoopVersion: Option[Token[String]],
+                                  Ec2KeyName: Option[Token[String]] = None,
+                                  Ec2SubnetId: Option[Token[String]] = None,
+                                  EmrManagedMasterSecurityGroup: Option[Token[String]] = None,
+                                  EmrManagedSlaveSecurityGroup: Option[Token[String]] = None,
+                                  HadoopVersion: Option[Token[String]] = None,
                                   MasterInstanceGroup: InstanceGroupConfig,
-                                  Placement: Option[PlacementType],
-                                  ServiceAccessSecurityGroup: Option[Token[String]],
-                                  TerminationProtected: Option[Token[Boolean]]
+                                  Placement: Option[PlacementType] = None,
+                                  ServiceAccessSecurityGroup: Option[Token[String]] = None,
+                                  TerminationProtected: Option[Token[Boolean]] = None
                                  )
 object JobFlowInstancesConfig {
   implicit val format = jsonFormat12(JobFlowInstancesConfig.apply)
 }
 
 case class `AWS::EMR::Cluster`(name: String,
-                               AdditionalInfo: Option[JsValue],
-                               Applications: Option[Seq[Application]],
-                               BootstrapActions: Option[Seq[BootstrapAction]],
-                               Configurations: Option[Seq[ClusterConfiguration]],
+                               AdditionalInfo: Option[JsValue] = None,
+                               Applications: Option[Seq[Application]] = None,
+                               BootstrapActions: Option[Seq[BootstrapAction]] = None,
+                               Configurations: Option[Seq[ClusterConfiguration]] = None,
                                Instances: JobFlowInstancesConfig,
                                JobFlowRole: Token[String],
-                               LogUri: Option[Token[String]],
+                               LogUri: Option[Token[String]] = None,
                                Name: Token[String],
-                               ReleaseLabel: Option[Token[String]],
+                               ReleaseLabel: Option[Token[String]] = None,
                                ServiceRole: Token[String],
-                               Tags: Option[Seq[AmazonTag]],
-                               VisibleToAllUsers: Option[Token[Boolean]],
+                               Tags: Option[Seq[AmazonTag]] = None,
+                               VisibleToAllUsers: Option[Token[Boolean]] = None,
                                override val DependsOn: Option[Seq[String]] = None,
                                override val Condition: Option[ConditionRef] = None
                               ) extends Resource[`AWS::EMR::Cluster`] {

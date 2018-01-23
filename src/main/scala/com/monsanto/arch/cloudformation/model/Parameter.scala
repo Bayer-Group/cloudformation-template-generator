@@ -206,7 +206,7 @@ object AMIIdParameter extends DefaultJsonProtocol {
 case class `AWS::EC2::VPC_Parameter`(
                                       name:          String,
                                       Description:   Option[String],
-                                      Default:       Option[Token[ResourceRef[`AWS::EC2::VPC`]]] = None,
+                                      Default:       Option[VpcId] = None,
                                       ConfigDefault: Option[String] = None
                                       ) extends Parameter("AWS::EC2::VPC::Id"){type Rep = ResourceRef[`AWS::EC2::VPC`]}
 object `AWS::EC2::VPC_Parameter` extends DefaultJsonProtocol {

@@ -591,7 +591,7 @@ case class `AWS::RDS::DBSecurityGroup`(
   name:                   String,
   DBSecurityGroupIngress: Seq[RDSDBSecurityGroupRule],
   GroupDescription:       String,
-  EC2VpcId:               Option[Token[ResourceRef[`AWS::EC2::VPC`]]] = None,
+  EC2VpcId:               Option[VpcId] = None,
   Tags:                   Option[Seq[AmazonTag]]               = None,
   override val DependsOn: Option[Seq[String]] = None,
   override val Condition: Option[ConditionRef]                 = None

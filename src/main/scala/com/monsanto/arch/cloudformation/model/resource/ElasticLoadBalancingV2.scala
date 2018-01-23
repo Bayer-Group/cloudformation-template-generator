@@ -204,7 +204,7 @@ case class `AWS::ElasticLoadBalancingV2::TargetGroup`(
   name:                       String,
   Protocol:                   ALBProtocol,
   Port:                       Token[Int],
-  VpcId:                      Token[ResourceRef[`AWS::EC2::VPC`]],
+  VpcId:                      VpcId,
   Matcher:                    Option[Matcher],
   HealthCheckIntervalSeconds: Option[Token[Int]] = None,
   HealthCheckPath:            Option[Token[String]] = None,

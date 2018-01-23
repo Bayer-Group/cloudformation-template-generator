@@ -343,6 +343,18 @@ class EC2_UT extends FunSpec with Matchers with DefaultJsonProtocol {
       )
     }
 
+    it("should accept a VPC_Parameter") {
+      val sg = createGroupWith(`AWS::EC2::VPC_Parameter`("vpc", "VPC to create security groups"))
+
+      sg.toJson shouldEqual expectedReferenceJs
+    }
+
+    it("should accept a VPC ParameterRef") {
+      val sg = createGroupWith(ParameterRef(`AWS::EC2::VPC_Parameter`("vpc", "VPC to create security groups")))
+
+      sg.toJson shouldEqual expectedReferenceJs
+    }
+
     it("should not accept arbitrary Token[String]") {
       val token: Token[String] = "any-token"
 

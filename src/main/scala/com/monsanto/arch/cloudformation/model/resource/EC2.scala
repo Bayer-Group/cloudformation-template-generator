@@ -584,6 +584,8 @@ object VpcId extends DefaultJsonProtocol {
   implicit def fromVpc(vpc: `AWS::EC2::VPC`): VpcId = VpcId(ResourceRefVpc(ResourceRef(vpc)))
   implicit def fromVpcRef(vpc: ResourceRef[`AWS::EC2::VPC`]): VpcId = VpcId(ResourceRefVpc(vpc))
   implicit def fromVpcRefToken(vpc: Token[ResourceRef[`AWS::EC2::VPC`]]): VpcId = VpcId(ResourceRefVpc(vpc))
+  implicit def fromParameterRef(vpcParameter: `AWS::EC2::VPC_Parameter`): VpcId = ParameterRef(vpcParameter)
+  implicit def fromParameterRef(parameterRef: ParameterRef[ResourceRef[`AWS::EC2::VPC`]]): VpcId = VpcId(ResourceRefVpc(parameterRef))
   implicit def fromImportedVpc(fn: `Fn::ImportValue`): VpcId = VpcId(ImportedVpc(fn))
   implicit def fromMappedVpc(fn: `Fn::FindInMap`[String]): VpcId = VpcId(MappedVpc(fn))
   implicit def fromString(ts: String): VpcId = VpcId(VpcLiteral(ts))

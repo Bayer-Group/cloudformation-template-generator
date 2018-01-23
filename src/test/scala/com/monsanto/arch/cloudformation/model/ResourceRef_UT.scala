@@ -14,7 +14,7 @@ class ResourceRef_UT extends FunSpec with Matchers {
     it("should serialize correctly"){
 
 
-      val vpcToken = UNSAFEToken[ResourceRef[`AWS::EC2::VPC`]]("vpc-b5f389d0")
+      val vpcToken: VpcId = "vpc-b5f389d0"
 
       val privateDBSubnet1CidrParam = CidrBlockParameter(
         name        = "PrivateSubnet1",

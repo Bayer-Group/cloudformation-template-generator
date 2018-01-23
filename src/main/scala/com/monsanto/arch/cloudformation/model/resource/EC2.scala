@@ -199,7 +199,7 @@ object `AWS::EC2::VPNConnectionRoute` extends DefaultJsonProtocol {
 
 case class `AWS::EC2::NetworkAcl`(
   name: String,
-  VpcId: Token[ResourceRef[`AWS::EC2::VPC`]],
+  VpcId: VpcId,
   Tags: Seq[AmazonTag],
   override val DependsOn: Option[Seq[String]] = None,
   override val Condition: Option[ConditionRef] = None
@@ -362,7 +362,7 @@ object `AWS::EC2::Route` extends DefaultJsonProtocol {
 
 case class `AWS::EC2::RouteTable`(
   name: String,
-  VpcId: Token[ResourceRef[`AWS::EC2::VPC`]],
+  VpcId: VpcId,
   Tags: Seq[AmazonTag],
   override val DependsOn: Option[Seq[String]] = None,
   override val Condition: Option[ConditionRef] = None
@@ -376,7 +376,7 @@ object `AWS::EC2::RouteTable` extends DefaultJsonProtocol {
 case class `AWS::EC2::SecurityGroup`(
   name:                 String,
   GroupDescription:     String,
-  VpcId:                Token[ResourceRef[`AWS::EC2::VPC`]],
+  VpcId:                VpcId,
   SecurityGroupIngress: Option[Seq[IngressSpec]],
   SecurityGroupEgress:  Option[Seq[EgressSpec]] = None,
   Tags:                 Seq[AmazonTag],
@@ -507,7 +507,7 @@ object `AWS::EC2::SecurityGroupIngress` extends DefaultJsonProtocol {
 
 case class `AWS::EC2::Subnet`(
   name:                String,
-  VpcId:               Token[ResourceRef[`AWS::EC2::VPC`]],
+  VpcId:               VpcId,
   AvailabilityZone:    Option[Token[String]] = None,
   CidrBlock:           Token[CidrBlock],
   Tags:                Seq[AmazonTag],
@@ -562,6 +562,33 @@ object `AWS::EC2::VPC` extends DefaultJsonProtocol {
   implicit val format: JsonFormat[`AWS::EC2::VPC`] = jsonFormat7(`AWS::EC2::VPC`.apply)
 }
 
+sealed trait VpcRef
+case class ResourceRefVpc(ref: Token[ResourceRef[`AWS::EC2::VPC`]]) extends VpcRef
+case class ImportedVpc(fn: `Fn::ImportValue`) extends VpcRef
+case class MappedVpc(fn: `Fn::FindInMap`[String]) extends VpcRef
+case class VpcLiteral(vpcId: String) extends VpcRef
+
+case class VpcId private(resource: VpcRef)
+object VpcId extends DefaultJsonProtocol {
+  implicit val format: JsonFormat[VpcId] = new JsonFormat[VpcId] {
+    override def write(obj: VpcId): JsValue = obj.resource match {
+      case ResourceRefVpc(ref) => ref.toJson
+      case ImportedVpc(fn) => AmazonFunctionCall.format.write(fn)
+      case MappedVpc(fn) => AmazonFunctionCall.format.write(fn)
+      case VpcLiteral(id) => id.toJson
+    }
+
+    override def read(json: JsValue): VpcId = ???
+  }
+
+  implicit def fromVpc(vpc: `AWS::EC2::VPC`): VpcId = VpcId(ResourceRefVpc(ResourceRef(vpc)))
+  implicit def fromVpcRef(vpc: ResourceRef[`AWS::EC2::VPC`]): VpcId = VpcId(ResourceRefVpc(vpc))
+  implicit def fromVpcRefToken(vpc: Token[ResourceRef[`AWS::EC2::VPC`]]): VpcId = VpcId(ResourceRefVpc(vpc))
+  implicit def fromImportedVpc(fn: `Fn::ImportValue`): VpcId = VpcId(ImportedVpc(fn))
+  implicit def fromMappedVpc(fn: `Fn::FindInMap`[String]): VpcId = VpcId(MappedVpc(fn))
+  implicit def fromString(ts: String): VpcId = VpcId(VpcLiteral(ts))
+}
+
 case class `AWS::EC2::VPCPeeringConnection`(
   name: String,
   PeerVpcId: Token[String],
@@ -587,7 +614,7 @@ case class InternetGateway(v: Token[ResourceRef[`AWS::EC2::InternetGateway`]]) e
 
 class `AWS::EC2::VPCGatewayAttachment` private (
   val name:              String,
-  val VpcId:             Token[ResourceRef[`AWS::EC2::VPC`]],
+  val VpcId:             VpcId,
   val VpnGatewayId:      Option[Token[ResourceRef[`AWS::EC2::VPNGateway`]]] = None,
   val InternetGatewayId: Option[Token[ResourceRef[`AWS::EC2::InternetGateway`]]] = None,
   override val DependsOn: Option[Seq[String]] = None,
@@ -631,7 +658,7 @@ object `AWS::EC2::VPCGatewayAttachment` extends DefaultJsonProtocol {
 
   def apply(
     name: String,
-    VpcId: Token[ResourceRef[`AWS::EC2::VPC`]],
+    VpcId: VpcId,
     gatewayId: VPCGatewayOptions,
     DependsOn: Option[Seq[String]] = None,
     Condition: Option[ConditionRef] = None

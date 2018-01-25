@@ -19,8 +19,10 @@ object `AWS::ApiGateway::Account` {
 
 case class `AWS::ApiGateway::ApiKey`(
                                       name: String,
+                                      CustomerId: Option[Token[String]] = None,
                                       Description: Option[String] = None,
                                       Enabled: Option[Token[Boolean]] = None,
+                                      GenerateDistinctId: Option[Boolean] = None,
                                       Name: Option[Token[String]] = None,
                                       StageKeys: Option[Seq[StageKey]] = None,
                                       override val DependsOn: Option[Seq[String]] = None,
@@ -31,7 +33,7 @@ case class `AWS::ApiGateway::ApiKey`(
   override def when(newCondition: Option[ConditionRef]) = copy(Condition = newCondition)
 }
 object `AWS::ApiGateway::ApiKey` {
-  implicit val format: JsonFormat[`AWS::ApiGateway::ApiKey`] = jsonFormat7(`AWS::ApiGateway::ApiKey`.apply)
+  implicit val format: JsonFormat[`AWS::ApiGateway::ApiKey`] = jsonFormat9(`AWS::ApiGateway::ApiKey`.apply)
 }
 
 case class StageKey(RestApiId: Option[Token[String]] = None, StageName: Option[Token[String]] = None)

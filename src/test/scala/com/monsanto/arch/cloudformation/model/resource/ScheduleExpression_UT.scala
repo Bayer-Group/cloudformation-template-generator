@@ -1,6 +1,8 @@
 package com.monsanto.arch.cloudformation.model.resource
 
-import org.scalatest.{FunSpec, Matchers}
+import java.time.Instant
+
+import org.scalatest.{ FunSpec, Matchers }
 import spray.json._
 
 class ScheduleExpression_UT extends FunSpec with Matchers {
@@ -87,6 +89,16 @@ class ScheduleExpression_UT extends FunSpec with Matchers {
     it("should render a GT 1 positive rate") {
       val sched: ScheduleExpression = DayRateSchedule(7)
       sched.toJson.prettyPrint shouldBe "\"rate(7 days)\""
+    }
+  }
+
+  describe("The AtSchedule ScheduleExpression model") {
+    val s1 = "2017-10-10T10:10:10.123Z"
+    val s2 = "\"2017-10-10T10:10:10\""
+
+    it("should render the default") {
+      val sched: ScheduleExpression = AtSchedule(Instant.parse(s1))
+      sched.toJson.prettyPrint shouldBe s2
     }
   }
 }

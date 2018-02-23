@@ -81,6 +81,7 @@ import scala.language.implicitConversions
   *        )
   *        val gatewayStuff = Template.fromResource(internetGatewayResource) ++
   *          gatewayToInternetResource ++
+  *          publicRouteTable ++
   *          publicRouteTableRoute
   *        val withinAZ = withAZ("us-east-1a") { implicit az =>
   *          withSubnet("PubSubnet1", CidrBlock(10, 0, 0, 1, 24)) { implicit pubSubnet =>
@@ -113,12 +114,12 @@ import scala.language.implicitConversions
   *      }
   *      val simpleTemplate = simpleResourceAndOutputs ++
   *        Template(
-  *          AWSTemplateFormatVersion = "2010-09-09",
-  *          Description = "Simple template",
+  *          AWSTemplateFormatVersion = Some("2010-09-09"),
+  *          Description = Some("Simple template"),
   *          Parameters = Some(simpleParameters),
   *          Conditions = Some(simpleConditions),
   *          Mappings = Some(simpleMappings),
-  *          Resources = None,
+  *          Resources = Seq.empty,
   *          Outputs = None
   *        )
   *      writeStaxModule("vpc-simple.json", simpleTemplate)

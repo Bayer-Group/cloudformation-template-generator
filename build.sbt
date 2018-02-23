@@ -66,7 +66,7 @@ licenses += ("BSD", url("http://opensource.org/licenses/BSD-3-Clause"))
 
 bintrayReleaseOnPublish := ! isSnapshot.value
 
-publishTo := Def.taskDyn[Option[Resolver]] {
+publishTo in ThisBuild := Def.taskDyn[Option[Resolver]] {
   if (isSnapshot.value)
     Def.task(Some("Artifactory Realm" at "https://oss.jfrog.org/oss-snapshot-local/"))
   else

@@ -7,8 +7,8 @@ import spray.json.{JsonFormat, DefaultJsonProtocol}
 case class `AWS::CloudFront::Distribution`(
                                             name: String,
                                             DistributionConfig: DistributionConfig,
+                                            override val DependsOn: Option[Seq[String]] = None,
                                             override val Condition: Option[ConditionRef] = None
-
                                           ) extends Resource[`AWS::CloudFront::Distribution`] {
   def domainName : Token[String] = `Fn::GetAtt`(Seq(name, "DomainName"))
 
@@ -21,7 +21,7 @@ case class `AWS::CloudFront::Distribution`(
 import DefaultJsonProtocol._
 
 object `AWS::CloudFront::Distribution` {
-  implicit val format: JsonFormat[`AWS::CloudFront::Distribution`] = jsonFormat3(`AWS::CloudFront::Distribution`.apply)
+  implicit val format: JsonFormat[`AWS::CloudFront::Distribution`] = jsonFormat4(`AWS::CloudFront::Distribution`.apply)
 }
 
 case class DistributionConfig(

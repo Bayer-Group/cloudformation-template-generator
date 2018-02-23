@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.8.0] - 2017-12-18
+
+
+**Note: This contains a breaking change to Template and default parameters in some other minor classes.**
+
+- Make Template match documentation (see [#221](https://github.com/MonsantoCo/cloudformation-template-generator/pull/221))
+- Add missing AWS::Lambda::Function parameters (see [#230](https://github.com/MonsantoCo/cloudformation-template-generator/pull/230))
+- Add full support for latest AWS::Events::Rule (see [#228](https://github.com/MonsantoCo/cloudformation-template-generator/pull/228))
+- Add CodePipeline attribute Fns (see [#224](https://github.com/MonsantoCo/cloudformation-template-generator/pull/224))
+- Other minor improvements
+
+## [3.7.1] - 2017-11-12
+
+- Add support for AWS Batch (see [#203](https://github.com/MonsantoCo/cloudformation-template-generator/pull/203))
+- Add support for EFS  (see [#208](https://github.com/MonsantoCo/cloudformation-template-generator/pull/208))
+- Add support for DependsOn in many classes (see[#205](https://github.com/MonsantoCo/cloudformation-template-generator/pull/205))
+- Add support for RetentionPeriodHours to AWS::Kinesis::Stream(see [#211](https://github.com/MonsantoCo/cloudformation-template-generator/pull/211))
+- Closed [#166](https://github.com/MonsantoCo/cloudformation-template-generator/issues/166) and [#160](https://github.com/MonsantoCo/cloudformation-template-generator/issues/160)
+- Add support for new lambda runtimes (see[#201](https://github.com/MonsantoCo/cloudformation-template-generator/pull/201))
+- Other minor improvements
+
 ## [3.7.0] - 2017-10-04
 
 **Note: This contains a breaking change to `AWS::AutoScaling::AutoScalingGroup` to make DesiredCapacity an optional field. See [#196](https://github.com/MonsantoCo/cloudformation-template-generator/pull/196) for more details.**

@@ -1,7 +1,7 @@
 package com.monsanto.arch.cloudformation.model.resource
 
 import com.monsanto.arch.cloudformation.model.{ConditionRef, Token}
-import spray.json.{DefaultJsonProtocol, JsonFormat}
+import spray.json.{DefaultJsonProtocol, JsonFormat, RootJsonFormat}
 
 case class EBSOptions(
   EBSEnabled:     Option[Token[Boolean]],
@@ -30,6 +30,15 @@ object SnapshotOptions extends DefaultJsonProtocol {
   implicit val format = jsonFormat1(SnapshotOptions.apply)
 }
 
+case class VPCOptions(
+                       SecurityGroupIds : Seq[Token[`AWS::EC2::SecurityGroup`]] = Seq.empty[Token[`AWS::EC2::SecurityGroup`]],
+                       SubnetIds: Seq[Token[String]]
+                     )
+
+object VPCOptions extends DefaultJsonProtocol {
+  implicit val format : RootJsonFormat[VPCOptions] = jsonFormat2(VPCOptions.apply)
+}
+
 case class `AWS::Elasticsearch::Domain` (
                                           name:                       String,
                                           DomainName:                 Token[String],
@@ -39,11 +48,13 @@ case class `AWS::Elasticsearch::Domain` (
                                           ElasticsearchClusterConfig: Option[ElasticsearchClusterConfig]    = None,
                                           ElasticsearchVersion:       Option[Token[String]]                 = None,
                                           SnapshotOptions:            Option[SnapshotOptions]               = None,
+                                          Tags:                       Option[Seq[AmazonTag]]                = None,
+                                          VPCOptions:                 Option[VPCOptions]                    = None,
                                           override val Condition:     Option[ConditionRef]                  = None,
                                           override val DependsOn:     Option[Seq[String]]                   = None
                                         ) extends Resource[`AWS::Elasticsearch::Domain`]{
-  def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
+  def when(newCondition: Option[ConditionRef] = Condition) : `AWS::Elasticsearch::Domain` = copy(Condition = newCondition)
 }
 object `AWS::Elasticsearch::Domain` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::Elasticsearch::Domain`] = jsonFormat10(`AWS::Elasticsearch::Domain`.apply)
+  implicit val format: JsonFormat[`AWS::Elasticsearch::Domain`] = jsonFormat12(`AWS::Elasticsearch::Domain`.apply)
 }

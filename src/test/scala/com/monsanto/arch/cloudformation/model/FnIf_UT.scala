@@ -18,7 +18,7 @@ class FnIf_UT extends FunSpec with Matchers {
         function = `Fn::Equals`(a = StringToken("true"), b = StringToken("false"))
       )
 
-      val vpcToken = UNSAFEToken[ResourceRef[`AWS::EC2::VPC`]]("vpc-b5f389d0")
+      val vpcToken: VpcId = "vpc-b5f389d0"
 
       val gatewayELBSecGroupResource = `AWS::EC2::SecurityGroup`(
         "GatewayELBSecurityGroup",

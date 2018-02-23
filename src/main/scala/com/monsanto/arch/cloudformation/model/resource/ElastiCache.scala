@@ -18,6 +18,7 @@ case class `AWS::ElastiCache::SubnetGroup`(
   Description:              String,
   SubnetIds:                Token[Seq[ResourceRef[`AWS::EC2::Subnet`]]],
   CacheSubnetGroupName:     Option[String] = None,
+  override val DependsOn: Option[Seq[String]] = None,
   override val Condition:   Option[ConditionRef] = None
 ) extends Resource[`AWS::ElastiCache::SubnetGroup`]{
 
@@ -28,7 +29,7 @@ case class `AWS::ElastiCache::SubnetGroup`(
   * Json format definition for subnet group.
   */
 object `AWS::ElastiCache::SubnetGroup` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::ElastiCache::SubnetGroup`] = jsonFormat5(`AWS::ElastiCache::SubnetGroup`.apply)
+  implicit val format: JsonFormat[`AWS::ElastiCache::SubnetGroup`] = jsonFormat6(`AWS::ElastiCache::SubnetGroup`.apply)
 }
 
 sealed trait ElastiCacheEngine
@@ -52,29 +53,29 @@ object ElastiCacheAZMode extends DefaultJsonProtocol {
 /**
   * Cache cluster definition.
   *
-  * @param name                       
-  * @param CacheNodeType              
-  * @param Engine                     
-  * @param NumCacheNodes              
-  * @param AutoMinorVersionUpgrade    
-  * @param AZMode                     
-  * @param CacheParameterGroupName    
-  * @param CacheSecurityGroupNames    
-  * @param CacheSubnetGroupName       
-  * @param ClusterName                
-  * @param EngineVersion              
-  * @param NotificationTopicArn       
+  * @param name
+  * @param CacheNodeType
+  * @param Engine
+  * @param NumCacheNodes
+  * @param AutoMinorVersionUpgrade
+  * @param AZMode
+  * @param CacheParameterGroupName
+  * @param CacheSecurityGroupNames
+  * @param CacheSubnetGroupName
+  * @param ClusterName
+  * @param EngineVersion
+  * @param NotificationTopicArn
   * @param Port
-  * @param PreferredAvailabilityZone  
-  * @param PreferredAvailabilityZones 
-  * @param PreferredMaintenanceWindow 
-  * @param SnapshotArns               
-  * @param SnapshotName               
-  * @param SnapshotRetentionLimit     
-  * @param SnapshotWindow             
-  * @param VpcSecurityGroupIds        
-  * @param Tags                       
-  * @param Condition     
+  * @param PreferredAvailabilityZone
+  * @param PreferredAvailabilityZones
+  * @param PreferredMaintenanceWindow
+  * @param SnapshotArns
+  * @param SnapshotName
+  * @param SnapshotRetentionLimit
+  * @param SnapshotWindow
+  * @param VpcSecurityGroupIds
+  * @param Tags
+  * @param Condition
   */
 case class `AWS::ElastiCache::CacheCluster`(
   name:                       String,
@@ -99,6 +100,7 @@ case class `AWS::ElastiCache::CacheCluster`(
   SnapshotWindow:             Option[Token[String]]                                           = None,
   VpcSecurityGroupIds:        Option[TokenSeq[String]]                                        = None,
   Tags:                       Option[Seq[AmazonTag]]                                          = None,
+  override val DependsOn: Option[Seq[String]]                                                 = None,
   override val Condition:     Option[ConditionRef]                                            = None
   ) extends Resource[`AWS::ElastiCache::CacheCluster`] {
 

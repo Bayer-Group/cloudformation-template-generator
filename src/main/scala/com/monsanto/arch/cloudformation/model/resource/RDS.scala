@@ -591,15 +591,16 @@ case class `AWS::RDS::DBSecurityGroup`(
   name:                   String,
   DBSecurityGroupIngress: Seq[RDSDBSecurityGroupRule],
   GroupDescription:       String,
-  EC2VpcId:               Option[Token[ResourceRef[`AWS::EC2::VPC`]]] = None,
+  EC2VpcId:               Option[VpcId] = None,
   Tags:                   Option[Seq[AmazonTag]]               = None,
+  override val DependsOn: Option[Seq[String]] = None,
   override val Condition: Option[ConditionRef]                 = None
 ) extends Resource[`AWS::RDS::DBSecurityGroup`]{
 
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
 }
 object `AWS::RDS::DBSecurityGroup` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::RDS::DBSecurityGroup`] = jsonFormat6(`AWS::RDS::DBSecurityGroup`.apply)
+  implicit val format: JsonFormat[`AWS::RDS::DBSecurityGroup`] = jsonFormat7(`AWS::RDS::DBSecurityGroup`.apply)
 }
 
 case class RDSDBSecurityGroupRule(
@@ -617,11 +618,12 @@ case class `AWS::RDS::DBSubnetGroup`(
   DBSubnetGroupDescription: String,
   SubnetIds:                Token[Seq[ResourceRef[`AWS::EC2::Subnet`]]],
   Tags:                     Option[Seq[AmazonTag]] = None,
+  override val DependsOn: Option[Seq[String]] = None,
   override val Condition: Option[ConditionRef]     = None
 ) extends Resource[`AWS::RDS::DBSubnetGroup`]{
 
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
 }
 object `AWS::RDS::DBSubnetGroup` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::RDS::DBSubnetGroup`] = jsonFormat5(`AWS::RDS::DBSubnetGroup`.apply)
+  implicit val format: JsonFormat[`AWS::RDS::DBSubnetGroup`] = jsonFormat6(`AWS::RDS::DBSubnetGroup`.apply)
 }

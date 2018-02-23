@@ -28,8 +28,6 @@ class CodeCommit_UT extends FunSpec with Matchers {
       val expectedJson =
         """
           |{
-          |  "AWSTemplateFormatVersion": "2010-09-09",
-          |  "Description": "",
           |  "Resources": {
           |    "RepoFoo": {
           |      "Properties": {

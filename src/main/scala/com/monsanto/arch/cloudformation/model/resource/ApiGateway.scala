@@ -8,20 +8,24 @@ import DefaultJsonProtocol._
 case class `AWS::ApiGateway::Account`(
                                        name: String,
                                        CloudWatchRoleArn: Option[Token[String]] = None,
+                                       override val DependsOn: Option[Seq[String]] = None,
                                        override val Condition: Option[ConditionRef] = None
                                      ) extends Resource[`AWS::ApiGateway::Account`] {
   override def when(newCondition: Option[ConditionRef]) = copy(Condition = newCondition)
 }
 object `AWS::ApiGateway::Account` {
-  implicit val format: JsonFormat[`AWS::ApiGateway::Account`] = jsonFormat3(`AWS::ApiGateway::Account`.apply)
+  implicit val format: JsonFormat[`AWS::ApiGateway::Account`] = jsonFormat4(`AWS::ApiGateway::Account`.apply)
 }
 
 case class `AWS::ApiGateway::ApiKey`(
                                       name: String,
+                                      CustomerId: Option[Token[String]] = None,
                                       Description: Option[String] = None,
                                       Enabled: Option[Token[Boolean]] = None,
+                                      GenerateDistinctId: Option[Boolean] = None,
                                       Name: Option[Token[String]] = None,
                                       StageKeys: Option[Seq[StageKey]] = None,
+                                      override val DependsOn: Option[Seq[String]] = None,
                                       override val Condition: Option[ConditionRef] = None
                                     ) extends Resource[`AWS::ApiGateway::ApiKey`] {
   def apiKey: Token[String] = ResourceRef(this)
@@ -29,7 +33,7 @@ case class `AWS::ApiGateway::ApiKey`(
   override def when(newCondition: Option[ConditionRef]) = copy(Condition = newCondition)
 }
 object `AWS::ApiGateway::ApiKey` {
-  implicit val format: JsonFormat[`AWS::ApiGateway::ApiKey`] = jsonFormat6(`AWS::ApiGateway::ApiKey`.apply)
+  implicit val format: JsonFormat[`AWS::ApiGateway::ApiKey`] = jsonFormat9(`AWS::ApiGateway::ApiKey`.apply)
 }
 
 case class StageKey(RestApiId: Option[Token[String]] = None, StageName: Option[Token[String]] = None)
@@ -49,6 +53,7 @@ case class `AWS::ApiGateway::Authorizer`(
                                           ProviderArns: Option[Seq[String]] = None,
                                           RestApiId: Option[Token[String]] = None,
                                           Type: Option[String] = None,
+                                          override val DependsOn: Option[Seq[String]] = None,
                                           override val Condition: Option[ConditionRef] = None
                                         ) extends Resource[`AWS::ApiGateway::Authorizer`] {
   def authorizerId: Token[String] = ResourceRef(this)
@@ -56,7 +61,7 @@ case class `AWS::ApiGateway::Authorizer`(
   override def when(newCondition: Option[ConditionRef]) = copy(Condition = newCondition)
 }
 object `AWS::ApiGateway::Authorizer` {
-  implicit val format: JsonFormat[`AWS::ApiGateway::Authorizer`] = jsonFormat11(`AWS::ApiGateway::Authorizer`.apply)
+  implicit val format: JsonFormat[`AWS::ApiGateway::Authorizer`] = jsonFormat12(`AWS::ApiGateway::Authorizer`.apply)
 }
 
 
@@ -66,23 +71,25 @@ case class `AWS::ApiGateway::BasePathMapping`(
                                                DomainName: Option[Token[String]] = None,
                                                RestApiId: Option[Token[String]] = None,
                                                Stage: Option[Token[String]] = None,
+                                               override val DependsOn: Option[Seq[String]] = None,
                                                override val Condition: Option[ConditionRef] = None
                                              ) extends Resource[`AWS::ApiGateway::BasePathMapping`] {
   override def when(newCondition: Option[ConditionRef]) = copy(Condition = newCondition)
 }
 object `AWS::ApiGateway::BasePathMapping` {
-  implicit val format: JsonFormat[`AWS::ApiGateway::BasePathMapping`] = jsonFormat6(`AWS::ApiGateway::BasePathMapping`.apply)
+  implicit val format: JsonFormat[`AWS::ApiGateway::BasePathMapping`] = jsonFormat7(`AWS::ApiGateway::BasePathMapping`.apply)
 }
 
 case class `AWS::ApiGateway::ClientCertificate`(
                                                  name: String,
                                                  Description: Option[Token[String]] = None,
+                                                 override val DependsOn: Option[Seq[String]] = None,
                                                  override val Condition: Option[ConditionRef] = None
                                                ) extends Resource[`AWS::ApiGateway::ClientCertificate`] {
   override def when(newCondition: Option[ConditionRef]) = copy(Condition = newCondition)
 }
 object `AWS::ApiGateway::ClientCertificate` {
-  implicit val format: JsonFormat[`AWS::ApiGateway::ClientCertificate`] = jsonFormat3(`AWS::ApiGateway::ClientCertificate`.apply)
+  implicit val format: JsonFormat[`AWS::ApiGateway::ClientCertificate`] = jsonFormat4(`AWS::ApiGateway::ClientCertificate`.apply)
 }
 
 case class `AWS::ApiGateway::Deployment`(
@@ -143,12 +150,13 @@ case class `AWS::ApiGateway::Method`(
                                       RequestParameters: Option[Map[String, Token[Boolean]]] = None,
                                       ResourceId: Token[String],
                                       RestApiId: Token[String],
+                                      override val DependsOn: Option[Seq[String]] = None,
                                       override val Condition: Option[ConditionRef] = None
                                     ) extends Resource[`AWS::ApiGateway::Method`] {
   override def when(newCondition: Option[ConditionRef]) = copy(Condition = newCondition)
 }
 object `AWS::ApiGateway::Method` {
-  implicit val format: JsonFormat[`AWS::ApiGateway::Method`] = jsonFormat12(`AWS::ApiGateway::Method`.apply)
+  implicit val format: JsonFormat[`AWS::ApiGateway::Method`] = jsonFormat13(`AWS::ApiGateway::Method`.apply)
 }
 
 case class Integration(
@@ -192,12 +200,13 @@ case class `AWS::ApiGateway::Model`(
                                      Name: Option[String] = None,
                                      RestApiId: Token[String],
                                      Schema: Option[String] = None,
+                                     override val DependsOn: Option[Seq[String]] = None,
                                      override val Condition: Option[ConditionRef] = None
                                    ) extends Resource[`AWS::ApiGateway::Model`] {
   override def when(newCondition: Option[ConditionRef]) = copy(Condition = newCondition)
 }
 object `AWS::ApiGateway::Model` {
-  implicit val format: JsonFormat[`AWS::ApiGateway::Model`] = jsonFormat7(`AWS::ApiGateway::Model`.apply)
+  implicit val format: JsonFormat[`AWS::ApiGateway::Model`] = jsonFormat8(`AWS::ApiGateway::Model`.apply)
 }
 
 case class `AWS::ApiGateway::Resource`(
@@ -205,12 +214,13 @@ case class `AWS::ApiGateway::Resource`(
                                         ParentId: Token[String],
                                         PathPart: Option[String] = None,
                                         RestApiId: Token[String],
+                                        override val DependsOn: Option[Seq[String]] = None,
                                         override val Condition: Option[ConditionRef] = None
                                       ) extends Resource[`AWS::ApiGateway::Resource`] {
   override def when(newCondition: Option[ConditionRef]) = copy(Condition = newCondition)
 }
 object `AWS::ApiGateway::Resource` {
-  implicit val format: JsonFormat[`AWS::ApiGateway::Resource`] = jsonFormat5(`AWS::ApiGateway::Resource`.apply)
+  implicit val format: JsonFormat[`AWS::ApiGateway::Resource`] = jsonFormat6(`AWS::ApiGateway::Resource`.apply)
 }
 
 case class `AWS::ApiGateway::RestApi`(
@@ -222,6 +232,7 @@ case class `AWS::ApiGateway::RestApi`(
                                        Description: Option[String] = None,
                                        FailOnWarnings: Option[Boolean] = None,
                                        Parameters: Option[TokenSeq[String]] = None,
+                                       override val DependsOn: Option[Seq[String]] = None,
                                        override val Condition: Option[ConditionRef] = None
                                      ) extends Resource[`AWS::ApiGateway::RestApi`] {
   override def when(newCondition: Option[ConditionRef]) = copy(Condition = newCondition)
@@ -229,7 +240,7 @@ case class `AWS::ApiGateway::RestApi`(
   def RootResourceId : Token[String] = `Fn::GetAtt`(Seq(name, "RootResourceId"))
 }
 object `AWS::ApiGateway::RestApi` {
-  implicit val format: JsonFormat[`AWS::ApiGateway::RestApi`] = jsonFormat9(`AWS::ApiGateway::RestApi`.apply)
+  implicit val format: JsonFormat[`AWS::ApiGateway::RestApi`] = jsonFormat10(`AWS::ApiGateway::RestApi`.apply)
 }
 
 case class S3Location(
@@ -253,12 +264,13 @@ case class `AWS::ApiGateway::Stage`(
                                      RestApiId: Option[Token[String]] = None,
                                      StageName: Option[Token[String]] = None,
                                      Variables: Map[String, Token[String]],
+                                     override val DependsOn: Option[Seq[String]] = None,
                                      override val Condition: Option[ConditionRef] = None
                                    ) extends Resource[`AWS::ApiGateway::Stage`] {
   override def when(newCondition: Option[ConditionRef]) = copy(Condition = newCondition)
 }
 object `AWS::ApiGateway::Stage` {
-  implicit val format: JsonFormat[`AWS::ApiGateway::Stage`] = jsonFormat11(`AWS::ApiGateway::Stage`.apply)
+  implicit val format: JsonFormat[`AWS::ApiGateway::Stage`] = jsonFormat12(`AWS::ApiGateway::Stage`.apply)
 }
 
 case class ApiStage(

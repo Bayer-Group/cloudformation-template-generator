@@ -21,18 +21,16 @@ import spray.json._
   *                  CloudFormation creates the associated resources.
   * @param DependsOn Declare dependencies for resources that must be created or deleted in a specific order.
   */
-case class `AWS::Logs::Destination` private (
+case class `AWS::Logs::Destination`(
   name:                   String,
   DestinationName:        Token[String],
-  DestinationPolicy:      ResourceRef[`AWS::IAM::Policy`],
+  DestinationPolicy:      Token[String],
   RoleArn:                Token[String],
   TargetArn:              Token[String],
   override val Condition: Option[ConditionRef] = None,
   override val DependsOn: Option[Seq[String]]  = None
 ) extends Resource[`AWS::Logs::Destination`] with HasArn {
-
   def when(newCondition: Option[ConditionRef] = Condition): `AWS::Logs::Destination` = copy(Condition = newCondition)
-
   override def arn: Token[String] = ResourceRef(this)
 }
 
@@ -54,10 +52,10 @@ object `AWS::Logs::Destination` extends DefaultJsonProtocol {
   *                  CloudFormation creates the associated resources.
   * @param DependsOn Declare dependencies for resources that must be created or deleted in a specific order.
   */
-case class `AWS::Logs::LogGroup` private (
+case class `AWS::Logs::LogGroup`(
   name:                   String,
   LogGroupName:           Option[Token[String]],
-  RetentionInDays:        Token[Int],
+  RetentionInDays:        Option[Token[Int]] = None,
   override val Condition: Option[ConditionRef] = None,
   override val DependsOn: Option[Seq[String]]  = None
 ) extends Resource[`AWS::Logs::LogGroup`] with HasArn {
@@ -69,6 +67,11 @@ case class `AWS::Logs::LogGroup` private (
 
 object `AWS::Logs::LogGroup` extends DefaultJsonProtocol {
   implicit val format: JsonFormat[`AWS::Logs::LogGroup`] = jsonFormat5(`AWS::Logs::LogGroup`.apply)
+  @deprecated("RetentionInDays should be optional", "3.7.2")
+  def apply(name: String,
+            LogGroupName: Option[Token[String]],
+            RetentionInDays: Token[Int]): `AWS::Logs::LogGroup` =
+    apply(name, LogGroupName, Some(RetentionInDays))
 }
 
 
@@ -119,7 +122,7 @@ object `AWS::Logs::LogStream` extends DefaultJsonProtocol {
 case class `AWS::Logs::MetricFilter` private (
   name:                   String,
   FilterPattern:          Token[String],
-  LogGroupName:           ResourceRef[`AWS::Logs::LogGroup`],
+  LogGroupName:           Token[String],
   MetricTransformations:  Seq[MetricTransformation],
   override val Condition: Option[ConditionRef] = None,
   override val DependsOn: Option[Seq[String]]  = None
@@ -181,8 +184,8 @@ case class `AWS::Logs::SubscriptionFilter` private (
   name:                   String,
   DestinationArn:         Token[String],
   FilterPattern:          Token[String],
-  LogGroupName:           ResourceRef[`AWS::Logs::LogGroup`],
-  RoleArn:                Option[Token[String]],
+  LogGroupName:           Token[String],
+  RoleArn:                Option[Token[String]] = None,
   override val Condition: Option[ConditionRef] = None,
   override val DependsOn: Option[Seq[String]]  = None
 ) extends Resource[`AWS::Logs::SubscriptionFilter`] {

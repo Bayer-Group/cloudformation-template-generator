@@ -8,8 +8,8 @@ startYear := Some(2014)
 
 // scala versions and options
 
-scalaVersion := "2.12.0"
-crossScalaVersions := Seq("2.11.7", "2.12.0")
+scalaVersion := "2.12.4"
+crossScalaVersions := Seq("2.11.11", "2.12.4")
 releaseCrossBuild := true
 
 // These options will be used for *all* versions.
@@ -39,9 +39,9 @@ javacOptions ++= Seq("-Xlint:unchecked", "-Xlint:deprecation")
 
 libraryDependencies ++= Seq (
   // -- testing --
-   "org.scalatest"  %% "scalatest"     % "3.0.0"  % "test"
+   "org.scalatest"  %% "scalatest"     % "3.0.4"  % Test
   // -- json --
-  ,"io.spray"       %%  "spray-json"   % "1.3.2"
+  ,"io.spray"       %%  "spray-json"   % "1.3.4"
   // -- reflection --
   ,"org.scala-lang" %  "scala-reflect" % scalaVersion.value
 ).map(_.force())
@@ -54,11 +54,7 @@ resolvers ++= Seq(
 
 // for ghpages
 
-site.settings
-
-site.includeScaladoc()
-
-ghpages.settings
+enablePlugins(GhpagesPlugin, SiteScaladocPlugin)
 
 git.remoteRepo := "git@github.com:MonsantoCo/cloudformation-template-generator.git"
 
@@ -70,16 +66,16 @@ licenses += ("BSD", url("http://opensource.org/licenses/BSD-3-Clause"))
 
 bintrayReleaseOnPublish := ! isSnapshot.value
 
-publishTo := {
+publishTo := Def.taskDyn[Option[Resolver]] {
   if (isSnapshot.value)
-    Some("Artifactory Realm" at "https://oss.jfrog.org/oss-snapshot-local/")
+    Def.task(Some("Artifactory Realm" at "https://oss.jfrog.org/oss-snapshot-local/"))
   else
-    publishTo.value /* Value set by bintray-sbt plugin */
-}
+    Def.task(publishTo.value) /* Value set by bintray-sbt plugin */
+}.value
 
-credentials := {
+credentials := Def.taskDyn[Seq[Credentials]] {
   if (isSnapshot.value)
-    List(Path.userHome / ".bintray" / ".artifactory").filter(_.exists).map(Credentials(_))
+    Def.task(List(Path.userHome / ".bintray" / ".artifactory").filter(_.exists).map(Credentials(_)))
   else
-    credentials.value /* Value set by bintray-sbt plugin */
-}
+    Def.task(credentials.value) /* Value set by bintray-sbt plugin */
+}.value

@@ -1,7 +1,9 @@
 package com.monsanto.arch.cloudformation
 
-import spray.json.JsonFormat
+import java.time.Instant
+import java.time.format.{ DateTimeFormatter, DateTimeParseException }
 
+import spray.json.JsonFormat
 import scala.language.implicitConversions
 
 /** A DSL to create consistent, type-safe AWS CloudFormation templates.
@@ -81,6 +83,7 @@ import scala.language.implicitConversions
   *        )
   *        val gatewayStuff = Template.fromResource(internetGatewayResource) ++
   *          gatewayToInternetResource ++
+  *          publicRouteTable ++
   *          publicRouteTableRoute
   *        val withinAZ = withAZ("us-east-1a") { implicit az =>
   *          withSubnet("PubSubnet1", CidrBlock(10, 0, 0, 1, 24)) { implicit pubSubnet =>
@@ -113,12 +116,12 @@ import scala.language.implicitConversions
   *      }
   *      val simpleTemplate = simpleResourceAndOutputs ++
   *        Template(
-  *          AWSTemplateFormatVersion = "2010-09-09",
-  *          Description = "Simple template",
+  *          AWSTemplateFormatVersion = Some("2010-09-09"),
+  *          Description = Some("Simple template"),
   *          Parameters = Some(simpleParameters),
   *          Conditions = Some(simpleConditions),
   *          Mappings = Some(simpleMappings),
-  *          Resources = None,
+  *          Resources = Seq.empty,
   *          Outputs = None
   *        )
   *      writeStaxModule("vpc-simple.json", simpleTemplate)
@@ -171,4 +174,19 @@ package object model {
     * This is to assist in creating Output[Token[String]] objects as it allows the formatter to be in scope.
     */
   implicit lazy val stringTokenFormat = implicitly[JsonFormat[Token[String]]]
+
+  implicit val instantFormat: JsonFormat[Instant] = {
+    import spray.json._
+    new JsonFormat[Instant] {
+      def write(v: Instant): JsValue = JsString(v.toString) // ISO8601
+      def read(v: JsValue): Instant = v match {
+        case JsString(s) => try {
+          Instant.from(DateTimeFormatter.ISO_INSTANT.parse(s))
+        } catch {
+          case _: DateTimeParseException => deserializationError("instant not readable")
+        }
+        case _ => deserializationError("instant not a string")
+      }
+    }
+  }
 }

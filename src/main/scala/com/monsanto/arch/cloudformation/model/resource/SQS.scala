@@ -14,6 +14,7 @@ case class `AWS::SQS::Queue`(name: String,
                              ReceiveMessageWaitTimeSeconds: Token[Int],
                              VisibilityTimeout: Token[Int],
                              RedrivePolicy: Option[RedrivePolicy] = None,
+                             override val DependsOn: Option[Seq[String]] = None,
                              override val Condition: Option[ConditionRef] = None)
   extends Resource[`AWS::SQS::Queue`] with HasArn with Subscribable {
 
@@ -29,19 +30,20 @@ case class `AWS::SQS::Queue`(name: String,
 }
 
 object `AWS::SQS::Queue` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::SQS::Queue`] = jsonFormat8(`AWS::SQS::Queue`.apply)
+  implicit val format: JsonFormat[`AWS::SQS::Queue`] = jsonFormat9(`AWS::SQS::Queue`.apply)
 }
 
 case class `AWS::SQS::QueuePolicy`(name: String,
                                    PolicyDocument: PolicyDocument,
                                    Queues: TokenSeq[String],
+                                   override val DependsOn: Option[Seq[String]] = None,
                                    override val Condition: Option[ConditionRef] = None
                                   ) extends Resource[`AWS::SQS::QueuePolicy`] {
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
 }
 
 object `AWS::SQS::QueuePolicy` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::SQS::QueuePolicy`] = jsonFormat4(`AWS::SQS::QueuePolicy`.apply)
+  implicit val format: JsonFormat[`AWS::SQS::QueuePolicy`] = jsonFormat5(`AWS::SQS::QueuePolicy`.apply)
 }
 
 

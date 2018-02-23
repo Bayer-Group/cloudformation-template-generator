@@ -19,15 +19,18 @@ object `AWS::ECS::Cluster` extends DefaultJsonProtocol {
   implicit val format: JsonFormat[`AWS::ECS::Cluster`] = jsonFormat4(`AWS::ECS::Cluster`.apply)
 }
 
-case class `AWS::ECS::Service`(name: String,
-                               Cluster: Option[Token[String]] = None,
-                               DeploymentConfiguration: Option[DeploymentConfiguration] = None,
-                               DesiredCount: Int,
-                               LoadBalancers: Option[Seq[EcsLoadBalancer]] = None,
-                               Role: Option[Token[String]] = None,
-                               TaskDefinition: Token[String],
-                               override val Condition: Option[ConditionRef] = None,
-                               override val DependsOn: Option[Seq[String]] = None
+case class `AWS::ECS::Service`(
+                                  name:                     String,
+                                  Cluster:                  Option[Token[String]] = None,
+                                  DeploymentConfiguration:  Option[DeploymentConfiguration] = None,
+                                  DesiredCount:             Int,
+                                  LoadBalancers:            Option[Seq[EcsLoadBalancer]] = None,
+                                  Role:                     Option[Token[String]] = None,
+                                  TaskDefinition:           Token[String],
+                                  PlacementConstraints:     Option[Seq[PlacementConstraint]] = None,
+                                  PlacementStrategies:      Option[Seq[PlacementStrategy]] = None,
+                                  override val Condition:   Option[ConditionRef] = None,
+                                  override val DependsOn:   Option[Seq[String]] = None
                               ) extends Resource[`AWS::ECS::Service`] with HasArn {
   override def when(newCondition: Option[ConditionRef]): `AWS::ECS::Service` = copy(Condition = newCondition)
 
@@ -35,7 +38,7 @@ case class `AWS::ECS::Service`(name: String,
 }
 
 object `AWS::ECS::Service` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::ECS::Service`] = jsonFormat9(`AWS::ECS::Service`.apply)
+  implicit val format: JsonFormat[`AWS::ECS::Service`] = jsonFormat11(`AWS::ECS::Service`.apply)
 }
 
 case class DeploymentConfiguration(MaximumPercent: Option[Int], MinimumHealthyPercent: Option[Int])
@@ -68,13 +71,67 @@ case class LoadBalancerName(name: Token[String])
 
 case class TargetGroupArn(arn: Token[String])
 
+
+case class PlacementConstraint private (Type: PlacementConstraintType, Expression: Option[Token[String]] = None)
+object PlacementConstraint extends DefaultJsonProtocol {
+  implicit val format: JsonFormat[PlacementConstraint] = jsonFormat2(PlacementConstraint.apply)
+
+  def distinctInstance() =
+    PlacementConstraint(PlacementConstraintType.distinctInstance)
+
+  def memberOf(expression: Token[String]) =
+    PlacementConstraint(PlacementConstraintType.memberOf, Some(expression))
+}
+
+sealed trait PlacementConstraintType
+object PlacementConstraintType extends DefaultJsonProtocol {
+  case object distinctInstance extends PlacementConstraintType
+  case object memberOf extends PlacementConstraintType
+  val values = Seq(distinctInstance, memberOf)
+  implicit val format: JsonFormat[PlacementConstraintType] =
+    new EnumFormat[PlacementConstraintType](values)
+}
+
+case class PlacementStrategy(Type: PlacementStrategyType, Field: Option[Token[String]] = None)
+object PlacementStrategy extends DefaultJsonProtocol {
+  implicit val format: JsonFormat[PlacementStrategy] = jsonFormat2(PlacementStrategy.apply)
+
+  def random() =
+    PlacementStrategy(PlacementStrategyType.random)
+
+  def binpack(method: BinpackMethod) =
+    PlacementStrategy(PlacementStrategyType.binpack, Some(method.toString))
+
+  def spread(stratgy: Token[String]) =
+    PlacementStrategy(PlacementStrategyType.spread, Some(stratgy))
+}
+
+sealed trait PlacementStrategyType
+object PlacementStrategyType extends DefaultJsonProtocol {
+  case object random  extends PlacementStrategyType
+  case object spread  extends PlacementStrategyType
+  case object binpack extends PlacementStrategyType
+
+  val values = Seq(random, spread, binpack)
+  implicit val format: JsonFormat[PlacementStrategyType] =
+    new EnumFormat[PlacementStrategyType](values)
+}
+
+sealed trait BinpackMethod
+object BinpackMethod extends DefaultJsonProtocol {
+  case object cpu     extends BinpackMethod
+  case object memory  extends BinpackMethod
+}
+
 case class `AWS::ECS::TaskDefinition`(name: String,
                                       ContainerDefinitions: Seq[ContainerDefinition],
                                       Family: Option[Token[String]] = None,
                                       NetworkMode: Option[Token[String]] = None,
                                       TaskRoleArn: Option[Token[String]] = None,
                                       Volumes: Seq[VolumeDefinition] = Seq.empty[VolumeDefinition],
-                                      override val Condition: Option[ConditionRef] = None) extends Resource[`AWS::ECS::TaskDefinition`] with HasArn {
+                                      override val DependsOn: Option[Seq[String]] = None,
+  override val Condition: Option[ConditionRef] = None
+) extends Resource[`AWS::ECS::TaskDefinition`] with HasArn {
   ContainerDefinitions.flatMap(_.MountPoints).flatten.foreach { mp =>
     require(Volumes.exists(_.Name == mp.SourceVolume), s"$mp specifies a source volume, ${mp.SourceVolume}, that does not exist in task definition $name")
   }
@@ -85,7 +142,7 @@ case class `AWS::ECS::TaskDefinition`(name: String,
 }
 
 object `AWS::ECS::TaskDefinition` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::ECS::TaskDefinition`] = jsonFormat7(`AWS::ECS::TaskDefinition`.apply)
+  implicit val format: JsonFormat[`AWS::ECS::TaskDefinition`] = jsonFormat8(`AWS::ECS::TaskDefinition`.apply)
 }
 
 case class ContainerDefinition private(Command: Option[TokenSeq[String]],

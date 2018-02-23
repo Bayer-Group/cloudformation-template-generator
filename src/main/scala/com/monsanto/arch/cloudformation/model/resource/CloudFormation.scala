@@ -44,6 +44,7 @@ case class `AWS::CloudFormation::Stack`(name: String,
                                         TimeoutInMinutes: Option[StringBackedInt] = None,
                                         Parameters: Option[Map[String, Token[String]]] = None,
                                         NotificationARNs: Option[TokenSeq[String]] = None,
+                                        override val DependsOn: Option[Seq[String]] = None,
                                         override val Condition: Option[ConditionRef] = None)
     extends Resource[`AWS::CloudFormation::Stack`]
     with HasArn {
@@ -57,6 +58,6 @@ object `AWS::CloudFormation::Stack` {
 
   import spray.json.DefaultJsonProtocol._
 
-  implicit val format: JsonFormat[`AWS::CloudFormation::Stack`] = jsonFormat6(
+  implicit val format: JsonFormat[`AWS::CloudFormation::Stack`] = jsonFormat7(
       `AWS::CloudFormation::Stack`.apply)
 }

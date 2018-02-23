@@ -41,7 +41,7 @@ if aws lambda get-function --region $lambdaRegion --function-name $function_name
 else
     while ! aws lambda create-function --region $lambdaRegion --function-name $function_name \
         --description "Custom CloudFormation function for managing Route 53 in another account" \
-        --runtime nodejs \
+        --runtime nodejs6.10 \
         --role arn:aws:iam::${account_id}:role/${role} \
         --handler remote_route53.handler \
         --timeout 300 \

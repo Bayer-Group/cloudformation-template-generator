@@ -27,7 +27,7 @@ class EFS_UT extends FunSpec with Matchers {
     )
 
     it("should serialize to JSON") {
-      resource.toJson.prettyPrint shouldBe """{
+      resource.toJson shouldBe """{
                                              |  "name": "test",
                                              |  "KmsKeyId": {
                                              |    "Ref": "test"
@@ -38,7 +38,7 @@ class EFS_UT extends FunSpec with Matchers {
                                              |    "Key": "Foo",
                                              |    "Value": "Bar"
                                              |  }]
-                                             |}""".stripMargin
+                                             |}""".stripMargin.parseJson
     }
 
     it("throws an exception when KmsKeyId is set but Encrypted is false") {
@@ -76,7 +76,7 @@ class EFS_UT extends FunSpec with Matchers {
       SubnetId = ResourceRef(subnet)
     )
     it("should serialize to JSON") {
-      resource.toJson.prettyPrint shouldBe """{
+      resource.toJson shouldBe """{
                                              |  "name": "test",
                                              |  "SecurityGroups": [{
                                              |    "Ref": "test"
@@ -88,7 +88,7 @@ class EFS_UT extends FunSpec with Matchers {
                                              |  "SubnetId": {
                                              |    "Ref": "test"
                                              |  }
-                                             |}""".stripMargin
+                                             |}""".stripMargin.parseJson
     }
   }
 }

@@ -15,13 +15,13 @@ class SSM_UT extends FunSpec with Matchers {
         DocumentType.Command
       )
 
-      doc.toJson.prettyPrint shouldBe """{
+      doc.toJson shouldBe """{
                                         |  "name": "cfname",
                                         |  "Content": {
                                         |    "schemaVersion": "2.2"
                                         |  },
                                         |  "DocumentType": "Command"
-                                        |}""".stripMargin
+                                        |}""".stripMargin.parseJson
     }
 
     it("should serialize the whole mess") {
@@ -61,7 +61,7 @@ class SSM_UT extends FunSpec with Matchers {
         DocumentType.Command
       )
 
-      doc.toJson.prettyPrint shouldBe """{
+      doc.toJson shouldBe """{
                                         |  "name": "cfname",
                                         |  "Content": {
                                         |    "schemaVersion": "2.2",
@@ -103,7 +103,7 @@ class SSM_UT extends FunSpec with Matchers {
                                         |    }]
                                         |  },
                                         |  "DocumentType": "Command"
-                                        |}""".stripMargin
+                                        |}""".stripMargin.parseJson
     }
 
     describe("helper constructors should construct the correct doc type and schema") {
@@ -147,10 +147,10 @@ class SSM_UT extends FunSpec with Matchers {
         mainSteps = None
       )
 
-      content.toJson.prettyPrint shouldBe """{
+      content.toJson shouldBe """{
                                             |  "schemaVersion": "2.2",
                                             |  "description": "this is the stuff"
-                                            |}""".stripMargin
+                                            |}""".stripMargin.parseJson
     }
 
     it("DocumentParameter should serialize most basic content") {
@@ -162,13 +162,13 @@ class SSM_UT extends FunSpec with Matchers {
         allowedValues = Some(Seq("hello", "goodbye"))
       )
 
-      param.toJson.prettyPrint shouldBe """{
+      param.toJson shouldBe """{
                                           |  "description": "some parameter",
                                           |  "allowedValues": ["hello", "goodbye"],
                                           |  "default": "hello",
                                           |  "type": "String",
                                           |  "allowedPattern": ".*"
-                                          |}""".stripMargin
+                                          |}""".stripMargin.parseJson
     }
 
     it("DocumentStep should serialize most basic content") {
@@ -179,10 +179,10 @@ class SSM_UT extends FunSpec with Matchers {
         inputs = None
       )
 
-      step.toJson.prettyPrint shouldBe """{
+      step.toJson shouldBe """{
                                          |  "action": "aws:something",
                                          |  "name": "stepName"
-                                         |}""".stripMargin
+                                         |}""".stripMargin.parseJson
     }
 
     it("DocumentStep should fail construction if name includes a space") {
@@ -207,7 +207,7 @@ class SSM_UT extends FunSpec with Matchers {
           precondition = Some(Precondition.PlatformTypeWindows)
         )
 
-        step.toJson.prettyPrint shouldBe """{
+        step.toJson shouldBe """{
                                            |  "action": "aws:applications",
                                            |  "name": "stepName",
                                            |  "precondition": {
@@ -219,7 +219,7 @@ class SSM_UT extends FunSpec with Matchers {
                                            |    "source": "somewhere",
                                            |    "sourceHash": "abc123"
                                            |  }
-                                           |}""".stripMargin
+                                           |}""".stripMargin.parseJson
       }
 
       it("aws:configureDocker") {
@@ -229,7 +229,7 @@ class SSM_UT extends FunSpec with Matchers {
           precondition = Some(Precondition.PlatformTypeLinux)
         )
 
-        step.toJson.prettyPrint shouldBe """{
+        step.toJson shouldBe """{
                                            |  "action": "aws:configureDocker",
                                            |  "name": "stepName",
                                            |  "precondition": {
@@ -238,7 +238,7 @@ class SSM_UT extends FunSpec with Matchers {
                                            |  "inputs": {
                                            |    "action": "Install"
                                            |  }
-                                           |}""".stripMargin
+                                           |}""".stripMargin.parseJson
       }
 
       it("aws:configurePackage") {
@@ -249,7 +249,7 @@ class SSM_UT extends FunSpec with Matchers {
           version = Some("1.2.3")
         )
 
-        step.toJson.prettyPrint shouldBe """{
+        step.toJson shouldBe """{
                                            |  "action": "aws:configurePackage",
                                            |  "name": "stepName",
                                            |  "inputs": {
@@ -257,7 +257,7 @@ class SSM_UT extends FunSpec with Matchers {
                                            |    "action": "Uninstall",
                                            |    "version": "1.2.3"
                                            |  }
-                                           |}""".stripMargin
+                                           |}""".stripMargin.parseJson
       }
 
       it("aws:refreshAssociation") {
@@ -266,13 +266,13 @@ class SSM_UT extends FunSpec with Matchers {
           associationIds = "abc123,def456,ghi789"
         )
 
-        step.toJson.prettyPrint shouldBe """{
+        step.toJson shouldBe """{
                                            |  "action": "aws:refreshAssociation",
                                            |  "name": "stepName",
                                            |  "inputs": {
                                            |    "associationIds": "abc123,def456,ghi789"
                                            |  }
-                                           |}""".stripMargin
+                                           |}""".stripMargin.parseJson
       }
 
       it("aws:runDockerAction") {
@@ -290,7 +290,7 @@ class SSM_UT extends FunSpec with Matchers {
           publish = Some("port config")
         )
 
-        step.toJson.prettyPrint shouldBe """{
+        step.toJson shouldBe """{
                                            |  "action": "aws:runDockerAction",
                                            |  "name": "stepName",
                                            |  "inputs": {
@@ -305,7 +305,7 @@ class SSM_UT extends FunSpec with Matchers {
                                            |    "env": "env config",
                                            |    "memory": "mem config"
                                            |  }
-                                           |}""".stripMargin
+                                           |}""".stripMargin.parseJson
       }
 
       it("aws:runShellScript") {
@@ -316,7 +316,7 @@ class SSM_UT extends FunSpec with Matchers {
           workingDirectory = Some("/tmp")
         )
 
-        step.toJson.prettyPrint shouldBe """{
+        step.toJson shouldBe """{
                                            |  "action": "aws:runShellScript",
                                            |  "name": "stepName",
                                            |  "inputs": {
@@ -324,7 +324,7 @@ class SSM_UT extends FunSpec with Matchers {
                                            |    "timeoutSeconds": "1",
                                            |    "workingDirectory": "/tmp"
                                            |  }
-                                           |}""".stripMargin
+                                           |}""".stripMargin.parseJson
       }
 
       it("aws:softwareInventory") {
@@ -337,7 +337,7 @@ class SSM_UT extends FunSpec with Matchers {
           customInventory = Some("custominventory-value")
         )
 
-        step.toJson.prettyPrint shouldBe """{
+        step.toJson shouldBe """{
                                            |  "action": "aws:softwareInventory",
                                            |  "name": "stepName",
                                            |  "inputs": {
@@ -347,7 +347,7 @@ class SSM_UT extends FunSpec with Matchers {
                                            |    "customInventory": "custominventory-value",
                                            |    "awsComponents": "awscomponents-value"
                                            |  }
-                                           |}""".stripMargin
+                                           |}""".stripMargin.parseJson
       }
 
       it("aws:updateSsmAgent") {
@@ -357,7 +357,7 @@ class SSM_UT extends FunSpec with Matchers {
           targetVersion = Some("1.2.3")
         )
 
-        step.toJson.prettyPrint shouldBe """{
+        step.toJson shouldBe """{
                                            |  "action": "aws:updateSsmAgent",
                                            |  "name": "stepName",
                                            |  "inputs": {
@@ -366,7 +366,7 @@ class SSM_UT extends FunSpec with Matchers {
                                            |    "source": "https://s3.{Region}.amazonaws.com/amazon-ssm-{Region}/ssm-agent-manifest.json",
                                            |    "targetVersion": "1.2.3"
                                            |  }
-                                           |}""".stripMargin
+                                           |}""".stripMargin.parseJson
       }
     }
   }
@@ -417,7 +417,7 @@ class SSM_UT extends FunSpec with Matchers {
         Targets = None
       )
 
-      assoc.toJson.prettyPrint shouldBe """{
+      assoc.toJson shouldBe """{
                                           |  "name": "cfname",
                                           |  "Name": "AssociationName",
                                           |  "Parameters": {
@@ -426,7 +426,7 @@ class SSM_UT extends FunSpec with Matchers {
                                           |  "DocumentVersion": "1",
                                           |  "InstanceId": "i-7893456789345",
                                           |  "ScheduleExpression": "cron(* * * * * *)"
-                                          |}""".stripMargin
+                                          |}""".stripMargin.parseJson
     }
 
     it("should serialize an association for a managed document") {
@@ -448,7 +448,7 @@ class SSM_UT extends FunSpec with Matchers {
         Targets = None
       )
 
-      assoc.toJson.prettyPrint shouldBe """{
+      assoc.toJson shouldBe """{
                                           |  "name": "cfname",
                                           |  "Name": {
                                           |    "Ref": "cfname"
@@ -459,7 +459,7 @@ class SSM_UT extends FunSpec with Matchers {
                                           |  "DocumentVersion": "1",
                                           |  "InstanceId": "i-7893456789345",
                                           |  "ScheduleExpression": "rate(3 days)"
-                                          |}""".stripMargin
+                                          |}""".stripMargin.parseJson
     }
 
     it("should serialize an association with InstanceIds targets") {
@@ -479,7 +479,7 @@ class SSM_UT extends FunSpec with Matchers {
         ))
       )
 
-      assoc.toJson.prettyPrint shouldBe """{
+      assoc.toJson shouldBe """{
                                           |  "name": "cfname",
                                           |  "Name": "AssociationName",
                                           |  "Parameters": {
@@ -491,7 +491,7 @@ class SSM_UT extends FunSpec with Matchers {
                                           |    "Key": "InstanceIds",
                                           |    "Values": ["i-3457894578945"]
                                           |  }]
-                                          |}""".stripMargin
+                                          |}""".stripMargin.parseJson
     }
 
     it("should serialize an association with tag targets") {
@@ -511,7 +511,7 @@ class SSM_UT extends FunSpec with Matchers {
         ))
       )
 
-      assoc.toJson.prettyPrint shouldBe """{
+      assoc.toJson shouldBe """{
                                           |  "name": "cfname",
                                           |  "Name": "AssociationName",
                                           |  "Parameters": {
@@ -523,7 +523,7 @@ class SSM_UT extends FunSpec with Matchers {
                                           |    "Key": "tag:someTag",
                                           |    "Values": ["someValue"]
                                           |  }]
-                                          |}""".stripMargin
+                                          |}""".stripMargin.parseJson
     }
   }
 
@@ -539,13 +539,13 @@ class SSM_UT extends FunSpec with Matchers {
         "value"
       )
 
-      param.toJson.prettyPrint shouldBe """{
+      param.toJson shouldBe """{
                                           |  "name": "cfname",
                                           |  "Name": "ssmname",
                                           |  "Description": "this is a parameter",
                                           |  "Value": "value",
                                           |  "Type": "String"
-                                          |}""".stripMargin
+                                          |}""".stripMargin.parseJson
     }
 
     it("should serialize a StringList type") {
@@ -557,13 +557,13 @@ class SSM_UT extends FunSpec with Matchers {
         "value1,value2"
       )
 
-      param.toJson.prettyPrint shouldBe """{
+      param.toJson shouldBe """{
                                           |  "name": "cfname",
                                           |  "Name": "ssmname",
                                           |  "Description": "this is a parameter",
                                           |  "Value": "value1,value2",
                                           |  "Type": "StringList"
-                                          |}""".stripMargin
+                                          |}""".stripMargin.parseJson
     }
   }
 }

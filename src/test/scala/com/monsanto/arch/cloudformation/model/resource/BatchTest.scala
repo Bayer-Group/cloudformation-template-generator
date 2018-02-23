@@ -36,7 +36,7 @@ class BatchTest extends FunSpec with Matchers {
         State = Some(ComputeEnvironmentState.ENABLED)
       )
 
-      theEnv.toJson.prettyPrint shouldBe """{
+      theEnv.toJson shouldBe """{
                                            |  "name": "bob",
                                            |  "ServiceRole": {
                                            |    "Ref": "bob-role"
@@ -59,7 +59,7 @@ class BatchTest extends FunSpec with Matchers {
                                            |  },
                                            |  "State": "ENABLED",
                                            |  "Type": "MANAGED"
-                                           |}""".stripMargin
+                                           |}""".stripMargin.parseJson
     }
 
   }
@@ -89,7 +89,7 @@ class BatchTest extends FunSpec with Matchers {
         RetryStrategy = JobRetryStrategy(Attempts = Some(7))
       )
 
-      theDef.toJson.prettyPrint shouldBe """{
+      theDef.toJson shouldBe """{
                                            |  "name": "bob",
                                            |  "ContainerProperties": {
                                            |    "Environment": [{
@@ -113,7 +113,7 @@ class BatchTest extends FunSpec with Matchers {
                                            |    "someParam": "hallo"
                                            |  },
                                            |  "Type": "container"
-                                           |}""".stripMargin
+                                           |}""".stripMargin.parseJson
     }
 
   }
@@ -132,7 +132,7 @@ class BatchTest extends FunSpec with Matchers {
         State = Some(JobQueueState.ENABLED)
       )
 
-      theQueue.toJson.prettyPrint shouldBe """{
+      theQueue.toJson shouldBe """{
                                              |  "name": "bobq",
                                              |  "ComputeEnvironmentOrder": [{
                                              |    "ComputeEnvironment": "abc",
@@ -144,7 +144,7 @@ class BatchTest extends FunSpec with Matchers {
                                              |  "JobQueueName": "bobqueue",
                                              |  "Priority": 7,
                                              |  "State": "ENABLED"
-                                             |}""".stripMargin
+                                             |}""".stripMargin.parseJson
     }
 
   }

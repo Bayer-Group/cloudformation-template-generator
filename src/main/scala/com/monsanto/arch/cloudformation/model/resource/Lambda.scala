@@ -212,31 +212,14 @@ object DeadLetterConfig extends DefaultJsonProtocol {
   implicit val format: JsonFormat[DeadLetterConfig] = jsonFormat1(DeadLetterConfig.apply)
 }
 
-
-/**
-  * TracingConfig is a property of the AWS::Lambda::Function resource that configures tracing settings for your AWS
-  * Lambda (Lambda) function.
-  *
-  * @param Mode Specifies how Lambda traces a request. The default mode is PassThrough. For more information, see
-  *             [[http://docs.aws.amazon.com/lambda/latest/dg/API_TracingConfig.html TracingConfig]] in the AWS Lambda
-  *             Developer Guide.
-  */
-class TracingConfig(Mode: String) extends Product with Serializable {
-  override def productElement(n: Int): Any = if (n == 0) Mode else throw new IndexOutOfBoundsException
-
-  override def productArity: Int = 1
-
-  override def canEqual(that: Any): Boolean = that.isInstanceOf[TracingConfig]
-}
+sealed trait TracingConfig extends Product with Serializable
 object TracingConfig extends DefaultJsonProtocol {
-  case object Active      extends TracingConfig("Active")
-  case object PassThrough extends TracingConfig("PassThrough")
-
-  def apply(Mode: String): TracingConfig = new TracingConfig(Mode)
-
-  implicit val format: JsonFormat[TracingConfig] = jsonFormat1(TracingConfig.apply)
+  private type T = TracingConfig
+  case object Active extends T
+  case object PassThrough extends T
+  val values = Seq(Active, PassThrough)
+  implicit val format: JsonFormat[T] = new EnumFormat[T](values)
 }
-
 
 /**
   * The AWS::Lambda::Permission resource associates a policy statement with a specific AWS Lambda (Lambda) function's

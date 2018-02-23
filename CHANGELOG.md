@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.8.1] - 2018-2-23
+ - Make TracingConfig an enum (see [#234](https://github.com/MonsantoCo/cloudformation-template-generator/pull/234))
+ - Add CodeBuild cache (see [#235](https://github.com/MonsantoCo/cloudformation-template-generator/pull/235))
+ - Add default None to SNS resources. (see [#237](https://github.com/MonsantoCo/cloudformation-template-generator/pull/237))
+ - Change Events::Rule target Input to Token[String] (see [#238](https://github.com/MonsantoCo/cloudformation-template-generator/pull/238))
+ - Add default values to optional EMR configurations (see [#239](https://github.com/MonsantoCo/cloudformation-template-generator/pull/239))
+ - Fix IAM Policies (see [#241](https://github.com/MonsantoCo/cloudformation-template-generator/pull/241))
+ - upgrade to sbt 1.1 (see [#242](https://github.com/MonsantoCo/cloudformation-template-generator/pull/242))
+ - add VpcRef ADT to allow VPC ID to be set more flexibly (see [#243](https://github.com/MonsantoCo/cloudformation-template-generator/pull/243))
+ - Add missing arguments to ApiGateway ApiKey (see [#244](https://github.com/MonsantoCo/cloudformation-template-generator/pull/244))
+ - Update simple template documentation example so it compiles and runs (see [#245](https://github.com/MonsantoCo/cloudformation-template-generator/pull/245))
+ - Upgrade/extend `AWS::Elasticsearch::Domain` to support VPCOptions (see [#246](https://github.com/MonsantoCo/cloudformation-template-generator/pull/246))
+ - Add ApplicationAutoScaling (see [#247](https://github.com/MonsantoCo/cloudformation-template-generator/pull/247))
+
+
+
 ## [3.8.0] - 2017-12-18
 
 

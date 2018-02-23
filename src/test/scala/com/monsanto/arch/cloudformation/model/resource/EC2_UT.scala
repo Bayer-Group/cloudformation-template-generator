@@ -4,7 +4,7 @@ import com.monsanto.arch.cloudformation.model._
 import org.scalatest.{FunSpec, Matchers}
 import spray.json.{JsObject, JsString, _}
 
-class EC2_UT extends FunSpec with Matchers {
+class EC2_UT extends FunSpec with Matchers with DefaultJsonProtocol {
 
   describe("CidrBlock"){
 
@@ -261,6 +261,111 @@ class EC2_UT extends FunSpec with Matchers {
         "ToPort" -> JsObject("Ref" -> JsString("portParam")),
         "FromPort" -> JsObject("Ref" -> JsString("portParam")),
         "IpProtocol" -> JsString("TCP")
+      )
+    }
+  }
+
+  describe("AWS::EC2::SecurityGroup") {
+    val expectedReferenceJs = JsObject(
+      "name" -> JsString("title"),
+      "GroupDescription" -> JsString("Test Security Group"),
+      "VpcId" -> JsObject(
+        "Ref" -> JsString("vpc")
+      ),
+      "SecurityGroupIngress" -> JsArray.empty,
+      "Tags" -> JsArray.empty
+    )
+
+    def createGroupWith[A](vpc: A)(implicit ev: A ⇒ VpcId) = `AWS::EC2::SecurityGroup`("title",
+      GroupDescription = "Test Security Group",
+      VpcId = vpc,
+      SecurityGroupIngress = Some(Seq.empty),
+      Tags = Seq.empty
+    )
+
+    it("should accept a VPC instance") {
+      val vpc = `AWS::EC2::VPC`("vpc", CidrBlock = CidrBlock(192,168,1,2,32), Tags = Seq.empty)
+
+      val sg = createGroupWith(vpc)
+
+      sg.toJson shouldEqual expectedReferenceJs
+    }
+
+    it("should accept a VPC reference") {
+      val vpc = `AWS::EC2::VPC`("vpc", CidrBlock = CidrBlock(192,168,1,2,32), Tags = Seq.empty)
+
+      val sg = createGroupWith(ResourceRef(vpc))
+
+      sg.toJson shouldEqual expectedReferenceJs
+    }
+
+    it("should accept a VPC literal") {
+      val sg = createGroupWith("vpc-12345")
+
+      sg.toJson shouldEqual JsObject(
+        "name" -> JsString("title"),
+        "GroupDescription" -> JsString("Test Security Group"),
+        "VpcId" -> JsString("vpc-12345"),
+        "SecurityGroupIngress" -> JsArray.empty,
+        "Tags" -> JsArray.empty
+      )
+    }
+
+    it("should accept an imported VPC") {
+      val sg = createGroupWith(`Fn::ImportValue`("VpcId"))
+
+      sg.toJson shouldEqual JsObject(
+        "name" -> JsString("title"),
+        "GroupDescription" -> JsString("Test Security Group"),
+        "VpcId" -> JsObject(
+          "Fn::ImportValue" → JsString("VpcId")
+        ),
+        "SecurityGroupIngress" -> JsArray.empty,
+        "Tags" -> JsArray.empty
+      )
+    }
+
+    it("should accept a mapped VPC") {
+      val sg = createGroupWith(`Fn::FindInMap`(MappingRef(Mapping[String]("mapping", Map.empty)), "key", "key"))
+
+      sg.toJson shouldEqual JsObject(
+        "name" -> JsString("title"),
+        "GroupDescription" -> JsString("Test Security Group"),
+        "VpcId" -> JsObject(
+          "Fn::FindInMap" → JsArray(
+            JsString("mapping"),
+            JsString("key"),
+            JsString("key")
+          )
+        ),
+        "SecurityGroupIngress" -> JsArray.empty,
+        "Tags" -> JsArray.empty
+      )
+    }
+
+    it("should accept a VPC_Parameter") {
+      val sg = createGroupWith(`AWS::EC2::VPC_Parameter`("vpc", "VPC to create security groups"))
+
+      sg.toJson shouldEqual expectedReferenceJs
+    }
+
+    it("should accept a VPC ParameterRef") {
+      val sg = createGroupWith(ParameterRef(`AWS::EC2::VPC_Parameter`("vpc", "VPC to create security groups")))
+
+      sg.toJson shouldEqual expectedReferenceJs
+    }
+
+    it("should not accept arbitrary Token[String]") {
+      val token: Token[String] = "any-token"
+
+      assertTypeError(
+        """val sg = `AWS::EC2::SecurityGroup`("title",
+          |  GroupDescription = "Test Security Group",
+          |  VpcId = token,
+          |  SecurityGroupIngress = Some(Seq.empty),
+          |  Tags = Seq.empty
+          |)
+        """.stripMargin
       )
     }
   }

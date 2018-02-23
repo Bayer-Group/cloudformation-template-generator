@@ -19,7 +19,7 @@ class ElasticLoadBalancingV2_UT extends FunSpec with Matchers {
     name = "testy-target-group",
     Protocol = ALBProtocol.HTTPS,
     Port = 80,
-    VpcId = UNSAFEToken[ResourceRef[`AWS::EC2::VPC`]]("vpc-12345"),
+    VpcId = "vpc-12345",
     Matcher = Matcher("200-201"),
     HealthCheckIntervalSeconds = Some(11),
     HealthCheckPath = Some("/hi"),

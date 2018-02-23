@@ -1,5 +1,8 @@
 package com.monsanto.arch.cloudformation.model.resource
 
+import java.time.Instant
+import java.time.format.DateTimeFormatter
+
 import spray.json._
 
 /**
@@ -48,10 +51,13 @@ case class HourRateSchedule(value: Int) extends ScheduleExpression {
   *
   * @see [[http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-cron.html Cron Schedules for Systems Manager]]
   * @see [[http://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html Schedule Expressions for Rules]]
+  * @see [[https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-applicationautoscaling-scalabletarget-scheduledaction.html Scheduled actions for Application AutoScaling]]
   */
 case class DayRateSchedule(value: Int) extends ScheduleExpression {
   require(value > 0, "Day rate schedule must be greater than 0")
 }
+
+case class AtSchedule(value: Instant) extends ScheduleExpression
 
 object ScheduleExpression extends DefaultJsonProtocol {
   implicit val format: JsonFormat[ScheduleExpression] = new JsonFormat[ScheduleExpression]{
@@ -65,6 +71,7 @@ object ScheduleExpression extends DefaultJsonProtocol {
       case se: HourRateSchedule                    => JsString(s"rate(${se.value} hours)")
       case se: DayRateSchedule if se.value == 1    => JsString(s"rate(1 day)")
       case se: DayRateSchedule                     => JsString(s"rate(${se.value} days)")
+      case AtSchedule(v)                           => JsString(DateTimeFormatter.ISO_INSTANT.format(v).replaceAll("\\..*", ""))
     }
 
     def read(json: JsValue): ScheduleExpression = deserializationError("ScheduleExpression not readable")

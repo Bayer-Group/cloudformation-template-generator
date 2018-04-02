@@ -79,7 +79,7 @@ import scala.language.implicitConversions
   *          visibility = "Public",
   *          routeTableOrdinal = 1,
   *          routeOrdinal = 1,
-  *          gateway = Some(ResourceRef(internetGatewayResource))
+  *          connectionBobber = InternetGatewayRoute(ResourceRef(internetGatewayResource))
   *        )
   *        val gatewayStuff = Template.fromResource(internetGatewayResource) ++
   *          gatewayToInternetResource ++

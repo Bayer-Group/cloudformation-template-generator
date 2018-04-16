@@ -1,7 +1,7 @@
-package com.monsanto.arch.cloudformation.model
+package com.monsanto.arch.cloudformation.model.resource
 
+import com.monsanto.arch.cloudformation.model.JsonWritingMatcher
 import com.monsanto.arch.cloudformation.model.resource.DeletionPolicy.Retain
-import com.monsanto.arch.cloudformation.model.resource._
 import org.scalatest.{FunSpec, Matchers}
 import spray.json.{JsString, JsonWriter}
 
@@ -42,7 +42,8 @@ class DynamoDBSpec extends FunSpec with Matchers with JsonWritingMatcher {
       ),
       TableName = Some("Table1"),
       DeletionPolicy = Some(Retain),
-      DependsOn = Some(Seq("myothertable"))
+      DependsOn = Some(Seq("myothertable")),
+      TimeToLiveSpecification = Some(TimeToLiveSpecification(AttributeName = "ttl", Enabled = true))
     )
     val resource: Resource[`AWS::DynamoDB::Table`] = dynamoDbTable
 
@@ -97,7 +98,11 @@ class DynamoDBSpec extends FunSpec with Matchers with JsonWritingMatcher {
         |       "AttributeName":"key1",
         |       "KeyType":"RANGE"
         |     }],
-        |  "TableName":"Table1"
+        |  "TableName":"Table1",
+        |  "TimeToLiveSpecification": {
+        |    "AttributeName": "ttl",
+        |    "Enabled": true
+        |  }
         |  }
         |}
       """.stripMargin

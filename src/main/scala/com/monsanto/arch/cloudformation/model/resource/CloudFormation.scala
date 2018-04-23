@@ -2,7 +2,7 @@ package com.monsanto.arch.cloudformation.model.resource
 
 import com.monsanto.arch.cloudformation.model.Token.TokenSeq
 import com.monsanto.arch.cloudformation.model._
-import spray.json.JsonFormat
+import spray.json.{JsObject, JsValue, JsonFormat, RootJsonFormat, RootJsonWriter}
 
 /**
   * Created by bkrodg on 1/13/16.
@@ -60,4 +60,36 @@ object `AWS::CloudFormation::Stack` {
 
   implicit val format: JsonFormat[`AWS::CloudFormation::Stack`] = jsonFormat7(
       `AWS::CloudFormation::Stack`.apply)
+}
+
+case class `AWS::CloudFormation::CustomResource`(name: String,
+                                                 ServiceToken: Token[String],
+                                                 Parameters: Option[Map[String, JsValue]] = None,
+                                                 CustomResourceTypeName: Option[String] = None,
+                                                 override val DependsOn: Option[Seq[String]] = None,
+                                                 override val Condition: Option[ConditionRef] = None
+                                                )
+  extends Resource[`AWS::CloudFormation::CustomResource`] {
+  def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
+  override val ResourceType = CustomResourceTypeName match {
+    case None => "AWS::CloudFormation::CustomResource"
+    case Some(x) => if (x.startsWith("Custom::")) x else (s"Custom::${x}")
+  }
+}
+
+object `AWS::CloudFormation::CustomResource` extends spray.json.DefaultJsonProtocol {
+
+  import spray.json.DefaultJsonProtocol._
+  import Token._
+  implicit val format: RootJsonFormat[`AWS::CloudFormation::CustomResource`] = new RootJsonFormat[`AWS::CloudFormation::CustomResource`] {
+    override def read(json: JsValue): `AWS::CloudFormation::CustomResource` = ???
+
+    override def write(obj: `AWS::CloudFormation::CustomResource`): JsValue = {
+      val st = ("ServiceToken" -> implicitly[JsonFormat[Token[String]]].write(obj.ServiceToken))
+      obj.Parameters match {
+        case Some(p) => JsObject(p + st)
+        case None => JsObject(st)
+      }
+    }
+  }
 }

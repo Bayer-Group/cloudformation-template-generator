@@ -121,7 +121,7 @@ class CloudFormation_UT extends FunSpec with Matchers{
       val customResource = `AWS::CloudFormation::CustomResource`(
         name = "TestResource",
         ServiceToken = "TestToken",
-        Parameters = Some(Map("Hi" -> "There".toJson))
+        Parameters = Some(Map("Hi" -> "There"))
       )
 
       println(Template.fromResource(customResource).toJson)

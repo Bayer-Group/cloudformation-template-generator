@@ -2,7 +2,7 @@ package com.monsanto.arch.cloudformation.model.resource
 
 import com.monsanto.arch.cloudformation.model.Token.TokenSeq
 import com.monsanto.arch.cloudformation.model._
-import spray.json.{JsObject, JsValue, JsonFormat, RootJsonFormat, RootJsonWriter}
+import spray.json._
 
 /**
   * Created by bkrodg on 1/13/16.
@@ -62,9 +62,25 @@ object `AWS::CloudFormation::Stack` {
       `AWS::CloudFormation::Stack`.apply)
 }
 
+case class JsonableWrapper[T: JsonFormat](thing: T) {
+  implicit val fmt = implicitly[JsonFormat[T]]
+}
+
+object JsonableWrapper {
+  import scala.language.implicitConversions
+
+  implicit def fmt[T] = new JsonFormat[JsonableWrapper[T]] {
+    override def read(json: JsValue): JsonableWrapper[T] = ???
+
+    override def write(obj: JsonableWrapper[T]): JsValue = obj.fmt.write(obj.thing)
+  }
+
+  implicit def wrap[T: JsonFormat](thing: T) = JsonableWrapper(thing)
+}
+
 case class `AWS::CloudFormation::CustomResource`(name: String,
                                                  ServiceToken: Token[String],
-                                                 Parameters: Option[Map[String, JsValue]] = None,
+                                                 Parameters: Option[Map[String, JsonableWrapper[_]]] = None,
                                                  CustomResourceTypeName: Option[String] = None,
                                                  override val DependsOn: Option[Seq[String]] = None,
                                                  override val Condition: Option[ConditionRef] = None
@@ -77,17 +93,16 @@ case class `AWS::CloudFormation::CustomResource`(name: String,
   }
 }
 
+
 object `AWS::CloudFormation::CustomResource` extends spray.json.DefaultJsonProtocol {
 
-  import spray.json.DefaultJsonProtocol._
-  import Token._
   implicit val format: RootJsonFormat[`AWS::CloudFormation::CustomResource`] = new RootJsonFormat[`AWS::CloudFormation::CustomResource`] {
     override def read(json: JsValue): `AWS::CloudFormation::CustomResource` = ???
 
     override def write(obj: `AWS::CloudFormation::CustomResource`): JsValue = {
       val st = ("ServiceToken" -> implicitly[JsonFormat[Token[String]]].write(obj.ServiceToken))
       obj.Parameters match {
-        case Some(p) => JsObject(p + st)
+        case Some(p) => JsObject(p.mapValues(v => v.toJson) + st)
         case None => JsObject(st)
       }
     }

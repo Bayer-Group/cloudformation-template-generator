@@ -14,7 +14,6 @@ class CloudFormation_UT extends FunSpec with Matchers{
         ServiceToken = "TestToken"
       )
 
-      println(Template.fromResource(customResource).toJson)
       val expectedJson =
         """
           |{
@@ -42,7 +41,6 @@ class CloudFormation_UT extends FunSpec with Matchers{
         ServiceToken = ParameterRef(param)
       )
 
-      println(Template.fromResource(customResource).toJson)
       val expectedJson =
         """
           |{
@@ -70,7 +68,6 @@ class CloudFormation_UT extends FunSpec with Matchers{
         CustomResourceTypeName = Some("HeyThere")
       )
 
-      println(Template.fromResource(customResource).toJson)
       val expectedJson =
         """
           |{
@@ -96,7 +93,6 @@ class CloudFormation_UT extends FunSpec with Matchers{
         CustomResourceTypeName = Some("Custom::HeyThere")
       )
 
-      println(Template.fromResource(customResource).toJson)
       val expectedJson =
         """
           |{
@@ -124,7 +120,6 @@ class CloudFormation_UT extends FunSpec with Matchers{
         Parameters = Some(Map("Hi" -> "There"))
       )
 
-      println(Template.fromResource(customResource).toJson)
       val expectedJson =
         """
           |{
@@ -155,7 +150,6 @@ class CloudFormation_UT extends FunSpec with Matchers{
           "Number" -> 1))
       )
 
-      println(Template.fromResource(customResource).toJson)
       val expectedJson =
         """
           |{

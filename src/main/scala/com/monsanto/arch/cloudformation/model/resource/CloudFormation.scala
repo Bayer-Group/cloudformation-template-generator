@@ -62,8 +62,8 @@ object `AWS::CloudFormation::Stack` {
       `AWS::CloudFormation::Stack`.apply)
 }
 
-case class JsonableWrapper[T: JsonFormat](thing: T) {
-  implicit val fmt = implicitly[JsonFormat[T]]
+case class JsonableWrapper[T: JsonWriter](thing: T) {
+  implicit val fmt = implicitly[JsonWriter[T]]
 }
 
 object JsonableWrapper {
@@ -73,7 +73,7 @@ object JsonableWrapper {
     override def write(obj: JsonableWrapper[T]): JsValue = obj.fmt.write(obj.thing)
   }
 
-  implicit def wrap[T: JsonFormat](thing: T) = JsonableWrapper(thing)
+  implicit def wrap[T: JsonWriter](thing: T) = JsonableWrapper(thing)
 }
 
 case class `AWS::CloudFormation::CustomResource`(name: String,

@@ -143,4 +143,36 @@ class CloudFormation_UT extends FunSpec with Matchers{
     }
   }
 
+  describe("String and number parameter"){
+    it ("should serialize as expected") {
+
+      import DefaultJsonProtocol._
+      val customResource = `AWS::CloudFormation::CustomResource`(
+        name = "TestResource",
+        ServiceToken = "TestToken",
+        Parameters = Some(Map(
+          "Hi" -> "There",
+          "Number" -> 1))
+      )
+
+      println(Template.fromResource(customResource).toJson)
+      val expectedJson =
+        """
+          |{
+          |  "Resources": {
+          |    "TestResource": {
+          |      "Properties": {
+          |        "ServiceToken": "TestToken",
+          |        "Hi": "There",
+          |        "Number": 1
+          |      },
+          |      "Type": "AWS::CloudFormation::CustomResource"
+          |    }
+          |  }
+          |}
+        """.stripMargin.parseJson
+      Template.fromResource(customResource).toJson should be (expectedJson)
+    }
+  }
+
 }

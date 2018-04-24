@@ -69,9 +69,7 @@ case class JsonableWrapper[T: JsonFormat](thing: T) {
 object JsonableWrapper {
   import scala.language.implicitConversions
 
-  implicit def fmt[T] = new JsonFormat[JsonableWrapper[T]] {
-    override def read(json: JsValue): JsonableWrapper[T] = ???
-
+  implicit def fmt[T] = new JsonWriter[JsonableWrapper[T]] {
     override def write(obj: JsonableWrapper[T]): JsValue = obj.fmt.write(obj.thing)
   }
 

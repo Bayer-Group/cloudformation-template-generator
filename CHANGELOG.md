@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.8.2] - 2018-04-26
+ - Add support for custom CF resource calls (see [#250](https://github.com/MonsantoCo/cloudformation-template-generator/pull/250))
+ - Add support for TimeToLiveSpecification (see [#248](https://github.com/MonsantoCo/cloudformation-template-generator/pull/248))
+ - Update sample usage template documentation and add some ami images for asia regions (see [#249](https://github.com/MonsantoCo/cloudformation-template-generator/pull/249))
+
+
 ## [3.8.1] - 2018-2-23
  - Make TracingConfig an enum (see [#234](https://github.com/MonsantoCo/cloudformation-template-generator/pull/234))
  - Add CodeBuild cache (see [#235](https://github.com/MonsantoCo/cloudformation-template-generator/pull/235))

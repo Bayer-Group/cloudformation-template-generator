@@ -62,23 +62,9 @@ object `AWS::CloudFormation::Stack` {
       `AWS::CloudFormation::Stack`.apply)
 }
 
-case class JsonableWrapper[T: JsonWriter](thing: T) {
-  implicit val fmt = implicitly[JsonWriter[T]]
-}
-
-object JsonableWrapper {
-  import scala.language.implicitConversions
-
-  implicit def fmt[T] = new JsonWriter[JsonableWrapper[T]] {
-    override def write(obj: JsonableWrapper[T]): JsValue = obj.fmt.write(obj.thing)
-  }
-
-  implicit def wrap[T: JsonWriter](thing: T) = JsonableWrapper(thing)
-}
-
 case class `AWS::CloudFormation::CustomResource`(name: String,
                                                  ServiceToken: Token[String],
-                                                 Parameters: Option[Map[String, JsonableWrapper[_]]] = None,
+                                                 Parameters: Option[Map[String, JsonWritable[_]]] = None,
                                                  CustomResourceTypeName: Option[String] = None,
                                                  override val DependsOn: Option[Seq[String]] = None,
                                                  override val Condition: Option[ConditionRef] = None

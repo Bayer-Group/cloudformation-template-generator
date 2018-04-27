@@ -254,7 +254,7 @@ trait Autoscaling {
 
   def launchConfig(
     name:         String,
-    image:        Token[AMIId],
+    image:        Token[String],
     instanceType: Token[String],
     keyName:      Token[String],
     sgs:          Seq[Token[ResourceRef[`AWS::EC2::SecurityGroup`]]],
@@ -279,7 +279,7 @@ trait Autoscaling {
 
   def asg(
       baseName:     String,
-      image:        Token[AMIId],
+      image:        Token[String],
       instanceType: Token[String],
       keyName:      Token[String],
       sgs:          Seq[Token[ResourceRef[`AWS::EC2::SecurityGroup`]]],
@@ -556,7 +556,7 @@ trait EC2 {
     name:                  String,
     InstanceType:          Token[String],
     KeyName:               Token[String],
-    ImageId:               Token[AMIId],
+    ImageId:               Token[String],
     SecurityGroupIds:      Seq[ResourceRef[`AWS::EC2::SecurityGroup`]],
     Tags:                  Seq[AmazonTag],
     Metadata:              Option[Map[String, String]]                             = None,

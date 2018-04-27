@@ -1,6 +1,6 @@
 package com.monsanto.arch.cloudformation.model
 
-import com.monsanto.arch.cloudformation.model.resource.Resource
+import com.monsanto.arch.cloudformation.model.resource.{AMIId, Resource}
 import spray.json.DefaultJsonProtocol._
 import spray.json._
 
@@ -146,7 +146,7 @@ case class `Fn::Split`(delimiterChar: String, toSplit: Token[String])
 }
 
 case class `Fn::FindInMap`[R](mapName: Token[MappingRef[R]], outerKey: Token[String], innerKey: Token[String])
-  extends AmazonFunctionCall[R]("Fn::FindInMap"){type CFBackingType = (Token[MappingRef[_]], Token[String], Token[String]); val arguments = (mapName.asInstanceOf[Token[MappingRef[_]]], outerKey, innerKey)}
+  extends AmazonFunctionCall[String]("Fn::FindInMap"){type CFBackingType = (Token[MappingRef[_]], Token[String], Token[String]); val arguments = (mapName.asInstanceOf[Token[MappingRef[_]]], outerKey, innerKey)}
 
 case class `Fn::Base64`(toEncode: Token[String])
   extends AmazonFunctionCall[String]("Fn::Base64"){type CFBackingType = Token[String] ; val arguments = toEncode}

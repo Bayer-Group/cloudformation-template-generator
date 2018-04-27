@@ -65,12 +65,15 @@ object `AWS::EC2::EIPAssociation` extends DefaultJsonProtocol {
   implicit val format: JsonFormat[`AWS::EC2::EIPAssociation`] = jsonFormat5(`AWS::EC2::EIPAssociation`.apply)
 }
 
+@deprecated(since = "3.8.2", message = "Changed to just use Token[String].  The AMIId wrapper added little value and made it more difficult to look AMIs up from a custom Lambda.")
 case class AMIId(id: String)
 object AMIId extends DefaultJsonProtocol {
   implicit val format: JsonFormat[AMIId] = new JsonFormat[AMIId] {
     def write(obj: AMIId) = JsString(obj.id)
     def read(json: JsValue) = AMIId(json.convertTo[String])
   }
+  implicit def convertToString(ami: AMIId): String = ami.id
+  implicit def convertToTokenString(ami: AMIId): Token[String] = ami.id
 }
 
 case class EC2MountPoint(Device: String, VolumeId: Token[String])
@@ -83,7 +86,7 @@ case class `AWS::EC2::Instance`(
   InstanceType:           Token[String],
   KeyName:                Token[String],
   SubnetId:               Token[ResourceRef[`AWS::EC2::Subnet`]],
-  ImageId:                Token[AMIId],
+  ImageId:                Token[String],
   Tags:                   Seq[AmazonTag],
   SecurityGroupIds:       Seq[ResourceRef[`AWS::EC2::SecurityGroup`]] = Seq.empty[ResourceRef[`AWS::EC2::SecurityGroup`]],
   Metadata:               Option[Map[String, String]] = None,

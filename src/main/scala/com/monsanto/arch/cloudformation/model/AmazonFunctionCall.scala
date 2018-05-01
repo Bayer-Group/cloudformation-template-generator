@@ -153,6 +153,11 @@ case class `Fn::Base64`(toEncode: Token[String])
 
 case class `Fn::ImportValue`(importValue: Token[String])
   extends AmazonFunctionCall[String]("Fn::ImportValue"){type CFBackingType = Token[String] ; val arguments = importValue}
+object `Fn::ImportValue` {
+  implicit def fmt: JsonWriter[`Fn::ImportValue`] = new JsonWriter[`Fn::ImportValue`] {
+    override def write(obj: `Fn::ImportValue`): JsValue = AmazonFunctionCall.format.write(obj)
+  }
+}
 
 case class `Fn::Sub`(template: Token[String], subs: Option[Map[Token[String], Token[String]]] = None)
   extends AmazonFunctionCall[String]("Fn::Sub"){
@@ -161,6 +166,12 @@ case class `Fn::Sub`(template: Token[String], subs: Option[Map[Token[String], To
   def serializeArguments = arguments._2 match {
     case Some(x) => arguments.toJson
     case None => arguments._1.toJson
+  }
+}
+
+object `Fn::Sub` {
+  implicit def fmt: JsonWriter[`Fn::Sub`] = new JsonWriter[`Fn::Sub`] {
+    override def write(obj: `Fn::Sub`): JsValue = AmazonFunctionCall.format.write(obj)
   }
 }
 

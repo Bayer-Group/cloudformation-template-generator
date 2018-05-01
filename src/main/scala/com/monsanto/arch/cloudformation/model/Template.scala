@@ -67,15 +67,18 @@ case class Template(
     if(s1.isEmpty && s2.isEmpty) None
     else Some(s1.getOrElse(Seq.empty[T]) ++ s2.getOrElse(Seq.empty[T]))
 
+  private def mergeOption[T](s1: Option[T], s2: Option[T]): Option[T] =
+    if (s2.isDefined) s2 else s1
+
   def ++(t: Template) = Template(
-    Description flatMap (_ + t.Description.getOrElse("")),
+    mergeOption(Description, t.Description),
     mergeOptionSeq(Parameters, t.Parameters ),
     mergeOptionSeq(Conditions, t.Conditions ),
     mergeOptionSeq(Mappings,   t.Mappings   ),
     Resources ++ t.Resources,
     mergeOptionSeq(Routables,  t.Routables  ),
     mergeOptionSeq(Outputs,    t.Outputs    ),
-    this.AWSTemplateFormatVersion
+    mergeOption(AWSTemplateFormatVersion, t.AWSTemplateFormatVersion)
   )
 }
 object Template extends DefaultJsonProtocol {

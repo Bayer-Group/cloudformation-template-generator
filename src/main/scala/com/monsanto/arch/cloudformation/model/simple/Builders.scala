@@ -298,7 +298,6 @@ trait Autoscaling {
       elbs:        Option[Seq[Token[ResourceRef[`AWS::ElasticLoadBalancing::LoadBalancer`]]]] = None
     )(implicit vpc: `AWS::EC2::VPC`) = {
 
-      val resourceName = baseName + "LaunchConfig"
       val asgName = baseName + "AutoScale"
 
       val launchConfigSGR @ SecurityGroupRoutable(aLaunchConfig, _, _) =
@@ -514,7 +513,7 @@ trait Gateway {
     val gName = "InternetGateway"
     val gateway = `AWS::EC2::InternetGateway`(
       gName,
-      Tags = AmazonTag.fromName(gName)
+      Tags = AmazonTag.stackName()
     )
 
     val attName = "GatewayToInternet"
@@ -531,10 +530,12 @@ trait Gateway {
 trait VPC extends Outputs {
   implicit class RichVPC(vpc: `AWS::EC2::VPC`)
 
-  def withVpc(cidrBlock: Token[CidrBlock])(f: (`AWS::EC2::VPC`) => Template): Template = {
-    val vpcName = "VPC"
+  def withVpc(cidrBlock: Token[CidrBlock], vpcName: Option[String] = None)(f: (`AWS::EC2::VPC`) => Template): Template = {
     val vpc = `AWS::EC2::VPC`(
-      vpcName,
+      vpcName match {
+        case Some(n) => n
+        case None => "VPC"
+      },
       CidrBlock = cidrBlock,
       Tags = AmazonTag.fromName(vpcName),
       EnableDnsSupport = true,

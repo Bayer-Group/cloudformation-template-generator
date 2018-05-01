@@ -11,7 +11,18 @@ case class AmazonTag(Key: String, Value: Token[String], PropagateAtLaunch: Optio
 object AmazonTag extends DefaultJsonProtocol {
   implicit val format: JsonFormat[AmazonTag] = jsonFormat3(AmazonTag.apply)
 
-  def fromName(name: String) = Seq(AmazonTag("Name", `Fn::Join`("-", Seq(name, `AWS::StackName`))))
+  def fromName(name: String): Seq[AmazonTag] = Seq(AmazonTag("Name", `Fn::Sub`(s"$${AWS::StackName}-${name}")))
+
+  def fromName(name: Option[String]): Seq[AmazonTag] =
+    name match {
+      case Some(n) => fromName(n)
+      case None => stackName()
+    }
+
   def fromNamePropagate(resourceName: String) =
-    Seq(AmazonTag("Name", `Fn::Join`("-", Seq(resourceName, `AWS::StackName`)), PropagateAtLaunch = Some(true)))
+    Seq(AmazonTag("Name", `Fn::Sub`(s"$${AWS::StackName}-${resourceName}"), PropagateAtLaunch = Some(true)))
+
+  // For anything where just tagging it with the stack name makes sense.
+  def stackName() = Seq(AmazonTag("Name", `Fn::Sub`(s"$${AWS::StackName}")))
+
 }

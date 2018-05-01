@@ -188,4 +188,38 @@ class Template_UT extends FlatSpec with Matchers with VPC with Subnet with Avail
     val template = Template.EMPTY ++ outputs
     template should equal(Template.EMPTY.copy(Outputs = Some(outputs)))
   }
+
+  it should "take description 1 if description 2 is None" in {
+    val template1 = Template(Description = Some("1"), Resources = Seq.empty)
+    val template2 = Template(Description = None, Resources = Seq.empty)
+    (template1 ++ template2).Description should equal (Some("1"))
+  }
+
+  it should "take description 2 if description 1 is None" in {
+    val template1 = Template(Description = None, Resources = Seq.empty)
+    val template2 = Template(Description = Some("2"), Resources = Seq.empty)
+    (template1 ++ template2).Description should equal (Some("2"))
+  }
+  it should "take description 2 if description 1 is set" in {
+    val template1 = Template(Description = Some("1"), Resources = Seq.empty)
+    val template2 = Template(Description = Some("2"), Resources = Seq.empty)
+    (template1 ++ template2).Description should equal (Some("2"))
+  }
+
+  it should "take version 1 if version 2 is None" in {
+    val template1 = Template(AWSTemplateFormatVersion = Some("1"), Resources = Seq.empty)
+    val template2 = Template(AWSTemplateFormatVersion = None, Resources = Seq.empty)
+    (template1 ++ template2).AWSTemplateFormatVersion should equal (Some("1"))
+  }
+
+  it should "take version 2 if version 1 is None" in {
+    val template1 = Template(AWSTemplateFormatVersion = None, Resources = Seq.empty)
+    val template2 = Template(AWSTemplateFormatVersion = Some("2"), Resources = Seq.empty)
+    (template1 ++ template2).AWSTemplateFormatVersion should equal (Some("2"))
+  }
+  it should "take version 2 if version 1 is set" in {
+    val template1 = Template(AWSTemplateFormatVersion = Some("1"), Resources = Seq.empty)
+    val template2 = Template(AWSTemplateFormatVersion = Some("2"), Resources = Seq.empty)
+    (template1 ++ template2).AWSTemplateFormatVersion should equal (Some("2"))
+  }
 }

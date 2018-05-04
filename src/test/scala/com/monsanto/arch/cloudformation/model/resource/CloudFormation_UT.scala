@@ -1,6 +1,6 @@
 package com.monsanto.arch.cloudformation.model.resource
 
-import com.monsanto.arch.cloudformation.model.{ParameterRef, StringParameter, Template}
+import com.monsanto.arch.cloudformation.model._
 import org.scalatest.{FunSpec, Matchers}
 import spray.json._
 
@@ -159,6 +159,73 @@ class CloudFormation_UT extends FunSpec with Matchers{
           |        "ServiceToken": "TestToken",
           |        "Hi": "There",
           |        "Number": 1
+          |      },
+          |      "Type": "AWS::CloudFormation::CustomResource"
+          |    }
+          |  }
+          |}
+        """.stripMargin.parseJson
+      Template.fromResource(customResource).toJson should be (expectedJson)
+    }
+  }
+
+  // This doesn't work yet, but it should be fixed.
+//  describe("pseudo parameter"){
+//    it ("should serialize as expected") {
+//
+//      import DefaultJsonProtocol._
+//      val customResource = `AWS::CloudFormation::CustomResource`(
+//        name = "TestResource",
+//        ServiceToken = "TestToken",
+//        Parameters = Some(Map(
+//          "AmiNamePrefix" -> "mon-amzn-2",
+//          "Region" -> JsonWritable(`AWS::Region`)
+//        ))
+//      )
+//
+//      val expectedJson =
+//        """
+//          |{
+//          |  "Resources": {
+//          |    "TestResource": {
+//          |      "Properties": {
+//          |        "ServiceToken": "TestToken",
+//          |        "AmiNamePrefix": "mon-amzn-2",
+//          |        "Region": {"Ref":"AWS::Region"}
+//          |      },
+//          |      "Type": "AWS::CloudFormation::CustomResource"
+//          |    }
+//          |  }
+//          |}
+//        """.stripMargin.parseJson
+//      Template.fromResource(customResource).toJson should be (expectedJson)
+//    }
+//  }
+
+  describe("function"){
+    it ("should serialize as expected") {
+
+      import AmazonFunctionCall._
+
+
+      val customResource = `AWS::CloudFormation::CustomResource`(
+        name = "TestResource",
+        ServiceToken = "TestToken",
+        Parameters = Some(Map(
+          "AmiNamePrefix" -> "mon-amzn-2",
+          "Region" -> `Fn::Sub`("${AWS::Region}")
+        ))
+      )
+
+      val expectedJson =
+        """
+          |{
+          |  "Resources": {
+          |    "TestResource": {
+          |      "Properties": {
+          |        "ServiceToken": "TestToken",
+          |        "AmiNamePrefix": "mon-amzn-2",
+          |        "Region": {"Fn::Sub":"${AWS::Region}"}
           |      },
           |      "Type": "AWS::CloudFormation::CustomResource"
           |    }

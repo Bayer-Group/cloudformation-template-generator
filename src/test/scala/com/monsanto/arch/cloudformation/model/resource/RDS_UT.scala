@@ -348,13 +348,7 @@ class RDS_UT extends FunSpec with Matchers {
             "StorageType" -> JsString("gp2"),
             "Tags" -> JsArray(JsObject(
               "Key" -> JsString("Name"),
-              "Value" -> JsObject("Fn::Join" -> JsArray(
-                JsString("-"),
-                JsArray(
-                  JsString(dbName),
-                  JsObject("Ref" -> JsString("AWS::StackName"))
-                )
-              ))
+              "Value" -> JsObject("Fn::Sub" -> JsString(s"$${AWS::StackName}-${dbName}"))
             ))
           )
         )

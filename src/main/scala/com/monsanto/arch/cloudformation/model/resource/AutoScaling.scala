@@ -32,7 +32,7 @@ object `AWS::AutoScaling::AutoScalingGroup` extends DefaultJsonProtocol {
 
 case class `AWS::AutoScaling::LaunchConfiguration`(
     name:               String,
-    ImageId:            Token[AMIId],
+    ImageId:            Token[String],
     InstanceType:       Token[String],
     KeyName:            Token[String],
     SecurityGroups:     Seq[Token[ResourceRef[`AWS::EC2::SecurityGroup`]]],

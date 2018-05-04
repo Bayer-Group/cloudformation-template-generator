@@ -1,6 +1,6 @@
 package com.monsanto.arch.cloudformation.model
 
-import com.monsanto.arch.cloudformation.model.resource.Resource
+import com.monsanto.arch.cloudformation.model.resource.{AMIId, Resource}
 import spray.json.DefaultJsonProtocol._
 import spray.json._
 
@@ -146,13 +146,18 @@ case class `Fn::Split`(delimiterChar: String, toSplit: Token[String])
 }
 
 case class `Fn::FindInMap`[R](mapName: Token[MappingRef[R]], outerKey: Token[String], innerKey: Token[String])
-  extends AmazonFunctionCall[R]("Fn::FindInMap"){type CFBackingType = (Token[MappingRef[_]], Token[String], Token[String]); val arguments = (mapName.asInstanceOf[Token[MappingRef[_]]], outerKey, innerKey)}
+  extends AmazonFunctionCall[String]("Fn::FindInMap"){type CFBackingType = (Token[MappingRef[_]], Token[String], Token[String]); val arguments = (mapName.asInstanceOf[Token[MappingRef[_]]], outerKey, innerKey)}
 
 case class `Fn::Base64`(toEncode: Token[String])
   extends AmazonFunctionCall[String]("Fn::Base64"){type CFBackingType = Token[String] ; val arguments = toEncode}
 
 case class `Fn::ImportValue`(importValue: Token[String])
   extends AmazonFunctionCall[String]("Fn::ImportValue"){type CFBackingType = Token[String] ; val arguments = importValue}
+object `Fn::ImportValue` {
+  implicit def fmt: JsonWriter[`Fn::ImportValue`] = new JsonWriter[`Fn::ImportValue`] {
+    override def write(obj: `Fn::ImportValue`): JsValue = AmazonFunctionCall.format.write(obj)
+  }
+}
 
 case class `Fn::Sub`(template: Token[String], subs: Option[Map[Token[String], Token[String]]] = None)
   extends AmazonFunctionCall[String]("Fn::Sub"){
@@ -161,6 +166,12 @@ case class `Fn::Sub`(template: Token[String], subs: Option[Map[Token[String], To
   def serializeArguments = arguments._2 match {
     case Some(x) => arguments.toJson
     case None => arguments._1.toJson
+  }
+}
+
+object `Fn::Sub` {
+  implicit def fmt: JsonWriter[`Fn::Sub`] = new JsonWriter[`Fn::Sub`] {
+    override def write(obj: `Fn::Sub`): JsValue = AmazonFunctionCall.format.write(obj)
   }
 }
 

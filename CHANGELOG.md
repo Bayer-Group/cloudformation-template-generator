@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.9.0] - 2018-06-01
+
+**This release contains a change to the fromName builder that is code compatible, but will result in your templates having a different name format for resources if you were using the fromName builder**
+
+ - Handle template addition for Description and AWSTemplateFormatVersion (see [#251](https://github.com/MonsantoCo/cloudformation-template-generator/pull/251))
+ - Amiid deprecation (see [#252](https://github.com/MonsantoCo/cloudformation-template-generator/pull/252))
+ - Switched fromName tag generator to put the stack name first. (see [#253](https://github.com/MonsantoCo/cloudformation-template-generator/pull/253))
+
+
+
 ## [3.8.2] - 2018-04-26
  - Add support for custom CF resource calls (see [#250](https://github.com/MonsantoCo/cloudformation-template-generator/pull/250))
  - Add support for TimeToLiveSpecification (see [#248](https://github.com/MonsantoCo/cloudformation-template-generator/pull/248))

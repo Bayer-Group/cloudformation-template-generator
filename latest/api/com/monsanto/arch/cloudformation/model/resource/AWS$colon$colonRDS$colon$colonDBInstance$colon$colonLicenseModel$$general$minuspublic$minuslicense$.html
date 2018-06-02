@@ -65,9 +65,7 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../../../../../../index.html">
-              <span class="name">root</span>
-            </a>
+        <a title="" href="../../../../../../index.html"><span class="name">root</span></a>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
@@ -83,9 +81,7 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../../../../../index.html">
-              <span class="name">com</span>
-            </a>
+        <a title="" href="../../../../../index.html"><span class="name">com</span></a>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
@@ -101,9 +97,7 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../../../../index.html">
-              <span class="name">monsanto</span>
-            </a>
+        <a title="" href="../../../../index.html"><span class="name">monsanto</span></a>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../../../index.html" class="extype" name="com">com</a></dd></dl></div>
@@ -119,9 +113,7 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../../../index.html">
-              <span class="name">arch</span>
-            </a>
+        <a title="" href="../../../index.html"><span class="name">arch</span></a>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../../index.html" class="extype" name="com.monsanto">monsanto</a></dd></dl></div>
@@ -137,9 +129,7 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../../index.html">
-              <span class="name">cloudformation</span>
-            </a>
+        <a title="" href="../../index.html"><span class="name">cloudformation</span></a>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../index.html" class="extype" name="com.monsanto.arch">arch</a></dd></dl></div>
@@ -155,9 +145,7 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="A DSL to create consistent, type-safe AWS CloudFormation templates." href="../index.html">
-              <span class="name">model</span>
-            </a>
+        <a title="A DSL to create consistent, type-safe AWS CloudFormation templates." href="../index.html"><span class="name">model</span></a>
       </span>
       
       <p class="shortcomment cmt">A DSL to create consistent, type-safe AWS CloudFormation templates.</p><div class="fullcomment"><div class="comment cmt"><p>A DSL to create consistent, type-safe AWS CloudFormation templates.</p><p>The low-level DSL closely adheres to the objects and parameters in the
@@ -207,10 +195,13 @@ our <a href="http://engineering.monsanto.com/2015/07/10/cloudformation-template-
   <span class="kw">val</span> amazonLinuxAMIMapping = Mapping[AMIId](
     <span class="lit">"AmazonLinuxAMI"</span>,
     <span class="std">Map</span>(
-      <span class="lit">"us-east-1"</span> -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-1ecae776"</span>)),
-      <span class="lit">"us-west-1"</span> -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-d114f295"</span>)),
-      <span class="lit">"us-west-2"</span> -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-e7527ed7"</span>)),
-      <span class="lit">"eu-west-1"</span> -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-a10897d6"</span>))
+      <span class="lit">"us-east-1"</span>      -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-1ecae776"</span>)),
+      <span class="lit">"us-west-1"</span>      -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-d114f295"</span>)),
+      <span class="lit">"us-west-2"</span>      -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-e7527ed7"</span>)),
+      <span class="lit">"eu-west-1"</span>      -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-a10897d6"</span>)),
+      <span class="lit">"ap-southeast-1"</span> -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-68d8e93a"</span>)),
+      <span class="lit">"ap-southeast-2"</span> -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-fd9cecc7"</span>)),
+      <span class="lit">"ap-northeast-1"</span> -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-cbf90ecb"</span>))
     )
   )
   <span class="kw">val</span> simpleMappings = <span class="std">Seq</span>(amazonLinuxAMIMapping)
@@ -222,10 +213,11 @@ our <a href="http://engineering.monsanto.com/2015/07/10/cloudformation-template-
       visibility = <span class="lit">"Public"</span>,
       routeTableOrdinal = <span class="num">1</span>,
       routeOrdinal = <span class="num">1</span>,
-      gateway = <span class="std">Some</span>(ResourceRef(internetGatewayResource))
+      connectionBobber = InternetGatewayRoute(ResourceRef(internetGatewayResource))
     )
     <span class="kw">val</span> gatewayStuff = Template.fromResource(internetGatewayResource) ++
       gatewayToInternetResource ++
+      publicRouteTable ++
       publicRouteTableRoute
     <span class="kw">val</span> withinAZ = withAZ(<span class="lit">"us-east-1a"</span>) { <span class="kw">implicit</span> az <span class="kw">=&gt;</span>
       withSubnet(<span class="lit">"PubSubnet1"</span>, CidrBlock(<span class="num">10</span>, <span class="num">0</span>, <span class="num">0</span>, <span class="num">1</span>, <span class="num">24</span>)) { <span class="kw">implicit</span> pubSubnet <span class="kw">=&gt;</span>
@@ -258,12 +250,12 @@ our <a href="http://engineering.monsanto.com/2015/07/10/cloudformation-template-
   }
   <span class="kw">val</span> simpleTemplate = simpleResourceAndOutputs ++
     Template(
-      AWSTemplateFormatVersion = <span class="lit">"2010-09-09"</span>,
-      Description = <span class="lit">"Simple template"</span>,
+      AWSTemplateFormatVersion = <span class="std">Some</span>(<span class="lit">"2010-09-09"</span>),
+      Description = <span class="std">Some</span>(<span class="lit">"Simple template"</span>),
       Parameters = <span class="std">Some</span>(simpleParameters),
       Conditions = <span class="std">Some</span>(simpleConditions),
       Mappings = <span class="std">Some</span>(simpleMappings),
-      Resources = <span class="std">None</span>,
+      Resources = <span class="std">Seq</span>.empty,
       Outputs = <span class="std">None</span>
     )
   writeStaxModule(<span class="lit">"vpc-simple.json"</span>, simpleTemplate)
@@ -286,9 +278,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="index.html">
-              <span class="name">resource</span>
-            </a>
+        <a title="" href="index.html"><span class="name">resource</span></a>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="com.monsanto.arch.cloudformation.model">model</a></dd></dl></div>
@@ -304,132 +294,90 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$.html">
-              <span title="gt4s: AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel" class="name">AWS::RDS::DBInstance::LicenseModel</span>
-            </a><span class="result"> extends <span class="extype" name="spray.json.DefaultJsonProtocol">DefaultJsonProtocol</span></span>
+        <a title="" href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$.html"><span title="gt4s: AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel" class="name">AWS::RDS::DBInstance::LicenseModel</span></a><span class="result"> extends <span class="extype" name="spray.json.DefaultJsonProtocol">DefaultJsonProtocol</span></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource">resource</a></dd></dl></div>
     </li><li class="current-entities indented7">
                         <span class="separator"></span>
                         <a class="object" href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$BigDecimalJsonFormat$.html" title=""></a>
-                        <a href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$BigDecimalJsonFormat$.html" title="">
-                          BigDecimalJsonFormat
-                        </a>
+                        <a href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$BigDecimalJsonFormat$.html" title="">BigDecimalJsonFormat</a>
                       </li><li class="current-entities indented7">
                         <span class="separator"></span>
                         <a class="object" href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$BigIntJsonFormat$.html" title=""></a>
-                        <a href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$BigIntJsonFormat$.html" title="">
-                          BigIntJsonFormat
-                        </a>
+                        <a href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$BigIntJsonFormat$.html" title="">BigIntJsonFormat</a>
                       </li><li class="current-entities indented7">
                         <span class="separator"></span>
                         <a class="object" href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$BooleanJsonFormat$.html" title=""></a>
-                        <a href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$BooleanJsonFormat$.html" title="">
-                          BooleanJsonFormat
-                        </a>
+                        <a href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$BooleanJsonFormat$.html" title="">BooleanJsonFormat</a>
                       </li><li class="current-entities indented7">
                         <span class="separator"></span>
                         <a class="object" href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$ByteJsonFormat$.html" title=""></a>
-                        <a href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$ByteJsonFormat$.html" title="">
-                          ByteJsonFormat
-                        </a>
+                        <a href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$ByteJsonFormat$.html" title="">ByteJsonFormat</a>
                       </li><li class="current-entities indented7">
                         <span class="separator"></span>
                         <a class="object" href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$CharJsonFormat$.html" title=""></a>
-                        <a href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$CharJsonFormat$.html" title="">
-                          CharJsonFormat
-                        </a>
+                        <a href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$CharJsonFormat$.html" title="">CharJsonFormat</a>
                       </li><li class="current-entities indented7">
                         <span class="separator"></span>
                         <a class="object" href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$DoubleJsonFormat$.html" title=""></a>
-                        <a href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$DoubleJsonFormat$.html" title="">
-                          DoubleJsonFormat
-                        </a>
+                        <a href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$DoubleJsonFormat$.html" title="">DoubleJsonFormat</a>
                       </li><li class="current-entities indented7">
                         <span class="separator"></span>
                         <a class="object" href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$FloatJsonFormat$.html" title=""></a>
-                        <a href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$FloatJsonFormat$.html" title="">
-                          FloatJsonFormat
-                        </a>
+                        <a href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$FloatJsonFormat$.html" title="">FloatJsonFormat</a>
                       </li><li class="current-entities indented7">
                         <span class="separator"></span>
                         <a class="object" href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$IntJsonFormat$.html" title=""></a>
-                        <a href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$IntJsonFormat$.html" title="">
-                          IntJsonFormat
-                        </a>
+                        <a href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$IntJsonFormat$.html" title="">IntJsonFormat</a>
                       </li><li class="current-entities indented7">
                         <span class="separator"></span>
                         <a class="object" href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$JsValueFormat$.html" title=""></a>
-                        <a href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$JsValueFormat$.html" title="">
-                          JsValueFormat
-                        </a>
+                        <a href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$JsValueFormat$.html" title="">JsValueFormat</a>
                       </li><li class="current-entities indented7">
                         <span class="separator"></span>
                         <a class="object" href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$LongJsonFormat$.html" title=""></a>
-                        <a href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$LongJsonFormat$.html" title="">
-                          LongJsonFormat
-                        </a>
+                        <a href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$LongJsonFormat$.html" title="">LongJsonFormat</a>
                       </li><li class="current-entities indented7">
                         <span class="separator"></span>
                         <a class="class" href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$OptionFormat.html" title=""></a>
-                        <a href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$OptionFormat.html" title="">
-                          OptionFormat
-                        </a>
+                        <a href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$OptionFormat.html" title="">OptionFormat</a>
                       </li><li class="current-entities indented7">
                         <span class="separator"></span>
                         <a class="object" href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$RootJsArrayFormat$.html" title=""></a>
-                        <a href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$RootJsArrayFormat$.html" title="">
-                          RootJsArrayFormat
-                        </a>
+                        <a href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$RootJsArrayFormat$.html" title="">RootJsArrayFormat</a>
                       </li><li class="current-entities indented7">
                         <span class="separator"></span>
                         <a class="object" href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$RootJsObjectFormat$.html" title=""></a>
-                        <a href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$RootJsObjectFormat$.html" title="">
-                          RootJsObjectFormat
-                        </a>
+                        <a href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$RootJsObjectFormat$.html" title="">RootJsObjectFormat</a>
                       </li><li class="current-entities indented7">
                         <span class="separator"></span>
                         <a class="object" href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$ShortJsonFormat$.html" title=""></a>
-                        <a href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$ShortJsonFormat$.html" title="">
-                          ShortJsonFormat
-                        </a>
+                        <a href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$ShortJsonFormat$.html" title="">ShortJsonFormat</a>
                       </li><li class="current-entities indented7">
                         <span class="separator"></span>
                         <a class="object" href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$StringJsonFormat$.html" title=""></a>
-                        <a href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$StringJsonFormat$.html" title="">
-                          StringJsonFormat
-                        </a>
+                        <a href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$StringJsonFormat$.html" title="">StringJsonFormat</a>
                       </li><li class="current-entities indented7">
                         <span class="separator"></span>
                         <a class="object" href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$SymbolJsonFormat$.html" title=""></a>
-                        <a href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$SymbolJsonFormat$.html" title="">
-                          SymbolJsonFormat
-                        </a>
+                        <a href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$SymbolJsonFormat$.html" title="">SymbolJsonFormat</a>
                       </li><li class="current-entities indented7">
                         <span class="separator"></span>
                         <a class="object" href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$UnitJsonFormat$.html" title=""></a>
-                        <a href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$UnitJsonFormat$.html" title="">
-                          UnitJsonFormat
-                        </a>
+                        <a href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$UnitJsonFormat$.html" title="">UnitJsonFormat</a>
                       </li><li class="current-entities indented7">
                         <span class="separator"></span>
                         <a class="object" href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$bring$minusyour$minusown$minuslicense$.html" title=""></a>
-                        <a href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$bring$minusyour$minusown$minuslicense$.html" title="">
-                          bring-your-own-license
-                        </a>
+                        <a href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$bring$minusyour$minusown$minuslicense$.html" title="">bring-your-own-license</a>
                       </li><li class="current-entities indented7">
                         <span class="separator"></span>
                         <a class="object" href="" title=""></a>
-                        <a href="" title="">
-                          general-public-license
-                        </a>
+                        <a href="" title="">general-public-license</a>
                       </li><li class="current-entities indented7">
                         <span class="separator"></span>
                         <a class="object" href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$license$minusincluded$.html" title=""></a>
-                        <a href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$license$minusincluded$.html" title="">
-                          license-included
-                        </a>
+                        <a href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonLicenseModel$$license$minusincluded$.html" title="">license-included</a>
                       </li>
               </ul>
             </div>
@@ -594,7 +542,9 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="name">clone</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../../../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@native</span><span class="args">()</span>
+              
                 <span class="name">@throws</span><span class="args">(<span>
       
       <span class="defval" name="classOf[java.lang.CloneNotSupportedException]">...</span>
@@ -648,7 +598,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="name">finalize</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../../../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
                 <span class="name">@throws</span><span class="args">(<span>
       
       <span class="symbol">classOf[java.lang.Throwable]</span>
@@ -670,7 +620,10 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="name">getClass</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.Class">Class</span>[_]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd><dt>Annotations</dt><dd>
+                <span class="name">@native</span><span class="args">()</span>
+              
+        </dd></dl></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <span class="permalink">
@@ -718,7 +671,10 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="name">notify</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@native</span><span class="args">()</span>
+              
+        </dd></dl></div>
     </li><li name="scala.AnyRef#notifyAll" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="notifyAll():Unit"></a>
       <span class="permalink">
@@ -734,7 +690,10 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@native</span><span class="args">()</span>
+              
+        </dd></dl></div>
     </li><li name="scala.AnyRef#synchronized" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a><a id="synchronized[T0](⇒T0):T0"></a>
       <span class="permalink">
@@ -811,6 +770,8 @@ Parameters and Mappings.  A Condition is created but not used.
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@native</span><span class="args">()</span>
+              
                 <span class="name">@throws</span><span class="args">(<span>
       
       <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>

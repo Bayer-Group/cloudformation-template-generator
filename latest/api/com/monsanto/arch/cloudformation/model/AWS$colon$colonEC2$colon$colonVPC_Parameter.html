@@ -65,9 +65,7 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../../../../../index.html">
-              <span class="name">root</span>
-            </a>
+        <a title="" href="../../../../../index.html"><span class="name">root</span></a>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
@@ -83,9 +81,7 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../../../../index.html">
-              <span class="name">com</span>
-            </a>
+        <a title="" href="../../../../index.html"><span class="name">com</span></a>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
@@ -101,9 +97,7 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../../../index.html">
-              <span class="name">monsanto</span>
-            </a>
+        <a title="" href="../../../index.html"><span class="name">monsanto</span></a>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../../index.html" class="extype" name="com">com</a></dd></dl></div>
@@ -119,9 +113,7 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../../index.html">
-              <span class="name">arch</span>
-            </a>
+        <a title="" href="../../index.html"><span class="name">arch</span></a>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../index.html" class="extype" name="com.monsanto">monsanto</a></dd></dl></div>
@@ -137,9 +129,7 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../index.html">
-              <span class="name">cloudformation</span>
-            </a>
+        <a title="" href="../index.html"><span class="name">cloudformation</span></a>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../index.html" class="extype" name="com.monsanto.arch">arch</a></dd></dl></div>
@@ -155,9 +145,7 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="A DSL to create consistent, type-safe AWS CloudFormation templates." href="index.html">
-              <span class="name">model</span>
-            </a>
+        <a title="A DSL to create consistent, type-safe AWS CloudFormation templates." href="index.html"><span class="name">model</span></a>
       </span>
       
       <p class="shortcomment cmt">A DSL to create consistent, type-safe AWS CloudFormation templates.</p><div class="fullcomment"><div class="comment cmt"><p>A DSL to create consistent, type-safe AWS CloudFormation templates.</p><p>The low-level DSL closely adheres to the objects and parameters in the
@@ -207,10 +195,13 @@ our <a href="http://engineering.monsanto.com/2015/07/10/cloudformation-template-
   <span class="kw">val</span> amazonLinuxAMIMapping = Mapping[AMIId](
     <span class="lit">"AmazonLinuxAMI"</span>,
     <span class="std">Map</span>(
-      <span class="lit">"us-east-1"</span> -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-1ecae776"</span>)),
-      <span class="lit">"us-west-1"</span> -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-d114f295"</span>)),
-      <span class="lit">"us-west-2"</span> -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-e7527ed7"</span>)),
-      <span class="lit">"eu-west-1"</span> -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-a10897d6"</span>))
+      <span class="lit">"us-east-1"</span>      -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-1ecae776"</span>)),
+      <span class="lit">"us-west-1"</span>      -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-d114f295"</span>)),
+      <span class="lit">"us-west-2"</span>      -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-e7527ed7"</span>)),
+      <span class="lit">"eu-west-1"</span>      -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-a10897d6"</span>)),
+      <span class="lit">"ap-southeast-1"</span> -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-68d8e93a"</span>)),
+      <span class="lit">"ap-southeast-2"</span> -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-fd9cecc7"</span>)),
+      <span class="lit">"ap-northeast-1"</span> -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-cbf90ecb"</span>))
     )
   )
   <span class="kw">val</span> simpleMappings = <span class="std">Seq</span>(amazonLinuxAMIMapping)
@@ -222,10 +213,11 @@ our <a href="http://engineering.monsanto.com/2015/07/10/cloudformation-template-
       visibility = <span class="lit">"Public"</span>,
       routeTableOrdinal = <span class="num">1</span>,
       routeOrdinal = <span class="num">1</span>,
-      gateway = <span class="std">Some</span>(ResourceRef(internetGatewayResource))
+      connectionBobber = InternetGatewayRoute(ResourceRef(internetGatewayResource))
     )
     <span class="kw">val</span> gatewayStuff = Template.fromResource(internetGatewayResource) ++
       gatewayToInternetResource ++
+      publicRouteTable ++
       publicRouteTableRoute
     <span class="kw">val</span> withinAZ = withAZ(<span class="lit">"us-east-1a"</span>) { <span class="kw">implicit</span> az <span class="kw">=&gt;</span>
       withSubnet(<span class="lit">"PubSubnet1"</span>, CidrBlock(<span class="num">10</span>, <span class="num">0</span>, <span class="num">0</span>, <span class="num">1</span>, <span class="num">24</span>)) { <span class="kw">implicit</span> pubSubnet <span class="kw">=&gt;</span>
@@ -258,12 +250,12 @@ our <a href="http://engineering.monsanto.com/2015/07/10/cloudformation-template-
   }
   <span class="kw">val</span> simpleTemplate = simpleResourceAndOutputs ++
     Template(
-      AWSTemplateFormatVersion = <span class="lit">"2010-09-09"</span>,
-      Description = <span class="lit">"Simple template"</span>,
+      AWSTemplateFormatVersion = <span class="std">Some</span>(<span class="lit">"2010-09-09"</span>),
+      Description = <span class="std">Some</span>(<span class="lit">"Simple template"</span>),
       Parameters = <span class="std">Some</span>(simpleParameters),
       Conditions = <span class="std">Some</span>(simpleConditions),
       Mappings = <span class="std">Some</span>(simpleMappings),
-      Resources = <span class="std">None</span>,
+      Resources = <span class="std">Seq</span>.empty,
       Outputs = <span class="std">None</span>
     )
   writeStaxModule(<span class="lit">"vpc-simple.json"</span>, simpleTemplate)
@@ -286,9 +278,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="resource/index.html">
-              <span class="name">resource</span>
-            </a>
+        <a title="" href="resource/index.html"><span class="name">resource</span></a>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="com.monsanto.arch.cloudformation.model">model</a></dd></dl></div>
@@ -304,412 +294,278 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="simple/index.html">
-              <span class="name">simple</span>
-            </a>
+        <a title="" href="simple/index.html"><span class="name">simple</span></a>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="com.monsanto.arch.cloudformation.model">model</a></dd></dl></div>
     </li><li class="current-entities indented5">
                         <a class="object" href="AMIIdParameter$.html" title=""></a>
                         <a class="class" href="AMIIdParameter.html" title=""></a>
-                        <a href="AMIIdParameter.html" title="">
-                          AMIIdParameter
-                        </a>
+                        <a href="AMIIdParameter.html" title="">AMIIdParameter</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
                         <a class="object" href="AWS$colon$colonAccountId$.html" title=""></a>
-                        <a href="AWS$colon$colonAccountId$.html" title="">
-                          AWS::AccountId
-                        </a>
+                        <a href="AWS$colon$colonAccountId$.html" title="">AWS::AccountId</a>
                       </li><li class="current-entities indented5">
                         <a class="object" href="AWS$colon$colonEC2$colon$colonKeyPair$colon$colonKeyName_Parameter$.html" title=""></a>
                         <a class="class" href="AWS$colon$colonEC2$colon$colonKeyPair$colon$colonKeyName_Parameter.html" title=""></a>
-                        <a href="AWS$colon$colonEC2$colon$colonKeyPair$colon$colonKeyName_Parameter.html" title="">
-                          AWS::EC2::KeyPair::KeyName_Parameter
-                        </a>
+                        <a href="AWS$colon$colonEC2$colon$colonKeyPair$colon$colonKeyName_Parameter.html" title="">AWS::EC2::KeyPair::KeyName_Parameter</a>
                       </li><li class="current-entities indented5">
                         <a class="object" href="AWS$colon$colonEC2$colon$colonSecurityGroup_Parameter$.html" title=""></a>
                         <a class="class" href="AWS$colon$colonEC2$colon$colonSecurityGroup_Parameter.html" title=""></a>
-                        <a href="AWS$colon$colonEC2$colon$colonSecurityGroup_Parameter.html" title="">
-                          AWS::EC2::SecurityGroup_Parameter
-                        </a>
+                        <a href="AWS$colon$colonEC2$colon$colonSecurityGroup_Parameter.html" title="">AWS::EC2::SecurityGroup_Parameter</a>
                       </li><li class="current-entities indented5">
                         <a class="object" href="AWS$colon$colonEC2$colon$colonSubnet_Parameter_List$.html" title=""></a>
                         <a class="class" href="AWS$colon$colonEC2$colon$colonSubnet_Parameter_List.html" title=""></a>
-                        <a href="AWS$colon$colonEC2$colon$colonSubnet_Parameter_List.html" title="">
-                          AWS::EC2::Subnet_Parameter_List
-                        </a>
+                        <a href="AWS$colon$colonEC2$colon$colonSubnet_Parameter_List.html" title="">AWS::EC2::Subnet_Parameter_List</a>
                       </li><li class="current-entities indented5">
                         <a class="object" href="AWS$colon$colonEC2$colon$colonVPC_Parameter$.html" title=""></a>
                         <a class="class" href="" title=""></a>
-                        <a href="" title="">
-                          AWS::EC2::VPC_Parameter
-                        </a>
+                        <a href="" title="">AWS::EC2::VPC_Parameter</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
                         <a class="object" href="AWS$colon$colonNoValue$.html" title=""></a>
-                        <a href="AWS$colon$colonNoValue$.html" title="">
-                          AWS::NoValue
-                        </a>
+                        <a href="AWS$colon$colonNoValue$.html" title="">AWS::NoValue</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
                         <a class="object" href="AWS$colon$colonNotificationARNs$.html" title=""></a>
-                        <a href="AWS$colon$colonNotificationARNs$.html" title="">
-                          AWS::NotificationARNs
-                        </a>
+                        <a href="AWS$colon$colonNotificationARNs$.html" title="">AWS::NotificationARNs</a>
                       </li><li class="current-entities indented5">
                         <a class="object" href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonEngine_Parameter$.html" title=""></a>
                         <a class="class" href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonEngine_Parameter.html" title=""></a>
-                        <a href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonEngine_Parameter.html" title="">
-                          AWS::RDS::DBInstance::Engine_Parameter
-                        </a>
+                        <a href="AWS$colon$colonRDS$colon$colonDBInstance$colon$colonEngine_Parameter.html" title="">AWS::RDS::DBInstance::Engine_Parameter</a>
                       </li><li class="current-entities indented5">
                         <a class="object" href="AWS$colon$colonRDS$colon$colonDBSubnetGroup_Parameter$.html" title=""></a>
                         <a class="class" href="AWS$colon$colonRDS$colon$colonDBSubnetGroup_Parameter.html" title=""></a>
-                        <a href="AWS$colon$colonRDS$colon$colonDBSubnetGroup_Parameter.html" title="">
-                          AWS::RDS::DBSubnetGroup_Parameter
-                        </a>
+                        <a href="AWS$colon$colonRDS$colon$colonDBSubnetGroup_Parameter.html" title="">AWS::RDS::DBSubnetGroup_Parameter</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
                         <a class="object" href="AWS$colon$colonRegion$.html" title=""></a>
-                        <a href="AWS$colon$colonRegion$.html" title="">
-                          AWS::Region
-                        </a>
+                        <a href="AWS$colon$colonRegion$.html" title="">AWS::Region</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
                         <a class="object" href="AWS$colon$colonStackId$.html" title=""></a>
-                        <a href="AWS$colon$colonStackId$.html" title="">
-                          AWS::StackId
-                        </a>
+                        <a href="AWS$colon$colonStackId$.html" title="">AWS::StackId</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
                         <a class="object" href="AWS$colon$colonStackName$.html" title=""></a>
-                        <a href="AWS$colon$colonStackName$.html" title="">
-                          AWS::StackName
-                        </a>
+                        <a href="AWS$colon$colonStackName$.html" title="">AWS::StackName</a>
                       </li><li class="current-entities indented5">
                         <a class="object" href="AmazonFunctionCall$.html" title=""></a>
-                        <a class="class" href="AmazonFunctionCall.html" title="Created by Ryan Richt on 2/15/15
-"></a>
-                        <a href="AmazonFunctionCall.html" title="Created by Ryan Richt on 2/15/15
-">
-                          AmazonFunctionCall
-                        </a>
+                        <a class="class" href="AmazonFunctionCall.html" title="Created by Ryan Richt on 2/15/15"></a>
+                        <a href="AmazonFunctionCall.html" title="Created by Ryan Richt on 2/15/15">AmazonFunctionCall</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
                         <a class="class" href="AnyToken.html" title=""></a>
-                        <a href="AnyToken.html" title="">
-                          AnyToken
-                        </a>
+                        <a href="AnyToken.html" title="">AnyToken</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
                         <a class="object" href="AwsStringInterpolation$.html" title="Created by Tyler Southwick on 11/20/15."></a>
-                        <a href="AwsStringInterpolation$.html" title="Created by Tyler Southwick on 11/20/15.">
-                          AwsStringInterpolation
-                        </a>
+                        <a href="AwsStringInterpolation$.html" title="Created by Tyler Southwick on 11/20/15.">AwsStringInterpolation</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
                         <a class="class" href="package$$AwsStringInterpolator.html" title="Provides a string interpolator to assist in the concatenation of"></a>
-                        <a href="package$$AwsStringInterpolator.html" title="Provides a string interpolator to assist in the concatenation of">
-                          AwsStringInterpolator
-                        </a>
+                        <a href="package$$AwsStringInterpolator.html" title="Provides a string interpolator to assist in the concatenation of">AwsStringInterpolator</a>
                       </li><li class="current-entities indented5">
                         <a class="object" href="BooleanParameter$.html" title=""></a>
                         <a class="class" href="BooleanParameter.html" title=""></a>
-                        <a href="BooleanParameter.html" title="">
-                          BooleanParameter
-                        </a>
+                        <a href="BooleanParameter.html" title="">BooleanParameter</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
                         <a class="class" href="BooleanToken.html" title=""></a>
-                        <a href="BooleanToken.html" title="">
-                          BooleanToken
-                        </a>
+                        <a href="BooleanToken.html" title="">BooleanToken</a>
                       </li><li class="current-entities indented5">
                         <a class="object" href="CidrBlockListParameter$.html" title=""></a>
                         <a class="class" href="CidrBlockListParameter.html" title=""></a>
-                        <a href="CidrBlockListParameter.html" title="">
-                          CidrBlockListParameter
-                        </a>
+                        <a href="CidrBlockListParameter.html" title="">CidrBlockListParameter</a>
                       </li><li class="current-entities indented5">
                         <a class="object" href="CidrBlockParameter$.html" title=""></a>
                         <a class="class" href="CidrBlockParameter.html" title=""></a>
-                        <a href="CidrBlockParameter.html" title="">
-                          CidrBlockParameter
-                        </a>
+                        <a href="CidrBlockParameter.html" title="">CidrBlockParameter</a>
                       </li><li class="current-entities indented5">
                         <a class="object" href="Condition$.html" title=""></a>
                         <a class="class" href="Condition.html" title="Created by bkrodg on 2/16/15."></a>
-                        <a href="Condition.html" title="Created by bkrodg on 2/16/15.">
-                          Condition
-                        </a>
+                        <a href="Condition.html" title="Created by bkrodg on 2/16/15.">Condition</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
                         <a class="class" href="ConditionFnRef.html" title=""></a>
-                        <a href="ConditionFnRef.html" title="">
-                          ConditionFnRef
-                        </a>
+                        <a href="ConditionFnRef.html" title="">ConditionFnRef</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
                         <a class="trait" href="ConditionFunctionNestable.html" title=""></a>
-                        <a href="ConditionFunctionNestable.html" title="">
-                          ConditionFunctionNestable
-                        </a>
+                        <a href="ConditionFunctionNestable.html" title="">ConditionFunctionNestable</a>
                       </li><li class="current-entities indented5">
                         <a class="object" href="ConditionRef$.html" title=""></a>
                         <a class="class" href="ConditionRef.html" title=""></a>
-                        <a href="ConditionRef.html" title="">
-                          ConditionRef
-                        </a>
+                        <a href="ConditionRef.html" title="">ConditionRef</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
                         <a class="class" href="EnumFormat.html" title=""></a>
-                        <a href="EnumFormat.html" title="">
-                          EnumFormat
-                        </a>
+                        <a href="EnumFormat.html" title="">EnumFormat</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
                         <a class="class" href="Fn$colon$colonAnd.html" title=""></a>
-                        <a href="Fn$colon$colonAnd.html" title="">
-                          Fn::And
-                        </a>
+                        <a href="Fn$colon$colonAnd.html" title="">Fn::And</a>
                       </li><li class="current-entities indented5">
                         <a class="object" href="Fn$colon$colonBase64$.html" title=""></a>
                         <a class="class" href="Fn$colon$colonBase64.html" title=""></a>
-                        <a href="Fn$colon$colonBase64.html" title="">
-                          Fn::Base64
-                        </a>
+                        <a href="Fn$colon$colonBase64.html" title="">Fn::Base64</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
                         <a class="class" href="Fn$colon$colonEquals.html" title=""></a>
-                        <a href="Fn$colon$colonEquals.html" title="">
-                          Fn::Equals
-                        </a>
+                        <a href="Fn$colon$colonEquals.html" title="">Fn::Equals</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
                         <a class="class" href="Fn$colon$colonFindInMap.html" title=""></a>
-                        <a href="Fn$colon$colonFindInMap.html" title="">
-                          Fn::FindInMap
-                        </a>
+                        <a href="Fn$colon$colonFindInMap.html" title="">Fn::FindInMap</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
                         <a class="class" href="Fn$colon$colonGetAZs.html" title=""></a>
-                        <a href="Fn$colon$colonGetAZs.html" title="">
-                          Fn::GetAZs
-                        </a>
+                        <a href="Fn$colon$colonGetAZs.html" title="">Fn::GetAZs</a>
+                      </li><li class="current-entities indented5">
+                        <span class="separator"></span>
+                        <a class="class" href="Fn$colon$colonGetArtifactAtt.html" title=""></a>
+                        <a href="Fn$colon$colonGetArtifactAtt.html" title="">Fn::GetArtifactAtt</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
                         <a class="class" href="Fn$colon$colonGetAtt.html" title=""></a>
-                        <a href="Fn$colon$colonGetAtt.html" title="">
-                          Fn::GetAtt
-                        </a>
+                        <a href="Fn$colon$colonGetAtt.html" title="">Fn::GetAtt</a>
+                      </li><li class="current-entities indented5">
+                        <span class="separator"></span>
+                        <a class="class" href="Fn$colon$colonGetParam.html" title=""></a>
+                        <a href="Fn$colon$colonGetParam.html" title="">Fn::GetParam</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
                         <a class="class" href="Fn$colon$colonIf.html" title=""></a>
-                        <a href="Fn$colon$colonIf.html" title="">
-                          Fn::If
-                        </a>
+                        <a href="Fn$colon$colonIf.html" title="">Fn::If</a>
                       </li><li class="current-entities indented5">
-                        <span class="separator"></span>
+                        <a class="object" href="Fn$colon$colonImportValue$.html" title=""></a>
                         <a class="class" href="Fn$colon$colonImportValue.html" title=""></a>
-                        <a href="Fn$colon$colonImportValue.html" title="">
-                          Fn::ImportValue
-                        </a>
+                        <a href="Fn$colon$colonImportValue.html" title="">Fn::ImportValue</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
                         <a class="class" href="Fn$colon$colonJoin.html" title=""></a>
-                        <a href="Fn$colon$colonJoin.html" title="">
-                          Fn::Join
-                        </a>
+                        <a href="Fn$colon$colonJoin.html" title="">Fn::Join</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
                         <a class="class" href="Fn$colon$colonNot.html" title=""></a>
-                        <a href="Fn$colon$colonNot.html" title="">
-                          Fn::Not
-                        </a>
+                        <a href="Fn$colon$colonNot.html" title="">Fn::Not</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
                         <a class="class" href="Fn$colon$colonOr.html" title=""></a>
-                        <a href="Fn$colon$colonOr.html" title="">
-                          Fn::Or
-                        </a>
+                        <a href="Fn$colon$colonOr.html" title="">Fn::Or</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
                         <a class="class" href="Fn$colon$colonSelect.html" title=""></a>
-                        <a href="Fn$colon$colonSelect.html" title="">
-                          Fn::Select
-                        </a>
+                        <a href="Fn$colon$colonSelect.html" title="">Fn::Select</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
                         <a class="class" href="Fn$colon$colonSplit.html" title=""></a>
-                        <a href="Fn$colon$colonSplit.html" title="">
-                          Fn::Split
-                        </a>
+                        <a href="Fn$colon$colonSplit.html" title="">Fn::Split</a>
                       </li><li class="current-entities indented5">
-                        <span class="separator"></span>
+                        <a class="object" href="Fn$colon$colonSub$.html" title=""></a>
                         <a class="class" href="Fn$colon$colonSub.html" title=""></a>
-                        <a href="Fn$colon$colonSub.html" title="">
-                          Fn::Sub
-                        </a>
+                        <a href="Fn$colon$colonSub.html" title="">Fn::Sub</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
                         <a class="class" href="FunctionCallSeqToken.html" title=""></a>
-                        <a href="FunctionCallSeqToken.html" title="">
-                          FunctionCallSeqToken
-                        </a>
+                        <a href="FunctionCallSeqToken.html" title="">FunctionCallSeqToken</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
                         <a class="class" href="FunctionCallToken.html" title=""></a>
-                        <a href="FunctionCallToken.html" title="">
-                          FunctionCallToken
-                        </a>
+                        <a href="FunctionCallToken.html" title="">FunctionCallToken</a>
                       </li><li class="current-entities indented5">
                         <a class="object" href="HasTemplate$.html" title=""></a>
                         <a class="trait" href="HasTemplate.html" title=""></a>
-                        <a href="HasTemplate.html" title="">
-                          HasTemplate
-                        </a>
+                        <a href="HasTemplate.html" title="">HasTemplate</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
                         <a class="class" href="If.html" title=""></a>
-                        <a href="If.html" title="">
-                          If
-                        </a>
+                        <a href="If.html" title="">If</a>
                       </li><li class="current-entities indented5">
                         <a class="object" href="InputParameter$.html" title=""></a>
                         <a class="class" href="InputParameter.html" title=""></a>
-                        <a href="InputParameter.html" title="">
-                          InputParameter
-                        </a>
+                        <a href="InputParameter.html" title="">InputParameter</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
                         <a class="class" href="IntToken.html" title=""></a>
-                        <a href="IntToken.html" title="">
-                          IntToken
-                        </a>
+                        <a href="IntToken.html" title="">IntToken</a>
+                      </li><li class="current-entities indented5">
+                        <a class="object" href="JsonWritable$.html" title=""></a>
+                        <a class="class" href="JsonWritable.html" title="Wrapper for anything that can be written to Json."></a>
+                        <a href="JsonWritable.html" title="Wrapper for anything that can be written to Json.">JsonWritable</a>
                       </li><li class="current-entities indented5">
                         <a class="object" href="Mapping$.html" title=""></a>
-                        <a class="class" href="Mapping.html" title="Created by Ryan Richt on 2/15/15
-"></a>
-                        <a href="Mapping.html" title="Created by Ryan Richt on 2/15/15
-">
-                          Mapping
-                        </a>
+                        <a class="class" href="Mapping.html" title="Created by Ryan Richt on 2/15/15"></a>
+                        <a href="Mapping.html" title="Created by Ryan Richt on 2/15/15">Mapping</a>
                       </li><li class="current-entities indented5">
                         <a class="object" href="MappingRef$.html" title=""></a>
                         <a class="class" href="MappingRef.html" title=""></a>
-                        <a href="MappingRef.html" title="">
-                          MappingRef
-                        </a>
+                        <a href="MappingRef.html" title="">MappingRef</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
                         <a class="class" href="NestableAmazonFunctionCall.html" title=""></a>
-                        <a href="NestableAmazonFunctionCall.html" title="">
-                          NestableAmazonFunctionCall
-                        </a>
+                        <a href="NestableAmazonFunctionCall.html" title="">NestableAmazonFunctionCall</a>
                       </li><li class="current-entities indented5">
                         <a class="object" href="NumberParameter$.html" title=""></a>
                         <a class="class" href="NumberParameter.html" title=""></a>
-                        <a href="NumberParameter.html" title="">
-                          NumberParameter
-                        </a>
+                        <a href="NumberParameter.html" title="">NumberParameter</a>
                       </li><li class="current-entities indented5">
                         <a class="object" href="Output$.html" title=""></a>
-                        <a class="class" href="Output.html" title="Created by Ryan Richt on 2/15/15
-"></a>
-                        <a href="Output.html" title="Created by Ryan Richt on 2/15/15
-">
-                          Output
-                        </a>
+                        <a class="class" href="Output.html" title="Created by Ryan Richt on 2/15/15"></a>
+                        <a href="Output.html" title="Created by Ryan Richt on 2/15/15">Output</a>
                       </li><li class="current-entities indented5">
                         <a class="object" href="Parameter$.html" title=""></a>
-                        <a class="class" href="Parameter.html" title="Created by Ryan Richt on 2/15/15
-"></a>
-                        <a href="Parameter.html" title="Created by Ryan Richt on 2/15/15
-">
-                          Parameter
-                        </a>
+                        <a class="class" href="Parameter.html" title="Created by Ryan Richt on 2/15/15"></a>
+                        <a href="Parameter.html" title="Created by Ryan Richt on 2/15/15">Parameter</a>
                       </li><li class="current-entities indented5">
                         <a class="object" href="ParameterRef$.html" title=""></a>
                         <a class="class" href="ParameterRef.html" title=""></a>
-                        <a href="ParameterRef.html" title="">
-                          ParameterRef
-                        </a>
+                        <a href="ParameterRef.html" title="">ParameterRef</a>
                       </li><li class="current-entities indented5">
                         <a class="object" href="PseudoParameterRef$.html" title=""></a>
                         <a class="class" href="PseudoParameterRef.html" title=""></a>
-                        <a href="PseudoParameterRef.html" title="">
-                          PseudoParameterRef
-                        </a>
+                        <a href="PseudoParameterRef.html" title="">PseudoParameterRef</a>
                       </li><li class="current-entities indented5">
                         <a class="object" href="ResourceRef$.html" title=""></a>
                         <a class="class" href="ResourceRef.html" title=""></a>
-                        <a href="ResourceRef.html" title="">
-                          ResourceRef
-                        </a>
+                        <a href="ResourceRef.html" title="">ResourceRef</a>
                       </li><li class="current-entities indented5">
                         <a class="object" href="StringBackedInt$.html" title=""></a>
                         <a class="class" href="StringBackedInt.html" title=""></a>
-                        <a href="StringBackedInt.html" title="">
-                          StringBackedInt
-                        </a>
+                        <a href="StringBackedInt.html" title="">StringBackedInt</a>
                       </li><li class="current-entities indented5">
                         <a class="object" href="StringListParameter$.html" title=""></a>
                         <a class="class" href="StringListParameter.html" title=""></a>
-                        <a href="StringListParameter.html" title="">
-                          StringListParameter
-                        </a>
+                        <a href="StringListParameter.html" title="">StringListParameter</a>
                       </li><li class="current-entities indented5">
                         <a class="object" href="StringParameter$.html" title=""></a>
                         <a class="class" href="StringParameter.html" title=""></a>
-                        <a href="StringParameter.html" title="">
-                          StringParameter
-                        </a>
+                        <a href="StringParameter.html" title="">StringParameter</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
                         <a class="class" href="StringToken.html" title=""></a>
-                        <a href="StringToken.html" title="">
-                          StringToken
-                        </a>
+                        <a href="StringToken.html" title="">StringToken</a>
                       </li><li class="current-entities indented5">
                         <a class="object" href="Template$.html" title=""></a>
-                        <a class="class" href="Template.html" title="Template is the container for all the elements of your
-Link(http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html,Text(AWS CloudFormation))
-Link(http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html,Text(template))."></a>
-                        <a href="Template.html" title="Template is the container for all the elements of your
-Link(http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html,Text(AWS CloudFormation))
-Link(http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html,Text(template)).">
-                          Template
-                        </a>
+                        <a class="class" href="Template.html" title="Template is the container for all the elements of your AWS CloudFormation template."></a>
+                        <a href="Template.html" title="Template is the container for all the elements of your AWS CloudFormation template.">Template</a>
                       </li><li class="current-entities indented5">
                         <a class="object" href="TemplateBase$.html" title=""></a>
-                        <a class="trait" href="TemplateBase.html" title="Finds all val/lazy val/def in the class (using reflection) that produce elements of a template
-and builds a template from them."></a>
-                        <a href="TemplateBase.html" title="Finds all val/lazy val/def in the class (using reflection) that produce elements of a template
-and builds a template from them.">
-                          TemplateBase
-                        </a>
+                        <a class="trait" href="TemplateBase.html" title="Finds all val/lazy val/def in the class (using reflection) that produce elements of a template and builds a template from them."></a>
+                        <a href="TemplateBase.html" title="Finds all val/lazy val/def in the class (using reflection) that produce elements of a template and builds a template from them.">TemplateBase</a>
                       </li><li class="current-entities indented5">
                         <a class="object" href="Token$.html" title=""></a>
                         <a class="trait" href="Token.html" title=""></a>
-                        <a href="Token.html" title="">
-                          Token
-                        </a>
+                        <a href="Token.html" title="">Token</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
                         <a class="class" href="UNSAFEToken.html" title=""></a>
-                        <a href="UNSAFEToken.html" title="">
-                          UNSAFEToken
-                        </a>
+                        <a href="UNSAFEToken.html" title="">UNSAFEToken</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="trait" href="VPCWriter.html" title="Created by Ryan Richt on 6/19/15
-"></a>
-                        <a href="VPCWriter.html" title="Created by Ryan Richt on 6/19/15
-">
-                          VPCWriter
-                        </a>
+                        <a class="trait" href="VPCWriter.html" title="Created by Ryan Richt on 6/19/15"></a>
+                        <a href="VPCWriter.html" title="Created by Ryan Richt on 6/19/15">VPCWriter</a>
                       </li>
               </ul>
             </div>
@@ -735,7 +591,7 @@ and builds a template from them.">
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: AWS$colon$colonEC2$colon$colonVPC_Parameter" class="name">AWS::EC2::VPC_Parameter</span><span class="params">(<span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="Description">Description: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="Default">Default: <span class="extype" name="scala.Option">Option</span>[<a href="Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<a href="ResourceRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ResourceRef">ResourceRef</a>[<a href="resource/AWS$colon$colonEC2$colon$colonVPC.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::EC2::VPC">AWS::EC2::VPC</a>]]] = <span class="symbol">None</span></span>, <span name="ConfigDefault">ConfigDefault: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">None</span></span>)</span><span class="result"> extends <a href="Parameter.html" class="extype" name="com.monsanto.arch.cloudformation.model.Parameter">Parameter</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <span title="gt4s: AWS$colon$colonEC2$colon$colonVPC_Parameter" class="name">AWS::EC2::VPC_Parameter</span><span class="params">(<span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="Description">Description: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="Default">Default: <span class="extype" name="scala.Option">Option</span>[<a href="resource/VpcId.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.VpcId">VpcId</a>] = <span class="symbol">None</span></span>, <span name="ConfigDefault">ConfigDefault: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">None</span></span>)</span><span class="result"> extends <a href="Parameter.html" class="extype" name="com.monsanto.arch.cloudformation.model.Parameter">Parameter</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
 
@@ -791,9 +647,9 @@ and builds a template from them.">
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
               <ol><li name="com.monsanto.arch.cloudformation.model.AWS::EC2::VPC_Parameter#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="&lt;init&gt;(name:String,Description:Option[String],Default:Option[com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::EC2::VPC]]],ConfigDefault:Option[String]):com.monsanto.arch.cloudformation.model.AWS::EC2::VPC_Parameter"></a><a id="&lt;init&gt;:AWS::EC2::VPC_Parameter"></a>
+      <a id="&lt;init&gt;(name:String,Description:Option[String],Default:Option[com.monsanto.arch.cloudformation.model.resource.VpcId],ConfigDefault:Option[String]):com.monsanto.arch.cloudformation.model.AWS::EC2::VPC_Parameter"></a><a id="&lt;init&gt;:AWS::EC2::VPC_Parameter"></a>
       <span class="permalink">
-      <a href="../../../../../com/monsanto/arch/cloudformation/model/AWS$colon$colonEC2$colon$colonVPC_Parameter.html#&lt;init&gt;(name:String,Description:Option[String],Default:Option[com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::EC2::VPC]]],ConfigDefault:Option[String]):com.monsanto.arch.cloudformation.model.AWS::EC2::VPC_Parameter" title="Permalink">
+      <a href="../../../../../com/monsanto/arch/cloudformation/model/AWS$colon$colonEC2$colon$colonVPC_Parameter.html#&lt;init&gt;(name:String,Description:Option[String],Default:Option[com.monsanto.arch.cloudformation.model.resource.VpcId],ConfigDefault:Option[String]):com.monsanto.arch.cloudformation.model.AWS::EC2::VPC_Parameter" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -802,7 +658,7 @@ and builds a template from them.">
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: AWS$colon$colonEC2$colon$colonVPC_Parameter" class="name">AWS::EC2::VPC_Parameter</span><span class="params">(<span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="Description">Description: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="Default">Default: <span class="extype" name="scala.Option">Option</span>[<a href="Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<a href="ResourceRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ResourceRef">ResourceRef</a>[<a href="resource/AWS$colon$colonEC2$colon$colonVPC.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::EC2::VPC">AWS::EC2::VPC</a>]]] = <span class="symbol">None</span></span>, <span name="ConfigDefault">ConfigDefault: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">None</span></span>)</span>
+        <span title="gt4s: AWS$colon$colonEC2$colon$colonVPC_Parameter" class="name">AWS::EC2::VPC_Parameter</span><span class="params">(<span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="Description">Description: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="Default">Default: <span class="extype" name="scala.Option">Option</span>[<a href="resource/VpcId.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.VpcId">VpcId</a>] = <span class="symbol">None</span></span>, <span name="ConfigDefault">ConfigDefault: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">None</span></span>)</span>
       </span>
       
       
@@ -900,9 +756,9 @@ and builds a template from them.">
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="com.monsanto.arch.cloudformation.model.AWS::EC2::VPC_Parameter">AWS::EC2::VPC_Parameter</a> → <a href="Parameter.html" class="extype" name="com.monsanto.arch.cloudformation.model.Parameter">Parameter</a></dd></dl></div>
     </li><li name="com.monsanto.arch.cloudformation.model.AWS::EC2::VPC_Parameter#Default" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="Default:Option[com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::EC2::VPC]]]"></a><a id="Default:Option[Token[ResourceRef[AWS::EC2::VPC]]]"></a>
+      <a id="Default:Option[com.monsanto.arch.cloudformation.model.resource.VpcId]"></a><a id="Default:Option[VpcId]"></a>
       <span class="permalink">
-      <a href="../../../../../com/monsanto/arch/cloudformation/model/AWS$colon$colonEC2$colon$colonVPC_Parameter.html#Default:Option[com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::EC2::VPC]]]" title="Permalink">
+      <a href="../../../../../com/monsanto/arch/cloudformation/model/AWS$colon$colonEC2$colon$colonVPC_Parameter.html#Default:Option[com.monsanto.arch.cloudformation.model.resource.VpcId]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -911,7 +767,7 @@ and builds a template from them.">
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">Default</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<a href="Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<a href="ResourceRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ResourceRef">ResourceRef</a>[<a href="resource/AWS$colon$colonEC2$colon$colonVPC.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::EC2::VPC">AWS::EC2::VPC</a>]]]</span>
+        <span class="name">Default</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<a href="resource/VpcId.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.VpcId">VpcId</a>]</span>
       </span>
       
       
@@ -978,7 +834,9 @@ and builds a template from them.">
         <span class="name">clone</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@native</span><span class="args">()</span>
+              
                 <span class="name">@throws</span><span class="args">(<span>
       
       <span class="defval" name="classOf[java.lang.CloneNotSupportedException]">...</span>
@@ -1016,7 +874,7 @@ and builds a template from them.">
         <span class="name">finalize</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
                 <span class="name">@throws</span><span class="args">(<span>
       
       <span class="symbol">classOf[java.lang.Throwable]</span>
@@ -1038,7 +896,10 @@ and builds a template from them.">
         <span class="name">getClass</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.Class">Class</span>[_]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd><dt>Annotations</dt><dd>
+                <span class="name">@native</span><span class="args">()</span>
+              
+        </dd></dl></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <span class="permalink">
@@ -1102,7 +963,10 @@ and builds a template from them.">
         <span class="name">notify</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@native</span><span class="args">()</span>
+              
+        </dd></dl></div>
     </li><li name="scala.AnyRef#notifyAll" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="notifyAll():Unit"></a>
       <span class="permalink">
@@ -1118,7 +982,10 @@ and builds a template from them.">
         <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@native</span><span class="args">()</span>
+              
+        </dd></dl></div>
     </li><li name="scala.AnyRef#synchronized" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a><a id="synchronized[T0](⇒T0):T0"></a>
       <span class="permalink">
@@ -1195,6 +1062,8 @@ and builds a template from them.">
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@native</span><span class="args">()</span>
+              
                 <span class="name">@throws</span><span class="args">(<span>
       
       <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>

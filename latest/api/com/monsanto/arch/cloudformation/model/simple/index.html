@@ -65,9 +65,7 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../../../../../../index.html">
-              <span class="name">root</span>
-            </a>
+        <a title="" href="../../../../../../index.html"><span class="name">root</span></a>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
@@ -83,9 +81,7 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../../../../../index.html">
-              <span class="name">com</span>
-            </a>
+        <a title="" href="../../../../../index.html"><span class="name">com</span></a>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
@@ -101,9 +97,7 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../../../../index.html">
-              <span class="name">monsanto</span>
-            </a>
+        <a title="" href="../../../../index.html"><span class="name">monsanto</span></a>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../../../index.html" class="extype" name="com">com</a></dd></dl></div>
@@ -119,9 +113,7 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../../../index.html">
-              <span class="name">arch</span>
-            </a>
+        <a title="" href="../../../index.html"><span class="name">arch</span></a>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../../index.html" class="extype" name="com.monsanto">monsanto</a></dd></dl></div>
@@ -137,9 +129,7 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../../index.html">
-              <span class="name">cloudformation</span>
-            </a>
+        <a title="" href="../../index.html"><span class="name">cloudformation</span></a>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../index.html" class="extype" name="com.monsanto.arch">arch</a></dd></dl></div>
@@ -155,9 +145,7 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="A DSL to create consistent, type-safe AWS CloudFormation templates." href="../index.html">
-              <span class="name">model</span>
-            </a>
+        <a title="A DSL to create consistent, type-safe AWS CloudFormation templates." href="../index.html"><span class="name">model</span></a>
       </span>
       
       <p class="shortcomment cmt">A DSL to create consistent, type-safe AWS CloudFormation templates.</p><div class="fullcomment"><div class="comment cmt"><p>A DSL to create consistent, type-safe AWS CloudFormation templates.</p><p>The low-level DSL closely adheres to the objects and parameters in the
@@ -207,10 +195,13 @@ our <a href="http://engineering.monsanto.com/2015/07/10/cloudformation-template-
   <span class="kw">val</span> amazonLinuxAMIMapping = Mapping[AMIId](
     <span class="lit">"AmazonLinuxAMI"</span>,
     <span class="std">Map</span>(
-      <span class="lit">"us-east-1"</span> -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-1ecae776"</span>)),
-      <span class="lit">"us-west-1"</span> -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-d114f295"</span>)),
-      <span class="lit">"us-west-2"</span> -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-e7527ed7"</span>)),
-      <span class="lit">"eu-west-1"</span> -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-a10897d6"</span>))
+      <span class="lit">"us-east-1"</span>      -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-1ecae776"</span>)),
+      <span class="lit">"us-west-1"</span>      -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-d114f295"</span>)),
+      <span class="lit">"us-west-2"</span>      -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-e7527ed7"</span>)),
+      <span class="lit">"eu-west-1"</span>      -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-a10897d6"</span>)),
+      <span class="lit">"ap-southeast-1"</span> -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-68d8e93a"</span>)),
+      <span class="lit">"ap-southeast-2"</span> -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-fd9cecc7"</span>)),
+      <span class="lit">"ap-northeast-1"</span> -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-cbf90ecb"</span>))
     )
   )
   <span class="kw">val</span> simpleMappings = <span class="std">Seq</span>(amazonLinuxAMIMapping)
@@ -222,10 +213,11 @@ our <a href="http://engineering.monsanto.com/2015/07/10/cloudformation-template-
       visibility = <span class="lit">"Public"</span>,
       routeTableOrdinal = <span class="num">1</span>,
       routeOrdinal = <span class="num">1</span>,
-      gateway = <span class="std">Some</span>(ResourceRef(internetGatewayResource))
+      connectionBobber = InternetGatewayRoute(ResourceRef(internetGatewayResource))
     )
     <span class="kw">val</span> gatewayStuff = Template.fromResource(internetGatewayResource) ++
       gatewayToInternetResource ++
+      publicRouteTable ++
       publicRouteTableRoute
     <span class="kw">val</span> withinAZ = withAZ(<span class="lit">"us-east-1a"</span>) { <span class="kw">implicit</span> az <span class="kw">=&gt;</span>
       withSubnet(<span class="lit">"PubSubnet1"</span>, CidrBlock(<span class="num">10</span>, <span class="num">0</span>, <span class="num">0</span>, <span class="num">1</span>, <span class="num">24</span>)) { <span class="kw">implicit</span> pubSubnet <span class="kw">=&gt;</span>
@@ -258,12 +250,12 @@ our <a href="http://engineering.monsanto.com/2015/07/10/cloudformation-template-
   }
   <span class="kw">val</span> simpleTemplate = simpleResourceAndOutputs ++
     Template(
-      AWSTemplateFormatVersion = <span class="lit">"2010-09-09"</span>,
-      Description = <span class="lit">"Simple template"</span>,
+      AWSTemplateFormatVersion = <span class="std">Some</span>(<span class="lit">"2010-09-09"</span>),
+      Description = <span class="std">Some</span>(<span class="lit">"Simple template"</span>),
       Parameters = <span class="std">Some</span>(simpleParameters),
       Conditions = <span class="std">Some</span>(simpleConditions),
       Mappings = <span class="std">Some</span>(simpleMappings),
-      Resources = <span class="std">None</span>,
+      Resources = <span class="std">Seq</span>.empty,
       Outputs = <span class="std">None</span>
     )
   writeStaxModule(<span class="lit">"vpc-simple.json"</span>, simpleTemplate)
@@ -286,9 +278,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../resource/index.html">
-              <span class="name">resource</span>
-            </a>
+        <a title="" href="../resource/index.html"><span class="name">resource</span></a>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="com.monsanto.arch.cloudformation.model">model</a></dd></dl></div>
@@ -311,105 +301,71 @@ Parameters and Mappings.  A Condition is created but not used.
     </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="Autoscaling.html" title=""></a>
-                        <a href="Autoscaling.html" title="">
-                          Autoscaling
-                        </a>
+                        <a href="Autoscaling.html" title="">Autoscaling</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="AvailabilityZone.html" title=""></a>
-                        <a href="AvailabilityZone.html" title="">
-                          AvailabilityZone
-                        </a>
+                        <a href="AvailabilityZone.html" title="">AvailabilityZone</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="object" href="Builders$.html" title=""></a>
-                        <a href="Builders$.html" title="">
-                          Builders
-                        </a>
+                        <a href="Builders$.html" title="">Builders</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="Conditions.html" title=""></a>
-                        <a href="Conditions.html" title="">
-                          Conditions
-                        </a>
+                        <a href="Conditions.html" title="">Conditions</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="EC2.html" title=""></a>
-                        <a href="EC2.html" title="">
-                          EC2
-                        </a>
+                        <a href="EC2.html" title="">EC2</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="ElasticLoadBalancing.html" title=""></a>
-                        <a href="ElasticLoadBalancing.html" title="">
-                          ElasticLoadBalancing
-                        </a>
+                        <a href="ElasticLoadBalancing.html" title="">ElasticLoadBalancing</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="Gateway.html" title=""></a>
-                        <a href="Gateway.html" title="">
-                          Gateway
-                        </a>
+                        <a href="Gateway.html" title="">Gateway</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="Instance.html" title=""></a>
-                        <a href="Instance.html" title="">
-                          Instance
-                        </a>
+                        <a href="Instance.html" title="">Instance</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="Outputs.html" title=""></a>
-                        <a href="Outputs.html" title="">
-                          Outputs
-                        </a>
+                        <a href="Outputs.html" title="">Outputs</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="Route.html" title=""></a>
-                        <a href="Route.html" title="">
-                          Route
-                        </a>
+                        <a href="Route.html" title="">Route</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="Route53.html" title=""></a>
-                        <a href="Route53.html" title="">
-                          Route53
-                        </a>
+                        <a href="Route53.html" title="">Route53</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="SecurityGroup.html" title=""></a>
-                        <a href="SecurityGroup.html" title="">
-                          SecurityGroup
-                        </a>
+                        <a href="SecurityGroup.html" title="">SecurityGroup</a>
                       </li><li class="current-entities indented6">
                         <a class="object" href="SecurityGroupRoutable$.html" title=""></a>
                         <a class="class" href="SecurityGroupRoutable.html" title=""></a>
-                        <a href="SecurityGroupRoutable.html" title="">
-                          SecurityGroupRoutable
-                        </a>
+                        <a href="SecurityGroupRoutable.html" title="">SecurityGroupRoutable</a>
                       </li><li class="current-entities indented6">
                         <a class="object" href="SecurityGroupRoutableMaker$.html" title=""></a>
                         <a class="trait" href="SecurityGroupRoutableMaker.html" title=""></a>
-                        <a href="SecurityGroupRoutableMaker.html" title="">
-                          SecurityGroupRoutableMaker
-                        </a>
+                        <a href="SecurityGroupRoutableMaker.html" title="">SecurityGroupRoutableMaker</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="Subnet.html" title=""></a>
-                        <a href="Subnet.html" title="">
-                          Subnet
-                        </a>
+                        <a href="Subnet.html" title="">Subnet</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="VPC.html" title=""></a>
-                        <a href="VPC.html" title="">
-                          VPC
-                        </a>
+                        <a href="VPC.html" title="">VPC</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="object" href="Yaml$.html" title=""></a>
-                        <a href="Yaml$.html" title="">
-                          Yaml
-                        </a>
+                        <a href="Yaml$.html" title="">Yaml</a>
                       </li>
               </ul>
             </div>
@@ -485,9 +441,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="" href="Autoscaling.html">
-              <span class="name">Autoscaling</span>
-            </a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <a title="" href="Autoscaling.html"><span class="name">Autoscaling</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
       
@@ -503,9 +457,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="" href="AvailabilityZone.html">
-              <span class="name">AvailabilityZone</span>
-            </a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <a title="" href="AvailabilityZone.html"><span class="name">AvailabilityZone</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
       
@@ -521,9 +473,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="" href="Conditions.html">
-              <span class="name">Conditions</span>
-            </a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <a title="" href="Conditions.html"><span class="name">Conditions</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
       
@@ -539,9 +489,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="" href="EC2.html">
-              <span class="name">EC2</span>
-            </a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <a title="" href="EC2.html"><span class="name">EC2</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
       
@@ -557,9 +505,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="" href="ElasticLoadBalancing.html">
-              <span class="name">ElasticLoadBalancing</span>
-            </a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <a title="" href="ElasticLoadBalancing.html"><span class="name">ElasticLoadBalancing</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
       
@@ -575,9 +521,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="" href="Gateway.html">
-              <span class="name">Gateway</span>
-            </a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <a title="" href="Gateway.html"><span class="name">Gateway</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
       
@@ -593,9 +537,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="" href="Instance.html">
-              <span class="name">Instance</span>
-            </a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <a title="" href="Instance.html"><span class="name">Instance</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
       
@@ -611,9 +553,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="" href="Outputs.html">
-              <span class="name">Outputs</span>
-            </a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <a title="" href="Outputs.html"><span class="name">Outputs</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
       
@@ -629,9 +569,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="" href="Route.html">
-              <span class="name">Route</span>
-            </a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <a title="" href="Route.html"><span class="name">Route</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
       
@@ -647,9 +585,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="" href="Route53.html">
-              <span class="name">Route53</span>
-            </a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <a title="" href="Route53.html"><span class="name">Route53</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
       
@@ -665,9 +601,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="" href="SecurityGroup.html">
-              <span class="name">SecurityGroup</span>
-            </a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <a title="" href="SecurityGroup.html"><span class="name">SecurityGroup</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
       
@@ -683,9 +617,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="" href="SecurityGroupRoutable.html">
-              <span class="name">SecurityGroupRoutable</span>
-            </a><span class="tparams">[<span name="R">R &lt;: <a href="../resource/Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a>[<span class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroupRoutable.R">R</span>]</span>]</span><span class="params">(<span name="resource">resource: <span class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroupRoutable.R">R</span></span>, <span name="sg">sg: <a href="../resource/AWS$colon$colonEC2$colon$colonSecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::EC2::SecurityGroup">AWS::EC2::SecurityGroup</a></span>, <span name="extras">extras: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<a href="../resource/Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a>[_]]] = <span class="symbol">None</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="" href="SecurityGroupRoutable.html"><span class="name">SecurityGroupRoutable</span></a><span class="tparams">[<span name="R">R &lt;: <a href="../resource/Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a>[<span class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroupRoutable.R">R</span>]</span>]</span><span class="params">(<span name="resource">resource: <span class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroupRoutable.R">R</span></span>, <span name="sg">sg: <a href="../resource/AWS$colon$colonEC2$colon$colonSecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::EC2::SecurityGroup">AWS::EC2::SecurityGroup</a></span>, <span name="extras">extras: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<a href="../resource/Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a>[_]]] = <span class="symbol">None</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       
@@ -701,9 +633,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="" href="SecurityGroupRoutableMaker.html">
-              <span class="name">SecurityGroupRoutableMaker</span>
-            </a><span class="tparams">[<span name="R">R &lt;: <a href="../resource/Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a>[<span class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroupRoutableMaker.R">R</span>]</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <a title="" href="SecurityGroupRoutableMaker.html"><span class="name">SecurityGroupRoutableMaker</span></a><span class="tparams">[<span name="R">R &lt;: <a href="../resource/Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a>[<span class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroupRoutableMaker.R">R</span>]</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
       
@@ -719,9 +649,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="" href="Subnet.html">
-              <span class="name">Subnet</span>
-            </a><span class="result"> extends <a href="AvailabilityZone.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.AvailabilityZone">AvailabilityZone</a> with <a href="Outputs.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.Outputs">Outputs</a></span>
+        <a title="" href="Subnet.html"><span class="name">Subnet</span></a><span class="result"> extends <a href="AvailabilityZone.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.AvailabilityZone">AvailabilityZone</a> with <a href="Outputs.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.Outputs">Outputs</a></span>
       </span>
       
       
@@ -737,9 +665,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="" href="VPC.html">
-              <span class="name">VPC</span>
-            </a><span class="result"> extends <a href="Outputs.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.Outputs">Outputs</a></span>
+        <a title="" href="VPC.html"><span class="name">VPC</span></a><span class="result"> extends <a href="Outputs.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.Outputs">Outputs</a></span>
       </span>
       
       
@@ -763,9 +689,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="Builders$.html">
-              <span class="name">Builders</span>
-            </a><span class="result"> extends <a href="Route.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.Route">Route</a> with <a href="Instance.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.Instance">Instance</a> with <a href="Subnet.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.Subnet">Subnet</a> with <a href="Route53.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.Route53">Route53</a> with <a href="Autoscaling.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.Autoscaling">Autoscaling</a> with <a href="SecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup">SecurityGroup</a> with <a href="VPC.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.VPC">VPC</a> with <a href="AvailabilityZone.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.AvailabilityZone">AvailabilityZone</a> with <a href="EC2.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.EC2">EC2</a> with <a href="Outputs.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.Outputs">Outputs</a> with <a href="Gateway.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.Gateway">Gateway</a> with <a href="Conditions.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.Conditions">Conditions</a> with <a href="ElasticLoadBalancing.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.ElasticLoadBalancing">ElasticLoadBalancing</a></span>
+        <a title="" href="Builders$.html"><span class="name">Builders</span></a><span class="result"> extends <a href="Route.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.Route">Route</a> with <a href="Instance.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.Instance">Instance</a> with <a href="Subnet.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.Subnet">Subnet</a> with <a href="Route53.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.Route53">Route53</a> with <a href="Autoscaling.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.Autoscaling">Autoscaling</a> with <a href="SecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup">SecurityGroup</a> with <a href="VPC.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.VPC">VPC</a> with <a href="AvailabilityZone.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.AvailabilityZone">AvailabilityZone</a> with <a href="EC2.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.EC2">EC2</a> with <a href="Outputs.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.Outputs">Outputs</a> with <a href="Gateway.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.Gateway">Gateway</a> with <a href="Conditions.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.Conditions">Conditions</a> with <a href="ElasticLoadBalancing.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.ElasticLoadBalancing">ElasticLoadBalancing</a></span>
       </span>
       
       
@@ -781,9 +705,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="SecurityGroupRoutable$.html">
-              <span class="name">SecurityGroupRoutable</span>
-            </a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="" href="SecurityGroupRoutable$.html"><span class="name">SecurityGroupRoutable</span></a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       
@@ -799,9 +721,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="SecurityGroupRoutableMaker$.html">
-              <span class="name">SecurityGroupRoutableMaker</span>
-            </a>
+        <a title="" href="SecurityGroupRoutableMaker$.html"><span class="name">SecurityGroupRoutableMaker</span></a>
       </span>
       
       
@@ -817,9 +737,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="Yaml$.html">
-              <span class="name">Yaml</span>
-            </a>
+        <a title="" href="Yaml$.html"><span class="name">Yaml</span></a>
       </span>
       
       

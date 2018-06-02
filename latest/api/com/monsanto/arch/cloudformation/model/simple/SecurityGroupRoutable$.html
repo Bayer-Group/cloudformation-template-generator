@@ -65,9 +65,7 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../../../../../../index.html">
-              <span class="name">root</span>
-            </a>
+        <a title="" href="../../../../../../index.html"><span class="name">root</span></a>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
@@ -83,9 +81,7 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../../../../../index.html">
-              <span class="name">com</span>
-            </a>
+        <a title="" href="../../../../../index.html"><span class="name">com</span></a>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
@@ -101,9 +97,7 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../../../../index.html">
-              <span class="name">monsanto</span>
-            </a>
+        <a title="" href="../../../../index.html"><span class="name">monsanto</span></a>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../../../index.html" class="extype" name="com">com</a></dd></dl></div>
@@ -119,9 +113,7 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../../../index.html">
-              <span class="name">arch</span>
-            </a>
+        <a title="" href="../../../index.html"><span class="name">arch</span></a>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../../index.html" class="extype" name="com.monsanto">monsanto</a></dd></dl></div>
@@ -137,9 +129,7 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../../index.html">
-              <span class="name">cloudformation</span>
-            </a>
+        <a title="" href="../../index.html"><span class="name">cloudformation</span></a>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../index.html" class="extype" name="com.monsanto.arch">arch</a></dd></dl></div>
@@ -155,9 +145,7 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="A DSL to create consistent, type-safe AWS CloudFormation templates." href="../index.html">
-              <span class="name">model</span>
-            </a>
+        <a title="A DSL to create consistent, type-safe AWS CloudFormation templates." href="../index.html"><span class="name">model</span></a>
       </span>
       
       <p class="shortcomment cmt">A DSL to create consistent, type-safe AWS CloudFormation templates.</p><div class="fullcomment"><div class="comment cmt"><p>A DSL to create consistent, type-safe AWS CloudFormation templates.</p><p>The low-level DSL closely adheres to the objects and parameters in the
@@ -207,10 +195,13 @@ our <a href="http://engineering.monsanto.com/2015/07/10/cloudformation-template-
   <span class="kw">val</span> amazonLinuxAMIMapping = Mapping[AMIId](
     <span class="lit">"AmazonLinuxAMI"</span>,
     <span class="std">Map</span>(
-      <span class="lit">"us-east-1"</span> -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-1ecae776"</span>)),
-      <span class="lit">"us-west-1"</span> -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-d114f295"</span>)),
-      <span class="lit">"us-west-2"</span> -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-e7527ed7"</span>)),
-      <span class="lit">"eu-west-1"</span> -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-a10897d6"</span>))
+      <span class="lit">"us-east-1"</span>      -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-1ecae776"</span>)),
+      <span class="lit">"us-west-1"</span>      -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-d114f295"</span>)),
+      <span class="lit">"us-west-2"</span>      -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-e7527ed7"</span>)),
+      <span class="lit">"eu-west-1"</span>      -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-a10897d6"</span>)),
+      <span class="lit">"ap-southeast-1"</span> -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-68d8e93a"</span>)),
+      <span class="lit">"ap-southeast-2"</span> -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-fd9cecc7"</span>)),
+      <span class="lit">"ap-northeast-1"</span> -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-cbf90ecb"</span>))
     )
   )
   <span class="kw">val</span> simpleMappings = <span class="std">Seq</span>(amazonLinuxAMIMapping)
@@ -222,10 +213,11 @@ our <a href="http://engineering.monsanto.com/2015/07/10/cloudformation-template-
       visibility = <span class="lit">"Public"</span>,
       routeTableOrdinal = <span class="num">1</span>,
       routeOrdinal = <span class="num">1</span>,
-      gateway = <span class="std">Some</span>(ResourceRef(internetGatewayResource))
+      connectionBobber = InternetGatewayRoute(ResourceRef(internetGatewayResource))
     )
     <span class="kw">val</span> gatewayStuff = Template.fromResource(internetGatewayResource) ++
       gatewayToInternetResource ++
+      publicRouteTable ++
       publicRouteTableRoute
     <span class="kw">val</span> withinAZ = withAZ(<span class="lit">"us-east-1a"</span>) { <span class="kw">implicit</span> az <span class="kw">=&gt;</span>
       withSubnet(<span class="lit">"PubSubnet1"</span>, CidrBlock(<span class="num">10</span>, <span class="num">0</span>, <span class="num">0</span>, <span class="num">1</span>, <span class="num">24</span>)) { <span class="kw">implicit</span> pubSubnet <span class="kw">=&gt;</span>
@@ -258,12 +250,12 @@ our <a href="http://engineering.monsanto.com/2015/07/10/cloudformation-template-
   }
   <span class="kw">val</span> simpleTemplate = simpleResourceAndOutputs ++
     Template(
-      AWSTemplateFormatVersion = <span class="lit">"2010-09-09"</span>,
-      Description = <span class="lit">"Simple template"</span>,
+      AWSTemplateFormatVersion = <span class="std">Some</span>(<span class="lit">"2010-09-09"</span>),
+      Description = <span class="std">Some</span>(<span class="lit">"Simple template"</span>),
       Parameters = <span class="std">Some</span>(simpleParameters),
       Conditions = <span class="std">Some</span>(simpleConditions),
       Mappings = <span class="std">Some</span>(simpleMappings),
-      Resources = <span class="std">None</span>,
+      Resources = <span class="std">Seq</span>.empty,
       Outputs = <span class="std">None</span>
     )
   writeStaxModule(<span class="lit">"vpc-simple.json"</span>, simpleTemplate)
@@ -286,114 +278,78 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="index.html">
-              <span class="name">simple</span>
-            </a>
+        <a title="" href="index.html"><span class="name">simple</span></a>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="com.monsanto.arch.cloudformation.model">model</a></dd></dl></div>
     </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="Autoscaling.html" title=""></a>
-                        <a href="Autoscaling.html" title="">
-                          Autoscaling
-                        </a>
+                        <a href="Autoscaling.html" title="">Autoscaling</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="AvailabilityZone.html" title=""></a>
-                        <a href="AvailabilityZone.html" title="">
-                          AvailabilityZone
-                        </a>
+                        <a href="AvailabilityZone.html" title="">AvailabilityZone</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="object" href="Builders$.html" title=""></a>
-                        <a href="Builders$.html" title="">
-                          Builders
-                        </a>
+                        <a href="Builders$.html" title="">Builders</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="Conditions.html" title=""></a>
-                        <a href="Conditions.html" title="">
-                          Conditions
-                        </a>
+                        <a href="Conditions.html" title="">Conditions</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="EC2.html" title=""></a>
-                        <a href="EC2.html" title="">
-                          EC2
-                        </a>
+                        <a href="EC2.html" title="">EC2</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="ElasticLoadBalancing.html" title=""></a>
-                        <a href="ElasticLoadBalancing.html" title="">
-                          ElasticLoadBalancing
-                        </a>
+                        <a href="ElasticLoadBalancing.html" title="">ElasticLoadBalancing</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="Gateway.html" title=""></a>
-                        <a href="Gateway.html" title="">
-                          Gateway
-                        </a>
+                        <a href="Gateway.html" title="">Gateway</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="Instance.html" title=""></a>
-                        <a href="Instance.html" title="">
-                          Instance
-                        </a>
+                        <a href="Instance.html" title="">Instance</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="Outputs.html" title=""></a>
-                        <a href="Outputs.html" title="">
-                          Outputs
-                        </a>
+                        <a href="Outputs.html" title="">Outputs</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="Route.html" title=""></a>
-                        <a href="Route.html" title="">
-                          Route
-                        </a>
+                        <a href="Route.html" title="">Route</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="Route53.html" title=""></a>
-                        <a href="Route53.html" title="">
-                          Route53
-                        </a>
+                        <a href="Route53.html" title="">Route53</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="SecurityGroup.html" title=""></a>
-                        <a href="SecurityGroup.html" title="">
-                          SecurityGroup
-                        </a>
+                        <a href="SecurityGroup.html" title="">SecurityGroup</a>
                       </li><li class="current-entities indented6">
                         <a class="object" href="" title=""></a>
                         <a class="class" href="SecurityGroupRoutable.html" title=""></a>
-                        <a href="SecurityGroupRoutable.html" title="">
-                          SecurityGroupRoutable
-                        </a>
+                        <a href="SecurityGroupRoutable.html" title="">SecurityGroupRoutable</a>
                       </li><li class="current-entities indented6">
                         <a class="object" href="SecurityGroupRoutableMaker$.html" title=""></a>
                         <a class="trait" href="SecurityGroupRoutableMaker.html" title=""></a>
-                        <a href="SecurityGroupRoutableMaker.html" title="">
-                          SecurityGroupRoutableMaker
-                        </a>
+                        <a href="SecurityGroupRoutableMaker.html" title="">SecurityGroupRoutableMaker</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="Subnet.html" title=""></a>
-                        <a href="Subnet.html" title="">
-                          Subnet
-                        </a>
+                        <a href="Subnet.html" title="">Subnet</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="VPC.html" title=""></a>
-                        <a href="VPC.html" title="">
-                          VPC
-                        </a>
+                        <a href="VPC.html" title="">VPC</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="object" href="Yaml$.html" title=""></a>
-                        <a href="Yaml$.html" title="">
-                          Yaml
-                        </a>
+                        <a href="Yaml$.html" title="">Yaml</a>
                       </li>
               </ul>
             </div>
@@ -560,7 +516,9 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="name">clone</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../../../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@native</span><span class="args">()</span>
+              
                 <span class="name">@throws</span><span class="args">(<span>
       
       <span class="defval" name="classOf[java.lang.CloneNotSupportedException]">...</span>
@@ -614,7 +572,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="name">finalize</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../../../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
                 <span class="name">@throws</span><span class="args">(<span>
       
       <span class="symbol">classOf[java.lang.Throwable]</span>
@@ -668,7 +626,10 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="name">getClass</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.Class">Class</span>[_]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd><dt>Annotations</dt><dd>
+                <span class="name">@native</span><span class="args">()</span>
+              
+        </dd></dl></div>
     </li><li name="scala.AnyRef#hashCode" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="hashCode():Int"></a>
       <span class="permalink">
@@ -684,7 +645,10 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd><dt>Annotations</dt><dd>
+                <span class="name">@native</span><span class="args">()</span>
+              
+        </dd></dl></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <span class="permalink">
@@ -732,7 +696,10 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="name">notify</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@native</span><span class="args">()</span>
+              
+        </dd></dl></div>
     </li><li name="scala.AnyRef#notifyAll" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="notifyAll():Unit"></a>
       <span class="permalink">
@@ -748,7 +715,10 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@native</span><span class="args">()</span>
+              
+        </dd></dl></div>
     </li><li name="scala.AnyRef#synchronized" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a><a id="synchronized[T0](⇒T0):T0"></a>
       <span class="permalink">
@@ -841,6 +811,8 @@ Parameters and Mappings.  A Condition is created but not used.
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@native</span><span class="args">()</span>
+              
                 <span class="name">@throws</span><span class="args">(<span>
       
       <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>

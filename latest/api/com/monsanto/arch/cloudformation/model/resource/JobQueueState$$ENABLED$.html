@@ -65,9 +65,7 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../../../../../../index.html">
-              <span class="name">root</span>
-            </a>
+        <a title="" href="../../../../../../index.html"><span class="name">root</span></a>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
@@ -83,9 +81,7 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../../../../../index.html">
-              <span class="name">com</span>
-            </a>
+        <a title="" href="../../../../../index.html"><span class="name">com</span></a>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
@@ -101,9 +97,7 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../../../../index.html">
-              <span class="name">monsanto</span>
-            </a>
+        <a title="" href="../../../../index.html"><span class="name">monsanto</span></a>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../../../index.html" class="extype" name="com">com</a></dd></dl></div>
@@ -119,9 +113,7 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../../../index.html">
-              <span class="name">arch</span>
-            </a>
+        <a title="" href="../../../index.html"><span class="name">arch</span></a>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../../index.html" class="extype" name="com.monsanto">monsanto</a></dd></dl></div>
@@ -137,9 +129,7 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../../index.html">
-              <span class="name">cloudformation</span>
-            </a>
+        <a title="" href="../../index.html"><span class="name">cloudformation</span></a>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../index.html" class="extype" name="com.monsanto.arch">arch</a></dd></dl></div>
@@ -155,9 +145,7 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="A DSL to create consistent, type-safe AWS CloudFormation templates." href="../index.html">
-              <span class="name">model</span>
-            </a>
+        <a title="A DSL to create consistent, type-safe AWS CloudFormation templates." href="../index.html"><span class="name">model</span></a>
       </span>
       
       <p class="shortcomment cmt">A DSL to create consistent, type-safe AWS CloudFormation templates.</p><div class="fullcomment"><div class="comment cmt"><p>A DSL to create consistent, type-safe AWS CloudFormation templates.</p><p>The low-level DSL closely adheres to the objects and parameters in the
@@ -207,10 +195,13 @@ our <a href="http://engineering.monsanto.com/2015/07/10/cloudformation-template-
   <span class="kw">val</span> amazonLinuxAMIMapping = Mapping[AMIId](
     <span class="lit">"AmazonLinuxAMI"</span>,
     <span class="std">Map</span>(
-      <span class="lit">"us-east-1"</span> -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-1ecae776"</span>)),
-      <span class="lit">"us-west-1"</span> -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-d114f295"</span>)),
-      <span class="lit">"us-west-2"</span> -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-e7527ed7"</span>)),
-      <span class="lit">"eu-west-1"</span> -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-a10897d6"</span>))
+      <span class="lit">"us-east-1"</span>      -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-1ecae776"</span>)),
+      <span class="lit">"us-west-1"</span>      -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-d114f295"</span>)),
+      <span class="lit">"us-west-2"</span>      -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-e7527ed7"</span>)),
+      <span class="lit">"eu-west-1"</span>      -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-a10897d6"</span>)),
+      <span class="lit">"ap-southeast-1"</span> -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-68d8e93a"</span>)),
+      <span class="lit">"ap-southeast-2"</span> -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-fd9cecc7"</span>)),
+      <span class="lit">"ap-northeast-1"</span> -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-cbf90ecb"</span>))
     )
   )
   <span class="kw">val</span> simpleMappings = <span class="std">Seq</span>(amazonLinuxAMIMapping)
@@ -222,10 +213,11 @@ our <a href="http://engineering.monsanto.com/2015/07/10/cloudformation-template-
       visibility = <span class="lit">"Public"</span>,
       routeTableOrdinal = <span class="num">1</span>,
       routeOrdinal = <span class="num">1</span>,
-      gateway = <span class="std">Some</span>(ResourceRef(internetGatewayResource))
+      connectionBobber = InternetGatewayRoute(ResourceRef(internetGatewayResource))
     )
     <span class="kw">val</span> gatewayStuff = Template.fromResource(internetGatewayResource) ++
       gatewayToInternetResource ++
+      publicRouteTable ++
       publicRouteTableRoute
     <span class="kw">val</span> withinAZ = withAZ(<span class="lit">"us-east-1a"</span>) { <span class="kw">implicit</span> az <span class="kw">=&gt;</span>
       withSubnet(<span class="lit">"PubSubnet1"</span>, CidrBlock(<span class="num">10</span>, <span class="num">0</span>, <span class="num">0</span>, <span class="num">1</span>, <span class="num">24</span>)) { <span class="kw">implicit</span> pubSubnet <span class="kw">=&gt;</span>
@@ -258,12 +250,12 @@ our <a href="http://engineering.monsanto.com/2015/07/10/cloudformation-template-
   }
   <span class="kw">val</span> simpleTemplate = simpleResourceAndOutputs ++
     Template(
-      AWSTemplateFormatVersion = <span class="lit">"2010-09-09"</span>,
-      Description = <span class="lit">"Simple template"</span>,
+      AWSTemplateFormatVersion = <span class="std">Some</span>(<span class="lit">"2010-09-09"</span>),
+      Description = <span class="std">Some</span>(<span class="lit">"Simple template"</span>),
       Parameters = <span class="std">Some</span>(simpleParameters),
       Conditions = <span class="std">Some</span>(simpleConditions),
       Mappings = <span class="std">Some</span>(simpleMappings),
-      Resources = <span class="std">None</span>,
+      Resources = <span class="std">Seq</span>.empty,
       Outputs = <span class="std">None</span>
     )
   writeStaxModule(<span class="lit">"vpc-simple.json"</span>, simpleTemplate)
@@ -286,16 +278,14 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="index.html">
-              <span class="name">resource</span>
-            </a>
+        <a title="" href="index.html"><span class="name">resource</span></a>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="com.monsanto.arch.cloudformation.model">model</a></dd></dl></div>
-    </li><li name="com.monsanto.arch.cloudformation.model.resource.ValidPolicyCombo" visbl="pub" class="indented7 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="ValidPolicyCombo"></a><a id="ValidPolicyCombo:ValidPolicyCombo"></a>
+    </li><li name="com.monsanto.arch.cloudformation.model.resource.JobQueueState" visbl="pub" class="indented7 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="JobQueueState"></a><a id="JobQueueState:JobQueueState"></a>
       <span class="permalink">
-      <a href="../../../../../../com/monsanto/arch/cloudformation/model/resource/index.html#ValidPolicyCombo" title="Permalink">
+      <a href="../../../../../../com/monsanto/arch/cloudformation/model/resource/index.html#JobQueueState" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -304,30 +294,86 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="ValidPolicyCombo$.html">
-              <span class="name">ValidPolicyCombo</span>
-            </a>
+        <a title="" href="JobQueueState$.html"><span class="name">JobQueueState</span></a><span class="result"> extends <span class="extype" name="spray.json.DefaultJsonProtocol">DefaultJsonProtocol</span></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource">resource</a></dd></dl></div>
     </li><li class="current-entities indented7">
                         <span class="separator"></span>
-                        <a class="object" href="ValidPolicyCombo$$onlyG$.html" title=""></a>
-                        <a href="ValidPolicyCombo$$onlyG$.html" title="">
-                          onlyG
-                        </a>
+                        <a class="object" href="JobQueueState$$BigDecimalJsonFormat$.html" title=""></a>
+                        <a href="JobQueueState$$BigDecimalJsonFormat$.html" title="">BigDecimalJsonFormat</a>
                       </li><li class="current-entities indented7">
                         <span class="separator"></span>
-                        <a class="object" href="ValidPolicyCombo$$onlyR$.html" title=""></a>
-                        <a href="ValidPolicyCombo$$onlyR$.html" title="">
-                          onlyR
-                        </a>
+                        <a class="object" href="JobQueueState$$BigIntJsonFormat$.html" title=""></a>
+                        <a href="JobQueueState$$BigIntJsonFormat$.html" title="">BigIntJsonFormat</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="object" href="JobQueueState$$BooleanJsonFormat$.html" title=""></a>
+                        <a href="JobQueueState$$BooleanJsonFormat$.html" title="">BooleanJsonFormat</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="object" href="JobQueueState$$ByteJsonFormat$.html" title=""></a>
+                        <a href="JobQueueState$$ByteJsonFormat$.html" title="">ByteJsonFormat</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="object" href="JobQueueState$$CharJsonFormat$.html" title=""></a>
+                        <a href="JobQueueState$$CharJsonFormat$.html" title="">CharJsonFormat</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="object" href="JobQueueState$$DISABLED$.html" title=""></a>
+                        <a href="JobQueueState$$DISABLED$.html" title="">DISABLED</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="object" href="JobQueueState$$DoubleJsonFormat$.html" title=""></a>
+                        <a href="JobQueueState$$DoubleJsonFormat$.html" title="">DoubleJsonFormat</a>
                       </li><li class="current-entities indented7">
                         <span class="separator"></span>
                         <a class="object" href="" title=""></a>
-                        <a href="" title="">
-                          onlyU
-                        </a>
+                        <a href="" title="">ENABLED</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="object" href="JobQueueState$$FloatJsonFormat$.html" title=""></a>
+                        <a href="JobQueueState$$FloatJsonFormat$.html" title="">FloatJsonFormat</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="object" href="JobQueueState$$IntJsonFormat$.html" title=""></a>
+                        <a href="JobQueueState$$IntJsonFormat$.html" title="">IntJsonFormat</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="object" href="JobQueueState$$JsValueFormat$.html" title=""></a>
+                        <a href="JobQueueState$$JsValueFormat$.html" title="">JsValueFormat</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="object" href="JobQueueState$$LongJsonFormat$.html" title=""></a>
+                        <a href="JobQueueState$$LongJsonFormat$.html" title="">LongJsonFormat</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="class" href="JobQueueState$$OptionFormat.html" title=""></a>
+                        <a href="JobQueueState$$OptionFormat.html" title="">OptionFormat</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="object" href="JobQueueState$$RootJsArrayFormat$.html" title=""></a>
+                        <a href="JobQueueState$$RootJsArrayFormat$.html" title="">RootJsArrayFormat</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="object" href="JobQueueState$$RootJsObjectFormat$.html" title=""></a>
+                        <a href="JobQueueState$$RootJsObjectFormat$.html" title="">RootJsObjectFormat</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="object" href="JobQueueState$$ShortJsonFormat$.html" title=""></a>
+                        <a href="JobQueueState$$ShortJsonFormat$.html" title="">ShortJsonFormat</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="object" href="JobQueueState$$StringJsonFormat$.html" title=""></a>
+                        <a href="JobQueueState$$StringJsonFormat$.html" title="">StringJsonFormat</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="object" href="JobQueueState$$SymbolJsonFormat$.html" title=""></a>
+                        <a href="JobQueueState$$SymbolJsonFormat$.html" title="">SymbolJsonFormat</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="object" href="JobQueueState$$UnitJsonFormat$.html" title=""></a>
+                        <a href="JobQueueState$$UnitJsonFormat$.html" title="">UnitJsonFormat</a>
                       </li>
               </ul>
             </div>
@@ -336,9 +382,9 @@ Parameters and Mappings.  A Condition is created but not used.
             <body class="object value">
       <div id="definition">
         <div class="big-circle object">o</div>
-        <p id="owner"><a href="../../../../../index.html" class="extype" name="com">com</a>.<a href="../../../../index.html" class="extype" name="com.monsanto">monsanto</a>.<a href="../../../index.html" class="extype" name="com.monsanto.arch">arch</a>.<a href="../../index.html" class="extype" name="com.monsanto.arch.cloudformation">cloudformation</a>.<a href="../index.html" class="extype" name="com.monsanto.arch.cloudformation.model">model</a>.<a href="index.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource">resource</a>.<a href="ValidPolicyCombo$.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.ValidPolicyCombo">ValidPolicyCombo</a></p>
-        <h1>onlyU<span class="permalink">
-      <a href="../../../../../../com/monsanto/arch/cloudformation/model/resource/ValidPolicyCombo$$onlyU$.html" title="Permalink">
+        <p id="owner"><a href="../../../../../index.html" class="extype" name="com">com</a>.<a href="../../../../index.html" class="extype" name="com.monsanto">monsanto</a>.<a href="../../../index.html" class="extype" name="com.monsanto.arch">arch</a>.<a href="../../index.html" class="extype" name="com.monsanto.arch.cloudformation">cloudformation</a>.<a href="../index.html" class="extype" name="com.monsanto.arch.cloudformation.model">model</a>.<a href="index.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource">resource</a>.<a href="JobQueueState$.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.JobQueueState">JobQueueState</a></p>
+        <h1>ENABLED<span class="permalink">
+      <a href="../../../../../../com/monsanto/arch/cloudformation/model/resource/JobQueueState$$ENABLED$.html" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span></h1>
@@ -347,11 +393,11 @@ Parameters and Mappings.  A Condition is created but not used.
 
       <h4 id="signature" class="signature">
       <span class="modifier_kind">
-        <span class="modifier">implicit </span>
+        <span class="modifier"></span>
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <span class="name">onlyU</span><span class="result"> extends <a href="ValidPolicyCombo.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.ValidPolicyCombo">ValidPolicyCombo</a>[<span class="extype" name="scala.None">None</span>.type, <span class="extype" name="scala.None">None</span>.type, <span class="extype" name="scala.Some">Some</span>[<span class="extype" name="scala.Seq">Seq</span>[<a href="../ResourceRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ResourceRef">ResourceRef</a>[<a href="AWS$colon$colonIAM$colon$colonUser.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::IAM::User">AWS::IAM::User</a>]]]]</span>
+        <span class="name">ENABLED</span><span class="result"> extends <a href="JobQueueState.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.JobQueueState">JobQueueState</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
 
@@ -360,7 +406,7 @@ Parameters and Mappings.  A Condition is created but not used.
           <span class="toggle">
             Linear Supertypes
           </span>
-          <div class="superTypes hiddenContent"><a href="ValidPolicyCombo.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.ValidPolicyCombo">ValidPolicyCombo</a>[<span class="extype" name="scala.None">None</span>.type, <span class="extype" name="scala.None">None</span>.type, <span class="extype" name="scala.Some">Some</span>[<span class="extype" name="scala.Seq">Seq</span>[<a href="../ResourceRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ResourceRef">ResourceRef</a>[<a href="AWS$colon$colonIAM$colon$colonUser.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::IAM::User">AWS::IAM::User</a>]]]], <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+          <div class="superTypes hiddenContent"><span class="extype" name="scala.Serializable">Serializable</span>, <span class="extype" name="java.io.Serializable">Serializable</span>, <span class="extype" name="scala.Product">Product</span>, <span class="extype" name="scala.Equals">Equals</span>, <a href="JobQueueState.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.JobQueueState">JobQueueState</a>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>
         
 
@@ -386,7 +432,7 @@ Parameters and Mappings.  A Condition is created but not used.
                   <span class="filtertype">Inherited<br />
                   </span>
                   <ol id="linearization">
-                    <li class="in" name="com.monsanto.arch.cloudformation.model.resource.ValidPolicyCombo.onlyU"><span>onlyU</span></li><li class="in" name="com.monsanto.arch.cloudformation.model.resource.ValidPolicyCombo"><span>ValidPolicyCombo</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                    <li class="in" name="com.monsanto.arch.cloudformation.model.resource.JobQueueState.ENABLED"><span>ENABLED</span></li><li class="in" name="scala.Serializable"><span>Serializable</span></li><li class="in" name="java.io.Serializable"><span>Serializable</span></li><li class="in" name="scala.Product"><span>Product</span></li><li class="in" name="scala.Equals"><span>Equals</span></li><li class="in" name="com.monsanto.arch.cloudformation.model.resource.JobQueueState"><span>JobQueueState</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                   </ol>
                 </div><div class="ancestors">
               <span class="filtertype"></span>
@@ -416,7 +462,7 @@ Parameters and Mappings.  A Condition is created but not used.
                 <li name="scala.AnyRef#!=" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="!=(x$1:Any):Boolean"></a><a id="!=(Any):Boolean"></a>
       <span class="permalink">
-      <a href="../../../../../../com/monsanto/arch/cloudformation/model/resource/ValidPolicyCombo$$onlyU$.html#!=(x$1:Any):Boolean" title="Permalink">
+      <a href="../../../../../../com/monsanto/arch/cloudformation/model/resource/JobQueueState$$ENABLED$.html#!=(x$1:Any):Boolean" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -432,7 +478,7 @@ Parameters and Mappings.  A Condition is created but not used.
     </li><li name="scala.AnyRef###" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="##():Int"></a>
       <span class="permalink">
-      <a href="../../../../../../com/monsanto/arch/cloudformation/model/resource/ValidPolicyCombo$$onlyU$.html###():Int" title="Permalink">
+      <a href="../../../../../../com/monsanto/arch/cloudformation/model/resource/JobQueueState$$ENABLED$.html###():Int" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -448,7 +494,7 @@ Parameters and Mappings.  A Condition is created but not used.
     </li><li name="scala.AnyRef#==" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="==(x$1:Any):Boolean"></a><a id="==(Any):Boolean"></a>
       <span class="permalink">
-      <a href="../../../../../../com/monsanto/arch/cloudformation/model/resource/ValidPolicyCombo$$onlyU$.html#==(x$1:Any):Boolean" title="Permalink">
+      <a href="../../../../../../com/monsanto/arch/cloudformation/model/resource/JobQueueState$$ENABLED$.html#==(x$1:Any):Boolean" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -464,7 +510,7 @@ Parameters and Mappings.  A Condition is created but not used.
     </li><li name="scala.Any#asInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="asInstanceOf[T0]:T0"></a>
       <span class="permalink">
-      <a href="../../../../../../com/monsanto/arch/cloudformation/model/resource/ValidPolicyCombo$$onlyU$.html#asInstanceOf[T0]:T0" title="Permalink">
+      <a href="../../../../../../com/monsanto/arch/cloudformation/model/resource/JobQueueState$$ENABLED$.html#asInstanceOf[T0]:T0" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -480,7 +526,7 @@ Parameters and Mappings.  A Condition is created but not used.
     </li><li name="scala.AnyRef#clone" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="clone():Object"></a><a id="clone():AnyRef"></a>
       <span class="permalink">
-      <a href="../../../../../../com/monsanto/arch/cloudformation/model/resource/ValidPolicyCombo$$onlyU$.html#clone():Object" title="Permalink">
+      <a href="../../../../../../com/monsanto/arch/cloudformation/model/resource/JobQueueState$$ENABLED$.html#clone():Object" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -492,7 +538,9 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="name">clone</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../../../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@native</span><span class="args">()</span>
+              
                 <span class="name">@throws</span><span class="args">(<span>
       
       <span class="defval" name="classOf[java.lang.CloneNotSupportedException]">...</span>
@@ -502,7 +550,7 @@ Parameters and Mappings.  A Condition is created but not used.
     </li><li name="scala.AnyRef#eq" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eq(x$1:AnyRef):Boolean"></a><a id="eq(AnyRef):Boolean"></a>
       <span class="permalink">
-      <a href="../../../../../../com/monsanto/arch/cloudformation/model/resource/ValidPolicyCombo$$onlyU$.html#eq(x$1:AnyRef):Boolean" title="Permalink">
+      <a href="../../../../../../com/monsanto/arch/cloudformation/model/resource/JobQueueState$$ENABLED$.html#eq(x$1:AnyRef):Boolean" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -518,7 +566,7 @@ Parameters and Mappings.  A Condition is created but not used.
     </li><li name="scala.AnyRef#equals" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="equals(x$1:Any):Boolean"></a><a id="equals(Any):Boolean"></a>
       <span class="permalink">
-      <a href="../../../../../../com/monsanto/arch/cloudformation/model/resource/ValidPolicyCombo$$onlyU$.html#equals(x$1:Any):Boolean" title="Permalink">
+      <a href="../../../../../../com/monsanto/arch/cloudformation/model/resource/JobQueueState$$ENABLED$.html#equals(x$1:Any):Boolean" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -534,7 +582,7 @@ Parameters and Mappings.  A Condition is created but not used.
     </li><li name="scala.AnyRef#finalize" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="finalize():Unit"></a>
       <span class="permalink">
-      <a href="../../../../../../com/monsanto/arch/cloudformation/model/resource/ValidPolicyCombo$$onlyU$.html#finalize():Unit" title="Permalink">
+      <a href="../../../../../../com/monsanto/arch/cloudformation/model/resource/JobQueueState$$ENABLED$.html#finalize():Unit" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -546,7 +594,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="name">finalize</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../../../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
                 <span class="name">@throws</span><span class="args">(<span>
       
       <span class="symbol">classOf[java.lang.Throwable]</span>
@@ -556,7 +604,7 @@ Parameters and Mappings.  A Condition is created but not used.
     </li><li name="scala.AnyRef#getClass" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_]"></a>
       <span class="permalink">
-      <a href="../../../../../../com/monsanto/arch/cloudformation/model/resource/ValidPolicyCombo$$onlyU$.html#getClass():Class[_]" title="Permalink">
+      <a href="../../../../../../com/monsanto/arch/cloudformation/model/resource/JobQueueState$$ENABLED$.html#getClass():Class[_]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -568,27 +616,14 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="name">getClass</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.Class">Class</span>[_]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="scala.AnyRef#hashCode" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="hashCode():Int"></a>
-      <span class="permalink">
-      <a href="../../../../../../com/monsanto/arch/cloudformation/model/resource/ValidPolicyCombo$$onlyU$.html#hashCode():Int" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd><dt>Annotations</dt><dd>
+                <span class="name">@native</span><span class="args">()</span>
+              
+        </dd></dl></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <span class="permalink">
-      <a href="../../../../../../com/monsanto/arch/cloudformation/model/resource/ValidPolicyCombo$$onlyU$.html#isInstanceOf[T0]:Boolean" title="Permalink">
+      <a href="../../../../../../com/monsanto/arch/cloudformation/model/resource/JobQueueState$$ENABLED$.html#isInstanceOf[T0]:Boolean" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -604,7 +639,7 @@ Parameters and Mappings.  A Condition is created but not used.
     </li><li name="scala.AnyRef#ne" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ne(x$1:AnyRef):Boolean"></a><a id="ne(AnyRef):Boolean"></a>
       <span class="permalink">
-      <a href="../../../../../../com/monsanto/arch/cloudformation/model/resource/ValidPolicyCombo$$onlyU$.html#ne(x$1:AnyRef):Boolean" title="Permalink">
+      <a href="../../../../../../com/monsanto/arch/cloudformation/model/resource/JobQueueState$$ENABLED$.html#ne(x$1:AnyRef):Boolean" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -620,7 +655,7 @@ Parameters and Mappings.  A Condition is created but not used.
     </li><li name="scala.AnyRef#notify" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="notify():Unit"></a>
       <span class="permalink">
-      <a href="../../../../../../com/monsanto/arch/cloudformation/model/resource/ValidPolicyCombo$$onlyU$.html#notify():Unit" title="Permalink">
+      <a href="../../../../../../com/monsanto/arch/cloudformation/model/resource/JobQueueState$$ENABLED$.html#notify():Unit" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -632,11 +667,14 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="name">notify</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@native</span><span class="args">()</span>
+              
+        </dd></dl></div>
     </li><li name="scala.AnyRef#notifyAll" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="notifyAll():Unit"></a>
       <span class="permalink">
-      <a href="../../../../../../com/monsanto/arch/cloudformation/model/resource/ValidPolicyCombo$$onlyU$.html#notifyAll():Unit" title="Permalink">
+      <a href="../../../../../../com/monsanto/arch/cloudformation/model/resource/JobQueueState$$ENABLED$.html#notifyAll():Unit" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -648,11 +686,14 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@native</span><span class="args">()</span>
+              
+        </dd></dl></div>
     </li><li name="scala.AnyRef#synchronized" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a><a id="synchronized[T0](⇒T0):T0"></a>
       <span class="permalink">
-      <a href="../../../../../../com/monsanto/arch/cloudformation/model/resource/ValidPolicyCombo$$onlyU$.html#synchronized[T0](x$1:=&gt;T0):T0" title="Permalink">
+      <a href="../../../../../../com/monsanto/arch/cloudformation/model/resource/JobQueueState$$ENABLED$.html#synchronized[T0](x$1:=&gt;T0):T0" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -665,26 +706,10 @@ Parameters and Mappings.  A Condition is created but not used.
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li name="scala.AnyRef#toString" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="toString():String"></a>
-      <span class="permalink">
-      <a href="../../../../../../com/monsanto/arch/cloudformation/model/resource/ValidPolicyCombo$$onlyU$.html#toString():String" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
     </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait():Unit"></a>
       <span class="permalink">
-      <a href="../../../../../../com/monsanto/arch/cloudformation/model/resource/ValidPolicyCombo$$onlyU$.html#wait():Unit" title="Permalink">
+      <a href="../../../../../../com/monsanto/arch/cloudformation/model/resource/JobQueueState$$ENABLED$.html#wait():Unit" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -706,7 +731,7 @@ Parameters and Mappings.  A Condition is created but not used.
     </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait(x$1:Long,x$2:Int):Unit"></a><a id="wait(Long,Int):Unit"></a>
       <span class="permalink">
-      <a href="../../../../../../com/monsanto/arch/cloudformation/model/resource/ValidPolicyCombo$$onlyU$.html#wait(x$1:Long,x$2:Int):Unit" title="Permalink">
+      <a href="../../../../../../com/monsanto/arch/cloudformation/model/resource/JobQueueState$$ENABLED$.html#wait(x$1:Long,x$2:Int):Unit" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -728,7 +753,7 @@ Parameters and Mappings.  A Condition is created but not used.
     </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait(x$1:Long):Unit"></a><a id="wait(Long):Unit"></a>
       <span class="permalink">
-      <a href="../../../../../../com/monsanto/arch/cloudformation/model/resource/ValidPolicyCombo$$onlyU$.html#wait(x$1:Long):Unit" title="Permalink">
+      <a href="../../../../../../com/monsanto/arch/cloudformation/model/resource/JobQueueState$$ENABLED$.html#wait(x$1:Long):Unit" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -741,6 +766,8 @@ Parameters and Mappings.  A Condition is created but not used.
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@native</span><span class="args">()</span>
+              
                 <span class="name">@throws</span><span class="args">(<span>
       
       <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
@@ -757,8 +784,16 @@ Parameters and Mappings.  A Condition is created but not used.
         </div>
 
         <div id="inheritedMembers">
-        <div class="parent" name="com.monsanto.arch.cloudformation.model.resource.ValidPolicyCombo">
-              <h3>Inherited from <a href="ValidPolicyCombo.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.ValidPolicyCombo">ValidPolicyCombo</a>[<span class="extype" name="scala.None">None</span>.type, <span class="extype" name="scala.None">None</span>.type, <span class="extype" name="scala.Some">Some</span>[<span class="extype" name="scala.Seq">Seq</span>[<a href="../ResourceRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ResourceRef">ResourceRef</a>[<a href="AWS$colon$colonIAM$colon$colonUser.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::IAM::User">AWS::IAM::User</a>]]]]</h3>
+        <div class="parent" name="scala.Serializable">
+              <h3>Inherited from <span class="extype" name="scala.Serializable">Serializable</span></h3>
+            </div><div class="parent" name="java.io.Serializable">
+              <h3>Inherited from <span class="extype" name="java.io.Serializable">Serializable</span></h3>
+            </div><div class="parent" name="scala.Product">
+              <h3>Inherited from <span class="extype" name="scala.Product">Product</span></h3>
+            </div><div class="parent" name="scala.Equals">
+              <h3>Inherited from <span class="extype" name="scala.Equals">Equals</span></h3>
+            </div><div class="parent" name="com.monsanto.arch.cloudformation.model.resource.JobQueueState">
+              <h3>Inherited from <a href="JobQueueState.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.JobQueueState">JobQueueState</a></h3>
             </div><div class="parent" name="scala.AnyRef">
               <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
             </div><div class="parent" name="scala.Any">

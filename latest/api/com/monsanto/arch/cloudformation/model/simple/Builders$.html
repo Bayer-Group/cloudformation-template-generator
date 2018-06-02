@@ -65,9 +65,7 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../../../../../../index.html">
-              <span class="name">root</span>
-            </a>
+        <a title="" href="../../../../../../index.html"><span class="name">root</span></a>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
@@ -83,9 +81,7 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../../../../../index.html">
-              <span class="name">com</span>
-            </a>
+        <a title="" href="../../../../../index.html"><span class="name">com</span></a>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
@@ -101,9 +97,7 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../../../../index.html">
-              <span class="name">monsanto</span>
-            </a>
+        <a title="" href="../../../../index.html"><span class="name">monsanto</span></a>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../../../index.html" class="extype" name="com">com</a></dd></dl></div>
@@ -119,9 +113,7 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../../../index.html">
-              <span class="name">arch</span>
-            </a>
+        <a title="" href="../../../index.html"><span class="name">arch</span></a>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../../index.html" class="extype" name="com.monsanto">monsanto</a></dd></dl></div>
@@ -137,9 +129,7 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../../index.html">
-              <span class="name">cloudformation</span>
-            </a>
+        <a title="" href="../../index.html"><span class="name">cloudformation</span></a>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../index.html" class="extype" name="com.monsanto.arch">arch</a></dd></dl></div>
@@ -155,9 +145,7 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="A DSL to create consistent, type-safe AWS CloudFormation templates." href="../index.html">
-              <span class="name">model</span>
-            </a>
+        <a title="A DSL to create consistent, type-safe AWS CloudFormation templates." href="../index.html"><span class="name">model</span></a>
       </span>
       
       <p class="shortcomment cmt">A DSL to create consistent, type-safe AWS CloudFormation templates.</p><div class="fullcomment"><div class="comment cmt"><p>A DSL to create consistent, type-safe AWS CloudFormation templates.</p><p>The low-level DSL closely adheres to the objects and parameters in the
@@ -207,10 +195,13 @@ our <a href="http://engineering.monsanto.com/2015/07/10/cloudformation-template-
   <span class="kw">val</span> amazonLinuxAMIMapping = Mapping[AMIId](
     <span class="lit">"AmazonLinuxAMI"</span>,
     <span class="std">Map</span>(
-      <span class="lit">"us-east-1"</span> -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-1ecae776"</span>)),
-      <span class="lit">"us-west-1"</span> -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-d114f295"</span>)),
-      <span class="lit">"us-west-2"</span> -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-e7527ed7"</span>)),
-      <span class="lit">"eu-west-1"</span> -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-a10897d6"</span>))
+      <span class="lit">"us-east-1"</span>      -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-1ecae776"</span>)),
+      <span class="lit">"us-west-1"</span>      -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-d114f295"</span>)),
+      <span class="lit">"us-west-2"</span>      -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-e7527ed7"</span>)),
+      <span class="lit">"eu-west-1"</span>      -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-a10897d6"</span>)),
+      <span class="lit">"ap-southeast-1"</span> -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-68d8e93a"</span>)),
+      <span class="lit">"ap-southeast-2"</span> -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-fd9cecc7"</span>)),
+      <span class="lit">"ap-northeast-1"</span> -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-cbf90ecb"</span>))
     )
   )
   <span class="kw">val</span> simpleMappings = <span class="std">Seq</span>(amazonLinuxAMIMapping)
@@ -222,10 +213,11 @@ our <a href="http://engineering.monsanto.com/2015/07/10/cloudformation-template-
       visibility = <span class="lit">"Public"</span>,
       routeTableOrdinal = <span class="num">1</span>,
       routeOrdinal = <span class="num">1</span>,
-      gateway = <span class="std">Some</span>(ResourceRef(internetGatewayResource))
+      connectionBobber = InternetGatewayRoute(ResourceRef(internetGatewayResource))
     )
     <span class="kw">val</span> gatewayStuff = Template.fromResource(internetGatewayResource) ++
       gatewayToInternetResource ++
+      publicRouteTable ++
       publicRouteTableRoute
     <span class="kw">val</span> withinAZ = withAZ(<span class="lit">"us-east-1a"</span>) { <span class="kw">implicit</span> az <span class="kw">=&gt;</span>
       withSubnet(<span class="lit">"PubSubnet1"</span>, CidrBlock(<span class="num">10</span>, <span class="num">0</span>, <span class="num">0</span>, <span class="num">1</span>, <span class="num">24</span>)) { <span class="kw">implicit</span> pubSubnet <span class="kw">=&gt;</span>
@@ -258,12 +250,12 @@ our <a href="http://engineering.monsanto.com/2015/07/10/cloudformation-template-
   }
   <span class="kw">val</span> simpleTemplate = simpleResourceAndOutputs ++
     Template(
-      AWSTemplateFormatVersion = <span class="lit">"2010-09-09"</span>,
-      Description = <span class="lit">"Simple template"</span>,
+      AWSTemplateFormatVersion = <span class="std">Some</span>(<span class="lit">"2010-09-09"</span>),
+      Description = <span class="std">Some</span>(<span class="lit">"Simple template"</span>),
       Parameters = <span class="std">Some</span>(simpleParameters),
       Conditions = <span class="std">Some</span>(simpleConditions),
       Mappings = <span class="std">Some</span>(simpleMappings),
-      Resources = <span class="std">None</span>,
+      Resources = <span class="std">Seq</span>.empty,
       Outputs = <span class="std">None</span>
     )
   writeStaxModule(<span class="lit">"vpc-simple.json"</span>, simpleTemplate)
@@ -286,114 +278,78 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="index.html">
-              <span class="name">simple</span>
-            </a>
+        <a title="" href="index.html"><span class="name">simple</span></a>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="com.monsanto.arch.cloudformation.model">model</a></dd></dl></div>
     </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="Autoscaling.html" title=""></a>
-                        <a href="Autoscaling.html" title="">
-                          Autoscaling
-                        </a>
+                        <a href="Autoscaling.html" title="">Autoscaling</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="AvailabilityZone.html" title=""></a>
-                        <a href="AvailabilityZone.html" title="">
-                          AvailabilityZone
-                        </a>
+                        <a href="AvailabilityZone.html" title="">AvailabilityZone</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="object" href="" title=""></a>
-                        <a href="" title="">
-                          Builders
-                        </a>
+                        <a href="" title="">Builders</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="Conditions.html" title=""></a>
-                        <a href="Conditions.html" title="">
-                          Conditions
-                        </a>
+                        <a href="Conditions.html" title="">Conditions</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="EC2.html" title=""></a>
-                        <a href="EC2.html" title="">
-                          EC2
-                        </a>
+                        <a href="EC2.html" title="">EC2</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="ElasticLoadBalancing.html" title=""></a>
-                        <a href="ElasticLoadBalancing.html" title="">
-                          ElasticLoadBalancing
-                        </a>
+                        <a href="ElasticLoadBalancing.html" title="">ElasticLoadBalancing</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="Gateway.html" title=""></a>
-                        <a href="Gateway.html" title="">
-                          Gateway
-                        </a>
+                        <a href="Gateway.html" title="">Gateway</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="Instance.html" title=""></a>
-                        <a href="Instance.html" title="">
-                          Instance
-                        </a>
+                        <a href="Instance.html" title="">Instance</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="Outputs.html" title=""></a>
-                        <a href="Outputs.html" title="">
-                          Outputs
-                        </a>
+                        <a href="Outputs.html" title="">Outputs</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="Route.html" title=""></a>
-                        <a href="Route.html" title="">
-                          Route
-                        </a>
+                        <a href="Route.html" title="">Route</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="Route53.html" title=""></a>
-                        <a href="Route53.html" title="">
-                          Route53
-                        </a>
+                        <a href="Route53.html" title="">Route53</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="SecurityGroup.html" title=""></a>
-                        <a href="SecurityGroup.html" title="">
-                          SecurityGroup
-                        </a>
+                        <a href="SecurityGroup.html" title="">SecurityGroup</a>
                       </li><li class="current-entities indented6">
                         <a class="object" href="SecurityGroupRoutable$.html" title=""></a>
                         <a class="class" href="SecurityGroupRoutable.html" title=""></a>
-                        <a href="SecurityGroupRoutable.html" title="">
-                          SecurityGroupRoutable
-                        </a>
+                        <a href="SecurityGroupRoutable.html" title="">SecurityGroupRoutable</a>
                       </li><li class="current-entities indented6">
                         <a class="object" href="SecurityGroupRoutableMaker$.html" title=""></a>
                         <a class="trait" href="SecurityGroupRoutableMaker.html" title=""></a>
-                        <a href="SecurityGroupRoutableMaker.html" title="">
-                          SecurityGroupRoutableMaker
-                        </a>
+                        <a href="SecurityGroupRoutableMaker.html" title="">SecurityGroupRoutableMaker</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="Subnet.html" title=""></a>
-                        <a href="Subnet.html" title="">
-                          Subnet
-                        </a>
+                        <a href="Subnet.html" title="">Subnet</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="VPC.html" title=""></a>
-                        <a href="VPC.html" title="">
-                          VPC
-                        </a>
+                        <a href="VPC.html" title="">VPC</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="object" href="Yaml$.html" title=""></a>
-                        <a href="Yaml$.html" title="">
-                          Yaml
-                        </a>
+                        <a href="Yaml$.html" title="">Yaml</a>
                       </li>
               </ul>
             </div>
@@ -486,9 +442,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="" href="Autoscaling$RichASG.html">
-              <span class="name">RichASG</span>
-            </a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <a title="" href="Autoscaling$RichASG.html"><span class="name">RichASG</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Autoscaling.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.Autoscaling">Autoscaling</a></dd></dl></div>
@@ -504,9 +458,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="" href="AvailabilityZone$AZ.html">
-              <span class="name">AZ</span>
-            </a><span class="params">(<span name="zone">zone: <a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="" href="AvailabilityZone$AZ.html"><span class="name">AZ</span></a><span class="params">(<span name="zone">zone: <a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="AvailabilityZone.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.AvailabilityZone">AvailabilityZone</a></dd></dl></div>
@@ -522,9 +474,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="" href="Instance$RichInstance.html">
-              <span class="name">RichInstance</span>
-            </a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <a title="" href="Instance$RichInstance.html"><span class="name">RichInstance</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Instance.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.Instance">Instance</a></dd></dl></div>
@@ -540,9 +490,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="" href="Outputs$RichResource.html">
-              <span class="name">RichResource</span>
-            </a><span class="tparams">[<span name="R">R &lt;: <a href="../resource/Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a>[<span class="extype" name="com.monsanto.arch.cloudformation.model.simple.Outputs.RichResource.R">R</span>]</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <a title="" href="Outputs$RichResource.html"><span class="name">RichResource</span></a><span class="tparams">[<span name="R">R &lt;: <a href="../resource/Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a>[<span class="extype" name="com.monsanto.arch.cloudformation.model.simple.Outputs.RichResource.R">R</span>]</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Outputs.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.Outputs">Outputs</a></dd></dl></div>
@@ -558,9 +506,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="" href="Route$RichRouteTable.html">
-              <span class="name">RichRouteTable</span>
-            </a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <a title="" href="Route$RichRouteTable.html"><span class="name">RichRouteTable</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Route.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.Route">Route</a></dd></dl></div>
@@ -576,9 +522,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="" href="SecurityGroup$CidrIngressPrefix.html">
-              <span class="name">CidrIngressPrefix</span>
-            </a><span class="params">(<span name="from">from: <a href="../ParameterRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ParameterRef">ParameterRef</a>[<a href="../resource/CidrBlock.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.CidrBlock">CidrBlock</a>]</span>, <span name="portProto">portProto: <span class="extype" name="scala.Seq">Seq</span>[<a href="SecurityGroup$PortProtocol.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.PortProtocol">PortProtocol</a>]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="" href="SecurityGroup$CidrIngressPrefix.html"><span class="name">CidrIngressPrefix</span></a><span class="params">(<span name="from">from: <a href="../ParameterRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ParameterRef">ParameterRef</a>[<a href="../resource/CidrBlock.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.CidrBlock">CidrBlock</a>]</span>, <span name="portProto">portProto: <span class="extype" name="scala.Seq">Seq</span>[<a href="SecurityGroup$PortProtocol.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.PortProtocol">PortProtocol</a>]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="SecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup">SecurityGroup</a></dd></dl></div>
@@ -594,9 +538,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="" href="SecurityGroup$CidrTransport.html">
-              <span class="name">CidrTransport</span>
-            </a><span class="params">(<span name="fromPort">fromPort: <span class="extype" name="scala.Int">Int</span></span>, <span name="protocol">protocol: <span class="extype" name="scala.Predef.String">String</span> = <span class="symbol">&quot;tcp&quot;</span></span>, <span name="from">from: <span class="extype" name="scala.Option">Option</span>[<a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<a href="../resource/CidrBlock.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.CidrBlock">CidrBlock</a>]] = <span class="symbol">None</span></span>, <span name="toPort">toPort: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol">None</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="" href="SecurityGroup$CidrTransport.html"><span class="name">CidrTransport</span></a><span class="params">(<span name="fromPort">fromPort: <span class="extype" name="scala.Int">Int</span></span>, <span name="protocol">protocol: <span class="extype" name="scala.Predef.String">String</span> = <span class="symbol">&quot;tcp&quot;</span></span>, <span name="from">from: <span class="extype" name="scala.Option">Option</span>[<a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<a href="../resource/CidrBlock.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.CidrBlock">CidrBlock</a>]] = <span class="symbol">None</span></span>, <span name="toPort">toPort: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol">None</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="SecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup">SecurityGroup</a></dd></dl></div>
@@ -612,9 +554,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="" href="SecurityGroup$IngressPrefix.html">
-              <span class="name">IngressPrefix</span>
-            </a><span class="params">(<span name="from">from: <a href="SecurityGroup$RichSecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.RichSecurityGroup">RichSecurityGroup</a></span>, <span name="portProto">portProto: <span class="extype" name="scala.Seq">Seq</span>[<a href="SecurityGroup$PortProtocol.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.PortProtocol">PortProtocol</a>]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="" href="SecurityGroup$IngressPrefix.html"><span class="name">IngressPrefix</span></a><span class="params">(<span name="from">from: <a href="SecurityGroup$RichSecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.RichSecurityGroup">RichSecurityGroup</a></span>, <span name="portProto">portProto: <span class="extype" name="scala.Seq">Seq</span>[<a href="SecurityGroup$PortProtocol.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.PortProtocol">PortProtocol</a>]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="SecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup">SecurityGroup</a></dd></dl></div>
@@ -630,9 +570,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="" href="SecurityGroup$IngressSuffix.html">
-              <span class="name">IngressSuffix</span>
-            </a><span class="params">(<span name="to">to: <a href="SecurityGroup$RichSecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.RichSecurityGroup">RichSecurityGroup</a></span>, <span name="portProto">portProto: <span class="extype" name="scala.Seq">Seq</span>[<a href="SecurityGroup$PortProtocol.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.PortProtocol">PortProtocol</a>]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="" href="SecurityGroup$IngressSuffix.html"><span class="name">IngressSuffix</span></a><span class="params">(<span name="to">to: <a href="SecurityGroup$RichSecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.RichSecurityGroup">RichSecurityGroup</a></span>, <span name="portProto">portProto: <span class="extype" name="scala.Seq">Seq</span>[<a href="SecurityGroup$PortProtocol.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.PortProtocol">PortProtocol</a>]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="SecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup">SecurityGroup</a></dd></dl></div>
@@ -648,9 +586,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="" href="SecurityGroup$PortProtocol.html">
-              <span class="name">PortProtocol</span>
-            </a><span class="params">(<span name="startPort">startPort: <span class="extype" name="scala.Int">Int</span></span>, <span name="endPort">endPort: <span class="extype" name="scala.Int">Int</span></span>, <span name="protocol">protocol: <a href="SecurityGroup$TransportProtocol.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.TransportProtocol">TransportProtocol</a></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="" href="SecurityGroup$PortProtocol.html"><span class="name">PortProtocol</span></a><span class="params">(<span name="startPort">startPort: <span class="extype" name="scala.Int">Int</span></span>, <span name="endPort">endPort: <span class="extype" name="scala.Int">Int</span></span>, <span name="protocol">protocol: <a href="SecurityGroup$TransportProtocol.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.TransportProtocol">TransportProtocol</a></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="SecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup">SecurityGroup</a></dd></dl></div>
@@ -666,9 +602,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="" href="SecurityGroup$PortProtocolFragment.html">
-              <span class="name">PortProtocolFragment</span>
-            </a><span class="params">(<span name="start">start: <span class="extype" name="scala.Int">Int</span></span>, <span name="end">end: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="" href="SecurityGroup$PortProtocolFragment.html"><span class="name">PortProtocolFragment</span></a><span class="params">(<span name="start">start: <span class="extype" name="scala.Int">Int</span></span>, <span name="end">end: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="SecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup">SecurityGroup</a></dd></dl></div>
@@ -684,9 +618,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="" href="SecurityGroup$RichCidrParam.html">
-              <span class="name">RichCidrParam</span>
-            </a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <a title="" href="SecurityGroup$RichCidrParam.html"><span class="name">RichCidrParam</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="SecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup">SecurityGroup</a></dd></dl></div>
@@ -702,9 +634,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="" href="SecurityGroup$RichSecurityGroup.html">
-              <span class="name">RichSecurityGroup</span>
-            </a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <a title="" href="SecurityGroup$RichSecurityGroup.html"><span class="name">RichSecurityGroup</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="SecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup">SecurityGroup</a></dd></dl></div>
@@ -720,9 +650,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="" href="SecurityGroup$RichSecurityGroupRoutable.html">
-              <span class="name">RichSecurityGroupRoutable</span>
-            </a><span class="tparams">[<span name="R">R &lt;: <a href="../resource/Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a>[<span class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.RichSecurityGroupRoutable.R">R</span>]</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <a title="" href="SecurityGroup$RichSecurityGroupRoutable.html"><span class="name">RichSecurityGroupRoutable</span></a><span class="tparams">[<span name="R">R &lt;: <a href="../resource/Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a>[<span class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.RichSecurityGroupRoutable.R">R</span>]</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="SecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup">SecurityGroup</a></dd></dl></div>
@@ -738,9 +666,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="" href="SecurityGroup$RichTokenRefSecurityGroup.html">
-              <span class="name">RichTokenRefSecurityGroup</span>
-            </a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <a title="" href="SecurityGroup$RichTokenRefSecurityGroup.html"><span class="name">RichTokenRefSecurityGroup</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="SecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup">SecurityGroup</a></dd></dl></div>
@@ -756,9 +682,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="" href="SecurityGroup$RoutableIngressPrefix.html">
-              <span class="name">RoutableIngressPrefix</span>
-            </a><span class="tparams">[<span name="R">R &lt;: <a href="../resource/Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a>[<span class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.RoutableIngressPrefix.R">R</span>]</span>]</span><span class="params">(<span name="from">from: <a href="SecurityGroup$RichSecurityGroupRoutable.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.RichSecurityGroupRoutable">RichSecurityGroupRoutable</a>[<span class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.RoutableIngressPrefix.R">R</span>]</span>, <span name="portProto">portProto: <span class="extype" name="scala.Seq">Seq</span>[<a href="SecurityGroup$PortProtocol.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.PortProtocol">PortProtocol</a>]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="" href="SecurityGroup$RoutableIngressPrefix.html"><span class="name">RoutableIngressPrefix</span></a><span class="tparams">[<span name="R">R &lt;: <a href="../resource/Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a>[<span class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.RoutableIngressPrefix.R">R</span>]</span>]</span><span class="params">(<span name="from">from: <a href="SecurityGroup$RichSecurityGroupRoutable.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.RichSecurityGroupRoutable">RichSecurityGroupRoutable</a>[<span class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.RoutableIngressPrefix.R">R</span>]</span>, <span name="portProto">portProto: <span class="extype" name="scala.Seq">Seq</span>[<a href="SecurityGroup$PortProtocol.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.PortProtocol">PortProtocol</a>]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="SecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup">SecurityGroup</a></dd></dl></div>
@@ -774,9 +698,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="" href="SecurityGroup$RoutableIngressSuffix.html">
-              <span class="name">RoutableIngressSuffix</span>
-            </a><span class="tparams">[<span name="R">R &lt;: <a href="../resource/Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a>[<span class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.RoutableIngressSuffix.R">R</span>]</span>]</span><span class="params">(<span name="to">to: <a href="SecurityGroup$RichSecurityGroupRoutable.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.RichSecurityGroupRoutable">RichSecurityGroupRoutable</a>[<span class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.RoutableIngressSuffix.R">R</span>]</span>, <span name="portProto">portProto: <span class="extype" name="scala.Seq">Seq</span>[<a href="SecurityGroup$PortProtocol.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.PortProtocol">PortProtocol</a>]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="" href="SecurityGroup$RoutableIngressSuffix.html"><span class="name">RoutableIngressSuffix</span></a><span class="tparams">[<span name="R">R &lt;: <a href="../resource/Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a>[<span class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.RoutableIngressSuffix.R">R</span>]</span>]</span><span class="params">(<span name="to">to: <a href="SecurityGroup$RichSecurityGroupRoutable.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.RichSecurityGroupRoutable">RichSecurityGroupRoutable</a>[<span class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.RoutableIngressSuffix.R">R</span>]</span>, <span name="portProto">portProto: <span class="extype" name="scala.Seq">Seq</span>[<a href="SecurityGroup$PortProtocol.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.PortProtocol">PortProtocol</a>]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="SecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup">SecurityGroup</a></dd></dl></div>
@@ -792,9 +714,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="" href="SecurityGroup$SGTransport.html">
-              <span class="name">SGTransport</span>
-            </a><span class="params">(<span name="fromPort">fromPort: <span class="extype" name="scala.Int">Int</span></span>, <span name="protocol">protocol: <span class="extype" name="scala.Predef.String">String</span> = <span class="symbol">&quot;tcp&quot;</span></span>, <span name="from">from: <span class="extype" name="scala.Option">Option</span>[<a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<a href="../ResourceRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ResourceRef">ResourceRef</a>[<a href="../resource/AWS$colon$colonEC2$colon$colonSecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::EC2::SecurityGroup">AWS::EC2::SecurityGroup</a>]]] = <span class="symbol">None</span></span>, <span name="toPort">toPort: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol">None</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="" href="SecurityGroup$SGTransport.html"><span class="name">SGTransport</span></a><span class="params">(<span name="fromPort">fromPort: <span class="extype" name="scala.Int">Int</span></span>, <span name="protocol">protocol: <span class="extype" name="scala.Predef.String">String</span> = <span class="symbol">&quot;tcp&quot;</span></span>, <span name="from">from: <span class="extype" name="scala.Option">Option</span>[<a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<a href="../ResourceRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ResourceRef">ResourceRef</a>[<a href="../resource/AWS$colon$colonEC2$colon$colonSecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::EC2::SecurityGroup">AWS::EC2::SecurityGroup</a>]]] = <span class="symbol">None</span></span>, <span name="toPort">toPort: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol">None</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="SecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup">SecurityGroup</a></dd></dl></div>
@@ -810,9 +730,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="" href="SecurityGroup$TokenIngressPrefix.html">
-              <span class="name">TokenIngressPrefix</span>
-            </a><span class="params">(<span name="from">from: <a href="SecurityGroup$RichTokenRefSecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.RichTokenRefSecurityGroup">RichTokenRefSecurityGroup</a></span>, <span name="portProto">portProto: <span class="extype" name="scala.Seq">Seq</span>[<a href="SecurityGroup$PortProtocol.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.PortProtocol">PortProtocol</a>]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="" href="SecurityGroup$TokenIngressPrefix.html"><span class="name">TokenIngressPrefix</span></a><span class="params">(<span name="from">from: <a href="SecurityGroup$RichTokenRefSecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.RichTokenRefSecurityGroup">RichTokenRefSecurityGroup</a></span>, <span name="portProto">portProto: <span class="extype" name="scala.Seq">Seq</span>[<a href="SecurityGroup$PortProtocol.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.PortProtocol">PortProtocol</a>]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="SecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup">SecurityGroup</a></dd></dl></div>
@@ -828,9 +746,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="" href="SecurityGroup$TokenIngressSuffix.html">
-              <span class="name">TokenIngressSuffix</span>
-            </a><span class="params">(<span name="to">to: <a href="SecurityGroup$RichTokenRefSecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.RichTokenRefSecurityGroup">RichTokenRefSecurityGroup</a></span>, <span name="portProto">portProto: <span class="extype" name="scala.Seq">Seq</span>[<a href="SecurityGroup$PortProtocol.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.PortProtocol">PortProtocol</a>]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="" href="SecurityGroup$TokenIngressSuffix.html"><span class="name">TokenIngressSuffix</span></a><span class="params">(<span name="to">to: <a href="SecurityGroup$RichTokenRefSecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.RichTokenRefSecurityGroup">RichTokenRefSecurityGroup</a></span>, <span name="portProto">portProto: <span class="extype" name="scala.Seq">Seq</span>[<a href="SecurityGroup$PortProtocol.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.PortProtocol">PortProtocol</a>]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="SecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup">SecurityGroup</a></dd></dl></div>
@@ -846,9 +762,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="" href="SecurityGroup$TransportProtocol.html">
-              <span class="name">TransportProtocol</span>
-            </a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <a title="" href="SecurityGroup$TransportProtocol.html"><span class="name">TransportProtocol</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="SecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup">SecurityGroup</a></dd></dl></div>
@@ -864,9 +778,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="" href="Subnet$RichSubnet.html">
-              <span class="name">RichSubnet</span>
-            </a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <a title="" href="Subnet$RichSubnet.html"><span class="name">RichSubnet</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Subnet.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.Subnet">Subnet</a></dd></dl></div>
@@ -882,9 +794,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="" href="VPC$RichVPC.html">
-              <span class="name">RichVPC</span>
-            </a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <a title="" href="VPC$RichVPC.html"><span class="name">RichVPC</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="VPC.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.VPC">VPC</a></dd></dl></div>
@@ -977,9 +887,9 @@ Parameters and Mappings.  A Condition is created but not used.
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
     </li><li name="com.monsanto.arch.cloudformation.model.simple.Autoscaling#asg" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="asg(baseName:String,image:com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.resource.AMIId],instanceType:com.monsanto.arch.cloudformation.model.Token[String],keyName:com.monsanto.arch.cloudformation.model.Token[String],sgs:Seq[com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::EC2::SecurityGroup]]],userData:com.monsanto.arch.cloudformation.model.Fn::Base64,iam:Option[com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::IAM::InstanceProfile]]],condition:Option[com.monsanto.arch.cloudformation.model.ConditionRef],dependsOn:Option[Seq[String]],blockDevices:Option[Seq[com.monsanto.arch.cloudformation.model.resource.BlockDeviceMapping]])(minSize:Int,maxSize:Int,desiredSize:com.monsanto.arch.cloudformation.model.Token[Int],tag:String,azs:com.monsanto.arch.cloudformation.model.Token.TokenSeq[String],subnets:Seq[com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::EC2::Subnet]]],elbs:Option[Seq[com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::ElasticLoadBalancing::LoadBalancer]]]])(implicitvpc:com.monsanto.arch.cloudformation.model.resource.AWS::EC2::VPC):com.monsanto.arch.cloudformation.model.simple.SecurityGroupRoutable[com.monsanto.arch.cloudformation.model.resource.AWS::AutoScaling::AutoScalingGroup]"></a><a id="asg(String,Token[AMIId],Token[String],Token[String],Seq[Token[ResourceRef[AWS::EC2::SecurityGroup]]],Fn::Base64,Option[Token[ResourceRef[AWS::IAM::InstanceProfile]]],Option[ConditionRef],Option[Seq[String]],Option[Seq[BlockDeviceMapping]])(Int,Int,Token[Int],String,TokenSeq[String],Seq[Token[ResourceRef[AWS::EC2::Subnet]]],Option[Seq[Token[ResourceRef[AWS::ElasticLoadBalancing::LoadBalancer]]]])(AWS::EC2::VPC):SecurityGroupRoutable[AWS::AutoScaling::AutoScalingGroup]"></a>
+      <a id="asg(baseName:String,image:com.monsanto.arch.cloudformation.model.Token[String],instanceType:com.monsanto.arch.cloudformation.model.Token[String],keyName:com.monsanto.arch.cloudformation.model.Token[String],sgs:Seq[com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::EC2::SecurityGroup]]],userData:com.monsanto.arch.cloudformation.model.Fn::Base64,iam:Option[com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::IAM::InstanceProfile]]],condition:Option[com.monsanto.arch.cloudformation.model.ConditionRef],dependsOn:Option[Seq[String]],blockDevices:Option[Seq[com.monsanto.arch.cloudformation.model.resource.BlockDeviceMapping]])(minSize:Int,maxSize:Int,desiredSize:com.monsanto.arch.cloudformation.model.Token[Int],tag:String,azs:com.monsanto.arch.cloudformation.model.Token.TokenSeq[String],subnets:Seq[com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::EC2::Subnet]]],elbs:Option[Seq[com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::ElasticLoadBalancing::LoadBalancer]]]])(implicitvpc:com.monsanto.arch.cloudformation.model.resource.AWS::EC2::VPC):com.monsanto.arch.cloudformation.model.simple.SecurityGroupRoutable[com.monsanto.arch.cloudformation.model.resource.AWS::AutoScaling::AutoScalingGroup]"></a><a id="asg(String,Token[String],Token[String],Token[String],Seq[Token[ResourceRef[AWS::EC2::SecurityGroup]]],Fn::Base64,Option[Token[ResourceRef[AWS::IAM::InstanceProfile]]],Option[ConditionRef],Option[Seq[String]],Option[Seq[BlockDeviceMapping]])(Int,Int,Token[Int],String,TokenSeq[String],Seq[Token[ResourceRef[AWS::EC2::Subnet]]],Option[Seq[Token[ResourceRef[AWS::ElasticLoadBalancing::LoadBalancer]]]])(AWS::EC2::VPC):SecurityGroupRoutable[AWS::AutoScaling::AutoScalingGroup]"></a>
       <span class="permalink">
-      <a href="../../../../../../com/monsanto/arch/cloudformation/model/simple/Builders$.html#asg(baseName:String,image:com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.resource.AMIId],instanceType:com.monsanto.arch.cloudformation.model.Token[String],keyName:com.monsanto.arch.cloudformation.model.Token[String],sgs:Seq[com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::EC2::SecurityGroup]]],userData:com.monsanto.arch.cloudformation.model.Fn::Base64,iam:Option[com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::IAM::InstanceProfile]]],condition:Option[com.monsanto.arch.cloudformation.model.ConditionRef],dependsOn:Option[Seq[String]],blockDevices:Option[Seq[com.monsanto.arch.cloudformation.model.resource.BlockDeviceMapping]])(minSize:Int,maxSize:Int,desiredSize:com.monsanto.arch.cloudformation.model.Token[Int],tag:String,azs:com.monsanto.arch.cloudformation.model.Token.TokenSeq[String],subnets:Seq[com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::EC2::Subnet]]],elbs:Option[Seq[com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::ElasticLoadBalancing::LoadBalancer]]]])(implicitvpc:com.monsanto.arch.cloudformation.model.resource.AWS::EC2::VPC):com.monsanto.arch.cloudformation.model.simple.SecurityGroupRoutable[com.monsanto.arch.cloudformation.model.resource.AWS::AutoScaling::AutoScalingGroup]" title="Permalink">
+      <a href="../../../../../../com/monsanto/arch/cloudformation/model/simple/Builders$.html#asg(baseName:String,image:com.monsanto.arch.cloudformation.model.Token[String],instanceType:com.monsanto.arch.cloudformation.model.Token[String],keyName:com.monsanto.arch.cloudformation.model.Token[String],sgs:Seq[com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::EC2::SecurityGroup]]],userData:com.monsanto.arch.cloudformation.model.Fn::Base64,iam:Option[com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::IAM::InstanceProfile]]],condition:Option[com.monsanto.arch.cloudformation.model.ConditionRef],dependsOn:Option[Seq[String]],blockDevices:Option[Seq[com.monsanto.arch.cloudformation.model.resource.BlockDeviceMapping]])(minSize:Int,maxSize:Int,desiredSize:com.monsanto.arch.cloudformation.model.Token[Int],tag:String,azs:com.monsanto.arch.cloudformation.model.Token.TokenSeq[String],subnets:Seq[com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::EC2::Subnet]]],elbs:Option[Seq[com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::ElasticLoadBalancing::LoadBalancer]]]])(implicitvpc:com.monsanto.arch.cloudformation.model.resource.AWS::EC2::VPC):com.monsanto.arch.cloudformation.model.simple.SecurityGroupRoutable[com.monsanto.arch.cloudformation.model.resource.AWS::AutoScaling::AutoScalingGroup]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -988,7 +898,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">asg</span><span class="params">(<span name="baseName">baseName: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="image">image: <a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<a href="../resource/AMIId.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AMIId">AMIId</a>]</span>, <span name="instanceType">instanceType: <a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="keyName">keyName: <a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="sgs">sgs: <span class="extype" name="scala.Seq">Seq</span>[<a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<a href="../ResourceRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ResourceRef">ResourceRef</a>[<a href="../resource/AWS$colon$colonEC2$colon$colonSecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::EC2::SecurityGroup">AWS::EC2::SecurityGroup</a>]]]</span>, <span name="userData">userData: <a href="../Fn$colon$colonBase64.html" class="extype" name="com.monsanto.arch.cloudformation.model.Fn::Base64">Fn::Base64</a></span>, <span name="iam">iam: <span class="extype" name="scala.Option">Option</span>[<a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<a href="../ResourceRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ResourceRef">ResourceRef</a>[<a href="../resource/AWS$colon$colonIAM$colon$colonInstanceProfile.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::IAM::InstanceProfile">AWS::IAM::InstanceProfile</a>]]] = <span class="symbol">None</span></span>, <span name="condition">condition: <span class="extype" name="scala.Option">Option</span>[<a href="../ConditionRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ConditionRef">ConditionRef</a>] = <span class="symbol">None</span></span>, <span name="dependsOn">dependsOn: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol">None</span></span>, <span name="blockDevices">blockDevices: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<a href="../resource/BlockDeviceMapping.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.BlockDeviceMapping">BlockDeviceMapping</a>]] = <span class="symbol">None</span></span>)</span><span class="params">(<span name="minSize">minSize: <span class="extype" name="scala.Int">Int</span></span>, <span name="maxSize">maxSize: <span class="extype" name="scala.Int">Int</span></span>, <span name="desiredSize">desiredSize: <a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="scala.Int">Int</span>]</span>, <span name="tag">tag: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="azs">azs: <a href="../Token$.html#TokenSeq[A]=Either[com.monsanto.arch.cloudformation.model.FunctionCallSeqToken[A],Seq[com.monsanto.arch.cloudformation.model.Token[A]]]" class="extmbr" name="com.monsanto.arch.cloudformation.model.Token.TokenSeq">TokenSeq</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="subnets">subnets: <span class="extype" name="scala.Seq">Seq</span>[<a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<a href="../ResourceRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ResourceRef">ResourceRef</a>[<a href="../resource/AWS$colon$colonEC2$colon$colonSubnet.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::EC2::Subnet">AWS::EC2::Subnet</a>]]]</span>, <span name="elbs">elbs: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<a href="../ResourceRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ResourceRef">ResourceRef</a>[<a href="../resource/AWS$colon$colonElasticLoadBalancing$colon$colonLoadBalancer.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::ElasticLoadBalancing::LoadBalancer">AWS::ElasticLoadBalancing::LoadBalancer</a>]]]] = <span class="symbol">None</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="vpc">vpc: <a href="../resource/AWS$colon$colonEC2$colon$colonVPC.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::EC2::VPC">AWS::EC2::VPC</a></span>)</span><span class="result">: <a href="SecurityGroupRoutable.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroupRoutable">SecurityGroupRoutable</a>[<a href="../resource/AWS$colon$colonAutoScaling$colon$colonAutoScalingGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::AutoScaling::AutoScalingGroup">AWS::AutoScaling::AutoScalingGroup</a>]</span>
+        <span class="name">asg</span><span class="params">(<span name="baseName">baseName: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="image">image: <a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="instanceType">instanceType: <a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="keyName">keyName: <a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="sgs">sgs: <span class="extype" name="scala.Seq">Seq</span>[<a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<a href="../ResourceRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ResourceRef">ResourceRef</a>[<a href="../resource/AWS$colon$colonEC2$colon$colonSecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::EC2::SecurityGroup">AWS::EC2::SecurityGroup</a>]]]</span>, <span name="userData">userData: <a href="../Fn$colon$colonBase64.html" class="extype" name="com.monsanto.arch.cloudformation.model.Fn::Base64">Fn::Base64</a></span>, <span name="iam">iam: <span class="extype" name="scala.Option">Option</span>[<a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<a href="../ResourceRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ResourceRef">ResourceRef</a>[<a href="../resource/AWS$colon$colonIAM$colon$colonInstanceProfile.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::IAM::InstanceProfile">AWS::IAM::InstanceProfile</a>]]] = <span class="symbol">None</span></span>, <span name="condition">condition: <span class="extype" name="scala.Option">Option</span>[<a href="../ConditionRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ConditionRef">ConditionRef</a>] = <span class="symbol">None</span></span>, <span name="dependsOn">dependsOn: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol">None</span></span>, <span name="blockDevices">blockDevices: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<a href="../resource/BlockDeviceMapping.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.BlockDeviceMapping">BlockDeviceMapping</a>]] = <span class="symbol">None</span></span>)</span><span class="params">(<span name="minSize">minSize: <span class="extype" name="scala.Int">Int</span></span>, <span name="maxSize">maxSize: <span class="extype" name="scala.Int">Int</span></span>, <span name="desiredSize">desiredSize: <a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="scala.Int">Int</span>]</span>, <span name="tag">tag: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="azs">azs: <a href="../Token$.html#TokenSeq[A]=Either[com.monsanto.arch.cloudformation.model.FunctionCallSeqToken[A],Seq[com.monsanto.arch.cloudformation.model.Token[A]]]" class="extmbr" name="com.monsanto.arch.cloudformation.model.Token.TokenSeq">TokenSeq</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="subnets">subnets: <span class="extype" name="scala.Seq">Seq</span>[<a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<a href="../ResourceRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ResourceRef">ResourceRef</a>[<a href="../resource/AWS$colon$colonEC2$colon$colonSubnet.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::EC2::Subnet">AWS::EC2::Subnet</a>]]]</span>, <span name="elbs">elbs: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<a href="../ResourceRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ResourceRef">ResourceRef</a>[<a href="../resource/AWS$colon$colonElasticLoadBalancing$colon$colonLoadBalancer.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::ElasticLoadBalancing::LoadBalancer">AWS::ElasticLoadBalancing::LoadBalancer</a>]]]] = <span class="symbol">None</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="vpc">vpc: <a href="../resource/AWS$colon$colonEC2$colon$colonVPC.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::EC2::VPC">AWS::EC2::VPC</a></span>)</span><span class="result">: <a href="SecurityGroupRoutable.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroupRoutable">SecurityGroupRoutable</a>[<a href="../resource/AWS$colon$colonAutoScaling$colon$colonAutoScalingGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::AutoScaling::AutoScalingGroup">AWS::AutoScaling::AutoScalingGroup</a>]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Autoscaling.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.Autoscaling">Autoscaling</a></dd></dl></div>
@@ -1007,7 +917,9 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="name">clone</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../../../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@native</span><span class="args">()</span>
+              
                 <span class="name">@throws</span><span class="args">(<span>
       
       <span class="defval" name="classOf[java.lang.CloneNotSupportedException]">...</span>
@@ -1015,9 +927,9 @@ Parameters and Mappings.  A Condition is created but not used.
               
         </dd></dl></div>
     </li><li name="com.monsanto.arch.cloudformation.model.simple.EC2#ec2" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="ec2(name:String,InstanceType:com.monsanto.arch.cloudformation.model.Token[String],KeyName:com.monsanto.arch.cloudformation.model.Token[String],ImageId:com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.resource.AMIId],SecurityGroupIds:Seq[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::EC2::SecurityGroup]],Tags:Seq[com.monsanto.arch.cloudformation.model.resource.AmazonTag],Metadata:Option[Map[String,String]],IamInstanceProfile:Option[com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::IAM::InstanceProfile]]],SourceDestCheck:Option[String],UserData:Option[com.monsanto.arch.cloudformation.model.Fn::Base64],Monitoring:Option[Boolean],Volumes:Option[Seq[com.monsanto.arch.cloudformation.model.resource.EC2MountPoint]],DisableApiTermination:Option[String],Condition:Option[com.monsanto.arch.cloudformation.model.ConditionRef],DependsOn:Option[Seq[String]])(implicitsubnet:com.monsanto.arch.cloudformation.model.resource.AWS::EC2::Subnet,implicitvpc:com.monsanto.arch.cloudformation.model.resource.AWS::EC2::VPC):com.monsanto.arch.cloudformation.model.simple.SecurityGroupRoutable[com.monsanto.arch.cloudformation.model.resource.AWS::EC2::Instance]"></a><a id="ec2(String,Token[String],Token[String],Token[AMIId],Seq[ResourceRef[AWS::EC2::SecurityGroup]],Seq[AmazonTag],Option[Map[String,String]],Option[Token[ResourceRef[AWS::IAM::InstanceProfile]]],Option[String],Option[Fn::Base64],Option[Boolean],Option[Seq[EC2MountPoint]],Option[String],Option[ConditionRef],Option[Seq[String]])(AWS::EC2::Subnet,AWS::EC2::VPC):SecurityGroupRoutable[AWS::EC2::Instance]"></a>
+      <a id="ec2(name:String,InstanceType:com.monsanto.arch.cloudformation.model.Token[String],KeyName:com.monsanto.arch.cloudformation.model.Token[String],ImageId:com.monsanto.arch.cloudformation.model.Token[String],SecurityGroupIds:Seq[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::EC2::SecurityGroup]],Tags:Seq[com.monsanto.arch.cloudformation.model.resource.AmazonTag],Metadata:Option[Map[String,String]],IamInstanceProfile:Option[com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::IAM::InstanceProfile]]],SourceDestCheck:Option[String],UserData:Option[com.monsanto.arch.cloudformation.model.Fn::Base64],Monitoring:Option[Boolean],Volumes:Option[Seq[com.monsanto.arch.cloudformation.model.resource.EC2MountPoint]],DisableApiTermination:Option[String],Condition:Option[com.monsanto.arch.cloudformation.model.ConditionRef],DependsOn:Option[Seq[String]])(implicitsubnet:com.monsanto.arch.cloudformation.model.resource.AWS::EC2::Subnet,implicitvpc:com.monsanto.arch.cloudformation.model.resource.AWS::EC2::VPC):com.monsanto.arch.cloudformation.model.simple.SecurityGroupRoutable[com.monsanto.arch.cloudformation.model.resource.AWS::EC2::Instance]"></a><a id="ec2(String,Token[String],Token[String],Token[String],Seq[ResourceRef[AWS::EC2::SecurityGroup]],Seq[AmazonTag],Option[Map[String,String]],Option[Token[ResourceRef[AWS::IAM::InstanceProfile]]],Option[String],Option[Fn::Base64],Option[Boolean],Option[Seq[EC2MountPoint]],Option[String],Option[ConditionRef],Option[Seq[String]])(AWS::EC2::Subnet,AWS::EC2::VPC):SecurityGroupRoutable[AWS::EC2::Instance]"></a>
       <span class="permalink">
-      <a href="../../../../../../com/monsanto/arch/cloudformation/model/simple/Builders$.html#ec2(name:String,InstanceType:com.monsanto.arch.cloudformation.model.Token[String],KeyName:com.monsanto.arch.cloudformation.model.Token[String],ImageId:com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.resource.AMIId],SecurityGroupIds:Seq[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::EC2::SecurityGroup]],Tags:Seq[com.monsanto.arch.cloudformation.model.resource.AmazonTag],Metadata:Option[Map[String,String]],IamInstanceProfile:Option[com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::IAM::InstanceProfile]]],SourceDestCheck:Option[String],UserData:Option[com.monsanto.arch.cloudformation.model.Fn::Base64],Monitoring:Option[Boolean],Volumes:Option[Seq[com.monsanto.arch.cloudformation.model.resource.EC2MountPoint]],DisableApiTermination:Option[String],Condition:Option[com.monsanto.arch.cloudformation.model.ConditionRef],DependsOn:Option[Seq[String]])(implicitsubnet:com.monsanto.arch.cloudformation.model.resource.AWS::EC2::Subnet,implicitvpc:com.monsanto.arch.cloudformation.model.resource.AWS::EC2::VPC):com.monsanto.arch.cloudformation.model.simple.SecurityGroupRoutable[com.monsanto.arch.cloudformation.model.resource.AWS::EC2::Instance]" title="Permalink">
+      <a href="../../../../../../com/monsanto/arch/cloudformation/model/simple/Builders$.html#ec2(name:String,InstanceType:com.monsanto.arch.cloudformation.model.Token[String],KeyName:com.monsanto.arch.cloudformation.model.Token[String],ImageId:com.monsanto.arch.cloudformation.model.Token[String],SecurityGroupIds:Seq[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::EC2::SecurityGroup]],Tags:Seq[com.monsanto.arch.cloudformation.model.resource.AmazonTag],Metadata:Option[Map[String,String]],IamInstanceProfile:Option[com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::IAM::InstanceProfile]]],SourceDestCheck:Option[String],UserData:Option[com.monsanto.arch.cloudformation.model.Fn::Base64],Monitoring:Option[Boolean],Volumes:Option[Seq[com.monsanto.arch.cloudformation.model.resource.EC2MountPoint]],DisableApiTermination:Option[String],Condition:Option[com.monsanto.arch.cloudformation.model.ConditionRef],DependsOn:Option[Seq[String]])(implicitsubnet:com.monsanto.arch.cloudformation.model.resource.AWS::EC2::Subnet,implicitvpc:com.monsanto.arch.cloudformation.model.resource.AWS::EC2::VPC):com.monsanto.arch.cloudformation.model.simple.SecurityGroupRoutable[com.monsanto.arch.cloudformation.model.resource.AWS::EC2::Instance]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -1026,7 +938,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">ec2</span><span class="params">(<span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="InstanceType">InstanceType: <a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="KeyName">KeyName: <a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="ImageId">ImageId: <a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<a href="../resource/AMIId.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AMIId">AMIId</a>]</span>, <span name="SecurityGroupIds">SecurityGroupIds: <span class="extype" name="scala.Seq">Seq</span>[<a href="../ResourceRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ResourceRef">ResourceRef</a>[<a href="../resource/AWS$colon$colonEC2$colon$colonSecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::EC2::SecurityGroup">AWS::EC2::SecurityGroup</a>]]</span>, <span name="Tags">Tags: <span class="extype" name="scala.Seq">Seq</span>[<a href="../resource/AmazonTag.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AmazonTag">AmazonTag</a>]</span>, <span name="Metadata">Metadata: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol">None</span></span>, <span name="IamInstanceProfile">IamInstanceProfile: <span class="extype" name="scala.Option">Option</span>[<a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<a href="../ResourceRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ResourceRef">ResourceRef</a>[<a href="../resource/AWS$colon$colonIAM$colon$colonInstanceProfile.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::IAM::InstanceProfile">AWS::IAM::InstanceProfile</a>]]] = <span class="symbol">None</span></span>, <span name="SourceDestCheck">SourceDestCheck: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">None</span></span>, <span name="UserData">UserData: <span class="extype" name="scala.Option">Option</span>[<a href="../Fn$colon$colonBase64.html" class="extype" name="com.monsanto.arch.cloudformation.model.Fn::Base64">Fn::Base64</a>] = <span class="symbol">None</span></span>, <span name="Monitoring">Monitoring: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Boolean">Boolean</span>] = <span class="symbol">None</span></span>, <span name="Volumes">Volumes: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<a href="../resource/EC2MountPoint.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.EC2MountPoint">EC2MountPoint</a>]] = <span class="symbol">None</span></span>, <span name="DisableApiTermination">DisableApiTermination: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">None</span></span>, <span name="Condition">Condition: <span class="extype" name="scala.Option">Option</span>[<a href="../ConditionRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ConditionRef">ConditionRef</a>] = <span class="symbol">None</span></span>, <span name="DependsOn">DependsOn: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol">None</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="subnet">subnet: <a href="../resource/AWS$colon$colonEC2$colon$colonSubnet.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::EC2::Subnet">AWS::EC2::Subnet</a></span>, <span name="vpc">vpc: <a href="../resource/AWS$colon$colonEC2$colon$colonVPC.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::EC2::VPC">AWS::EC2::VPC</a></span>)</span><span class="result">: <a href="SecurityGroupRoutable.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroupRoutable">SecurityGroupRoutable</a>[<a href="../resource/AWS$colon$colonEC2$colon$colonInstance.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::EC2::Instance">AWS::EC2::Instance</a>]</span>
+        <span class="name">ec2</span><span class="params">(<span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="InstanceType">InstanceType: <a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="KeyName">KeyName: <a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="ImageId">ImageId: <a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="SecurityGroupIds">SecurityGroupIds: <span class="extype" name="scala.Seq">Seq</span>[<a href="../ResourceRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ResourceRef">ResourceRef</a>[<a href="../resource/AWS$colon$colonEC2$colon$colonSecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::EC2::SecurityGroup">AWS::EC2::SecurityGroup</a>]]</span>, <span name="Tags">Tags: <span class="extype" name="scala.Seq">Seq</span>[<a href="../resource/AmazonTag.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AmazonTag">AmazonTag</a>]</span>, <span name="Metadata">Metadata: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol">None</span></span>, <span name="IamInstanceProfile">IamInstanceProfile: <span class="extype" name="scala.Option">Option</span>[<a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<a href="../ResourceRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ResourceRef">ResourceRef</a>[<a href="../resource/AWS$colon$colonIAM$colon$colonInstanceProfile.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::IAM::InstanceProfile">AWS::IAM::InstanceProfile</a>]]] = <span class="symbol">None</span></span>, <span name="SourceDestCheck">SourceDestCheck: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">None</span></span>, <span name="UserData">UserData: <span class="extype" name="scala.Option">Option</span>[<a href="../Fn$colon$colonBase64.html" class="extype" name="com.monsanto.arch.cloudformation.model.Fn::Base64">Fn::Base64</a>] = <span class="symbol">None</span></span>, <span name="Monitoring">Monitoring: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Boolean">Boolean</span>] = <span class="symbol">None</span></span>, <span name="Volumes">Volumes: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<a href="../resource/EC2MountPoint.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.EC2MountPoint">EC2MountPoint</a>]] = <span class="symbol">None</span></span>, <span name="DisableApiTermination">DisableApiTermination: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">None</span></span>, <span name="Condition">Condition: <span class="extype" name="scala.Option">Option</span>[<a href="../ConditionRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ConditionRef">ConditionRef</a>] = <span class="symbol">None</span></span>, <span name="DependsOn">DependsOn: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol">None</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="subnet">subnet: <a href="../resource/AWS$colon$colonEC2$colon$colonSubnet.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::EC2::Subnet">AWS::EC2::Subnet</a></span>, <span name="vpc">vpc: <a href="../resource/AWS$colon$colonEC2$colon$colonVPC.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::EC2::VPC">AWS::EC2::VPC</a></span>)</span><span class="result">: <a href="SecurityGroupRoutable.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroupRoutable">SecurityGroupRoutable</a>[<a href="../resource/AWS$colon$colonEC2$colon$colonInstance.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::EC2::Instance">AWS::EC2::Instance</a>]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="EC2.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.EC2">EC2</a></dd></dl></div>
@@ -1119,7 +1031,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="name">finalize</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../../../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
                 <span class="name">@throws</span><span class="args">(<span>
       
       <span class="symbol">classOf[java.lang.Throwable]</span>
@@ -1141,7 +1053,10 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="name">getClass</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.Class">Class</span>[_]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd><dt>Annotations</dt><dd>
+                <span class="name">@native</span><span class="args">()</span>
+              
+        </dd></dl></div>
     </li><li name="scala.AnyRef#hashCode" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="hashCode():Int"></a>
       <span class="permalink">
@@ -1157,7 +1072,10 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd><dt>Annotations</dt><dd>
+                <span class="name">@native</span><span class="args">()</span>
+              
+        </dd></dl></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <span class="permalink">
@@ -1175,9 +1093,9 @@ Parameters and Mappings.  A Condition is created but not used.
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
     </li><li name="com.monsanto.arch.cloudformation.model.simple.Autoscaling#launchConfig" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="launchConfig(name:String,image:com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.resource.AMIId],instanceType:com.monsanto.arch.cloudformation.model.Token[String],keyName:com.monsanto.arch.cloudformation.model.Token[String],sgs:Seq[com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::EC2::SecurityGroup]]],userData:com.monsanto.arch.cloudformation.model.Fn::Base64,iam:Option[com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::IAM::InstanceProfile]]],condition:Option[com.monsanto.arch.cloudformation.model.ConditionRef],dependsOn:Option[Seq[String]],blockDevices:Option[Seq[com.monsanto.arch.cloudformation.model.resource.BlockDeviceMapping]])(implicitvpc:com.monsanto.arch.cloudformation.model.resource.AWS::EC2::VPC):com.monsanto.arch.cloudformation.model.simple.SecurityGroupRoutable[com.monsanto.arch.cloudformation.model.resource.AWS::AutoScaling::LaunchConfiguration]"></a><a id="launchConfig(String,Token[AMIId],Token[String],Token[String],Seq[Token[ResourceRef[AWS::EC2::SecurityGroup]]],Fn::Base64,Option[Token[ResourceRef[AWS::IAM::InstanceProfile]]],Option[ConditionRef],Option[Seq[String]],Option[Seq[BlockDeviceMapping]])(AWS::EC2::VPC):SecurityGroupRoutable[AWS::AutoScaling::LaunchConfiguration]"></a>
+      <a id="launchConfig(name:String,image:com.monsanto.arch.cloudformation.model.Token[String],instanceType:com.monsanto.arch.cloudformation.model.Token[String],keyName:com.monsanto.arch.cloudformation.model.Token[String],sgs:Seq[com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::EC2::SecurityGroup]]],userData:com.monsanto.arch.cloudformation.model.Fn::Base64,iam:Option[com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::IAM::InstanceProfile]]],condition:Option[com.monsanto.arch.cloudformation.model.ConditionRef],dependsOn:Option[Seq[String]],blockDevices:Option[Seq[com.monsanto.arch.cloudformation.model.resource.BlockDeviceMapping]])(implicitvpc:com.monsanto.arch.cloudformation.model.resource.AWS::EC2::VPC):com.monsanto.arch.cloudformation.model.simple.SecurityGroupRoutable[com.monsanto.arch.cloudformation.model.resource.AWS::AutoScaling::LaunchConfiguration]"></a><a id="launchConfig(String,Token[String],Token[String],Token[String],Seq[Token[ResourceRef[AWS::EC2::SecurityGroup]]],Fn::Base64,Option[Token[ResourceRef[AWS::IAM::InstanceProfile]]],Option[ConditionRef],Option[Seq[String]],Option[Seq[BlockDeviceMapping]])(AWS::EC2::VPC):SecurityGroupRoutable[AWS::AutoScaling::LaunchConfiguration]"></a>
       <span class="permalink">
-      <a href="../../../../../../com/monsanto/arch/cloudformation/model/simple/Builders$.html#launchConfig(name:String,image:com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.resource.AMIId],instanceType:com.monsanto.arch.cloudformation.model.Token[String],keyName:com.monsanto.arch.cloudformation.model.Token[String],sgs:Seq[com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::EC2::SecurityGroup]]],userData:com.monsanto.arch.cloudformation.model.Fn::Base64,iam:Option[com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::IAM::InstanceProfile]]],condition:Option[com.monsanto.arch.cloudformation.model.ConditionRef],dependsOn:Option[Seq[String]],blockDevices:Option[Seq[com.monsanto.arch.cloudformation.model.resource.BlockDeviceMapping]])(implicitvpc:com.monsanto.arch.cloudformation.model.resource.AWS::EC2::VPC):com.monsanto.arch.cloudformation.model.simple.SecurityGroupRoutable[com.monsanto.arch.cloudformation.model.resource.AWS::AutoScaling::LaunchConfiguration]" title="Permalink">
+      <a href="../../../../../../com/monsanto/arch/cloudformation/model/simple/Builders$.html#launchConfig(name:String,image:com.monsanto.arch.cloudformation.model.Token[String],instanceType:com.monsanto.arch.cloudformation.model.Token[String],keyName:com.monsanto.arch.cloudformation.model.Token[String],sgs:Seq[com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::EC2::SecurityGroup]]],userData:com.monsanto.arch.cloudformation.model.Fn::Base64,iam:Option[com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::IAM::InstanceProfile]]],condition:Option[com.monsanto.arch.cloudformation.model.ConditionRef],dependsOn:Option[Seq[String]],blockDevices:Option[Seq[com.monsanto.arch.cloudformation.model.resource.BlockDeviceMapping]])(implicitvpc:com.monsanto.arch.cloudformation.model.resource.AWS::EC2::VPC):com.monsanto.arch.cloudformation.model.simple.SecurityGroupRoutable[com.monsanto.arch.cloudformation.model.resource.AWS::AutoScaling::LaunchConfiguration]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -1186,7 +1104,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">launchConfig</span><span class="params">(<span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="image">image: <a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<a href="../resource/AMIId.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AMIId">AMIId</a>]</span>, <span name="instanceType">instanceType: <a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="keyName">keyName: <a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="sgs">sgs: <span class="extype" name="scala.Seq">Seq</span>[<a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<a href="../ResourceRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ResourceRef">ResourceRef</a>[<a href="../resource/AWS$colon$colonEC2$colon$colonSecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::EC2::SecurityGroup">AWS::EC2::SecurityGroup</a>]]]</span>, <span name="userData">userData: <a href="../Fn$colon$colonBase64.html" class="extype" name="com.monsanto.arch.cloudformation.model.Fn::Base64">Fn::Base64</a></span>, <span name="iam">iam: <span class="extype" name="scala.Option">Option</span>[<a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<a href="../ResourceRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ResourceRef">ResourceRef</a>[<a href="../resource/AWS$colon$colonIAM$colon$colonInstanceProfile.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::IAM::InstanceProfile">AWS::IAM::InstanceProfile</a>]]] = <span class="symbol">None</span></span>, <span name="condition">condition: <span class="extype" name="scala.Option">Option</span>[<a href="../ConditionRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ConditionRef">ConditionRef</a>] = <span class="symbol">None</span></span>, <span name="dependsOn">dependsOn: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol">None</span></span>, <span name="blockDevices">blockDevices: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<a href="../resource/BlockDeviceMapping.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.BlockDeviceMapping">BlockDeviceMapping</a>]] = <span class="symbol">None</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="vpc">vpc: <a href="../resource/AWS$colon$colonEC2$colon$colonVPC.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::EC2::VPC">AWS::EC2::VPC</a></span>)</span><span class="result">: <a href="SecurityGroupRoutable.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroupRoutable">SecurityGroupRoutable</a>[<a href="../resource/AWS$colon$colonAutoScaling$colon$colonLaunchConfiguration.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::AutoScaling::LaunchConfiguration">AWS::AutoScaling::LaunchConfiguration</a>]</span>
+        <span class="name">launchConfig</span><span class="params">(<span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="image">image: <a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="instanceType">instanceType: <a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="keyName">keyName: <a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="sgs">sgs: <span class="extype" name="scala.Seq">Seq</span>[<a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<a href="../ResourceRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ResourceRef">ResourceRef</a>[<a href="../resource/AWS$colon$colonEC2$colon$colonSecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::EC2::SecurityGroup">AWS::EC2::SecurityGroup</a>]]]</span>, <span name="userData">userData: <a href="../Fn$colon$colonBase64.html" class="extype" name="com.monsanto.arch.cloudformation.model.Fn::Base64">Fn::Base64</a></span>, <span name="iam">iam: <span class="extype" name="scala.Option">Option</span>[<a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<a href="../ResourceRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ResourceRef">ResourceRef</a>[<a href="../resource/AWS$colon$colonIAM$colon$colonInstanceProfile.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::IAM::InstanceProfile">AWS::IAM::InstanceProfile</a>]]] = <span class="symbol">None</span></span>, <span name="condition">condition: <span class="extype" name="scala.Option">Option</span>[<a href="../ConditionRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ConditionRef">ConditionRef</a>] = <span class="symbol">None</span></span>, <span name="dependsOn">dependsOn: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol">None</span></span>, <span name="blockDevices">blockDevices: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Seq">Seq</span>[<a href="../resource/BlockDeviceMapping.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.BlockDeviceMapping">BlockDeviceMapping</a>]] = <span class="symbol">None</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="vpc">vpc: <a href="../resource/AWS$colon$colonEC2$colon$colonVPC.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::EC2::VPC">AWS::EC2::VPC</a></span>)</span><span class="result">: <a href="SecurityGroupRoutable.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroupRoutable">SecurityGroupRoutable</a>[<a href="../resource/AWS$colon$colonAutoScaling$colon$colonLaunchConfiguration.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::AutoScaling::LaunchConfiguration">AWS::AutoScaling::LaunchConfiguration</a>]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Autoscaling.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.Autoscaling">Autoscaling</a></dd></dl></div>
@@ -1285,7 +1203,10 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="name">notify</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@native</span><span class="args">()</span>
+              
+        </dd></dl></div>
     </li><li name="scala.AnyRef#notifyAll" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="notifyAll():Unit"></a>
       <span class="permalink">
@@ -1301,7 +1222,10 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@native</span><span class="args">()</span>
+              
+        </dd></dl></div>
     </li><li name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup#resourceNameSafeUUID" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="resourceNameSafeUUID():String"></a>
       <span class="permalink">
@@ -1383,9 +1307,9 @@ Parameters and Mappings.  A Condition is created but not used.
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="SecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup">SecurityGroup</a></dd></dl></div>
     </li><li name="com.monsanto.arch.cloudformation.model.simple.Subnet#subnet" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="subnet(visibility:String,ordinal:Int,vpc:com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::EC2::VPC]],az:Option[com.monsanto.arch.cloudformation.model.Token[String]],cidr:com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.resource.CidrBlock],tagger:(String,String)=&gt;Seq[com.monsanto.arch.cloudformation.model.resource.AmazonTag]):com.monsanto.arch.cloudformation.model.resource.AWS::EC2::Subnet"></a><a id="subnet(String,Int,Token[ResourceRef[AWS::EC2::VPC]],Option[Token[String]],Token[CidrBlock],(String,String)⇒Seq[AmazonTag]):AWS::EC2::Subnet"></a>
+      <a id="subnet(visibility:String,ordinal:Int,vpc:com.monsanto.arch.cloudformation.model.resource.VpcId,az:Option[com.monsanto.arch.cloudformation.model.Token[String]],cidr:com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.resource.CidrBlock],tagger:(String,String)=&gt;Seq[com.monsanto.arch.cloudformation.model.resource.AmazonTag]):com.monsanto.arch.cloudformation.model.resource.AWS::EC2::Subnet"></a><a id="subnet(String,Int,VpcId,Option[Token[String]],Token[CidrBlock],(String,String)⇒Seq[AmazonTag]):AWS::EC2::Subnet"></a>
       <span class="permalink">
-      <a href="../../../../../../com/monsanto/arch/cloudformation/model/simple/Builders$.html#subnet(visibility:String,ordinal:Int,vpc:com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::EC2::VPC]],az:Option[com.monsanto.arch.cloudformation.model.Token[String]],cidr:com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.resource.CidrBlock],tagger:(String,String)=&gt;Seq[com.monsanto.arch.cloudformation.model.resource.AmazonTag]):com.monsanto.arch.cloudformation.model.resource.AWS::EC2::Subnet" title="Permalink">
+      <a href="../../../../../../com/monsanto/arch/cloudformation/model/simple/Builders$.html#subnet(visibility:String,ordinal:Int,vpc:com.monsanto.arch.cloudformation.model.resource.VpcId,az:Option[com.monsanto.arch.cloudformation.model.Token[String]],cidr:com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.resource.CidrBlock],tagger:(String,String)=&gt;Seq[com.monsanto.arch.cloudformation.model.resource.AmazonTag]):com.monsanto.arch.cloudformation.model.resource.AWS::EC2::Subnet" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -1394,14 +1318,14 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">subnet</span><span class="params">(<span name="visibility">visibility: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="ordinal">ordinal: <span class="extype" name="scala.Int">Int</span></span>, <span name="vpc">vpc: <a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<a href="../ResourceRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ResourceRef">ResourceRef</a>[<a href="../resource/AWS$colon$colonEC2$colon$colonVPC.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::EC2::VPC">AWS::EC2::VPC</a>]]</span>, <span name="az">az: <span class="extype" name="scala.Option">Option</span>[<a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol">None</span></span>, <span name="cidr">cidr: <a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<a href="../resource/CidrBlock.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.CidrBlock">CidrBlock</a>]</span>, <span name="tagger">tagger: (<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>) ⇒ <span class="extype" name="scala.Seq">Seq</span>[<a href="../resource/AmazonTag.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AmazonTag">AmazonTag</a>]</span>)</span><span class="result">: <a href="../resource/AWS$colon$colonEC2$colon$colonSubnet.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::EC2::Subnet">AWS::EC2::Subnet</a></span>
+        <span class="name">subnet</span><span class="params">(<span name="visibility">visibility: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="ordinal">ordinal: <span class="extype" name="scala.Int">Int</span></span>, <span name="vpc">vpc: <a href="../resource/VpcId.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.VpcId">VpcId</a></span>, <span name="az">az: <span class="extype" name="scala.Option">Option</span>[<a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol">None</span></span>, <span name="cidr">cidr: <a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<a href="../resource/CidrBlock.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.CidrBlock">CidrBlock</a>]</span>, <span name="tagger">tagger: (<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>) ⇒ <span class="extype" name="scala.Seq">Seq</span>[<a href="../resource/AmazonTag.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AmazonTag">AmazonTag</a>]</span>)</span><span class="result">: <a href="../resource/AWS$colon$colonEC2$colon$colonSubnet.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::EC2::Subnet">AWS::EC2::Subnet</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Subnet.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.Subnet">Subnet</a></dd></dl></div>
     </li><li name="com.monsanto.arch.cloudformation.model.simple.Subnet#subnet" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="subnet(visibility:String,ordinal:Int,vpc:com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::EC2::VPC]],az:com.monsanto.arch.cloudformation.model.Token[String],cidr:com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.resource.CidrBlock],tagger:(String,String)=&gt;Seq[com.monsanto.arch.cloudformation.model.resource.AmazonTag]):com.monsanto.arch.cloudformation.model.resource.AWS::EC2::Subnet"></a><a id="subnet(String,Int,Token[ResourceRef[AWS::EC2::VPC]],Token[String],Token[CidrBlock],(String,String)⇒Seq[AmazonTag]):AWS::EC2::Subnet"></a>
+      <a id="subnet(visibility:String,ordinal:Int,vpc:com.monsanto.arch.cloudformation.model.resource.VpcId,az:com.monsanto.arch.cloudformation.model.Token[String],cidr:com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.resource.CidrBlock],tagger:(String,String)=&gt;Seq[com.monsanto.arch.cloudformation.model.resource.AmazonTag]):com.monsanto.arch.cloudformation.model.resource.AWS::EC2::Subnet"></a><a id="subnet(String,Int,VpcId,Token[String],Token[CidrBlock],(String,String)⇒Seq[AmazonTag]):AWS::EC2::Subnet"></a>
       <span class="permalink">
-      <a href="../../../../../../com/monsanto/arch/cloudformation/model/simple/Builders$.html#subnet(visibility:String,ordinal:Int,vpc:com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.ResourceRef[com.monsanto.arch.cloudformation.model.resource.AWS::EC2::VPC]],az:com.monsanto.arch.cloudformation.model.Token[String],cidr:com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.resource.CidrBlock],tagger:(String,String)=&gt;Seq[com.monsanto.arch.cloudformation.model.resource.AmazonTag]):com.monsanto.arch.cloudformation.model.resource.AWS::EC2::Subnet" title="Permalink">
+      <a href="../../../../../../com/monsanto/arch/cloudformation/model/simple/Builders$.html#subnet(visibility:String,ordinal:Int,vpc:com.monsanto.arch.cloudformation.model.resource.VpcId,az:com.monsanto.arch.cloudformation.model.Token[String],cidr:com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.resource.CidrBlock],tagger:(String,String)=&gt;Seq[com.monsanto.arch.cloudformation.model.resource.AmazonTag]):com.monsanto.arch.cloudformation.model.resource.AWS::EC2::Subnet" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -1410,7 +1334,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">subnet</span><span class="params">(<span name="visibility">visibility: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="ordinal">ordinal: <span class="extype" name="scala.Int">Int</span></span>, <span name="vpc">vpc: <a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<a href="../ResourceRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ResourceRef">ResourceRef</a>[<a href="../resource/AWS$colon$colonEC2$colon$colonVPC.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::EC2::VPC">AWS::EC2::VPC</a>]]</span>, <span name="az">az: <a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="cidr">cidr: <a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<a href="../resource/CidrBlock.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.CidrBlock">CidrBlock</a>]</span>, <span name="tagger">tagger: (<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>) ⇒ <span class="extype" name="scala.Seq">Seq</span>[<a href="../resource/AmazonTag.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AmazonTag">AmazonTag</a>]</span>)</span><span class="result">: <a href="../resource/AWS$colon$colonEC2$colon$colonSubnet.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::EC2::Subnet">AWS::EC2::Subnet</a></span>
+        <span class="name">subnet</span><span class="params">(<span name="visibility">visibility: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="ordinal">ordinal: <span class="extype" name="scala.Int">Int</span></span>, <span name="vpc">vpc: <a href="../resource/VpcId.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.VpcId">VpcId</a></span>, <span name="az">az: <a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="cidr">cidr: <a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<a href="../resource/CidrBlock.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.CidrBlock">CidrBlock</a>]</span>, <span name="tagger">tagger: (<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>) ⇒ <span class="extype" name="scala.Seq">Seq</span>[<a href="../resource/AmazonTag.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AmazonTag">AmazonTag</a>]</span>)</span><span class="result">: <a href="../resource/AWS$colon$colonEC2$colon$colonSubnet.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::EC2::Subnet">AWS::EC2::Subnet</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Subnet.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.Subnet">Subnet</a></dd></dl></div>
@@ -1506,6 +1430,8 @@ Parameters and Mappings.  A Condition is created but not used.
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@native</span><span class="args">()</span>
+              
                 <span class="name">@throws</span><span class="args">(<span>
       
       <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
@@ -1609,9 +1535,9 @@ Parameters and Mappings.  A Condition is created but not used.
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Subnet.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.Subnet">Subnet</a></dd></dl></div>
     </li><li name="com.monsanto.arch.cloudformation.model.simple.VPC#withVpc" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="withVpc(cidrBlock:com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.resource.CidrBlock])(f:com.monsanto.arch.cloudformation.model.resource.AWS::EC2::VPC=&gt;com.monsanto.arch.cloudformation.model.Template):com.monsanto.arch.cloudformation.model.Template"></a><a id="withVpc(Token[CidrBlock])((AWS::EC2::VPC)⇒Template):Template"></a>
+      <a id="withVpc(cidrBlock:com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.resource.CidrBlock],vpcName:Option[String])(f:com.monsanto.arch.cloudformation.model.resource.AWS::EC2::VPC=&gt;com.monsanto.arch.cloudformation.model.Template):com.monsanto.arch.cloudformation.model.Template"></a><a id="withVpc(Token[CidrBlock],Option[String])((AWS::EC2::VPC)⇒Template):Template"></a>
       <span class="permalink">
-      <a href="../../../../../../com/monsanto/arch/cloudformation/model/simple/Builders$.html#withVpc(cidrBlock:com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.resource.CidrBlock])(f:com.monsanto.arch.cloudformation.model.resource.AWS::EC2::VPC=&gt;com.monsanto.arch.cloudformation.model.Template):com.monsanto.arch.cloudformation.model.Template" title="Permalink">
+      <a href="../../../../../../com/monsanto/arch/cloudformation/model/simple/Builders$.html#withVpc(cidrBlock:com.monsanto.arch.cloudformation.model.Token[com.monsanto.arch.cloudformation.model.resource.CidrBlock],vpcName:Option[String])(f:com.monsanto.arch.cloudformation.model.resource.AWS::EC2::VPC=&gt;com.monsanto.arch.cloudformation.model.Template):com.monsanto.arch.cloudformation.model.Template" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -1620,7 +1546,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">withVpc</span><span class="params">(<span name="cidrBlock">cidrBlock: <a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<a href="../resource/CidrBlock.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.CidrBlock">CidrBlock</a>]</span>)</span><span class="params">(<span name="f">f: (<a href="../resource/AWS$colon$colonEC2$colon$colonVPC.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::EC2::VPC">AWS::EC2::VPC</a>) ⇒ <a href="../Template.html" class="extype" name="com.monsanto.arch.cloudformation.model.Template">Template</a></span>)</span><span class="result">: <a href="../Template.html" class="extype" name="com.monsanto.arch.cloudformation.model.Template">Template</a></span>
+        <span class="name">withVpc</span><span class="params">(<span name="cidrBlock">cidrBlock: <a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<a href="../resource/CidrBlock.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.CidrBlock">CidrBlock</a>]</span>, <span name="vpcName">vpcName: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">None</span></span>)</span><span class="params">(<span name="f">f: (<a href="../resource/AWS$colon$colonEC2$colon$colonVPC.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::EC2::VPC">AWS::EC2::VPC</a>) ⇒ <a href="../Template.html" class="extype" name="com.monsanto.arch.cloudformation.model.Template">Template</a></span>)</span><span class="result">: <a href="../Template.html" class="extype" name="com.monsanto.arch.cloudformation.model.Template">Template</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="VPC.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.VPC">VPC</a></dd></dl></div>
@@ -1636,9 +1562,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="SecurityGroup$ALL$.html">
-              <span class="name">ALL</span>
-            </a><span class="result"> extends <a href="SecurityGroup$TransportProtocol.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.TransportProtocol">TransportProtocol</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="" href="SecurityGroup$ALL$.html"><span class="name">ALL</span></a><span class="result"> extends <a href="SecurityGroup$TransportProtocol.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.TransportProtocol">TransportProtocol</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="SecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup">SecurityGroup</a></dd></dl></div>
@@ -1654,9 +1578,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="SecurityGroup$ICMP$.html">
-              <span class="name">ICMP</span>
-            </a><span class="result"> extends <a href="SecurityGroup$TransportProtocol.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.TransportProtocol">TransportProtocol</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="" href="SecurityGroup$ICMP$.html"><span class="name">ICMP</span></a><span class="result"> extends <a href="SecurityGroup$TransportProtocol.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.TransportProtocol">TransportProtocol</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="SecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup">SecurityGroup</a></dd></dl></div>
@@ -1672,9 +1594,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="SecurityGroup$PortProtocol$.html">
-              <span class="name">PortProtocol</span>
-            </a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="" href="SecurityGroup$PortProtocol$.html"><span class="name">PortProtocol</span></a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="SecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup">SecurityGroup</a></dd></dl></div>
@@ -1690,9 +1610,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="SecurityGroup$PortProtocolFragment$.html">
-              <span class="name">PortProtocolFragment</span>
-            </a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="" href="SecurityGroup$PortProtocolFragment$.html"><span class="name">PortProtocolFragment</span></a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="SecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup">SecurityGroup</a></dd></dl></div>
@@ -1708,9 +1626,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="SecurityGroup$TCP$.html">
-              <span class="name">TCP</span>
-            </a><span class="result"> extends <a href="SecurityGroup$TransportProtocol.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.TransportProtocol">TransportProtocol</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="" href="SecurityGroup$TCP$.html"><span class="name">TCP</span></a><span class="result"> extends <a href="SecurityGroup$TransportProtocol.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.TransportProtocol">TransportProtocol</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="SecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup">SecurityGroup</a></dd></dl></div>
@@ -1726,9 +1642,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="SecurityGroup$TransportProtocol$.html">
-              <span class="name">TransportProtocol</span>
-            </a>
+        <a title="" href="SecurityGroup$TransportProtocol$.html"><span class="name">TransportProtocol</span></a>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="SecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup">SecurityGroup</a></dd></dl></div>
@@ -1744,9 +1658,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="SecurityGroup$UDP$.html">
-              <span class="name">UDP</span>
-            </a><span class="result"> extends <a href="SecurityGroup$TransportProtocol.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.TransportProtocol">TransportProtocol</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="" href="SecurityGroup$UDP$.html"><span class="name">UDP</span></a><span class="result"> extends <a href="SecurityGroup$TransportProtocol.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.TransportProtocol">TransportProtocol</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="SecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup">SecurityGroup</a></dd></dl></div>

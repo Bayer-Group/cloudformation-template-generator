@@ -65,9 +65,7 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../../../../../../index.html">
-              <span class="name">root</span>
-            </a>
+        <a title="" href="../../../../../../index.html"><span class="name">root</span></a>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
@@ -83,9 +81,7 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../../../../../index.html">
-              <span class="name">com</span>
-            </a>
+        <a title="" href="../../../../../index.html"><span class="name">com</span></a>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
@@ -101,9 +97,7 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../../../../index.html">
-              <span class="name">monsanto</span>
-            </a>
+        <a title="" href="../../../../index.html"><span class="name">monsanto</span></a>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../../../index.html" class="extype" name="com">com</a></dd></dl></div>
@@ -119,9 +113,7 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../../../index.html">
-              <span class="name">arch</span>
-            </a>
+        <a title="" href="../../../index.html"><span class="name">arch</span></a>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../../index.html" class="extype" name="com.monsanto">monsanto</a></dd></dl></div>
@@ -137,9 +129,7 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../../index.html">
-              <span class="name">cloudformation</span>
-            </a>
+        <a title="" href="../../index.html"><span class="name">cloudformation</span></a>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../index.html" class="extype" name="com.monsanto.arch">arch</a></dd></dl></div>
@@ -155,9 +145,7 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="A DSL to create consistent, type-safe AWS CloudFormation templates." href="../index.html">
-              <span class="name">model</span>
-            </a>
+        <a title="A DSL to create consistent, type-safe AWS CloudFormation templates." href="../index.html"><span class="name">model</span></a>
       </span>
       
       <p class="shortcomment cmt">A DSL to create consistent, type-safe AWS CloudFormation templates.</p><div class="fullcomment"><div class="comment cmt"><p>A DSL to create consistent, type-safe AWS CloudFormation templates.</p><p>The low-level DSL closely adheres to the objects and parameters in the
@@ -207,10 +195,13 @@ our <a href="http://engineering.monsanto.com/2015/07/10/cloudformation-template-
   <span class="kw">val</span> amazonLinuxAMIMapping = Mapping[AMIId](
     <span class="lit">"AmazonLinuxAMI"</span>,
     <span class="std">Map</span>(
-      <span class="lit">"us-east-1"</span> -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-1ecae776"</span>)),
-      <span class="lit">"us-west-1"</span> -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-d114f295"</span>)),
-      <span class="lit">"us-west-2"</span> -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-e7527ed7"</span>)),
-      <span class="lit">"eu-west-1"</span> -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-a10897d6"</span>))
+      <span class="lit">"us-east-1"</span>      -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-1ecae776"</span>)),
+      <span class="lit">"us-west-1"</span>      -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-d114f295"</span>)),
+      <span class="lit">"us-west-2"</span>      -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-e7527ed7"</span>)),
+      <span class="lit">"eu-west-1"</span>      -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-a10897d6"</span>)),
+      <span class="lit">"ap-southeast-1"</span> -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-68d8e93a"</span>)),
+      <span class="lit">"ap-southeast-2"</span> -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-fd9cecc7"</span>)),
+      <span class="lit">"ap-northeast-1"</span> -&gt; <span class="std">Map</span>(<span class="lit">"AMI"</span> -&gt; AMIId(<span class="lit">"ami-cbf90ecb"</span>))
     )
   )
   <span class="kw">val</span> simpleMappings = <span class="std">Seq</span>(amazonLinuxAMIMapping)
@@ -222,10 +213,11 @@ our <a href="http://engineering.monsanto.com/2015/07/10/cloudformation-template-
       visibility = <span class="lit">"Public"</span>,
       routeTableOrdinal = <span class="num">1</span>,
       routeOrdinal = <span class="num">1</span>,
-      gateway = <span class="std">Some</span>(ResourceRef(internetGatewayResource))
+      connectionBobber = InternetGatewayRoute(ResourceRef(internetGatewayResource))
     )
     <span class="kw">val</span> gatewayStuff = Template.fromResource(internetGatewayResource) ++
       gatewayToInternetResource ++
+      publicRouteTable ++
       publicRouteTableRoute
     <span class="kw">val</span> withinAZ = withAZ(<span class="lit">"us-east-1a"</span>) { <span class="kw">implicit</span> az <span class="kw">=&gt;</span>
       withSubnet(<span class="lit">"PubSubnet1"</span>, CidrBlock(<span class="num">10</span>, <span class="num">0</span>, <span class="num">0</span>, <span class="num">1</span>, <span class="num">24</span>)) { <span class="kw">implicit</span> pubSubnet <span class="kw">=&gt;</span>
@@ -258,12 +250,12 @@ our <a href="http://engineering.monsanto.com/2015/07/10/cloudformation-template-
   }
   <span class="kw">val</span> simpleTemplate = simpleResourceAndOutputs ++
     Template(
-      AWSTemplateFormatVersion = <span class="lit">"2010-09-09"</span>,
-      Description = <span class="lit">"Simple template"</span>,
+      AWSTemplateFormatVersion = <span class="std">Some</span>(<span class="lit">"2010-09-09"</span>),
+      Description = <span class="std">Some</span>(<span class="lit">"Simple template"</span>),
       Parameters = <span class="std">Some</span>(simpleParameters),
       Conditions = <span class="std">Some</span>(simpleConditions),
       Mappings = <span class="std">Some</span>(simpleMappings),
-      Resources = <span class="std">None</span>,
+      Resources = <span class="std">Seq</span>.empty,
       Outputs = <span class="std">None</span>
     )
   writeStaxModule(<span class="lit">"vpc-simple.json"</span>, simpleTemplate)
@@ -286,114 +278,78 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="index.html">
-              <span class="name">simple</span>
-            </a>
+        <a title="" href="index.html"><span class="name">simple</span></a>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="com.monsanto.arch.cloudformation.model">model</a></dd></dl></div>
     </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="Autoscaling.html" title=""></a>
-                        <a href="Autoscaling.html" title="">
-                          Autoscaling
-                        </a>
+                        <a href="Autoscaling.html" title="">Autoscaling</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="AvailabilityZone.html" title=""></a>
-                        <a href="AvailabilityZone.html" title="">
-                          AvailabilityZone
-                        </a>
+                        <a href="AvailabilityZone.html" title="">AvailabilityZone</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="object" href="Builders$.html" title=""></a>
-                        <a href="Builders$.html" title="">
-                          Builders
-                        </a>
+                        <a href="Builders$.html" title="">Builders</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="Conditions.html" title=""></a>
-                        <a href="Conditions.html" title="">
-                          Conditions
-                        </a>
+                        <a href="Conditions.html" title="">Conditions</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="EC2.html" title=""></a>
-                        <a href="EC2.html" title="">
-                          EC2
-                        </a>
+                        <a href="EC2.html" title="">EC2</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="ElasticLoadBalancing.html" title=""></a>
-                        <a href="ElasticLoadBalancing.html" title="">
-                          ElasticLoadBalancing
-                        </a>
+                        <a href="ElasticLoadBalancing.html" title="">ElasticLoadBalancing</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="Gateway.html" title=""></a>
-                        <a href="Gateway.html" title="">
-                          Gateway
-                        </a>
+                        <a href="Gateway.html" title="">Gateway</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="Instance.html" title=""></a>
-                        <a href="Instance.html" title="">
-                          Instance
-                        </a>
+                        <a href="Instance.html" title="">Instance</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="Outputs.html" title=""></a>
-                        <a href="Outputs.html" title="">
-                          Outputs
-                        </a>
+                        <a href="Outputs.html" title="">Outputs</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="Route.html" title=""></a>
-                        <a href="Route.html" title="">
-                          Route
-                        </a>
+                        <a href="Route.html" title="">Route</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="Route53.html" title=""></a>
-                        <a href="Route53.html" title="">
-                          Route53
-                        </a>
+                        <a href="Route53.html" title="">Route53</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="" title=""></a>
-                        <a href="" title="">
-                          SecurityGroup
-                        </a>
+                        <a href="" title="">SecurityGroup</a>
                       </li><li class="current-entities indented6">
                         <a class="object" href="SecurityGroupRoutable$.html" title=""></a>
                         <a class="class" href="SecurityGroupRoutable.html" title=""></a>
-                        <a href="SecurityGroupRoutable.html" title="">
-                          SecurityGroupRoutable
-                        </a>
+                        <a href="SecurityGroupRoutable.html" title="">SecurityGroupRoutable</a>
                       </li><li class="current-entities indented6">
                         <a class="object" href="SecurityGroupRoutableMaker$.html" title=""></a>
                         <a class="trait" href="SecurityGroupRoutableMaker.html" title=""></a>
-                        <a href="SecurityGroupRoutableMaker.html" title="">
-                          SecurityGroupRoutableMaker
-                        </a>
+                        <a href="SecurityGroupRoutableMaker.html" title="">SecurityGroupRoutableMaker</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="Subnet.html" title=""></a>
-                        <a href="Subnet.html" title="">
-                          Subnet
-                        </a>
+                        <a href="Subnet.html" title="">Subnet</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="VPC.html" title=""></a>
-                        <a href="VPC.html" title="">
-                          VPC
-                        </a>
+                        <a href="VPC.html" title="">VPC</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="object" href="Yaml$.html" title=""></a>
-                        <a href="Yaml$.html" title="">
-                          Yaml
-                        </a>
+                        <a href="Yaml$.html" title="">Yaml</a>
                       </li>
               </ul>
             </div>
@@ -491,9 +447,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="" href="SecurityGroup$CidrIngressPrefix.html">
-              <span class="name">CidrIngressPrefix</span>
-            </a><span class="params">(<span name="from">from: <a href="../ParameterRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ParameterRef">ParameterRef</a>[<a href="../resource/CidrBlock.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.CidrBlock">CidrBlock</a>]</span>, <span name="portProto">portProto: <span class="extype" name="scala.Seq">Seq</span>[<a href="SecurityGroup$PortProtocol.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.PortProtocol">PortProtocol</a>]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="" href="SecurityGroup$CidrIngressPrefix.html"><span class="name">CidrIngressPrefix</span></a><span class="params">(<span name="from">from: <a href="../ParameterRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ParameterRef">ParameterRef</a>[<a href="../resource/CidrBlock.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.CidrBlock">CidrBlock</a>]</span>, <span name="portProto">portProto: <span class="extype" name="scala.Seq">Seq</span>[<a href="SecurityGroup$PortProtocol.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.PortProtocol">PortProtocol</a>]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       
@@ -509,9 +463,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="" href="SecurityGroup$CidrTransport.html">
-              <span class="name">CidrTransport</span>
-            </a><span class="params">(<span name="fromPort">fromPort: <span class="extype" name="scala.Int">Int</span></span>, <span name="protocol">protocol: <span class="extype" name="scala.Predef.String">String</span> = <span class="symbol">&quot;tcp&quot;</span></span>, <span name="from">from: <span class="extype" name="scala.Option">Option</span>[<a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<a href="../resource/CidrBlock.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.CidrBlock">CidrBlock</a>]] = <span class="symbol">None</span></span>, <span name="toPort">toPort: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol">None</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="" href="SecurityGroup$CidrTransport.html"><span class="name">CidrTransport</span></a><span class="params">(<span name="fromPort">fromPort: <span class="extype" name="scala.Int">Int</span></span>, <span name="protocol">protocol: <span class="extype" name="scala.Predef.String">String</span> = <span class="symbol">&quot;tcp&quot;</span></span>, <span name="from">from: <span class="extype" name="scala.Option">Option</span>[<a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<a href="../resource/CidrBlock.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.CidrBlock">CidrBlock</a>]] = <span class="symbol">None</span></span>, <span name="toPort">toPort: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol">None</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       
@@ -527,9 +479,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="" href="SecurityGroup$IngressPrefix.html">
-              <span class="name">IngressPrefix</span>
-            </a><span class="params">(<span name="from">from: <a href="SecurityGroup$RichSecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.RichSecurityGroup">RichSecurityGroup</a></span>, <span name="portProto">portProto: <span class="extype" name="scala.Seq">Seq</span>[<a href="SecurityGroup$PortProtocol.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.PortProtocol">PortProtocol</a>]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="" href="SecurityGroup$IngressPrefix.html"><span class="name">IngressPrefix</span></a><span class="params">(<span name="from">from: <a href="SecurityGroup$RichSecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.RichSecurityGroup">RichSecurityGroup</a></span>, <span name="portProto">portProto: <span class="extype" name="scala.Seq">Seq</span>[<a href="SecurityGroup$PortProtocol.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.PortProtocol">PortProtocol</a>]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       
@@ -545,9 +495,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="" href="SecurityGroup$IngressSuffix.html">
-              <span class="name">IngressSuffix</span>
-            </a><span class="params">(<span name="to">to: <a href="SecurityGroup$RichSecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.RichSecurityGroup">RichSecurityGroup</a></span>, <span name="portProto">portProto: <span class="extype" name="scala.Seq">Seq</span>[<a href="SecurityGroup$PortProtocol.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.PortProtocol">PortProtocol</a>]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="" href="SecurityGroup$IngressSuffix.html"><span class="name">IngressSuffix</span></a><span class="params">(<span name="to">to: <a href="SecurityGroup$RichSecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.RichSecurityGroup">RichSecurityGroup</a></span>, <span name="portProto">portProto: <span class="extype" name="scala.Seq">Seq</span>[<a href="SecurityGroup$PortProtocol.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.PortProtocol">PortProtocol</a>]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       
@@ -563,9 +511,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="" href="SecurityGroup$PortProtocol.html">
-              <span class="name">PortProtocol</span>
-            </a><span class="params">(<span name="startPort">startPort: <span class="extype" name="scala.Int">Int</span></span>, <span name="endPort">endPort: <span class="extype" name="scala.Int">Int</span></span>, <span name="protocol">protocol: <a href="SecurityGroup$TransportProtocol.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.TransportProtocol">TransportProtocol</a></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="" href="SecurityGroup$PortProtocol.html"><span class="name">PortProtocol</span></a><span class="params">(<span name="startPort">startPort: <span class="extype" name="scala.Int">Int</span></span>, <span name="endPort">endPort: <span class="extype" name="scala.Int">Int</span></span>, <span name="protocol">protocol: <a href="SecurityGroup$TransportProtocol.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.TransportProtocol">TransportProtocol</a></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       
@@ -581,9 +527,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="" href="SecurityGroup$PortProtocolFragment.html">
-              <span class="name">PortProtocolFragment</span>
-            </a><span class="params">(<span name="start">start: <span class="extype" name="scala.Int">Int</span></span>, <span name="end">end: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="" href="SecurityGroup$PortProtocolFragment.html"><span class="name">PortProtocolFragment</span></a><span class="params">(<span name="start">start: <span class="extype" name="scala.Int">Int</span></span>, <span name="end">end: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       
@@ -599,9 +543,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="" href="SecurityGroup$RichCidrParam.html">
-              <span class="name">RichCidrParam</span>
-            </a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <a title="" href="SecurityGroup$RichCidrParam.html"><span class="name">RichCidrParam</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
       
@@ -617,9 +559,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="" href="SecurityGroup$RichSecurityGroup.html">
-              <span class="name">RichSecurityGroup</span>
-            </a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <a title="" href="SecurityGroup$RichSecurityGroup.html"><span class="name">RichSecurityGroup</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
       
@@ -635,9 +575,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="" href="SecurityGroup$RichSecurityGroupRoutable.html">
-              <span class="name">RichSecurityGroupRoutable</span>
-            </a><span class="tparams">[<span name="R">R &lt;: <a href="../resource/Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a>[<span class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.RichSecurityGroupRoutable.R">R</span>]</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <a title="" href="SecurityGroup$RichSecurityGroupRoutable.html"><span class="name">RichSecurityGroupRoutable</span></a><span class="tparams">[<span name="R">R &lt;: <a href="../resource/Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a>[<span class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.RichSecurityGroupRoutable.R">R</span>]</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
       
@@ -653,9 +591,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="" href="SecurityGroup$RichTokenRefSecurityGroup.html">
-              <span class="name">RichTokenRefSecurityGroup</span>
-            </a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <a title="" href="SecurityGroup$RichTokenRefSecurityGroup.html"><span class="name">RichTokenRefSecurityGroup</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
       
@@ -671,9 +607,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="" href="SecurityGroup$RoutableIngressPrefix.html">
-              <span class="name">RoutableIngressPrefix</span>
-            </a><span class="tparams">[<span name="R">R &lt;: <a href="../resource/Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a>[<span class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.RoutableIngressPrefix.R">R</span>]</span>]</span><span class="params">(<span name="from">from: <a href="SecurityGroup$RichSecurityGroupRoutable.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.RichSecurityGroupRoutable">RichSecurityGroupRoutable</a>[<span class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.RoutableIngressPrefix.R">R</span>]</span>, <span name="portProto">portProto: <span class="extype" name="scala.Seq">Seq</span>[<a href="SecurityGroup$PortProtocol.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.PortProtocol">PortProtocol</a>]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="" href="SecurityGroup$RoutableIngressPrefix.html"><span class="name">RoutableIngressPrefix</span></a><span class="tparams">[<span name="R">R &lt;: <a href="../resource/Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a>[<span class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.RoutableIngressPrefix.R">R</span>]</span>]</span><span class="params">(<span name="from">from: <a href="SecurityGroup$RichSecurityGroupRoutable.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.RichSecurityGroupRoutable">RichSecurityGroupRoutable</a>[<span class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.RoutableIngressPrefix.R">R</span>]</span>, <span name="portProto">portProto: <span class="extype" name="scala.Seq">Seq</span>[<a href="SecurityGroup$PortProtocol.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.PortProtocol">PortProtocol</a>]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       
@@ -689,9 +623,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="" href="SecurityGroup$RoutableIngressSuffix.html">
-              <span class="name">RoutableIngressSuffix</span>
-            </a><span class="tparams">[<span name="R">R &lt;: <a href="../resource/Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a>[<span class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.RoutableIngressSuffix.R">R</span>]</span>]</span><span class="params">(<span name="to">to: <a href="SecurityGroup$RichSecurityGroupRoutable.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.RichSecurityGroupRoutable">RichSecurityGroupRoutable</a>[<span class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.RoutableIngressSuffix.R">R</span>]</span>, <span name="portProto">portProto: <span class="extype" name="scala.Seq">Seq</span>[<a href="SecurityGroup$PortProtocol.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.PortProtocol">PortProtocol</a>]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="" href="SecurityGroup$RoutableIngressSuffix.html"><span class="name">RoutableIngressSuffix</span></a><span class="tparams">[<span name="R">R &lt;: <a href="../resource/Resource.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Resource">Resource</a>[<span class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.RoutableIngressSuffix.R">R</span>]</span>]</span><span class="params">(<span name="to">to: <a href="SecurityGroup$RichSecurityGroupRoutable.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.RichSecurityGroupRoutable">RichSecurityGroupRoutable</a>[<span class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.RoutableIngressSuffix.R">R</span>]</span>, <span name="portProto">portProto: <span class="extype" name="scala.Seq">Seq</span>[<a href="SecurityGroup$PortProtocol.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.PortProtocol">PortProtocol</a>]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       
@@ -707,9 +639,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="" href="SecurityGroup$SGTransport.html">
-              <span class="name">SGTransport</span>
-            </a><span class="params">(<span name="fromPort">fromPort: <span class="extype" name="scala.Int">Int</span></span>, <span name="protocol">protocol: <span class="extype" name="scala.Predef.String">String</span> = <span class="symbol">&quot;tcp&quot;</span></span>, <span name="from">from: <span class="extype" name="scala.Option">Option</span>[<a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<a href="../ResourceRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ResourceRef">ResourceRef</a>[<a href="../resource/AWS$colon$colonEC2$colon$colonSecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::EC2::SecurityGroup">AWS::EC2::SecurityGroup</a>]]] = <span class="symbol">None</span></span>, <span name="toPort">toPort: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol">None</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="" href="SecurityGroup$SGTransport.html"><span class="name">SGTransport</span></a><span class="params">(<span name="fromPort">fromPort: <span class="extype" name="scala.Int">Int</span></span>, <span name="protocol">protocol: <span class="extype" name="scala.Predef.String">String</span> = <span class="symbol">&quot;tcp&quot;</span></span>, <span name="from">from: <span class="extype" name="scala.Option">Option</span>[<a href="../Token.html" class="extype" name="com.monsanto.arch.cloudformation.model.Token">Token</a>[<a href="../ResourceRef.html" class="extype" name="com.monsanto.arch.cloudformation.model.ResourceRef">ResourceRef</a>[<a href="../resource/AWS$colon$colonEC2$colon$colonSecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.AWS::EC2::SecurityGroup">AWS::EC2::SecurityGroup</a>]]] = <span class="symbol">None</span></span>, <span name="toPort">toPort: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol">None</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       
@@ -725,9 +655,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="" href="SecurityGroup$TokenIngressPrefix.html">
-              <span class="name">TokenIngressPrefix</span>
-            </a><span class="params">(<span name="from">from: <a href="SecurityGroup$RichTokenRefSecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.RichTokenRefSecurityGroup">RichTokenRefSecurityGroup</a></span>, <span name="portProto">portProto: <span class="extype" name="scala.Seq">Seq</span>[<a href="SecurityGroup$PortProtocol.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.PortProtocol">PortProtocol</a>]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="" href="SecurityGroup$TokenIngressPrefix.html"><span class="name">TokenIngressPrefix</span></a><span class="params">(<span name="from">from: <a href="SecurityGroup$RichTokenRefSecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.RichTokenRefSecurityGroup">RichTokenRefSecurityGroup</a></span>, <span name="portProto">portProto: <span class="extype" name="scala.Seq">Seq</span>[<a href="SecurityGroup$PortProtocol.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.PortProtocol">PortProtocol</a>]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       
@@ -743,9 +671,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="" href="SecurityGroup$TokenIngressSuffix.html">
-              <span class="name">TokenIngressSuffix</span>
-            </a><span class="params">(<span name="to">to: <a href="SecurityGroup$RichTokenRefSecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.RichTokenRefSecurityGroup">RichTokenRefSecurityGroup</a></span>, <span name="portProto">portProto: <span class="extype" name="scala.Seq">Seq</span>[<a href="SecurityGroup$PortProtocol.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.PortProtocol">PortProtocol</a>]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="" href="SecurityGroup$TokenIngressSuffix.html"><span class="name">TokenIngressSuffix</span></a><span class="params">(<span name="to">to: <a href="SecurityGroup$RichTokenRefSecurityGroup.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.RichTokenRefSecurityGroup">RichTokenRefSecurityGroup</a></span>, <span name="portProto">portProto: <span class="extype" name="scala.Seq">Seq</span>[<a href="SecurityGroup$PortProtocol.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.PortProtocol">PortProtocol</a>]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       
@@ -761,9 +687,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="" href="SecurityGroup$TransportProtocol.html">
-              <span class="name">TransportProtocol</span>
-            </a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <a title="" href="SecurityGroup$TransportProtocol.html"><span class="name">TransportProtocol</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
       
@@ -854,7 +778,9 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="name">clone</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../../../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@native</span><span class="args">()</span>
+              
                 <span class="name">@throws</span><span class="args">(<span>
       
       <span class="defval" name="classOf[java.lang.CloneNotSupportedException]">...</span>
@@ -908,7 +834,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="name">finalize</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../../../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
                 <span class="name">@throws</span><span class="args">(<span>
       
       <span class="symbol">classOf[java.lang.Throwable]</span>
@@ -930,7 +856,10 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="name">getClass</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.Class">Class</span>[_]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd><dt>Annotations</dt><dd>
+                <span class="name">@native</span><span class="args">()</span>
+              
+        </dd></dl></div>
     </li><li name="scala.AnyRef#hashCode" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="hashCode():Int"></a>
       <span class="permalink">
@@ -946,7 +875,10 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd><dt>Annotations</dt><dd>
+                <span class="name">@native</span><span class="args">()</span>
+              
+        </dd></dl></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <span class="permalink">
@@ -994,7 +926,10 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="name">notify</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@native</span><span class="args">()</span>
+              
+        </dd></dl></div>
     </li><li name="scala.AnyRef#notifyAll" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="notifyAll():Unit"></a>
       <span class="permalink">
@@ -1010,7 +945,10 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@native</span><span class="args">()</span>
+              
+        </dd></dl></div>
     </li><li name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup#resourceNameSafeUUID" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="resourceNameSafeUUID():String"></a>
       <span class="permalink">
@@ -1183,6 +1121,8 @@ Parameters and Mappings.  A Condition is created but not used.
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@native</span><span class="args">()</span>
+              
                 <span class="name">@throws</span><span class="args">(<span>
       
       <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
@@ -1201,9 +1141,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="SecurityGroup$ALL$.html">
-              <span class="name">ALL</span>
-            </a><span class="result"> extends <a href="SecurityGroup$TransportProtocol.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.TransportProtocol">TransportProtocol</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="" href="SecurityGroup$ALL$.html"><span class="name">ALL</span></a><span class="result"> extends <a href="SecurityGroup$TransportProtocol.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.TransportProtocol">TransportProtocol</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       
@@ -1219,9 +1157,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="SecurityGroup$ICMP$.html">
-              <span class="name">ICMP</span>
-            </a><span class="result"> extends <a href="SecurityGroup$TransportProtocol.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.TransportProtocol">TransportProtocol</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="" href="SecurityGroup$ICMP$.html"><span class="name">ICMP</span></a><span class="result"> extends <a href="SecurityGroup$TransportProtocol.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.TransportProtocol">TransportProtocol</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       
@@ -1237,9 +1173,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="SecurityGroup$PortProtocol$.html">
-              <span class="name">PortProtocol</span>
-            </a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="" href="SecurityGroup$PortProtocol$.html"><span class="name">PortProtocol</span></a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       
@@ -1255,9 +1189,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="SecurityGroup$PortProtocolFragment$.html">
-              <span class="name">PortProtocolFragment</span>
-            </a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="" href="SecurityGroup$PortProtocolFragment$.html"><span class="name">PortProtocolFragment</span></a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       
@@ -1273,9 +1205,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="SecurityGroup$TCP$.html">
-              <span class="name">TCP</span>
-            </a><span class="result"> extends <a href="SecurityGroup$TransportProtocol.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.TransportProtocol">TransportProtocol</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="" href="SecurityGroup$TCP$.html"><span class="name">TCP</span></a><span class="result"> extends <a href="SecurityGroup$TransportProtocol.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.TransportProtocol">TransportProtocol</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       
@@ -1291,9 +1221,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="SecurityGroup$TransportProtocol$.html">
-              <span class="name">TransportProtocol</span>
-            </a>
+        <a title="" href="SecurityGroup$TransportProtocol$.html"><span class="name">TransportProtocol</span></a>
       </span>
       
       
@@ -1309,9 +1237,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="SecurityGroup$UDP$.html">
-              <span class="name">UDP</span>
-            </a><span class="result"> extends <a href="SecurityGroup$TransportProtocol.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.TransportProtocol">TransportProtocol</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="" href="SecurityGroup$UDP$.html"><span class="name">UDP</span></a><span class="result"> extends <a href="SecurityGroup$TransportProtocol.html" class="extype" name="com.monsanto.arch.cloudformation.model.simple.SecurityGroup.TransportProtocol">TransportProtocol</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       

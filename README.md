@@ -223,6 +223,6 @@ release are committed on the master branch, you simple need to run two
 commands to publish the library and its documentation.
 
     sbt release
-    sbt ghpages-push-site
+    sbt ghpagesPushSite
 
 After publishing, create a new release under Github [releases](https://github.com/MonsantoCo/cloudformation-template-generator/releases), copying the portion of the change log for this release from CHANGELOG.md.

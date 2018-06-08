@@ -85,6 +85,7 @@ object Runtime {
   *                  requires the attached ENI to be deleted before it can be deleted. We recommend that you run AWS
   *                  CloudFormation with the ec2:DescribeNetworkInterfaces permission, which enables AWS CloudFormation
   *                  to monitor the state of the ENI and to wait (up to 40 minutes) for Lambda to delete the ENI.
+  * @param Tags      An arbitrary set of tags (key–value pairs) for this Lambda function.
   * @param DependsOn Declare dependencies for resources that must be created or deleted in a specific order.
   * @param Condition Define conditions by using the intrinsic condition functions. These conditions determine when AWS
   *                  CloudFormation creates the associated resources.
@@ -103,6 +104,7 @@ case class `AWS::Lambda::Function`(name: String,
                                    Environment : Option[LambdaEnvironment] = None,
                                    KmsKeyArn : Option[Token[String]] = None,
                                    VpcConfig : Option[LambdaVpcConfig] = None,
+                                   Tags: Option[Seq[AmazonTag]] = None,
                                    override val DependsOn: Option[Seq[String]] = None,
                                    override val Condition: Option[ConditionRef] = None)
   extends Resource[`AWS::Lambda::Function`] with HasArn with Subscribable {
@@ -119,7 +121,7 @@ case class `AWS::Lambda::Function`(name: String,
 }
 
 object `AWS::Lambda::Function` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::Lambda::Function`] = jsonFormat16(`AWS::Lambda::Function`.apply)
+  implicit val format: JsonFormat[`AWS::Lambda::Function`] = jsonFormat17(`AWS::Lambda::Function`.apply)
 }
 
 

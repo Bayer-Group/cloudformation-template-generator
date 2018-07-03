@@ -765,7 +765,7 @@ case class `AWS::EC2::VPCEndpoint`(
   PolicyDocument:           Option[PolicyDocument] = None,
   RouteTableIds:            Option[Seq[ResourceRef[`AWS::EC2::RouteTable`]]] = None,
   override val Condition:   Option[ConditionRef] = None,
-  override val DependsOn:   Option[Seq[String]] = None,
+  override val DependsOn:   Option[Seq[String]] = None
 ) extends Resource[`AWS::EC2::VPCEndpoint`] {
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
 }

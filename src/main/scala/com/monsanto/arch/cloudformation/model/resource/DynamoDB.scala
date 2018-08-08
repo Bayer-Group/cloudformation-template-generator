@@ -20,6 +20,7 @@ case class `AWS::DynamoDB::Table`(
                                    StreamSpecification : Option[StreamSpecification] = None,
                                    TableName: Option[Token[String]],
                                    TimeToLiveSpecification: Option[TimeToLiveSpecification] = None,
+                                   PointInTimeRecoverySpecification: Option[PointInTimeRecoverySpecification] = None,
                                    override val Condition: Option[ConditionRef] = None,
                                    override val DeletionPolicy: Option[DeletionPolicy] = None,
                                    override val DependsOn: Option[Seq[String]] = None
@@ -40,7 +41,7 @@ case class `AWS::DynamoDB::Table`(
 }
 
 object `AWS::DynamoDB::Table` {
-  implicit val format: JsonFormat[`AWS::DynamoDB::Table`] = jsonFormat12(`AWS::DynamoDB::Table`.apply)
+  implicit val format: JsonFormat[`AWS::DynamoDB::Table`] = jsonFormat13(`AWS::DynamoDB::Table`.apply)
 }
 
 sealed abstract class StreamViewType(val name : String)
@@ -190,4 +191,10 @@ case class TimeToLiveSpecification(AttributeName: String, Enabled: Boolean)
 
 object TimeToLiveSpecification {
   implicit val format: RootJsonFormat[TimeToLiveSpecification] = jsonFormat2(TimeToLiveSpecification.apply)
+}
+
+case class PointInTimeRecoverySpecification(PointInTimeRecoveryEnabled: Option[Boolean])
+
+object PointInTimeRecoverySpecification {
+  implicit val format: RootJsonFormat[PointInTimeRecoverySpecification] = jsonFormat1(apply)
 }

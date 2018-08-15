@@ -113,5 +113,15 @@ case class `AWS::ApplicationAutoScaling::ScalingPolicy`(name: String,
 
 object `AWS::ApplicationAutoScaling::ScalingPolicy` extends DefaultJsonProtocol {
   private type T = `AWS::ApplicationAutoScaling::ScalingPolicy`
-  implicit val format: JsonFormat[T] = jsonFormat10(apply)
+  implicit val format: JsonFormat[T] = jsonFormat(apply,
+  "name",
+  "PolicyName",
+  "PolicyType",
+  "ResourceId",
+  "ScalableDimension",
+  "ScalingTargetId",
+  "ServiceNamespace",
+  "StepScalingPolicyConfiguration",
+  "Condition",
+  "DependsOn")
 }

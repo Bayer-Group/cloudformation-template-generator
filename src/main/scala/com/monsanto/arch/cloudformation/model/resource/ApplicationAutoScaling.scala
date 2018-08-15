@@ -26,10 +26,27 @@ object ApplicationAutoScaling {
     implicit val format: JsonFormat[T] = jsonFormat5(apply)
   }
 
-  sealed trait ScalingType extends Product with Serializable
+  sealed trait ServiceNamespace extends Product with Serializable
 
-  object ScalingType extends DefaultJsonProtocol {
-    private type T = ScalingType
+  object ServiceNamespace extends DefaultJsonProtocol {
+    private type T = ServiceNamespace
+    case object appstream extends T
+    case object `custom-resource` extends T
+    case object dynamodb extends T
+    case object ec2 extends T
+    case object ecs extends T
+    case object elasticmapreduce extends T
+    case object kinesis extends T
+    case object rds extends T
+    case object sagemaker extends T
+    val values = Seq(appstream, `custom-resource`, dynamodb, ec2, ecs, elasticmapreduce, kinesis, rds, sagemaker)
+    implicit val format: JsonFormat[T] = new EnumFormat[T](values)
+  }
+
+  sealed trait PolicyType extends Product with Serializable
+
+  object PolicyType extends DefaultJsonProtocol {
+    private type T = PolicyType
     case object StepScaling extends T
     case object TargetTrackingScaling extends T
     val values = Seq(StepScaling, TargetTrackingScaling)
@@ -80,7 +97,7 @@ case class `AWS::ApplicationAutoScaling::ScalableTarget`(name: String,
                                                          RoleARN: Token[String],
                                                          ScalableDimension: Token[String],
                                                          ScheduledActions: Option[Seq[ScheduledAction]] = None,
-                                                         ServiceNamespace: `AWS::CloudWatch::Alarm::Namespace`,
+                                                         ServiceNamespace: ApplicationAutoScaling.ServiceNamespace,
                                                          override val Condition:  Option[ConditionRef] = None,
                                                          override val DependsOn : Option[Seq[String]] = None)
   extends Resource[`AWS::ApplicationAutoScaling::ScalableTarget`] {
@@ -94,7 +111,7 @@ object `AWS::ApplicationAutoScaling::ScalableTarget` extends DefaultJsonProtocol
 
 case class `AWS::ApplicationAutoScaling::ScalingPolicy`(name: String,
                                                         PolicyName: Token[String],
-                                                        ScalingType: ApplicationAutoScaling.ScalingType,
+                                                        PolicyType: ApplicationAutoScaling.PolicyType,
                                                         ResourceId: Option[Token[String]] = None,
                                                         ScalableDimension: Option[Token[String]] = None,
                                                         ScalingTargetId: Option[Token[String]] = None,

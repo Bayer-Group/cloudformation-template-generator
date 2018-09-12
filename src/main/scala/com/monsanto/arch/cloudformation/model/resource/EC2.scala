@@ -482,13 +482,14 @@ case class `AWS::EC2::SecurityGroupEgress`(
   ToPort:                     String,
   CidrIp:                     Option[Token[CidrBlock]] = None, // either CidrIp or SourceSecurityGroupId required
   DestinationSecurityGroupId: Option[Token[ResourceRef[`AWS::EC2::SecurityGroup`]]] = None, // either CidrIp or SourceSecurityGroupId required
+  Description:           Option[Token[String]] = None,
   override val DependsOn: Option[Seq[String]] = None,
   override val Condition: Option[ConditionRef] = None
 ) extends Resource[`AWS::EC2::SecurityGroupEgress`]{
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
 }
 object `AWS::EC2::SecurityGroupEgress` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::EC2::SecurityGroupEgress`] = jsonFormat9(`AWS::EC2::SecurityGroupEgress`.apply)
+  implicit val format: JsonFormat[`AWS::EC2::SecurityGroupEgress`] = jsonFormat10(`AWS::EC2::SecurityGroupEgress`.apply)
 }
 
 case class `AWS::EC2::SecurityGroupIngress`(
@@ -499,13 +500,14 @@ case class `AWS::EC2::SecurityGroupIngress`(
   ToPort:                Token[String],
   CidrIp:                Option[Token[CidrBlock]] = None, // either CidrIp or SourceSecurityGroupId required
   SourceSecurityGroupId: Option[Token[ResourceRef[`AWS::EC2::SecurityGroup`]]] = None, // either CidrIp or SourceSecurityGroupId required
+  Description:           Option[Token[String]] = None,
   override val DependsOn: Option[Seq[String]] = None,
   override val Condition: Option[ConditionRef] = None
 ) extends Resource[`AWS::EC2::SecurityGroupIngress`]{
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
 }
 object `AWS::EC2::SecurityGroupIngress` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::EC2::SecurityGroupIngress`] = jsonFormat9(`AWS::EC2::SecurityGroupIngress`.apply)
+  implicit val format: JsonFormat[`AWS::EC2::SecurityGroupIngress`] = jsonFormat10(`AWS::EC2::SecurityGroupIngress`.apply)
 }
 
 case class `AWS::EC2::Subnet`(

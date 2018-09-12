@@ -1,2461 +1,1986 @@
 {
-  "AWSTemplateFormatVersion":"2010-09-09",
-  "Description":"Autoscaling group of Docker engines in dual AZ VPC with two NAT nodes in an active/active configuration. After successfully launching this CloudFormation stack, you will have 4 subnets in 2 AZs (a pair of public/private subnets in each AZ), a jump box, two NAT instances routing outbound traffic for their respective private subnets.  The NAT instances will automatically monitor each other and fix outbound routing problems if the other instance is unavailable.  The Docker engine autoscaling group will deploy to the private subnets.",
-  "Parameters":{
-    "App":{
-      "Description":"Name for this ecosystem of services",
-      "Type":"String",
-      "MinLength":"1",
-      "MaxLength":"64",
-      "AllowedPattern":"[-_ a-zA-Z0-9]*",
-      "ConstraintDescription":"Can contain only alphanumeric characters, spaces, dashes and underscores.",
-      "Default":"REPLACE APP"
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "Autoscaling group of Docker engines in dual AZ VPC with two NAT nodes in an active/active configuration. After successfully launching this CloudFormation stack, you will have 4 subnets in 2 AZs (a pair of public/private subnets in each AZ), a jump box, two NAT instances routing outbound traffic for their respective private subnets.  The NAT instances will automatically monitor each other and fix outbound routing problems if the other instance is unavailable.  The Docker engine autoscaling group will deploy to the private subnets.",
+  "Parameters": {
+    "App": {
+      "Default": "REPLACE APP",
+      "MinLength": "1",
+      "Description": "Name for this ecosystem of services",
+      "ConstraintDescription": "Can contain only alphanumeric characters, spaces, dashes and underscores.",
+      "AllowedPattern": "[-_ a-zA-Z0-9]*",
+      "MaxLength": "64",
+      "Type": "String"
     },
-    "Group":{
-      "Description":"Group responsible for this ecosystem of services",
-      "Type":"String",
-      "MinLength":"1",
-      "MaxLength":"64",
-      "AllowedPattern":"[-_ a-zA-Z0-9]*",
-      "ConstraintDescription":"Can contain only alphanumeric characters, spaces, dashes and underscores.",
-      "Default":"REPLACE GROUP"
+    "Group": {
+      "Default": "REPLACE GROUP",
+      "MinLength": "1",
+      "Description": "Group responsible for this ecosystem of services",
+      "ConstraintDescription": "Can contain only alphanumeric characters, spaces, dashes and underscores.",
+      "AllowedPattern": "[-_ a-zA-Z0-9]*",
+      "MaxLength": "64",
+      "Type": "String"
     },
-    "ServiceDomain":{
-      "Description":"Domain to register for services",
-      "Type":"String",
-      "MinLength":"1",
-      "MaxLength":"64",
-      "Default":"REPLACE DOMAIN"
+    "ServiceDomain": {
+      "Default": "REPLACE DOMAIN",
+      "MinLength": "1",
+      "Description": "Domain to register for services",
+      "MaxLength": "64",
+      "Type": "String"
     },
-    "Owner":{
-      "Description":"Individual responsible for this ecosystem of services",
-      "Type":"String",
-      "MinLength":"1",
-      "MaxLength":"64",
-      "AllowedPattern":"[-_ a-zA-Z0-9]*",
-      "ConstraintDescription":"Can contain only alphanumeric characters, spaces, dashes and underscores.",
-      "Default":"REPLACE OWNER"
+    "Owner": {
+      "Default": "REPLACE OWNER",
+      "MinLength": "1",
+      "Description": "Individual responsible for this ecosystem of services",
+      "ConstraintDescription": "Can contain only alphanumeric characters, spaces, dashes and underscores.",
+      "AllowedPattern": "[-_ a-zA-Z0-9]*",
+      "MaxLength": "64",
+      "Type": "String"
     },
-    "Environment":{
-      "Description":"Description of deployment environment, e. g., test or production",
-      "Type":"String",
-      "MinLength":"1",
-      "MaxLength":"64",
-      "AllowedPattern":"[-_ a-zA-Z0-9]*",
-      "ConstraintDescription":"Can contain only alphanumeric characters, spaces, dashes and underscores.",
-      "Default":"test"
+    "Environment": {
+      "Default": "test",
+      "MinLength": "1",
+      "Description": "Description of deployment environment, e. g., test or production",
+      "ConstraintDescription": "Can contain only alphanumeric characters, spaces, dashes and underscores.",
+      "AllowedPattern": "[-_ a-zA-Z0-9]*",
+      "MaxLength": "64",
+      "Type": "String"
     },
-    "KeepAlive":{
-      "Description":"Boolean to indicate whether to allow resource to be kept alive during nightly reaping",
-      "Type":"String",
-      "MinLength":"4",
-      "MaxLength":"5",
-      "AllowedValues":["true","false"],
-      "ConstraintDescription":"Value should be 'true' or 'false'",
-      "Default":"false"
+    "KeepAlive": {
+      "Default": "false",
+      "MinLength": "4",
+      "Description": "Boolean to indicate whether to allow resource to be kept alive during nightly reaping",
+      "ConstraintDescription": "Value should be 'true' or 'false'",
+      "AllowedValues": ["true", "false"],
+      "MaxLength": "5",
+      "Type": "String"
     },
-    "CostCenter":{
-      "Description":"Cost center to be charged for this ecosystem of services",
-      "Type":"String",
-      "MinLength":"18",
-      "MaxLength":"18",
-      "AllowedPattern":"\\d{4}-\\d{4}-[A-Z]{3}\\d{5}",
-      "ConstraintDescription":"Format for cost center is ####-####-XYZ#####",
-      "Default":"0000-0000-ABC00000"
+    "CostCenter": {
+      "Default": "0000-0000-ABC00000",
+      "MinLength": "18",
+      "Description": "Cost center to be charged for this ecosystem of services",
+      "ConstraintDescription": "Format for cost center is ####-####-XYZ#####",
+      "AllowedPattern": "\\d{4}-\\d{4}-[A-Z]{3}\\d{5}",
+      "MaxLength": "18",
+      "Type": "String"
     },
-    "DockerRegistryUrl":{
-      "Description":"URL for private Docker Registry",
-      "Type":"String",
-      "MinLength":"8",
-      "MaxLength":"200",
-      "Default":"https://index.docker.io/v1/"
+    "DockerRegistryUrl": {
+      "Default": "https://index.docker.io/v1/",
+      "MinLength": "8",
+      "Description": "URL for private Docker Registry",
+      "MaxLength": "200",
+      "Type": "String"
     },
-    "DockerRegistryUser":{
-      "Description":"User name for private Docker Registry",
-      "Type":"String",
-      "MinLength":"1",
-      "MaxLength":"60",
-      "Default":"nobody"
+    "DockerRegistryUser": {
+      "Default": "nobody",
+      "MinLength": "1",
+      "Description": "User name for private Docker Registry",
+      "MaxLength": "60",
+      "Type": "String"
     },
-    "DockerRegistryPass":{
-      "Description":"Password for private Docker Registry",
-      "Type":"String",
-      "MinLength":"1",
-      "MaxLength":"60",
-      "Default":"null"
+    "DockerRegistryPass": {
+      "Default": "null",
+      "MinLength": "1",
+      "Description": "Password for private Docker Registry",
+      "MaxLength": "60",
+      "Type": "String"
     },
-    "DockerRegistryEmail":{
-      "Description":"Email address for private Docker Registry",
-      "Type":"String",
-      "MinLength":"1",
-      "MaxLength":"60",
-      "Default":"nobody@null.com"
+    "DockerRegistryEmail": {
+      "Default": "nobody@null.com",
+      "MinLength": "1",
+      "Description": "Email address for private Docker Registry",
+      "MaxLength": "60",
+      "Type": "String"
     },
-    "KeyName":{
-      "Description":"Name of an existing EC2 KeyPair to enable SSH access to the instances",
-      "Type":"AWS::EC2::KeyPair::KeyName",
-      "ConstraintDescription":"Value must be a valid AWS key pair name in your account."
+    "KeyName": {
+      "Description": "Name of an existing EC2 KeyPair to enable SSH access to the instances",
+      "ConstraintDescription": "Value must be a valid AWS key pair name in your account.",
+      "Type": "AWS::EC2::KeyPair::KeyName"
     },
-    "VpcCidr":{
-      "Description":"CIDR address range for the VPC to be created",
-      "Type":"String",
-      "Default":"10.183.0.0/16"
+    "JumpInstanceType": {
+      "Default": "t2.micro",
+      "Description": "Instance type for public subnet jump nodes",
+      "ConstraintDescription": "Must be a valid EC2 instance type.",
+      "AllowedValues": ["m3.medium", "m3.large", "m3.xlarge", "m3.2xlarge", "c3.large", "c3.xlarge", "c3.2xlarge", "c3.4xlarge", "c3.8xlarge", "cc2.8xlarge", "cr1.8xlarge", "hi1.4xlarge", "hs1.8xlarge", "i2.xlarge", "i2.2xlarge", "i2.4xlarge", "i2.8xlarge", "r3.large", "r3.xlarge", "r3.2xlarge", "r3.4xlarge", "r3.8xlarge", "t2.micro", "t2.small", "t2.medium"],
+      "Type": "String"
+    },
+    "NATInstanceType": {
+      "Default": "t2.micro",
+      "Description": "Instance type for public subnet NAT nodes",
+      "ConstraintDescription": "Must be a valid EC2 instance type.",
+      "AllowedValues": ["m3.medium", "m3.large", "m3.xlarge", "m3.2xlarge", "c3.large", "c3.xlarge", "c3.2xlarge", "c3.4xlarge", "c3.8xlarge", "cc2.8xlarge", "cr1.8xlarge", "hi1.4xlarge", "hs1.8xlarge", "i2.xlarge", "i2.2xlarge", "i2.4xlarge", "i2.8xlarge", "r3.large", "r3.xlarge", "r3.2xlarge", "r3.4xlarge", "r3.8xlarge", "t2.micro", "t2.small", "t2.medium"],
+      "Type": "String"
+    },
+    "NumberOfPings": {
+      "Description": "The number of times the health check will ping the alternate NAT node",
+      "Default": "3",
+      "Type": "String"
+    },
+    "PingTimeout": {
+      "Description": "The number of seconds to wait for each ping response before determining that the ping has failed",
+      "Default": "10",
+      "Type": "String"
+    },
+    "WaitBetweenPings": {
+      "Description": "The number of seconds to wait between health checks",
+      "Default": "2",
+      "Type": "String"
+    },
+    "WaitForInstanceStop": {
+      "Description": "The number of seconds to wait for alternate NAT Node to stop before attempting to stop it again",
+      "Default": "60",
+      "Type": "String"
+    },
+    "WaitForInstanceStart": {
+      "Description": "The number of seconds to wait for alternate NAT node to restart before resuming health checks again",
+      "Default": "300",
+      "Type": "String"
+    },
+    "DockerInstanceType": {
+      "Default": "m3.medium",
+      "Description": "EC2 instance type for the Docker autoscaling group",
+      "ConstraintDescription": "Must be a valid EC2 HVM instance type.",
+      "AllowedValues": ["m3.medium", "m3.large", "m3.xlarge", "m3.2xlarge", "c3.large", "c3.xlarge", "c3.2xlarge", "c3.4xlarge", "c3.8xlarge", "cc2.8xlarge", "cr1.8xlarge", "hi1.4xlarge", "hs1.8xlarge", "i2.xlarge", "i2.2xlarge", "i2.4xlarge", "i2.8xlarge", "r3.large", "r3.xlarge", "r3.2xlarge", "r3.4xlarge", "r3.8xlarge", "t2.micro", "t2.small", "t2.medium"],
+      "Type": "String"
+    },
+    "ClusterSize": {
+      "Default": "3",
+      "Description": "Number of nodes in cluster (2-12)",
+      "MinValue": "3",
+      "MaxValue": "12",
+      "Type": "Number"
+    },
+    "RouterClusterSize": {
+      "Default": "2",
+      "Description": "Number of nodes in cluster (2-12)",
+      "MinValue": "2",
+      "MaxValue": "12",
+      "Type": "Number"
+    },
+    "AutoScaleCooldown": {
+      "Default": "300",
+      "Description": "Time in seconds between autoscaling events",
+      "MinValue": "60",
+      "MaxValue": "3600",
+      "Type": "Number"
+    },
+    "DiscoveryURL": {
+      "Description": "An unique etcd cluster discovery URL. Grab a new token from https://discovery.etcd.io/new",
+      "Type": "String"
+    },
+    "AdvertisedIPAddress": {
+      "Description": "Use 'private' if your etcd cluster is within one region or 'public' if it spans regions or cloud providers.",
+      "Default": "private",
+      "AllowedValues": ["private", "public"],
+      "Type": "String"
+    },
+    "VpcCidr": {
+      "Description": "CIDR address range for the VPC to be created",
+      "Default": "10.183.0.0/16",
+      "Type": "String"
     },
     "AvailabilityZones": {
       "Description": "A comma separated list of availability zones",
       "Default": "us-east-1a,us-east-1b",
       "Type": "CommaDelimitedList"
     },
-    "PublicSubnet1":{
-      "Description":"CIDR address range for the public subnet to be created in the first AZ",
-      "Type":"String",
-      "Default":"10.183.1.0/24"
+    "PublicSubnet1": {
+      "Description": "CIDR address range for the public subnet to be created in the first AZ",
+      "Default": "10.183.1.0/24",
+      "Type": "String"
     },
-    "PublicSubnet2":{
-      "Description":"CIDR address range for the public subnet to be created in the second AZ",
-      "Type":"String",
-      "Default":"10.183.3.0/24"
+    "PublicSubnet2": {
+      "Description": "CIDR address range for the public subnet to be created in the second AZ",
+      "Default": "10.183.3.0/24",
+      "Type": "String"
     },
     "PrivateSubnets": {
       "Description": "A comma separated list of CIDR blocks to be used for private subnet creation",
       "Default": "10.183.0.0/24,10.183.2.0/24",
       "Type": "CommaDelimitedList"
     },
-    "JumpInstanceType":{
-      "Description":"Instance type for public subnet jump nodes",
-      "Type":"String",
-      "AllowedValues":[ "m3.medium", "m3.large", "m3.xlarge", "m3.2xlarge", "c3.large","c3.xlarge", "c3.2xlarge", "c3.4xlarge","c3.8xlarge", "cc2.8xlarge","cr1.8xlarge","hi1.4xlarge", "hs1.8xlarge", "i2.xlarge", "i2.2xlarge", "i2.4xlarge", "i2.8xlarge", "r3.large", "r3.xlarge", "r3.2xlarge","r3.4xlarge", "r3.8xlarge", "t2.micro", "t2.small", "t2.medium" ],
-      "ConstraintDescription":"Must be a valid EC2 instance type.",
-      "Default":"t2.micro"
+    "CoreOSChannelAMI": {
+      "Default": "CoreOSStableAMI",
+      "Description": "MapName for the update channel AMI to use when launching CoreOS instances",
+      "ConstraintDescription": "Value should be 'CoreOSStableAMI', 'CoreOSBetaAMI', or 'CoreOSAlphaAMI'",
+      "AllowedValues": ["CoreOSStableAMI", "CoreOSBetaAMI", "CoreOSAlphaAMI"],
+      "Type": "String"
     },
-    "NATInstanceType":{
-      "Description":"Instance type for public subnet NAT nodes",
-      "Type":"String",
-      "AllowedValues":[ "m3.medium", "m3.large", "m3.xlarge", "m3.2xlarge", "c3.large","c3.xlarge", "c3.2xlarge", "c3.4xlarge","c3.8xlarge", "cc2.8xlarge","cr1.8xlarge","hi1.4xlarge", "hs1.8xlarge", "i2.xlarge", "i2.2xlarge", "i2.4xlarge", "i2.8xlarge", "r3.large", "r3.xlarge", "r3.2xlarge","r3.4xlarge", "r3.8xlarge", "t2.micro", "t2.small", "t2.medium" ],
-      "ConstraintDescription":"Must be a valid EC2 instance type.",
-      "Default":"t2.micro"
+    "AllowHTTPFrom": {
+      "Description": "The net block (CIDR) that can connect to the ELB.",
+      "Default": "0.0.0.0/0",
+      "Type": "String"
     },
-    "NumberOfPings":{
-      "Description":"The number of times the health check will ping the alternate NAT node",
-      "Type":"String",
-      "Default":"3"
-    },
-    "PingTimeout":{
-      "Description":"The number of seconds to wait for each ping response before determining that the ping has failed",
-      "Type":"String",
-      "Default":"10"
-    },
-    "WaitBetweenPings":{
-      "Description":"The number of seconds to wait between health checks",
-      "Type":"String",
-      "Default":"2"
-    },
-    "WaitForInstanceStop":{
-      "Description":"The number of seconds to wait for alternate NAT Node to stop before attempting to stop it again",
-      "Type":"String",
-      "Default":"60"
-    },
-    "WaitForInstanceStart":{
-      "Description":"The number of seconds to wait for alternate NAT node to restart before resuming health checks again",
-      "Type":"String",
-      "Default":"300"
-    },
-    "DockerInstanceType":{
-      "Description":"EC2 instance type for the Docker autoscaling group",
-      "Type":"String",
-      "AllowedValues":[ "m3.medium", "m3.large", "m3.xlarge", "m3.2xlarge", "c3.large","c3.xlarge", "c3.2xlarge", "c3.4xlarge","c3.8xlarge", "cc2.8xlarge","cr1.8xlarge","hi1.4xlarge", "hs1.8xlarge", "i2.xlarge", "i2.2xlarge", "i2.4xlarge", "i2.8xlarge", "r3.large", "r3.xlarge", "r3.2xlarge","r3.4xlarge", "r3.8xlarge", "t2.micro", "t2.small", "t2.medium" ],
-      "ConstraintDescription":"Must be a valid EC2 HVM instance type.",
-      "Default":"m3.medium"
-    },
-    "ClusterSize":{
-      "Description":"Number of nodes in cluster (2-12)",
-      "MinValue":"3",
-      "MaxValue":"12",
-      "Type":"Number",
-      "Default":"3"
-    },
-    "RouterClusterSize":{
-      "Description":"Number of nodes in cluster (2-12)",
-      "MinValue":"2",
-      "MaxValue":"12",
-      "Type":"Number",
-      "Default":"2"
-    },
-    "AutoScaleCooldown":{
-      "Description":"Time in seconds between autoscaling events",
-      "MinValue":"60",
-      "MaxValue":"3600",
-      "Type":"Number",
-      "Default":"300"
-    },
-    "CoreOSChannelAMI":{
-      "Description":"MapName for the update channel AMI to use when launching CoreOS instances",
-      "Type":"String",
-      "AllowedValues":["CoreOSStableAMI","CoreOSBetaAMI","CoreOSAlphaAMI"],
-      "ConstraintDescription":"Value should be 'CoreOSStableAMI', 'CoreOSBetaAMI', or 'CoreOSAlphaAMI'",
-      "Default":"CoreOSStableAMI"
-    },
-    "DiscoveryURL":{
-      "Description":"An unique etcd cluster discovery URL. Grab a new token from https://discovery.etcd.io/new",
-      "Type":"String"
-    },
-    "AdvertisedIPAddress":{
-      "Description":"Use 'private' if your etcd cluster is within one region or 'public' if it spans regions or cloud providers.",
-      "AllowedValues":["private","public"],
-      "Type":"String",
-      "Default":"private"
-    },
-    "AllowHTTPFrom":{
-      "Description":"The net block (CIDR) that can connect to the ELB.",
-      "Type":"String",
-      "Default":"0.0.0.0/0"
-    },
-    "AllowSSHFrom":{
-      "Description":"The net block (CIDR) that SSH is available to.",
-      "Type":"String",
-      "Default":"0.0.0.0/0"
+    "AllowSSHFrom": {
+      "Description": "The net block (CIDR) that SSH is available to.",
+      "Default": "0.0.0.0/0",
+      "Type": "String"
     }
   },
-  "Mappings":{
-    "CoreOSAlphaAMI":{
-      "us-east-1":{ "AMI":"ami-52396c3a" },
-      "us-west-1":{ "AMI":"ami-240f1561" },
-      "us-west-2":{ "AMI":"ami-6d85a15d" },
-      "eu-west-1":{ "AMI":"ami-f56ee482" }
+  "Mappings": {
+    "CoreOSAlphaAMI": {
+      "us-east-1": {
+        "AMI": "ami-52396c3a"
+      },
+      "us-west-1": {
+        "AMI": "ami-240f1561"
+      },
+      "us-west-2": {
+        "AMI": "ami-6d85a15d"
+      },
+      "eu-west-1": {
+        "AMI": "ami-f56ee482"
+      }
     },
-    "CoreOSBetaAMI":{
-      "us-east-1":{ "AMI":"ami-509bd838" },
-      "us-west-1":{ "AMI":"ami-4ab7af0f" },
-      "us-west-2":{ "AMI":"ami-07762d37" },
-      "eu-west-1":{ "AMI":"ami-19af216e" }
+    "CoreOSBetaAMI": {
+      "us-east-1": {
+        "AMI": "ami-509bd838"
+      },
+      "us-west-1": {
+        "AMI": "ami-4ab7af0f"
+      },
+      "us-west-2": {
+        "AMI": "ami-07762d37"
+      },
+      "eu-west-1": {
+        "AMI": "ami-19af216e"
+      }
     },
-    "CoreOSStableAMI":{
-      "us-east-1":{ "AMI":"ami-8297d4ea" },
-      "us-west-1":{ "AMI":"ami-24b5ad61" },
-      "us-west-2":{ "AMI":"ami-f1702bc1" },
-      "eu-west-1":{ "AMI":"ami-5d911f2a" }
+    "CoreOSStableAMI": {
+      "us-east-1": {
+        "AMI": "ami-8297d4ea"
+      },
+      "us-west-1": {
+        "AMI": "ami-24b5ad61"
+      },
+      "us-west-2": {
+        "AMI": "ami-f1702bc1"
+      },
+      "eu-west-1": {
+        "AMI": "ami-5d911f2a"
+      }
     },
-    "AmazonLinuxAMI":{
-      "us-east-1":{ "AMI":"ami-146e2a7c" },
-      "us-west-1":{ "AMI":"ami-42908907" },
-      "us-west-2":{ "AMI":"ami-dfc39aef" },
-      "eu-west-1":{ "AMI":"ami-9d23aeea" }
+    "AmazonLinuxAMI": {
+      "us-east-1": {
+        "AMI": "ami-146e2a7c"
+      },
+      "us-west-1": {
+        "AMI": "ami-42908907"
+      },
+      "us-west-2": {
+        "AMI": "ami-dfc39aef"
+      },
+      "eu-west-1": {
+        "AMI": "ami-9d23aeea"
+      }
     },
-    "AWSNATAMI":{
-      "us-east-1":{ "AMI":"ami-184dc970" },
-      "us-west-1":{ "AMI":"ami-a98396ec" },
-      "us-west-2":{ "AMI":"ami-290f4119" },
-      "eu-west-1":{ "AMI":"ami-14913f63" }
+    "AWSNATAMI": {
+      "us-east-1": {
+        "AMI": "ami-184dc970"
+      },
+      "us-west-1": {
+        "AMI": "ami-a98396ec"
+      },
+      "us-west-2": {
+        "AMI": "ami-290f4119"
+      },
+      "eu-west-1": {
+        "AMI": "ami-14913f63"
+      }
     }
   },
-  "Resources":{
-    "NATRole":{
-      "Type":"AWS::IAM::Role",
-      "Properties":{
-        "AssumeRolePolicyDocument":{
-          "Statement":[
-            {
-              "Effect":"Allow",
-              "Principal":{
-                "Service":[
-                  "ec2.amazonaws.com"
-                ]
-              },
-              "Action":[
-                "sts:AssumeRole"
-              ]
-            }
-          ]
+  "Resources": {
+    "NATRole": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [{
+            "Effect": "Allow",
+            "Principal": {
+              "Service": ["ec2.amazonaws.com"]
+            },
+            "Action": ["sts:AssumeRole"]
+          }]
         },
-        "Path":"/",
-        "Policies":[
-          {
-            "PolicyName":"NAT_Takeover",
-            "PolicyDocument":{
-              "Statement":[
-                {
-                  "Effect":"Allow",
-                  "Action":[
-                    "ec2:DescribeInstances",
-                    "ec2:DescribeRouteTables",
-                    "ec2:CreateRoute",
-                    "ec2:ReplaceRoute",
-                    "ec2:StartInstances",
-                    "ec2:StopInstances"
-                  ],
-                  "Resource":["*"]
-                }
-              ]
-            }
-          },
-          {
-            "PolicyName":"StaxS3Access",
-            "PolicyDocument":{
-              "Statement":[
-                {
-                  "Effect":"Allow",
-                  "Action":[
-                    "s3:GetObject"
-                  ],
-                  "Resource":[{
-                    "Fn::Join":[
-                      "",
-                      [
-                        "arn:aws:s3:::",
-                        { "Ref":"AWS::StackName" } ,
-                        "/*"
-                      ]
-                    ]
-                  }]
-                }
-              ]
-            }
+        "Path": "/",
+        "Policies": [{
+          "PolicyName": "NAT_Takeover",
+          "PolicyDocument": {
+            "Statement": [{
+              "Effect": "Allow",
+              "Action": ["ec2:DescribeInstances", "ec2:DescribeRouteTables", "ec2:CreateRoute", "ec2:ReplaceRoute", "ec2:StartInstances", "ec2:StopInstances"],
+              "Resource": ["*"]
+            }]
           }
-        ]
-      }
-    },
-    "NATRoleProfile":{
-      "Type":"AWS::IAM::InstanceProfile",
-      "Properties":{
-        "Path":"/",
-        "Roles":[
-          {
-            "Ref":"NATRole"
+        }, {
+          "PolicyName": "StaxS3Access",
+          "PolicyDocument": {
+            "Statement": [{
+              "Effect": "Allow",
+              "Action": ["s3:GetObject"],
+              "Resource": [{
+                "Fn::Join": ["", ["arn:aws:s3:::", {
+                  "Ref": "AWS::StackName"
+                }, "/*"]]
+              }]
+            }]
           }
-        ]
-      }
+        }]
+      },
+      "Type": "AWS::IAM::Role"
     },
-    "VPC":{
-      "Type":"AWS::EC2::VPC",
-      "Properties":{
-        "CidrBlock":{
-          "Ref":"VpcCidr"
-        },
-        "EnableDnsHostnames": true,
+    "NATRoleProfile": {
+      "Properties": {
+        "Path": "/",
+        "Roles": [{
+          "Ref": "NATRole"
+        }]
+      },
+      "Type": "AWS::IAM::InstanceProfile"
+    },
+    "VPC": {
+      "Properties": {
         "EnableDnsSupport": true,
-        "Tags":[
-          {
-            "Key":"Network",
-            "Value":"Public"
-          },
-          {
-            "Key":"Name",
-            "Value":{
-              "Fn::Join":[
-                "-",
-                [
-                  "vpc",
-                  {
-                    "Ref":"AWS::StackName"
-                  }
-                ]
-              ]
-            }
-          },
-          {
-            "Key":"App",
-            "Value":{
-              "Ref":"App"
-            }
-          },
-          {
-            "Key":"Group",
-            "Value":{
-              "Ref":"Group"
-            }
-          },
-          {
-            "Key":"Owner",
-            "Value":{
-              "Ref":"Owner"
-            }
-          },
-          {
-            "Key":"Environment",
-            "Value":{
-              "Ref":"Environment"
-            }
-          },
-          {
-            "Key":"KeepAlive",
-            "Value":{
-              "Ref":"KeepAlive"
-            }
-          },
-          {
-            "Key":"CostCenter",
-            "Value":{
-              "Ref":"CostCenter"
-            }
+        "CidrBlock": {
+          "Ref": "VpcCidr"
+        },
+        "Tags": [{
+          "Key": "Network",
+          "Value": "Public"
+        }, {
+          "Key": "Name",
+          "Value": {
+            "Fn::Join": ["-", ["vpc", {
+              "Ref": "AWS::StackName"
+            }]]
           }
-        ]
-      }
-    },
-    "PubSubnet1":{
-      "Type":"AWS::EC2::Subnet",
-      "Properties":{
-        "VpcId":{
-          "Ref":"VPC"
-        },
-        "AvailabilityZone":"us-east-1a",
-        "CidrBlock":{
-          "Ref":"PublicSubnet1"
-        },
-        "MapPublicIpOnLaunch":true,
-        "Tags":[
-          {
-            "Key":"Network",
-            "Value":"Public"
-          },
-          {
-            "Key":"Name",
-            "Value":{
-              "Fn::Join":[
-                "-",
-                [
-                  "pubsubnet1",
-                  {
-                    "Ref":"AWS::StackName"
-                  }
-                ]
-              ]
-            }
-          },
-          {
-            "Key":"App",
-            "Value":{
-              "Ref":"App"
-            }
-          },
-          {
-            "Key":"Group",
-            "Value":{
-              "Ref":"Group"
-            }
-          },
-          {
-            "Key":"Owner",
-            "Value":{
-              "Ref":"Owner"
-            }
-          },
-          {
-            "Key":"Environment",
-            "Value":{
-              "Ref":"Environment"
-            }
-          },
-          {
-            "Key":"KeepAlive",
-            "Value":{
-              "Ref":"KeepAlive"
-            }
-          },
-          {
-            "Key":"CostCenter",
-            "Value":{
-              "Ref":"CostCenter"
-            }
+        }, {
+          "Key": "App",
+          "Value": {
+            "Ref": "App"
           }
-        ]
-      }
-    },
-    "PriSubnet1":{
-      "Type":"AWS::EC2::Subnet",
-      "Properties":{
-        "VpcId":{
-          "Ref":"VPC"
-        },
-        "AvailabilityZone":"us-east-1a",
-        "CidrBlock":{
-          "Fn::Select": ["0", {"Ref": "PrivateSubnets"}]
-        },
-        "Tags":[
-          {
-            "Key":"Network",
-            "Value":"Private"
-          },
-          {
-            "Key":"Name",
-            "Value":{
-              "Fn::Join":[
-                "-",
-                [
-                  "prisubnet1",
-                  {
-                    "Ref":"AWS::StackName"
-                  }
-                ]
-              ]
-            }
-          },
-          {
-            "Key":"App",
-            "Value":{
-              "Ref":"App"
-            }
-          },
-          {
-            "Key":"Group",
-            "Value":{
-              "Ref":"Group"
-            }
-          },
-          {
-            "Key":"Owner",
-            "Value":{
-              "Ref":"Owner"
-            }
-          },
-          {
-            "Key":"Environment",
-            "Value":{
-              "Ref":"Environment"
-            }
-          },
-          {
-            "Key":"KeepAlive",
-            "Value":{
-              "Ref":"KeepAlive"
-            }
-          },
-          {
-            "Key":"CostCenter",
-            "Value":{
-              "Ref":"CostCenter"
-            }
+        }, {
+          "Key": "Group",
+          "Value": {
+            "Ref": "Group"
           }
-        ]
-      }
-    },
-    "PubSubnet2":{
-      "Type":"AWS::EC2::Subnet",
-      "Properties":{
-        "VpcId":{
-          "Ref":"VPC"
-        },
-        "AvailabilityZone":"us-east-1b",
-        "CidrBlock":{
-          "Ref":"PublicSubnet2"
-        },
-        "Tags":[
-          {
-            "Key":"Network",
-            "Value":"Public"
-          },
-          {
-            "Key":"Name",
-            "Value":{
-              "Fn::Join":[
-                "-",
-                [
-                  "pubsubnet2",
-                  {
-                    "Ref":"AWS::StackName"
-                  }
-                ]
-              ]
-            }
-          },
-          {
-            "Key":"App",
-            "Value":{
-              "Ref":"App"
-            }
-          },
-          {
-            "Key":"Group",
-            "Value":{
-              "Ref":"Group"
-            }
-          },
-          {
-            "Key":"Owner",
-            "Value":{
-              "Ref":"Owner"
-            }
-          },
-          {
-            "Key":"Environment",
-            "Value":{
-              "Ref":"Environment"
-            }
-          },
-          {
-            "Key":"KeepAlive",
-            "Value":{
-              "Ref":"KeepAlive"
-            }
-          },
-          {
-            "Key":"CostCenter",
-            "Value":{
-              "Ref":"CostCenter"
-            }
+        }, {
+          "Key": "Owner",
+          "Value": {
+            "Ref": "Owner"
           }
-        ]
-      }
-    },
-    "PriSubnet2":{
-      "Type":"AWS::EC2::Subnet",
-      "Properties":{
-        "VpcId":{
-          "Ref":"VPC"
-        },
-        "AvailabilityZone":"us-east-1b",
-        "CidrBlock":{
-          "Fn::Select": ["1", {"Ref": "PrivateSubnets"}]
-        },
-        "Tags":[
-          {
-            "Key":"Network",
-            "Value":"Private"
-          },
-          {
-            "Key":"Name",
-            "Value":{
-              "Fn::Join":[
-                "-",
-                [
-                  "prisubnet2",
-                  {
-                    "Ref":"AWS::StackName"
-                  }
-                ]
-              ]
-            }
-          },
-          {
-            "Key":"App",
-            "Value":{
-              "Ref":"App"
-            }
-          },
-          {
-            "Key":"Group",
-            "Value":{
-              "Ref":"Group"
-            }
-          },
-          {
-            "Key":"Owner",
-            "Value":{
-              "Ref":"Owner"
-            }
-          },
-          {
-            "Key":"Environment",
-            "Value":{
-              "Ref":"Environment"
-            }
-          },
-          {
-            "Key":"KeepAlive",
-            "Value":{
-              "Ref":"KeepAlive"
-            }
-          },
-          {
-            "Key":"CostCenter",
-            "Value":{
-              "Ref":"CostCenter"
-            }
+        }, {
+          "Key": "Environment",
+          "Value": {
+            "Ref": "Environment"
           }
-        ]
-      }
-    },
-    "InternetGateway":{
-      "Type":"AWS::EC2::InternetGateway",
-      "Properties":{
-        "Tags":[
-          {
-            "Key":"Network",
-            "Value":"Public"
-          },
-          {
-            "Key":"Name",
-            "Value":{
-              "Fn::Join":[
-                "-",
-                [
-                  "igw",
-                  {
-                    "Ref":"AWS::StackName"
-                  }
-                ]
-              ]
-            }
-          },
-          {
-            "Key":"App",
-            "Value":{
-              "Ref":"App"
-            }
-          },
-          {
-            "Key":"Group",
-            "Value":{
-              "Ref":"Group"
-            }
-          },
-          {
-            "Key":"Owner",
-            "Value":{
-              "Ref":"Owner"
-            }
-          },
-          {
-            "Key":"Environment",
-            "Value":{
-              "Ref":"Environment"
-            }
-          },
-          {
-            "Key":"KeepAlive",
-            "Value":{
-              "Ref":"KeepAlive"
-            }
-          },
-          {
-            "Key":"CostCenter",
-            "Value":{
-              "Ref":"CostCenter"
-            }
+        }, {
+          "Key": "KeepAlive",
+          "Value": {
+            "Ref": "KeepAlive"
           }
-        ]
-      }
-    },
-    "GatewayToInternet":{
-      "Type":"AWS::EC2::VPCGatewayAttachment",
-      "Properties":{
-        "VpcId":{
-          "Ref":"VPC"
-        },
-        "InternetGatewayId":{
-          "Ref":"InternetGateway"
-        }
-      }
-    },
-    "PublicRouteTable1":{
-      "Type":"AWS::EC2::RouteTable",
-      "Properties":{
-        "VpcId":{
-          "Ref":"VPC"
-        },
-        "Tags":[
-          {
-            "Key":"Network",
-            "Value":"Public"
-          },
-          {
-            "Key":"Name",
-            "Value":{
-              "Fn::Join":[
-                "-",
-                [
-                  "pubrt1",
-                  {
-                    "Ref":"AWS::StackName"
-                  }
-                ]
-              ]
-            }
-          },
-          {
-            "Key":"App",
-            "Value":{
-              "Ref":"App"
-            }
-          },
-          {
-            "Key":"Group",
-            "Value":{
-              "Ref":"Group"
-            }
-          },
-          {
-            "Key":"Owner",
-            "Value":{
-              "Ref":"Owner"
-            }
-          },
-          {
-            "Key":"Environment",
-            "Value":{
-              "Ref":"Environment"
-            }
-          },
-          {
-            "Key":"KeepAlive",
-            "Value":{
-              "Ref":"KeepAlive"
-            }
-          },
-          {
-            "Key":"CostCenter",
-            "Value":{
-              "Ref":"CostCenter"
-            }
+        }, {
+          "Key": "CostCenter",
+          "Value": {
+            "Ref": "CostCenter"
           }
-        ]
-      }
+        }],
+        "EnableDnsHostnames": true
+      },
+      "Type": "AWS::EC2::VPC"
     },
-    "PublicRouteTable1Route1":{
-      "Type":"AWS::EC2::Route",
-      "Properties":{
-        "RouteTableId":{
-          "Ref":"PublicRouteTable1"
+    "PubSubnet1": {
+      "Properties": {
+        "CidrBlock": {
+          "Ref": "PublicSubnet1"
         },
-        "DestinationCidrBlock":"0.0.0.0/0",
-        "GatewayId":{
-          "Ref":"InternetGateway"
-        }
-      }
-    },
-    "PrivateRouteTable1":{
-      "Type":"AWS::EC2::RouteTable",
-      "Properties":{
-        "VpcId":{
-          "Ref":"VPC"
-        },
-        "Tags":[
-          {
-            "Key":"Network",
-            "Value":"Private"
-          },
-          {
-            "Key":"Name",
-            "Value":{
-              "Fn::Join":[
-                "-",
-                [
-                  "privrt1",
-                  {
-                    "Ref":"AWS::StackName"
-                  }
-                ]
-              ]
-            }
-          },
-          {
-            "Key":"App",
-            "Value":{
-              "Ref":"App"
-            }
-          },
-          {
-            "Key":"Group",
-            "Value":{
-              "Ref":"Group"
-            }
-          },
-          {
-            "Key":"Owner",
-            "Value":{
-              "Ref":"Owner"
-            }
-          },
-          {
-            "Key":"Environment",
-            "Value":{
-              "Ref":"Environment"
-            }
-          },
-          {
-            "Key":"KeepAlive",
-            "Value":{
-              "Ref":"KeepAlive"
-            }
-          },
-          {
-            "Key":"CostCenter",
-            "Value":{
-              "Ref":"CostCenter"
-            }
+        "AvailabilityZone": "us-east-1a",
+        "Tags": [{
+          "Key": "Network",
+          "Value": "Public"
+        }, {
+          "Key": "Name",
+          "Value": {
+            "Fn::Join": ["-", ["pubsubnet1", {
+              "Ref": "AWS::StackName"
+            }]]
           }
-        ]
-      }
-    },
-    "PrivateRouteTable1Route1":{
-      "Type":"AWS::EC2::Route",
-      "Properties":{
-        "RouteTableId":{
-          "Ref":"PrivateRouteTable1"
-        },
-        "DestinationCidrBlock":"0.0.0.0/0",
-        "InstanceId":{
-          "Ref":"NAT1Instance"
-        }
-      }
-    },
-    "PrivateRouteTable2":{
-      "Type":"AWS::EC2::RouteTable",
-      "Properties":{
-        "VpcId":{
-          "Ref":"VPC"
-        },
-        "Tags":[
-          {
-            "Key":"Network",
-            "Value":"Private"
-          },
-          {
-            "Key":"Name",
-            "Value":{
-              "Fn::Join":[
-                "-",
-                [
-                  "privrt2",
-                  {
-                    "Ref":"AWS::StackName"
-                  }
-                ]
-              ]
-            }
-          },
-          {
-            "Key":"App",
-            "Value":{
-              "Ref":"App"
-            }
-          },
-          {
-            "Key":"Group",
-            "Value":{
-              "Ref":"Group"
-            }
-          },
-          {
-            "Key":"Owner",
-            "Value":{
-              "Ref":"Owner"
-            }
-          },
-          {
-            "Key":"Environment",
-            "Value":{
-              "Ref":"Environment"
-            }
-          },
-          {
-            "Key":"KeepAlive",
-            "Value":{
-              "Ref":"KeepAlive"
-            }
-          },
-          {
-            "Key":"CostCenter",
-            "Value":{
-              "Ref":"CostCenter"
-            }
+        }, {
+          "Key": "App",
+          "Value": {
+            "Ref": "App"
           }
-        ]
-      }
-    },
-    "PrivateRouteTable2Route1":{
-      "Type":"AWS::EC2::Route",
-      "Properties":{
-        "RouteTableId":{
-          "Ref":"PrivateRouteTable2"
-        },
-        "DestinationCidrBlock":"0.0.0.0/0",
-        "InstanceId":{
-          "Ref":"NAT2Instance"
-        }
-      }
-    },
-    "PubSubnet1RTAssoc":{
-      "Type":"AWS::EC2::SubnetRouteTableAssociation",
-      "Properties":{
-        "SubnetId":{
-          "Ref":"PubSubnet1"
-        },
-        "RouteTableId":{
-          "Ref":"PublicRouteTable1"
-        }
-      }
-    },
-    "PubSubnet2RTAssoc":{
-      "Type":"AWS::EC2::SubnetRouteTableAssociation",
-      "Properties":{
-        "SubnetId":{
-          "Ref":"PubSubnet2"
-        },
-        "RouteTableId":{
-          "Ref":"PublicRouteTable1"
-        }
-      }
-    },
-    "PriSubnet1RTAssoc":{
-      "Type":"AWS::EC2::SubnetRouteTableAssociation",
-      "Properties":{
-        "SubnetId":{
-          "Ref":"PriSubnet1"
-        },
-        "RouteTableId":{
-          "Ref":"PrivateRouteTable1"
-        }
-      }
-    },
-    "PriSubnet2RTAssoc":{
-      "Type":"AWS::EC2::SubnetRouteTableAssociation",
-      "Properties":{
-        "SubnetId":{
-          "Ref":"PriSubnet2"
-        },
-        "RouteTableId":{
-          "Ref":"PrivateRouteTable2"
-        }
-      }
-    },
-    "JumpSecurityGroup":{
-      "Type":"AWS::EC2::SecurityGroup",
-      "Properties":{
-        "GroupDescription":"Rules for allowing access to public subnet nodes",
-        "VpcId":{
-          "Ref":"VPC"
-        },
-        "SecurityGroupIngress":[
-          {
-            "IpProtocol":"tcp",
-            "CidrIp":{
-              "Ref":"AllowSSHFrom"
-            },
-            "FromPort":"22",
-            "ToPort":"22"
+        }, {
+          "Key": "Group",
+          "Value": {
+            "Ref": "Group"
           }
-        ],
-        "Tags":[
-          {
-            "Key":"Name",
-            "Value":{
-              "Fn::Join":[
-                "-",
-                [
-                  "jumpsg",
-                  {
-                    "Ref":"AWS::StackName"
-                  }
-                ]
-              ]
-            }
-          },
-          {
-            "Key":"App",
-            "Value":{
-              "Ref":"App"
-            }
-          },
-          {
-            "Key":"Group",
-            "Value":{
-              "Ref":"Group"
-            }
-          },
-          {
-            "Key":"Owner",
-            "Value":{
-              "Ref":"Owner"
-            }
-          },
-          {
-            "Key":"Environment",
-            "Value":{
-              "Ref":"Environment"
-            }
-          },
-          {
-            "Key":"KeepAlive",
-            "Value":{
-              "Ref":"KeepAlive"
-            }
-          },
-          {
-            "Key":"CostCenter",
-            "Value":{
-              "Ref":"CostCenter"
-            }
+        }, {
+          "Key": "Owner",
+          "Value": {
+            "Ref": "Owner"
           }
-        ]
-      }
-    },
-    "JumpInstance":{
-      "Type":"AWS::EC2::Instance",
-      "Properties":{
-        "InstanceType":{
-          "Ref":"JumpInstanceType"
-        },
-        "KeyName":{
-          "Ref":"KeyName"
-        },
-        "SubnetId":{
-          "Ref":"PubSubnet1"
-        },
-        "ImageId":{
-          "Fn::FindInMap":[
-            "AmazonLinuxAMI",
-            {
-              "Ref":"AWS::Region"
-            },
-            "AMI"
-          ]
-        },
-        "SecurityGroupIds":[
-          {
-            "Ref":"JumpSecurityGroup"
+        }, {
+          "Key": "Environment",
+          "Value": {
+            "Ref": "Environment"
           }
-        ],
-        "Tags":[
-          {
-            "Key":"Name",
-            "Value":{
-              "Fn::Join":[
-                "-",
-                [
-                  "jump",
-                  {
-                    "Ref":"AWS::StackName"
-                  }
-                ]
-              ]
-            }
-          },
-          {
-            "Key":"App",
-            "Value":{
-              "Ref":"App"
-            }
-          },
-          {
-            "Key":"Group",
-            "Value":{
-              "Ref":"Group"
-            }
-          },
-          {
-            "Key":"Owner",
-            "Value":{
-              "Ref":"Owner"
-            }
-          },
-          {
-            "Key":"Environment",
-            "Value":{
-              "Ref":"Environment"
-            }
-          },
-          {
-            "Key":"KeepAlive",
-            "Value":{
-              "Ref":"KeepAlive"
-            }
-          },
-          {
-            "Key":"CostCenter",
-            "Value":{
-              "Ref":"CostCenter"
-            }
+        }, {
+          "Key": "KeepAlive",
+          "Value": {
+            "Ref": "KeepAlive"
           }
-        ]
-      }
-    },
-    "JumpEIP":{
-      "Type":"AWS::EC2::EIP",
-      "Properties":{
-        "Domain":"vpc",
-        "InstanceId":{
-          "Ref":"JumpInstance"
+        }, {
+          "Key": "CostCenter",
+          "Value": {
+            "Ref": "CostCenter"
+          }
+        }],
+        "MapPublicIpOnLaunch": true,
+        "VpcId": {
+          "Ref": "VPC"
         }
       },
-      "DependsOn":[ "GatewayToInternet" ]
+      "Type": "AWS::EC2::Subnet"
     },
-    "NATSecurityGroup":{
-      "Type":"AWS::EC2::SecurityGroup",
-      "Properties":{
-        "GroupDescription":"Rules for allowing access to public subnet nodes",
-        "VpcId":{
-          "Ref":"VPC"
+    "PriSubnet1": {
+      "Properties": {
+        "CidrBlock": {
+          "Fn::Select": ["0", {
+            "Ref": "PrivateSubnets"
+          }]
         },
-        "SecurityGroupIngress":[
-          {
-            "IpProtocol":"tcp",
-            "SourceSecurityGroupId":{
-              "Ref":"JumpSecurityGroup"
-            },
-            "FromPort":"22",
-            "ToPort":"22"
-          },
-          {
-            "IpProtocol":"-1",
-            "CidrIp":{
-              "Ref":"VpcCidr"
-            },
-            "FromPort":"0",
-            "ToPort":"65535"
+        "AvailabilityZone": "us-east-1a",
+        "Tags": [{
+          "Key": "Network",
+          "Value": "Private"
+        }, {
+          "Key": "Name",
+          "Value": {
+            "Fn::Join": ["-", ["prisubnet1", {
+              "Ref": "AWS::StackName"
+            }]]
           }
-        ],
-        "SecurityGroupEgress":[
-          {
-            "IpProtocol":"-1",
-            "CidrIp":"0.0.0.0/0",
-            "FromPort":"0",
-            "ToPort":"65535"
+        }, {
+          "Key": "App",
+          "Value": {
+            "Ref": "App"
           }
-        ],
-        "Tags":[
-          {
-            "Key":"Name",
-            "Value":{
-              "Fn::Join":[
-                "-",
-                [
-                  "natsg",
-                  {
-                    "Ref":"AWS::StackName"
-                  }
-                ]
-              ]
-            }
-          },
-          {
-            "Key":"App",
-            "Value":{
-              "Ref":"App"
-            }
-          },
-          {
-            "Key":"Group",
-            "Value":{
-              "Ref":"Group"
-            }
-          },
-          {
-            "Key":"Owner",
-            "Value":{
-              "Ref":"Owner"
-            }
-          },
-          {
-            "Key":"Environment",
-            "Value":{
-              "Ref":"Environment"
-            }
-          },
-          {
-            "Key":"KeepAlive",
-            "Value":{
-              "Ref":"KeepAlive"
-            }
-          },
-          {
-            "Key":"CostCenter",
-            "Value":{
-              "Ref":"CostCenter"
-            }
+        }, {
+          "Key": "Group",
+          "Value": {
+            "Ref": "Group"
           }
-        ]
-      }
-    },
-    "NATSecurityGroupAllowICMP":{
-      "Type":"AWS::EC2::SecurityGroupIngress",
-      "Properties":{
-        "GroupId":{
-          "Ref":"NATSecurityGroup"
-        },
-        "IpProtocol":"icmp",
-        "SourceSecurityGroupId":{
-          "Ref":"NATSecurityGroup"
-        },
-        "FromPort":"-1",
-        "ToPort":"-1"
-      }
-    },
-    "NAT1Instance":{
-      "Type":"AWS::EC2::Instance",
-      "Metadata":{
-        "Comment1":"Create NAT #1"
-      },
-      "Properties":{
-        "InstanceType":{
-          "Ref":"NATInstanceType"
-        },
-        "KeyName":{
-          "Ref":"KeyName"
-        },
-        "IamInstanceProfile":{
-          "Ref":"NATRoleProfile"
-        },
-        "SubnetId":{
-          "Ref":"PubSubnet1"
-        },
-        "SourceDestCheck":"false",
-        "DisableApiTermination":"false",
-        "PrivateIpAddress":"1.2.3.4",
-        "ImageId":{
-          "Fn::FindInMap":[
-            "AWSNATAMI",
-            {
-              "Ref":"AWS::Region"
-            },
-            "AMI"
-          ]
-        },
-        "SecurityGroupIds":[
-          {
-            "Ref":"NATSecurityGroup"
+        }, {
+          "Key": "Owner",
+          "Value": {
+            "Ref": "Owner"
           }
-        ],
-        "Tags":[
-          {
-            "Key":"Name",
-            "Value":{
-              "Fn::Join":[
-                "-",
-                [
-                  "nat1",
-                  {
-                    "Ref":"AWS::StackName"
-                  }
-                ]
-              ]
-            }
-          },
-          {
-            "Key":"App",
-            "Value":{
-              "Ref":"App"
-            }
-          },
-          {
-            "Key":"Group",
-            "Value":{
-              "Ref":"Group"
-            }
-          },
-          {
-            "Key":"Owner",
-            "Value":{
-              "Ref":"Owner"
-            }
-          },
-          {
-            "Key":"Environment",
-            "Value":{
-              "Ref":"Environment"
-            }
-          },
-          {
-            "Key":"KeepAlive",
-            "Value":{
-              "Ref":"KeepAlive"
-            }
-          },
-          {
-            "Key":"CostCenter",
-            "Value":{
-              "Ref":"CostCenter"
-            }
+        }, {
+          "Key": "Environment",
+          "Value": {
+            "Ref": "Environment"
           }
-        ],
-        "UserData":{
-          "Fn::Base64":{
-            "Fn::Join":[
-              "",
-              [
-                "#!/bin/bash -v\n",
-                "yum update -y aws*\n",
-                ". /etc/profile.d/aws-apitools-common.sh\n",
-                "cd /root\n",
-                "aws s3 cp s3://",
-                { "Ref":"AWS::StackName" },
-                "/user-data-nat.sh user-data-nat.sh\n",
-                "/bin/bash user-data-nat.sh",
-                " ", { "Ref":"PrivateRouteTable2" },
-                " ", { "Ref":"PrivateRouteTable1" },
-                " ", { "Ref":"AWS::Region" },
-                " ", { "Ref":"AWS::StackName" }, "\n",
-                "# EOF\n"
-              ]
-            ]
+        }, {
+          "Key": "KeepAlive",
+          "Value": {
+            "Ref": "KeepAlive"
           }
-        }
-      }
-    },
-    "NAT1EIP":{
-      "Type":"AWS::EC2::EIP",
-      "Properties":{
-        "Domain":"vpc",
-        "InstanceId":{
-          "Ref":"NAT1Instance"
+        }, {
+          "Key": "CostCenter",
+          "Value": {
+            "Ref": "CostCenter"
+          }
+        }],
+        "VpcId": {
+          "Ref": "VPC"
         }
       },
-      "DependsOn":[ "GatewayToInternet" ]
+      "Type": "AWS::EC2::Subnet"
     },
-    "NAT2Instance":{
-      "Type":"AWS::EC2::Instance",
-      "Metadata":{
-        "Comment1":"Create NAT #2"
-      },
-      "Properties":{
-        "InstanceType":{
-          "Ref":"NATInstanceType"
+    "PubSubnet2": {
+      "Properties": {
+        "CidrBlock": {
+          "Ref": "PublicSubnet2"
         },
-        "KeyName":{
-          "Ref":"KeyName"
-        },
-        "IamInstanceProfile":{
-          "Ref":"NATRoleProfile"
-        },
-        "SubnetId":{
-          "Ref":"PubSubnet2"
-        },
-        "SourceDestCheck":"false",
-        "DisableApiTermination":"false",
-        "PrivateIpAddress":"1.2.3.4",
-        "ImageId":{
-          "Fn::FindInMap":[
-            "AWSNATAMI",
-            {
-              "Ref":"AWS::Region"
-            },
-            "AMI"
-          ]
-        },
-        "SecurityGroupIds":[
-          {
-            "Ref":"NATSecurityGroup"
+        "AvailabilityZone": "us-east-1b",
+        "Tags": [{
+          "Key": "Network",
+          "Value": "Public"
+        }, {
+          "Key": "Name",
+          "Value": {
+            "Fn::Join": ["-", ["pubsubnet2", {
+              "Ref": "AWS::StackName"
+            }]]
           }
-        ],
-        "Tags":[
-          {
-            "Key":"Name",
-            "Value":{
-              "Fn::Join":[
-                "-",
-                [
-                  "nat2",
-                  {
-                    "Ref":"AWS::StackName"
-                  }
-                ]
-              ]
-            }
-          },
-          {
-            "Key":"App",
-            "Value":{
-              "Ref":"App"
-            }
-          },
-          {
-            "Key":"Group",
-            "Value":{
-              "Ref":"Group"
-            }
-          },
-          {
-            "Key":"Owner",
-            "Value":{
-              "Ref":"Owner"
-            }
-          },
-          {
-            "Key":"Environment",
-            "Value":{
-              "Ref":"Environment"
-            }
-          },
-          {
-            "Key":"KeepAlive",
-            "Value":{
-              "Ref":"KeepAlive"
-            }
-          },
-          {
-            "Key":"CostCenter",
-            "Value":{
-              "Ref":"CostCenter"
-            }
+        }, {
+          "Key": "App",
+          "Value": {
+            "Ref": "App"
           }
-        ],
-        "UserData":{
-          "Fn::Base64":{
-            "Fn::Join":[
-              "",
-              [
-                "#!/bin/bash -v\n",
-                "yum update -y aws*\n",
-                ". /etc/profile.d/aws-apitools-common.sh\n",
-                "cd /root\n",
-                "aws s3 cp s3://",
-                { "Ref":"AWS::StackName" },
-                "/user-data-nat.sh user-data-nat.sh\n",
-                "/bin/bash user-data-nat.sh",
-                " ", { "Ref":"PrivateRouteTable1" },
-                " ", { "Ref":"PrivateRouteTable2" },
-                " ", { "Ref":"AWS::Region" },
-                " ", { "Ref":"AWS::StackName" }, "\n",
-                "# EOF\n"
-              ]
-            ]
+        }, {
+          "Key": "Group",
+          "Value": {
+            "Ref": "Group"
           }
-        }
-      }
-    },
-    "NAT2EIP":{
-      "Type":"AWS::EC2::EIP",
-      "Properties":{
-        "Domain":"vpc",
-        "InstanceId":{
-          "Ref":"NAT2Instance"
+        }, {
+          "Key": "Owner",
+          "Value": {
+            "Ref": "Owner"
+          }
+        }, {
+          "Key": "Environment",
+          "Value": {
+            "Ref": "Environment"
+          }
+        }, {
+          "Key": "KeepAlive",
+          "Value": {
+            "Ref": "KeepAlive"
+          }
+        }, {
+          "Key": "CostCenter",
+          "Value": {
+            "Ref": "CostCenter"
+          }
+        }],
+        "VpcId": {
+          "Ref": "VPC"
         }
       },
-      "DependsOn":[ "GatewayToInternet" ]
+      "Type": "AWS::EC2::Subnet"
     },
-    "RouterELBSecurityGroup":{
-      "Type":"AWS::EC2::SecurityGroup",
-      "Properties":{
-        "GroupDescription":"Rules for allowing access to/from service router ELB",
-        "VpcId":{
-          "Ref":"VPC"
+    "PriSubnet2": {
+      "Properties": {
+        "CidrBlock": {
+          "Fn::Select": ["1", {
+            "Ref": "PrivateSubnets"
+          }]
         },
-        "SecurityGroupIngress":[
-          {
-            "IpProtocol":"tcp",
-            "CidrIp":{"Ref":"AllowHTTPFrom"},
-            "FromPort":"80",
-            "ToPort":"80"
-          },
-          {
-            "IpProtocol":"tcp",
-            "CidrIp":{"Ref":"AllowHTTPFrom"},
-            "FromPort":"443",
-            "ToPort":"443"
+        "AvailabilityZone": "us-east-1b",
+        "Tags": [{
+          "Key": "Network",
+          "Value": "Private"
+        }, {
+          "Key": "Name",
+          "Value": {
+            "Fn::Join": ["-", ["prisubnet2", {
+              "Ref": "AWS::StackName"
+            }]]
           }
-        ],
-        "Tags":[
-          {
-            "Key":"Name",
-            "Value":{
-              "Fn::Join":[
-                "-",
-                [
-                  "router-elbsg",
-                  {
-                    "Ref":"AWS::StackName"
-                  }
-                ]
-              ]
-            }
-          },
-          {
-            "Key":"App",
-            "Value":{
-              "Ref":"App"
-            }
-          },
-          {
-            "Key":"Group",
-            "Value":{
-              "Ref":"Group"
-            }
-          },
-          {
-            "Key":"Owner",
-            "Value":{
-              "Ref":"Owner"
-            }
-          },
-          {
-            "Key":"Environment",
-            "Value":{
-              "Ref":"Environment"
-            }
-          },
-          {
-            "Key":"KeepAlive",
-            "Value":{
-              "Ref":"KeepAlive"
-            }
-          },
-          {
-            "Key":"CostCenter",
-            "Value":{
-              "Ref":"CostCenter"
-            }
+        }, {
+          "Key": "App",
+          "Value": {
+            "Ref": "App"
           }
-        ]
-      }
-    },
-    "RouterELBToRouterCoreOSRouter":{
-      "Type":"AWS::EC2::SecurityGroupEgress",
-      "Properties":{
-        "GroupId":{
-          "Ref":"RouterELBSecurityGroup"
-        },
-        "IpProtocol":"tcp",
-        "DestinationSecurityGroupId":{
-          "Ref":"RouterCoreOSSecurityGroup"
-        },
-        "FromPort":"80",
-        "ToPort":"80"
-      }
-    },
-    "RouterELBToRouterCoreOSELB":{
-      "Type":"AWS::EC2::SecurityGroupEgress",
-      "Properties":{
-        "GroupId":{
-          "Ref":"RouterELBSecurityGroup"
-        },
-        "IpProtocol":"tcp",
-        "DestinationSecurityGroupId":{
-          "Ref":"RouterCoreOSSecurityGroup"
-        },
-        "FromPort":"4001",
-        "ToPort":"4001"
-      }
-    },
-    "RouterELB":{
-      "Type":"AWS::ElasticLoadBalancing::LoadBalancer",
-      "Properties":{
-        "AvailabilityZones": [],
-        "CrossZone":true,
-        "SecurityGroups":[
-          { "Ref":"RouterELBSecurityGroup" }
-        ],
-        "Subnets":[
-          { "Ref":"PubSubnet1" },
-          { "Ref":"PubSubnet2" }
-        ],
-        "Listeners":[
-          {
-            "LoadBalancerPort":"80",
-            "InstancePort":"80",
-            "Protocol":"HTTP",
-            "PolicyNames": [],
-            "InstanceProtocol": "HTTP"
+        }, {
+          "Key": "Group",
+          "Value": {
+            "Ref": "Group"
           }
-        ],
-        "HealthCheck":{
-          "Target":"HTTP:4001/version",
-          "HealthyThreshold":"3",
-          "UnhealthyThreshold":"5",
-          "Interval":"30",
-          "Timeout":"5"
+        }, {
+          "Key": "Owner",
+          "Value": {
+            "Ref": "Owner"
+          }
+        }, {
+          "Key": "Environment",
+          "Value": {
+            "Ref": "Environment"
+          }
+        }, {
+          "Key": "KeepAlive",
+          "Value": {
+            "Ref": "KeepAlive"
+          }
+        }, {
+          "Key": "CostCenter",
+          "Value": {
+            "Ref": "CostCenter"
+          }
+        }],
+        "VpcId": {
+          "Ref": "VPC"
+        }
+      },
+      "Type": "AWS::EC2::Subnet"
+    },
+    "InternetGateway": {
+      "Properties": {
+        "Tags": [{
+          "Key": "Network",
+          "Value": "Public"
+        }, {
+          "Key": "Name",
+          "Value": {
+            "Fn::Join": ["-", ["igw", {
+              "Ref": "AWS::StackName"
+            }]]
+          }
+        }, {
+          "Key": "App",
+          "Value": {
+            "Ref": "App"
+          }
+        }, {
+          "Key": "Group",
+          "Value": {
+            "Ref": "Group"
+          }
+        }, {
+          "Key": "Owner",
+          "Value": {
+            "Ref": "Owner"
+          }
+        }, {
+          "Key": "Environment",
+          "Value": {
+            "Ref": "Environment"
+          }
+        }, {
+          "Key": "KeepAlive",
+          "Value": {
+            "Ref": "KeepAlive"
+          }
+        }, {
+          "Key": "CostCenter",
+          "Value": {
+            "Ref": "CostCenter"
+          }
+        }]
+      },
+      "Type": "AWS::EC2::InternetGateway"
+    },
+    "GatewayToInternet": {
+      "Properties": {
+        "InternetGatewayId": {
+          "Ref": "InternetGateway"
         },
+        "VpcId": {
+          "Ref": "VPC"
+        }
+      },
+      "Type": "AWS::EC2::VPCGatewayAttachment"
+    },
+    "PublicRouteTable1": {
+      "Properties": {
+        "VpcId": {
+          "Ref": "VPC"
+        },
+        "Tags": [{
+          "Key": "Network",
+          "Value": "Public"
+        }, {
+          "Key": "Name",
+          "Value": {
+            "Fn::Join": ["-", ["pubrt1", {
+              "Ref": "AWS::StackName"
+            }]]
+          }
+        }, {
+          "Key": "App",
+          "Value": {
+            "Ref": "App"
+          }
+        }, {
+          "Key": "Group",
+          "Value": {
+            "Ref": "Group"
+          }
+        }, {
+          "Key": "Owner",
+          "Value": {
+            "Ref": "Owner"
+          }
+        }, {
+          "Key": "Environment",
+          "Value": {
+            "Ref": "Environment"
+          }
+        }, {
+          "Key": "KeepAlive",
+          "Value": {
+            "Ref": "KeepAlive"
+          }
+        }, {
+          "Key": "CostCenter",
+          "Value": {
+            "Ref": "CostCenter"
+          }
+        }]
+      },
+      "Type": "AWS::EC2::RouteTable"
+    },
+    "PublicRouteTable1Route1": {
+      "Properties": {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "RouteTableId": {
+          "Ref": "PublicRouteTable1"
+        },
+        "GatewayId": {
+          "Ref": "InternetGateway"
+        }
+      },
+      "Type": "AWS::EC2::Route"
+    },
+    "PrivateRouteTable1": {
+      "Properties": {
+        "VpcId": {
+          "Ref": "VPC"
+        },
+        "Tags": [{
+          "Key": "Network",
+          "Value": "Private"
+        }, {
+          "Key": "Name",
+          "Value": {
+            "Fn::Join": ["-", ["privrt1", {
+              "Ref": "AWS::StackName"
+            }]]
+          }
+        }, {
+          "Key": "App",
+          "Value": {
+            "Ref": "App"
+          }
+        }, {
+          "Key": "Group",
+          "Value": {
+            "Ref": "Group"
+          }
+        }, {
+          "Key": "Owner",
+          "Value": {
+            "Ref": "Owner"
+          }
+        }, {
+          "Key": "Environment",
+          "Value": {
+            "Ref": "Environment"
+          }
+        }, {
+          "Key": "KeepAlive",
+          "Value": {
+            "Ref": "KeepAlive"
+          }
+        }, {
+          "Key": "CostCenter",
+          "Value": {
+            "Ref": "CostCenter"
+          }
+        }]
+      },
+      "Type": "AWS::EC2::RouteTable"
+    },
+    "PrivateRouteTable1Route1": {
+      "Properties": {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "RouteTableId": {
+          "Ref": "PrivateRouteTable1"
+        },
+        "InstanceId": {
+          "Ref": "NAT1Instance"
+        }
+      },
+      "Type": "AWS::EC2::Route"
+    },
+    "PrivateRouteTable2": {
+      "Properties": {
+        "VpcId": {
+          "Ref": "VPC"
+        },
+        "Tags": [{
+          "Key": "Network",
+          "Value": "Private"
+        }, {
+          "Key": "Name",
+          "Value": {
+            "Fn::Join": ["-", ["privrt2", {
+              "Ref": "AWS::StackName"
+            }]]
+          }
+        }, {
+          "Key": "App",
+          "Value": {
+            "Ref": "App"
+          }
+        }, {
+          "Key": "Group",
+          "Value": {
+            "Ref": "Group"
+          }
+        }, {
+          "Key": "Owner",
+          "Value": {
+            "Ref": "Owner"
+          }
+        }, {
+          "Key": "Environment",
+          "Value": {
+            "Ref": "Environment"
+          }
+        }, {
+          "Key": "KeepAlive",
+          "Value": {
+            "Ref": "KeepAlive"
+          }
+        }, {
+          "Key": "CostCenter",
+          "Value": {
+            "Ref": "CostCenter"
+          }
+        }]
+      },
+      "Type": "AWS::EC2::RouteTable"
+    },
+    "PrivateRouteTable2Route1": {
+      "Properties": {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "RouteTableId": {
+          "Ref": "PrivateRouteTable2"
+        },
+        "InstanceId": {
+          "Ref": "NAT2Instance"
+        }
+      },
+      "Type": "AWS::EC2::Route"
+    },
+    "PubSubnet1RTAssoc": {
+      "Properties": {
+        "SubnetId": {
+          "Ref": "PubSubnet1"
+        },
+        "RouteTableId": {
+          "Ref": "PublicRouteTable1"
+        }
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation"
+    },
+    "PubSubnet2RTAssoc": {
+      "Properties": {
+        "SubnetId": {
+          "Ref": "PubSubnet2"
+        },
+        "RouteTableId": {
+          "Ref": "PublicRouteTable1"
+        }
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation"
+    },
+    "PriSubnet1RTAssoc": {
+      "Properties": {
+        "SubnetId": {
+          "Ref": "PriSubnet1"
+        },
+        "RouteTableId": {
+          "Ref": "PrivateRouteTable1"
+        }
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation"
+    },
+    "PriSubnet2RTAssoc": {
+      "Properties": {
+        "SubnetId": {
+          "Ref": "PriSubnet2"
+        },
+        "RouteTableId": {
+          "Ref": "PrivateRouteTable2"
+        }
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation"
+    },
+    "JumpSecurityGroup": {
+      "Properties": {
+        "SecurityGroupIngress": [{
+          "IpProtocol": "tcp",
+          "CidrIp": {
+            "Ref": "AllowSSHFrom"
+          },
+          "FromPort": "22",
+          "ToPort": "22"
+        }],
+        "GroupDescription": "Rules for allowing access to public subnet nodes",
+        "Tags": [{
+          "Key": "Name",
+          "Value": {
+            "Fn::Join": ["-", ["jumpsg", {
+              "Ref": "AWS::StackName"
+            }]]
+          }
+        }, {
+          "Key": "App",
+          "Value": {
+            "Ref": "App"
+          }
+        }, {
+          "Key": "Group",
+          "Value": {
+            "Ref": "Group"
+          }
+        }, {
+          "Key": "Owner",
+          "Value": {
+            "Ref": "Owner"
+          }
+        }, {
+          "Key": "Environment",
+          "Value": {
+            "Ref": "Environment"
+          }
+        }, {
+          "Key": "KeepAlive",
+          "Value": {
+            "Ref": "KeepAlive"
+          }
+        }, {
+          "Key": "CostCenter",
+          "Value": {
+            "Ref": "CostCenter"
+          }
+        }],
+        "VpcId": {
+          "Ref": "VPC"
+        }
+      },
+      "Type": "AWS::EC2::SecurityGroup"
+    },
+    "JumpInstance": {
+      "Properties": {
+        "ImageId": {
+          "Fn::FindInMap": ["AmazonLinuxAMI", {
+            "Ref": "AWS::Region"
+          }, "AMI"]
+        },
+        "SecurityGroupIds": [{
+          "Ref": "JumpSecurityGroup"
+        }],
+        "KeyName": {
+          "Ref": "KeyName"
+        },
+        "InstanceType": {
+          "Ref": "JumpInstanceType"
+        },
+        "Tags": [{
+          "Key": "Name",
+          "Value": {
+            "Fn::Join": ["-", ["jump", {
+              "Ref": "AWS::StackName"
+            }]]
+          }
+        }, {
+          "Key": "App",
+          "Value": {
+            "Ref": "App"
+          }
+        }, {
+          "Key": "Group",
+          "Value": {
+            "Ref": "Group"
+          }
+        }, {
+          "Key": "Owner",
+          "Value": {
+            "Ref": "Owner"
+          }
+        }, {
+          "Key": "Environment",
+          "Value": {
+            "Ref": "Environment"
+          }
+        }, {
+          "Key": "KeepAlive",
+          "Value": {
+            "Ref": "KeepAlive"
+          }
+        }, {
+          "Key": "CostCenter",
+          "Value": {
+            "Ref": "CostCenter"
+          }
+        }],
+        "SubnetId": {
+          "Ref": "PubSubnet1"
+        }
+      },
+      "Type": "AWS::EC2::Instance"
+    },
+    "JumpEIP": {
+      "Properties": {
+        "Domain": "vpc",
+        "InstanceId": {
+          "Ref": "JumpInstance"
+        }
+      },
+      "DependsOn": ["GatewayToInternet"],
+      "Type": "AWS::EC2::EIP"
+    },
+    "NATSecurityGroup": {
+      "Properties": {
+        "SecurityGroupIngress": [{
+          "IpProtocol": "tcp",
+          "SourceSecurityGroupId": {
+            "Ref": "JumpSecurityGroup"
+          },
+          "FromPort": "22",
+          "ToPort": "22"
+        }, {
+          "IpProtocol": "-1",
+          "CidrIp": {
+            "Ref": "VpcCidr"
+          },
+          "FromPort": "0",
+          "ToPort": "65535"
+        }],
+        "GroupDescription": "Rules for allowing access to public subnet nodes",
+        "Tags": [{
+          "Key": "Name",
+          "Value": {
+            "Fn::Join": ["-", ["natsg", {
+              "Ref": "AWS::StackName"
+            }]]
+          }
+        }, {
+          "Key": "App",
+          "Value": {
+            "Ref": "App"
+          }
+        }, {
+          "Key": "Group",
+          "Value": {
+            "Ref": "Group"
+          }
+        }, {
+          "Key": "Owner",
+          "Value": {
+            "Ref": "Owner"
+          }
+        }, {
+          "Key": "Environment",
+          "Value": {
+            "Ref": "Environment"
+          }
+        }, {
+          "Key": "KeepAlive",
+          "Value": {
+            "Ref": "KeepAlive"
+          }
+        }, {
+          "Key": "CostCenter",
+          "Value": {
+            "Ref": "CostCenter"
+          }
+        }],
+        "SecurityGroupEgress": [{
+          "IpProtocol": "-1",
+          "CidrIp": "0.0.0.0/0",
+          "FromPort": "0",
+          "ToPort": "65535"
+        }],
+        "VpcId": {
+          "Ref": "VPC"
+        }
+      },
+      "Type": "AWS::EC2::SecurityGroup"
+    },
+    "NATSecurityGroupAllowICMP": {
+      "Properties": {
+        "GroupId": {
+          "Ref": "NATSecurityGroup"
+        },
+        "ToPort": "-1",
+        "FromPort": "-1",
+        "IpProtocol": "icmp",
+        "SourceSecurityGroupId": {
+          "Ref": "NATSecurityGroup"
+        }
+      },
+      "Type": "AWS::EC2::SecurityGroupIngress"
+    },
+    "NAT1Instance": {
+      "Properties": {
+        "ImageId": {
+          "Fn::FindInMap": ["AWSNATAMI", {
+            "Ref": "AWS::Region"
+          }, "AMI"]
+        },
+        "PrivateIpAddress": "1.2.3.4",
+        "DisableApiTermination": "false",
+        "UserData": {
+          "Fn::Base64": {
+            "Fn::Join": ["", ["#!/bin/bash -v\n", "yum update -y aws*\n", ". /etc/profile.d/aws-apitools-common.sh\n", "cd /root\n", "aws s3 cp s3://", {
+              "Ref": "AWS::StackName"
+            }, "/user-data-nat.sh user-data-nat.sh\n", "/bin/bash user-data-nat.sh", " ", {
+              "Ref": "PrivateRouteTable2"
+            }, " ", {
+              "Ref": "PrivateRouteTable1"
+            }, " ", {
+              "Ref": "AWS::Region"
+            }, " ", {
+              "Ref": "AWS::StackName"
+            }, "\n", "# EOF\n"]]
+          }
+        },
+        "SecurityGroupIds": [{
+          "Ref": "NATSecurityGroup"
+        }],
+        "KeyName": {
+          "Ref": "KeyName"
+        },
+        "InstanceType": {
+          "Ref": "NATInstanceType"
+        },
+        "Tags": [{
+          "Key": "Name",
+          "Value": {
+            "Fn::Join": ["-", ["nat1", {
+              "Ref": "AWS::StackName"
+            }]]
+          }
+        }, {
+          "Key": "App",
+          "Value": {
+            "Ref": "App"
+          }
+        }, {
+          "Key": "Group",
+          "Value": {
+            "Ref": "Group"
+          }
+        }, {
+          "Key": "Owner",
+          "Value": {
+            "Ref": "Owner"
+          }
+        }, {
+          "Key": "Environment",
+          "Value": {
+            "Ref": "Environment"
+          }
+        }, {
+          "Key": "KeepAlive",
+          "Value": {
+            "Ref": "KeepAlive"
+          }
+        }, {
+          "Key": "CostCenter",
+          "Value": {
+            "Ref": "CostCenter"
+          }
+        }],
+        "SourceDestCheck": "false",
+        "IamInstanceProfile": {
+          "Ref": "NATRoleProfile"
+        },
+        "SubnetId": {
+          "Ref": "PubSubnet1"
+        }
+      },
+      "Metadata": {
+        "Comment1": "Create NAT #1"
+      },
+      "Type": "AWS::EC2::Instance"
+    },
+    "NAT1EIP": {
+      "Properties": {
+        "Domain": "vpc",
+        "InstanceId": {
+          "Ref": "NAT1Instance"
+        }
+      },
+      "DependsOn": ["GatewayToInternet"],
+      "Type": "AWS::EC2::EIP"
+    },
+    "NAT2Instance": {
+      "Properties": {
+        "ImageId": {
+          "Fn::FindInMap": ["AWSNATAMI", {
+            "Ref": "AWS::Region"
+          }, "AMI"]
+        },
+        "PrivateIpAddress": "1.2.3.4",
+        "DisableApiTermination": "false",
+        "UserData": {
+          "Fn::Base64": {
+            "Fn::Join": ["", ["#!/bin/bash -v\n", "yum update -y aws*\n", ". /etc/profile.d/aws-apitools-common.sh\n", "cd /root\n", "aws s3 cp s3://", {
+              "Ref": "AWS::StackName"
+            }, "/user-data-nat.sh user-data-nat.sh\n", "/bin/bash user-data-nat.sh", " ", {
+              "Ref": "PrivateRouteTable1"
+            }, " ", {
+              "Ref": "PrivateRouteTable2"
+            }, " ", {
+              "Ref": "AWS::Region"
+            }, " ", {
+              "Ref": "AWS::StackName"
+            }, "\n", "# EOF\n"]]
+          }
+        },
+        "SecurityGroupIds": [{
+          "Ref": "NATSecurityGroup"
+        }],
+        "KeyName": {
+          "Ref": "KeyName"
+        },
+        "InstanceType": {
+          "Ref": "NATInstanceType"
+        },
+        "Tags": [{
+          "Key": "Name",
+          "Value": {
+            "Fn::Join": ["-", ["nat2", {
+              "Ref": "AWS::StackName"
+            }]]
+          }
+        }, {
+          "Key": "App",
+          "Value": {
+            "Ref": "App"
+          }
+        }, {
+          "Key": "Group",
+          "Value": {
+            "Ref": "Group"
+          }
+        }, {
+          "Key": "Owner",
+          "Value": {
+            "Ref": "Owner"
+          }
+        }, {
+          "Key": "Environment",
+          "Value": {
+            "Ref": "Environment"
+          }
+        }, {
+          "Key": "KeepAlive",
+          "Value": {
+            "Ref": "KeepAlive"
+          }
+        }, {
+          "Key": "CostCenter",
+          "Value": {
+            "Ref": "CostCenter"
+          }
+        }],
+        "SourceDestCheck": "false",
+        "IamInstanceProfile": {
+          "Ref": "NATRoleProfile"
+        },
+        "SubnetId": {
+          "Ref": "PubSubnet2"
+        }
+      },
+      "Metadata": {
+        "Comment1": "Create NAT #2"
+      },
+      "Type": "AWS::EC2::Instance"
+    },
+    "NAT2EIP": {
+      "Properties": {
+        "Domain": "vpc",
+        "InstanceId": {
+          "Ref": "NAT2Instance"
+        }
+      },
+      "DependsOn": ["GatewayToInternet"],
+      "Type": "AWS::EC2::EIP"
+    },
+    "RouterELBSecurityGroup": {
+      "Properties": {
+        "SecurityGroupIngress": [{
+          "IpProtocol": "tcp",
+          "CidrIp": {
+            "Ref": "AllowHTTPFrom"
+          },
+          "FromPort": "80",
+          "ToPort": "80"
+        }, {
+          "IpProtocol": "tcp",
+          "CidrIp": {
+            "Ref": "AllowHTTPFrom"
+          },
+          "FromPort": "443",
+          "ToPort": "443"
+        }],
+        "GroupDescription": "Rules for allowing access to/from service router ELB",
+        "Tags": [{
+          "Key": "Name",
+          "Value": {
+            "Fn::Join": ["-", ["router-elbsg", {
+              "Ref": "AWS::StackName"
+            }]]
+          }
+        }, {
+          "Key": "App",
+          "Value": {
+            "Ref": "App"
+          }
+        }, {
+          "Key": "Group",
+          "Value": {
+            "Ref": "Group"
+          }
+        }, {
+          "Key": "Owner",
+          "Value": {
+            "Ref": "Owner"
+          }
+        }, {
+          "Key": "Environment",
+          "Value": {
+            "Ref": "Environment"
+          }
+        }, {
+          "Key": "KeepAlive",
+          "Value": {
+            "Ref": "KeepAlive"
+          }
+        }, {
+          "Key": "CostCenter",
+          "Value": {
+            "Ref": "CostCenter"
+          }
+        }],
+        "VpcId": {
+          "Ref": "VPC"
+        }
+      },
+      "Type": "AWS::EC2::SecurityGroup"
+    },
+    "RouterELBToRouterCoreOSRouter": {
+      "Properties": {
+        "DestinationSecurityGroupId": {
+          "Ref": "RouterCoreOSSecurityGroup"
+        },
+        "GroupId": {
+          "Ref": "RouterELBSecurityGroup"
+        },
+        "ToPort": "80",
+        "FromPort": "80",
+        "IpProtocol": "tcp"
+      },
+      "Type": "AWS::EC2::SecurityGroupEgress"
+    },
+    "RouterELBToRouterCoreOSELB": {
+      "Properties": {
+        "DestinationSecurityGroupId": {
+          "Ref": "RouterCoreOSSecurityGroup"
+        },
+        "GroupId": {
+          "Ref": "RouterELBSecurityGroup"
+        },
+        "ToPort": "4001",
+        "FromPort": "4001",
+        "IpProtocol": "tcp"
+      },
+      "Type": "AWS::EC2::SecurityGroupEgress"
+    },
+    "RouterELB": {
+      "Properties": {
+        "HealthCheck": {
+          "Target": "HTTP:4001/version",
+          "UnhealthyThreshold": "5",
+          "HealthyThreshold": "3",
+          "Interval": "30",
+          "Timeout": "5"
+        },
+        "CrossZone": true,
+        "Listeners": [{
+          "InstancePort": "80",
+          "PolicyNames": [],
+          "LoadBalancerPort": "80",
+          "Protocol": "HTTP",
+          "InstanceProtocol": "HTTP"
+        }],
         "Policies": [],
+        "Subnets": [{
+          "Ref": "PubSubnet1"
+        }, {
+          "Ref": "PubSubnet2"
+        }],
+        "SecurityGroups": [{
+          "Ref": "RouterELBSecurityGroup"
+        }],
         "Instances": [],
-        "Tags":[
-          {
-            "Key":"Name",
-            "Value":{
-              "Fn::Join":[
-                "-",
-                [
-                  "router-elb",
-                  {
-                    "Ref":"AWS::StackName"
-                  }
-                ]
-              ]
-            }
-          },
-          {
-            "Key":"App",
-            "Value":{
-              "Ref":"App"
-            }
-          },
-          {
-            "Key":"Group",
-            "Value":{
-              "Ref":"Group"
-            }
-          },
-          {
-            "Key":"Owner",
-            "Value":{
-              "Ref":"Owner"
-            }
-          },
-          {
-            "Key":"Environment",
-            "Value":{
-              "Ref":"Environment"
-            }
-          },
-          {
-            "Key":"KeepAlive",
-            "Value":{
-              "Ref":"KeepAlive"
-            }
-          },
-          {
-            "Key":"CostCenter",
-            "Value":{
-              "Ref":"CostCenter"
-            }
+        "Tags": [{
+          "Key": "Name",
+          "Value": {
+            "Fn::Join": ["-", ["router-elb", {
+              "Ref": "AWS::StackName"
+            }]]
           }
-        ]
-      }
+        }, {
+          "Key": "App",
+          "Value": {
+            "Ref": "App"
+          }
+        }, {
+          "Key": "Group",
+          "Value": {
+            "Ref": "Group"
+          }
+        }, {
+          "Key": "Owner",
+          "Value": {
+            "Ref": "Owner"
+          }
+        }, {
+          "Key": "Environment",
+          "Value": {
+            "Ref": "Environment"
+          }
+        }, {
+          "Key": "KeepAlive",
+          "Value": {
+            "Ref": "KeepAlive"
+          }
+        }, {
+          "Key": "CostCenter",
+          "Value": {
+            "Ref": "CostCenter"
+          }
+        }],
+        "AvailabilityZones": []
+      },
+      "Type": "AWS::ElasticLoadBalancing::LoadBalancer"
     },
-    "CoreOSFromJumpSecurityGroup":{
-      "Type":"AWS::EC2::SecurityGroup",
-      "Properties":{
-        "GroupDescription":"Allow general CoreOS/Docker access from the jump box",
-        "VpcId":{
-          "Ref":"VPC"
-        },
-        "SecurityGroupIngress":[
-          {
-            "IpProtocol":"tcp",
-            "SourceSecurityGroupId":{
-              "Ref":"JumpSecurityGroup"
-            },
-            "FromPort":"22",
-            "ToPort":"22"
+    "CoreOSFromJumpSecurityGroup": {
+      "Properties": {
+        "SecurityGroupIngress": [{
+          "IpProtocol": "tcp",
+          "SourceSecurityGroupId": {
+            "Ref": "JumpSecurityGroup"
           },
-          {
-            "IpProtocol":"tcp",
-            "SourceSecurityGroupId":{
-              "Ref":"JumpSecurityGroup"
-            },
-            "FromPort":"80",
-            "ToPort":"80"
+          "FromPort": "22",
+          "ToPort": "22"
+        }, {
+          "IpProtocol": "tcp",
+          "SourceSecurityGroupId": {
+            "Ref": "JumpSecurityGroup"
           },
-          {
-            "IpProtocol":"tcp",
-            "SourceSecurityGroupId":{
-              "Ref":"JumpSecurityGroup"
-            },
-            "FromPort":"4001",
-            "ToPort":"4001"
+          "FromPort": "80",
+          "ToPort": "80"
+        }, {
+          "IpProtocol": "tcp",
+          "SourceSecurityGroupId": {
+            "Ref": "JumpSecurityGroup"
+          },
+          "FromPort": "4001",
+          "ToPort": "4001"
+        }],
+        "GroupDescription": "Allow general CoreOS/Docker access from the jump box",
+        "Tags": [{
+          "Key": "Name",
+          "Value": {
+            "Fn::Join": ["-", ["coreos-from-jumpsg", {
+              "Ref": "AWS::StackName"
+            }]]
           }
-        ],
-        "Tags":[
-          {
-            "Key":"Name",
-            "Value":{
-              "Fn::Join":[
-                "-",
-                [
-                  "coreos-from-jumpsg",
-                  {
-                    "Ref":"AWS::StackName"
-                  }
-                ]
-              ]
-            }
-          },
-          {
-            "Key":"App",
-            "Value":{
-              "Ref":"App"
-            }
-          },
-          {
-            "Key":"Group",
-            "Value":{
-              "Ref":"Group"
-            }
-          },
-          {
-            "Key":"Owner",
-            "Value":{
-              "Ref":"Owner"
-            }
-          },
-          {
-            "Key":"Environment",
-            "Value":{
-              "Ref":"Environment"
-            }
-          },
-          {
-            "Key":"KeepAlive",
-            "Value":{
-              "Ref":"KeepAlive"
-            }
-          },
-          {
-            "Key":"CostCenter",
-            "Value":{
-              "Ref":"CostCenter"
-            }
+        }, {
+          "Key": "App",
+          "Value": {
+            "Ref": "App"
           }
-        ]
-      }
-    },
-    "RouterCoreOSSecurityGroup":{
-      "Type":"AWS::EC2::SecurityGroup",
-      "Properties":{
-        "GroupDescription":"Router CoreOS SecurityGroup",
-        "VpcId":{
-          "Ref":"VPC"
-        },
-        "SecurityGroupIngress":[
-          {
-            "IpProtocol":"tcp",
-            "SourceSecurityGroupId":{
-              "Ref":"RouterELBSecurityGroup"
-            },
-            "FromPort":"80",
-            "ToPort":"80"
-          },
-          {
-            "IpProtocol":"tcp",
-            "SourceSecurityGroupId":{
-              "Ref":"RouterELBSecurityGroup"
-            },
-            "FromPort":"4001",
-            "ToPort":"4001"
+        }, {
+          "Key": "Group",
+          "Value": {
+            "Ref": "Group"
           }
-        ],
-        "Tags":[
-          {
-            "Key":"Name",
-            "Value":{
-              "Fn::Join":[
-                "-",
-                [
-                  "routersg",
-                  {
-                    "Ref":"AWS::StackName"
-                  }
-                ]
-              ]
-            }
-          },
-          {
-            "Key":"App",
-            "Value":{
-              "Ref":"App"
-            }
-          },
-          {
-            "Key":"Group",
-            "Value":{
-              "Ref":"Group"
-            }
-          },
-          {
-            "Key":"Owner",
-            "Value":{
-              "Ref":"Owner"
-            }
-          },
-          {
-            "Key":"Environment",
-            "Value":{
-              "Ref":"Environment"
-            }
-          },
-          {
-            "Key":"KeepAlive",
-            "Value":{
-              "Ref":"KeepAlive"
-            }
-          },
-          {
-            "Key":"CostCenter",
-            "Value":{
-              "Ref":"CostCenter"
-            }
+        }, {
+          "Key": "Owner",
+          "Value": {
+            "Ref": "Owner"
           }
-        ]
-      }
-    },
-    "RouterCoreOSFromRouterCoreOS":{
-      "Type":"AWS::EC2::SecurityGroupIngress",
-      "Properties":{
-        "GroupId":{
-          "Ref":"RouterCoreOSSecurityGroup"
-        },
-        "IpProtocol":"-1",
-        "SourceSecurityGroupId":{
-          "Ref":"RouterCoreOSSecurityGroup"
-        },
-        "FromPort":"0",
-        "ToPort":"65535"
-      }
-    },
-    "RouterCoreOSFromCoreOS":{
-      "Type":"AWS::EC2::SecurityGroupIngress",
-      "Properties":{
-        "GroupId":{
-          "Ref":"RouterCoreOSSecurityGroup"
-        },
-        "IpProtocol":"-1",
-        "SourceSecurityGroupId":{
-          "Ref":"CoreOSSecurityGroup"
-        },
-        "FromPort":"0",
-        "ToPort":"65535"
-      }
-    },
-    "RouterCoreOSServerLaunchConfig":{
-      "Type":"AWS::AutoScaling::LaunchConfiguration",
-      "Properties":{
-        "ImageId":{
-          "Fn::FindInMap":[
-            { "Ref":"CoreOSChannelAMI" },
-            { "Ref":"AWS::Region" },
-            "AMI"
-          ]
-        },
-        "InstanceType":{
-          "Ref":"DockerInstanceType"
-        },
-        "KeyName":{
-          "Ref":"KeyName"
-        },
-        "SecurityGroups":[
-          { "Ref":"RouterCoreOSSecurityGroup" },
-          { "Ref":"CoreOSFromJumpSecurityGroup" }
-        ],
-        "UserData":{
-          "Fn::Base64":{
-            "Fn::Join":[
-              "",
-              [
-                "#cloud-config\n\n",
-                "coreos:\n",
-                "  etcd:\n",
-                "    discovery: ", {"Ref":"DiscoveryURL"}, "\n",
-                "    addr: $", {"Ref":"AdvertisedIPAddress"}, "_ipv4:4001\n",
-                "    peer-addr: $", {"Ref":"AdvertisedIPAddress"}, "_ipv4:7001\n",
-                "  units:\n",
-                "    - name: etcd.service\n",
-                "      command: start\n",
-                "    - name: consul.service\n",
-                "      command: start\n",
-                "      content: |\n",
-                "        [Unit]\n",
-                "        Description=Consul Agent\n",
-                "        After=docker.service\n",
-                "        After=etcd.service\n",
-                "        [Service]\n",
-                "        Restart=on-failure\n",
-                "        RestartSec=240\n",
-                "        ExecStartPre=-/usr/bin/docker kill consul\n",
-                "        ExecStartPre=-/usr/bin/docker rm consul\n",
-                "        ExecStartPre=/usr/bin/docker pull progrium/consul\n",
-                "        ExecStart=/usr/bin/docker run -h %H --name consul -p 8300:8300 -p 8301:8301 -p 8301:8301/udp -p 8302:8302 -p 8302:8302/udp -p 8400:8400 -p 8500:8500 -p 53:53/udp -e SERVICE_IGNORE=true progrium/consul -advertise $", {"Ref":"AdvertisedIPAddress"}, "_ipv4\n",
-                "        ExecStop=/usr/bin/docker stop consul\n",
-                "    - name: consul-announce.service\n",
-                "      command: start\n",
-                "      content: |\n",
-                "        [Unit]\n",
-                "        Description=Consul Server Announcer\n",
-                "        PartOf=consul.service\n",
-                "        After=consul.service\n",
-                "        [Service]\n",
-                "        ExecStart=/bin/sh -c \"while true; do etcdctl set /consul/bootstrap/machines/$(cat /etc/machine-id) $", {"Ref":"AdvertisedIPAddress"}, "_ipv4 --ttl 60; /usr/bin/docker exec consul consul join $(etcdctl ls /consul/bootstrap/machines | xargs -n 1 etcdctl get | tr '\\n' ' '); sleep 45; done\"\n",
-                "        ExecStop=/bin/sh -c \"/usr/bin/etcdctl rm /consul/bootstrap/machines/$(cat /etc/machine-id)\"\n",
-                "    - name: docker-login.service\n",
-                "      command: start\n",
-                "      content: |\n",
-                "        [Unit]\n",
-                "        Description=Log in to private Docker Registry\n",
-                "        After=docker.service\n",
-                "        [Service]\n",
-                "        Type=oneshot\n",
-                "        RemainAfterExit=yes\n",
-                "        ExecStart=/usr/bin/docker login -e ", {"Ref":"DockerRegistryEmail"}, " -u ", {"Ref":"DockerRegistryUser"}, " -p ", {"Ref":"DockerRegistryPass"}, " ", {"Ref":"DockerRegistryUrl"}, "\n",
-                "        ExecStop=/usr/bin/docker logout ", {"Ref":"DockerRegistryUrl"}, "\n",
-                "    - name: axon-router.service\n",
-                "      command: start\n",
-                "      content: |\n",
-                "        [Unit]\n",
-                "        Description=Run axon-router\n",
-                "        After=docker.service\n",
-                "        Requires=docker.service\n\n",
-                "        [Service]\n",
-                "        Restart=always\n",
-                "        ExecStartPre=-/usr/bin/docker kill axon-router\n",
-                "        ExecStartPre=-/usr/bin/docker rm axon-router\n",
-                "        ExecStartPre=/usr/bin/docker pull monsantoco/axon-router:latest\n",
-                "        ExecStart=/usr/bin/docker run -t -e \"NS_IP=172.17.42.1\" --name axon-router -p 80:80 monsantoco/axon-router:latest\n",
-                "        ExecStop=/usr/bin/docker stop axon-router\n",
-                "    - name: settimezone.service\n",
-                "      command: start\n",
-                "      content: |\n",
-                "        [Unit]\n",
-                "        Description=Set the timezone\n",
-                "        [Service]\n",
-                "        ExecStart=/usr/bin/timedatectl set-timezone UTC\n",
-                "        RemainAfterExit=yes\n",
-                "        Type=oneshot\n",
-                "write_files:\n",
-                "  - path: /etc/ntp.conf\n",
-                "    content: |\n",
-                "      server 0.pool.ntp.org\n",
-                "      server 1.pool.ntp.org\n",
-                "      server 2.pool.ntp.org\n",
-                "      server 3.pool.ntp.org\n",
-                "      restrict default nomodify nopeer noquery limited kod\n",
-                "      restrict 127.0.0.1\n"
-              ]
-            ]
+        }, {
+          "Key": "Environment",
+          "Value": {
+            "Ref": "Environment"
           }
+        }, {
+          "Key": "KeepAlive",
+          "Value": {
+            "Ref": "KeepAlive"
+          }
+        }, {
+          "Key": "CostCenter",
+          "Value": {
+            "Ref": "CostCenter"
+          }
+        }],
+        "VpcId": {
+          "Ref": "VPC"
         }
-      }
+      },
+      "Type": "AWS::EC2::SecurityGroup"
     },
-    "RouterCoreOSServerAutoScale":{
-      "Type":"AWS::AutoScaling::AutoScalingGroup",
-      "Properties":{
-        "AvailabilityZones":["us-east-1a", "us-east-1b"],
-        "LaunchConfigurationName":{"Ref":"RouterCoreOSServerLaunchConfig"},
-        "LoadBalancerNames":[
-          { "Ref":"RouterELB" }
-        ],
-        "MinSize":"2",
-        "MaxSize":"12",
-        "DesiredCapacity":{"Ref":"RouterClusterSize"},
-        "HealthCheckType":"EC2",
-        "VPCZoneIdentifier":[
-          {"Ref":"PriSubnet1"},
-          {"Ref":"PriSubnet2"}
-        ],
-        "Tags":[
-          {
-            "Key":"Name",
-            "Value":{
-              "Fn::Join":[
-                "-",
-                [
-                  "router",
-                  {
-                    "Ref":"AWS::StackName"
-                  }
-                ]
-              ]
-            },
-            "PropagateAtLaunch":true
+    "RouterCoreOSSecurityGroup": {
+      "Properties": {
+        "SecurityGroupIngress": [{
+          "IpProtocol": "tcp",
+          "SourceSecurityGroupId": {
+            "Ref": "RouterELBSecurityGroup"
           },
-          {
-            "Key":"App",
-            "Value":{
-              "Ref":"App"
-            },
-            "PropagateAtLaunch":true
+          "FromPort": "80",
+          "ToPort": "80"
+        }, {
+          "IpProtocol": "tcp",
+          "SourceSecurityGroupId": {
+            "Ref": "RouterELBSecurityGroup"
           },
-          {
-            "Key":"Group",
-            "Value":{
-              "Ref":"Group"
-            },
-            "PropagateAtLaunch":true
-          },
-          {
-            "Key":"Owner",
-            "Value":{
-              "Ref":"Owner"
-            },
-            "PropagateAtLaunch":true
-          },
-          {
-            "Key":"Environment",
-            "Value":{
-              "Ref":"Environment"
-            },
-            "PropagateAtLaunch":true
-          },
-          {
-            "Key":"KeepAlive",
-            "Value":{
-              "Ref":"KeepAlive"
-            },
-            "PropagateAtLaunch":true
-          },
-          {
-            "Key":"CostCenter",
-            "Value":{
-              "Ref":"CostCenter"
-            },
-            "PropagateAtLaunch":true
+          "FromPort": "4001",
+          "ToPort": "4001"
+        }],
+        "GroupDescription": "Router CoreOS SecurityGroup",
+        "Tags": [{
+          "Key": "Name",
+          "Value": {
+            "Fn::Join": ["-", ["routersg", {
+              "Ref": "AWS::StackName"
+            }]]
           }
-        ]
-      }
-    },
-    "CoreOSSecurityGroup":{
-      "Type":"AWS::EC2::SecurityGroup",
-      "Properties":{
-        "GroupDescription":"Security Group for microservices CoreOS Auto Scaling Group",
-        "VpcId":{
-          "Ref":"VPC"
-        },
-        "SecurityGroupIngress":[
-          {
-            "IpProtocol":"-1",
-            "SourceSecurityGroupId":{
-              "Ref":"RouterCoreOSSecurityGroup"
-            },
-            "FromPort":"0",
-            "ToPort":"65535"
+        }, {
+          "Key": "App",
+          "Value": {
+            "Ref": "App"
           }
-        ],
-        "Tags":[
-          {
-            "Key":"Name",
-            "Value":{
-              "Fn::Join":[
-                "-",
-                [
-                  "containersg",
-                  {
-                    "Ref":"AWS::StackName"
-                  }
-                ]
-              ]
-            }
-          },
-          {
-            "Key":"App",
-            "Value":{
-              "Ref":"App"
-            }
-          },
-          {
-            "Key":"Group",
-            "Value":{
-              "Ref":"Group"
-            }
-          },
-          {
-            "Key":"Owner",
-            "Value":{
-              "Ref":"Owner"
-            }
-          },
-          {
-            "Key":"Environment",
-            "Value":{
-              "Ref":"Environment"
-            }
-          },
-          {
-            "Key":"KeepAlive",
-            "Value":{
-              "Ref":"KeepAlive"
-            }
-          },
-          {
-            "Key":"CostCenter",
-            "Value":{
-              "Ref":"CostCenter"
-            }
+        }, {
+          "Key": "Group",
+          "Value": {
+            "Ref": "Group"
           }
-        ]
-      }
-    },
-    "CoreOSFromCoreOS":{
-      "Type":"AWS::EC2::SecurityGroupIngress",
-      "Properties":{
-        "GroupId":{
-          "Ref":"CoreOSSecurityGroup"
-        },
-        "IpProtocol":"-1",
-        "SourceSecurityGroupId":{
-          "Ref":"CoreOSSecurityGroup"
-        },
-        "FromPort":"0",
-        "ToPort":"65535"
-      }
-    },
-    "CoreOSServerLaunchConfig":{
-      "Type":"AWS::AutoScaling::LaunchConfiguration",
-      "Properties":{
-        "ImageId":{
-          "Fn::FindInMap":[
-            { "Ref":"CoreOSChannelAMI" },
-            { "Ref":"AWS::Region" },
-            "AMI"
-          ]
-        },
-        "InstanceType":{
-          "Ref":"DockerInstanceType"
-        },
-        "KeyName":{
-          "Ref":"KeyName"
-        },
-        "SecurityGroups":[
-          { "Ref":"CoreOSSecurityGroup" },
-          { "Ref":"CoreOSFromJumpSecurityGroup" }
-        ],
-        "UserData":{
-          "Fn::Base64":{
-            "Fn::Join":[
-              "",
-              [
-                "#cloud-config\n\n",
-                "coreos:\n",
-                "  etcd:\n",
-                "    discovery: ", {"Ref":"DiscoveryURL"}, "\n",
-                "    addr: $", {"Ref":"AdvertisedIPAddress"}, "_ipv4:4001\n",
-                "    peer-addr: $", {"Ref":"AdvertisedIPAddress"}, "_ipv4:7001\n",
-                "  units:\n",
-                "    - name: etcd.service\n",
-                "      command: start\n",
-                "    - name: fleet.service\n",
-                "      command: start\n",
-                "    - name: fleet.socket\n",
-                "      command: start\n",
-                "      enable: yes\n",
-                "      content: |\n",
-                "        [Unit]\n",
-                "        Description=Fleet Socket for the API\n",
-                "        [Socket]\n",
-                "        ListenStream=49153\n",
-                "        BindIPv6Only=both\n",
-                "        Service=fleet.service\n\n",
-                "        [Install]\n",
-                "        WantedBy=sockets.target\n",
-                "    - name: consul.service\n",
-                "      command: start\n",
-                "      content: |\n",
-                "        [Unit]\n",
-                "        Description=Consul Server\n",
-                "        After=docker.service\n",
-                "        After=etcd.service\n",
-                "        After=fleet.service\n",
-                "        [Service]\n",
-                "        Restart=on-failure\n",
-                "        RestartSec=240\n",
-                "        ExecStartPre=-/usr/bin/docker kill consul\n",
-                "        ExecStartPre=-/usr/bin/docker rm consul\n",
-                "        ExecStartPre=/usr/bin/docker pull progrium/consul\n",
-                "        ExecStart=/bin/bash -c \"eval $(/usr/bin/docker run --rm progrium/consul cmd:run $", {"Ref":"AdvertisedIPAddress"}, "_ipv4 -e SERVICE_IGNORE=true)\"\n",
-                "        ExecStop=/usr/bin/docker stop consul\n",
-                "    - name: consul-announce.service\n",
-                "      command: start\n",
-                "      content: |\n",
-                "        [Unit]\n",
-                "        Description=Consul Server Announcer\n",
-                "        PartOf=consul.service\n",
-                "        After=consul.service\n",
-                "        [Service]\n",
-                "        ExecStart=/bin/sh -c \"while true; do etcdctl set /consul/bootstrap/machines/$(cat /etc/machine-id) $", {"Ref":"AdvertisedIPAddress"}, "_ipv4 --ttl 60; /usr/bin/docker exec consul consul join $(etcdctl ls /consul/bootstrap/machines | xargs -n 1 etcdctl get | tr '\\n' ' '); sleep 45; done\"\n",
-                "        ExecStop=/bin/sh -c \"/usr/bin/etcdctl rm /consul/bootstrap/machines/$(cat /etc/machine-id)\"\n",
-                "    - name: docker-login.service\n",
-                "      command: start\n",
-                "      content: |\n",
-                "        [Unit]\n",
-                "        Description=Log in to private Docker Registry\n",
-                "        After=docker.service\n",
-                "        [Service]\n",
-                "        Type=oneshot\n",
-                "        RemainAfterExit=yes\n",
-                "        ExecStart=/usr/bin/docker login -e ", {"Ref":"DockerRegistryEmail"}, " -u ", {"Ref":"DockerRegistryUser"}, " -p ", {"Ref":"DockerRegistryPass"}, " ", {"Ref":"DockerRegistryUrl"}, "\n",
-                "        ExecStop=/usr/bin/docker logout ", {"Ref":"DockerRegistryUrl"}, "\n",
-                "# Run registrator\n",
-                "    - name: registrator.service\n",
-                "      command: start\n",
-                "      content: |\n",
-                "        [Unit]\n",
-                "        Description=Run registrator\n",
-                "        After=docker.service\n",
-                "        Requires=docker.service\n\n",
-                "        [Service]\n",
-                "        Restart=always\n",
-                "        ExecStartPre=-/usr/bin/docker kill registrator\n",
-                "        ExecStartPre=-/usr/bin/docker rm registrator\n",
-                "        ExecStartPre=/usr/bin/docker pull gliderlabs/registrator:latest\n",
-                "        ExecStart=/usr/bin/docker run --name registrator -v /var/run/docker.sock:/tmp/docker.sock -h %H gliderlabs/registrator:latest consul://$", {"Ref":"AdvertisedIPAddress"}, "_ipv4:8500\n",
-                "         ExecStop=/usr/bin/docker stop registrator\n",
-                "# Run axon-router\n",
-                "    - name: axon-router.service\n",
-                "      command: start\n",
-                "      content: |\n",
-                "        [Unit]\n",
-                "        Description=Run axon-router\n",
-                "        After=docker.service\n",
-                "        Requires=docker.service\n\n",
-                "        [Service]\n",
-                "        Restart=always\n",
-                "        ExecStartPre=-/usr/bin/docker kill axon-router\n",
-                "        ExecStartPre=-/usr/bin/docker rm axon-router\n",
-                "        ExecStartPre=/usr/bin/docker pull monsantoco/axon-router:latest\n",
-                "        ExecStart=/usr/bin/docker run -t -e \"NS_IP=172.17.42.1\" --name axon-router -p 80:80 monsantoco/axon-router:latest\n",
-                "        ExecStop=/usr/bin/docker stop axon-router\n",
-                "    - name: settimezone.service\n",
-                "      command: start\n",
-                "      content: |\n",
-                "        [Unit]\n",
-                "        Description=Set the timezone\n",
-                "        [Service]\n",
-                "        ExecStart=/usr/bin/timedatectl set-timezone UTC\n",
-                "        RemainAfterExit=yes\n",
-                "        Type=oneshot\n",
-                "write_files:\n",
-                "  - path: /etc/ntp.conf\n",
-                "    content: |\n",
-                "      server 0.pool.ntp.org\n",
-                "      server 1.pool.ntp.org\n",
-                "      server 2.pool.ntp.org\n",
-                "      server 3.pool.ntp.org\n",
-                "      restrict default nomodify nopeer noquery limited kod\n",
-                "      restrict 127.0.0.1\n"
-              ]
-            ]
+        }, {
+          "Key": "Owner",
+          "Value": {
+            "Ref": "Owner"
           }
+        }, {
+          "Key": "Environment",
+          "Value": {
+            "Ref": "Environment"
+          }
+        }, {
+          "Key": "KeepAlive",
+          "Value": {
+            "Ref": "KeepAlive"
+          }
+        }, {
+          "Key": "CostCenter",
+          "Value": {
+            "Ref": "CostCenter"
+          }
+        }],
+        "VpcId": {
+          "Ref": "VPC"
         }
-      }
+      },
+      "Type": "AWS::EC2::SecurityGroup"
     },
-    "CoreOSServerAutoScale":{
-      "Type":"AWS::AutoScaling::AutoScalingGroup",
-      "Properties":{
-        "AvailabilityZones":["us-east-1a", "us-east-1b"],
-        "LaunchConfigurationName":{"Ref":"CoreOSServerLaunchConfig"},
-        "MinSize":"2",
-        "MaxSize":"12",
-        "DesiredCapacity":{"Ref":"ClusterSize"},
-        "HealthCheckType":"EC2",
-        "VPCZoneIdentifier":[
-          {"Ref":"PriSubnet1"},
-          {"Ref":"PriSubnet2"}
-        ],
-        "Tags":[
-          {
-            "Key":"Name",
-            "Value":{
-              "Fn::Join":[
-                "-",
-                [
-                  "container",
-                  {
-                    "Ref":"AWS::StackName"
-                  }
-                ]
-              ]
-            },
-            "PropagateAtLaunch":true
-          },
-          {
-            "Key":"App",
-            "Value":{
-              "Ref":"App"
-            },
-            "PropagateAtLaunch":true
-          },
-          {
-            "Key":"Group",
-            "Value":{
-              "Ref":"Group"
-            },
-            "PropagateAtLaunch":true
-          },
-          {
-            "Key":"Owner",
-            "Value":{
-              "Ref":"Owner"
-            },
-            "PropagateAtLaunch":true
-          },
-          {
-            "Key":"Environment",
-            "Value":{
-              "Ref":"Environment"
-            },
-            "PropagateAtLaunch":true
-          },
-          {
-            "Key":"KeepAlive",
-            "Value":{
-              "Ref":"KeepAlive"
-            },
-            "PropagateAtLaunch":true
-          },
-          {
-            "Key":"CostCenter",
-            "Value":{
-              "Ref":"CostCenter"
-            },
-            "PropagateAtLaunch":true
+    "RouterCoreOSFromRouterCoreOS": {
+      "Properties": {
+        "GroupId": {
+          "Ref": "RouterCoreOSSecurityGroup"
+        },
+        "ToPort": "65535",
+        "FromPort": "0",
+        "IpProtocol": "-1",
+        "SourceSecurityGroupId": {
+          "Ref": "RouterCoreOSSecurityGroup"
+        }
+      },
+      "Type": "AWS::EC2::SecurityGroupIngress"
+    },
+    "RouterCoreOSFromCoreOS": {
+      "Properties": {
+        "GroupId": {
+          "Ref": "RouterCoreOSSecurityGroup"
+        },
+        "ToPort": "65535",
+        "FromPort": "0",
+        "IpProtocol": "-1",
+        "SourceSecurityGroupId": {
+          "Ref": "CoreOSSecurityGroup"
+        }
+      },
+      "Type": "AWS::EC2::SecurityGroupIngress"
+    },
+    "RouterCoreOSServerLaunchConfig": {
+      "Properties": {
+        "ImageId": {
+          "Fn::FindInMap": [{
+            "Ref": "CoreOSChannelAMI"
+          }, {
+            "Ref": "AWS::Region"
+          }, "AMI"]
+        },
+        "UserData": {
+          "Fn::Base64": {
+            "Fn::Join": ["", ["#cloud-config\n\n", "coreos:\n", "  etcd:\n", "    discovery: ", {
+              "Ref": "DiscoveryURL"
+            }, "\n", "    addr: $", {
+              "Ref": "AdvertisedIPAddress"
+            }, "_ipv4:4001\n", "    peer-addr: $", {
+              "Ref": "AdvertisedIPAddress"
+            }, "_ipv4:7001\n", "  units:\n", "    - name: etcd.service\n", "      command: start\n", "    - name: consul.service\n", "      command: start\n", "      content: |\n", "        [Unit]\n", "        Description=Consul Agent\n", "        After=docker.service\n", "        After=etcd.service\n", "        [Service]\n", "        Restart=on-failure\n", "        RestartSec=240\n", "        ExecStartPre=-/usr/bin/docker kill consul\n", "        ExecStartPre=-/usr/bin/docker rm consul\n", "        ExecStartPre=/usr/bin/docker pull progrium/consul\n", "        ExecStart=/usr/bin/docker run -h %H --name consul -p 8300:8300 -p 8301:8301 -p 8301:8301/udp -p 8302:8302 -p 8302:8302/udp -p 8400:8400 -p 8500:8500 -p 53:53/udp -e SERVICE_IGNORE=true progrium/consul -advertise $", {
+              "Ref": "AdvertisedIPAddress"
+            }, "_ipv4\n", "        ExecStop=/usr/bin/docker stop consul\n", "    - name: consul-announce.service\n", "      command: start\n", "      content: |\n", "        [Unit]\n", "        Description=Consul Server Announcer\n", "        PartOf=consul.service\n", "        After=consul.service\n", "        [Service]\n", "        ExecStart=/bin/sh -c \"while true; do etcdctl set /consul/bootstrap/machines/$(cat /etc/machine-id) $", {
+              "Ref": "AdvertisedIPAddress"
+            }, "_ipv4 --ttl 60; /usr/bin/docker exec consul consul join $(etcdctl ls /consul/bootstrap/machines | xargs -n 1 etcdctl get | tr '\\n' ' '); sleep 45; done\"\n", "        ExecStop=/bin/sh -c \"/usr/bin/etcdctl rm /consul/bootstrap/machines/$(cat /etc/machine-id)\"\n", "    - name: docker-login.service\n", "      command: start\n", "      content: |\n", "        [Unit]\n", "        Description=Log in to private Docker Registry\n", "        After=docker.service\n", "        [Service]\n", "        Type=oneshot\n", "        RemainAfterExit=yes\n", "        ExecStart=/usr/bin/docker login -e ", {
+              "Ref": "DockerRegistryEmail"
+            }, " -u ", {
+              "Ref": "DockerRegistryUser"
+            }, " -p ", {
+              "Ref": "DockerRegistryPass"
+            }, " ", {
+              "Ref": "DockerRegistryUrl"
+            }, "\n", "        ExecStop=/usr/bin/docker logout ", {
+              "Ref": "DockerRegistryUrl"
+            }, "\n", "    - name: axon-router.service\n", "      command: start\n", "      content: |\n", "        [Unit]\n", "        Description=Run axon-router\n", "        After=docker.service\n", "        Requires=docker.service\n\n", "        [Service]\n", "        Restart=always\n", "        ExecStartPre=-/usr/bin/docker kill axon-router\n", "        ExecStartPre=-/usr/bin/docker rm axon-router\n", "        ExecStartPre=/usr/bin/docker pull monsantoco/axon-router:latest\n", "        ExecStart=/usr/bin/docker run -t -e \"NS_IP=172.17.42.1\" --name axon-router -p 80:80 monsantoco/axon-router:latest\n", "        ExecStop=/usr/bin/docker stop axon-router\n", "    - name: settimezone.service\n", "      command: start\n", "      content: |\n", "        [Unit]\n", "        Description=Set the timezone\n", "        [Service]\n", "        ExecStart=/usr/bin/timedatectl set-timezone UTC\n", "        RemainAfterExit=yes\n", "        Type=oneshot\n", "write_files:\n", "  - path: /etc/ntp.conf\n", "    content: |\n", "      server 0.pool.ntp.org\n", "      server 1.pool.ntp.org\n", "      server 2.pool.ntp.org\n", "      server 3.pool.ntp.org\n", "      restrict default nomodify nopeer noquery limited kod\n", "      restrict 127.0.0.1\n"]]
           }
-        ]
-      }
+        },
+        "SecurityGroups": [{
+          "Ref": "RouterCoreOSSecurityGroup"
+        }, {
+          "Ref": "CoreOSFromJumpSecurityGroup"
+        }],
+        "KeyName": {
+          "Ref": "KeyName"
+        },
+        "InstanceType": {
+          "Ref": "DockerInstanceType"
+        }
+      },
+      "Type": "AWS::AutoScaling::LaunchConfiguration"
     },
-    "CoreOSServerAutoScaleUpPolicy":{
-      "Type":"AWS::AutoScaling::ScalingPolicy",
-      "Properties":{
-        "AdjustmentType":"ChangeInCapacity",
-        "AutoScalingGroupName":{
-          "Ref":"CoreOSServerAutoScale"
+    "RouterCoreOSServerAutoScale": {
+      "Properties": {
+        "LoadBalancerNames": [{
+          "Ref": "RouterELB"
+        }],
+        "HealthCheckType": "EC2",
+        "VPCZoneIdentifier": [{
+          "Ref": "PriSubnet1"
+        }, {
+          "Ref": "PriSubnet2"
+        }],
+        "MaxSize": 12,
+        "MinSize": 2,
+        "DesiredCapacity": {
+          "Ref": "RouterClusterSize"
         },
-        "Cooldown":{
-          "Ref":"AutoScaleCooldown"
+        "Tags": [{
+          "Key": "Name",
+          "Value": {
+            "Fn::Join": ["-", ["router", {
+              "Ref": "AWS::StackName"
+            }]]
+          },
+          "PropagateAtLaunch": true
+        }, {
+          "Key": "App",
+          "Value": {
+            "Ref": "App"
+          },
+          "PropagateAtLaunch": true
+        }, {
+          "Key": "Group",
+          "Value": {
+            "Ref": "Group"
+          },
+          "PropagateAtLaunch": true
+        }, {
+          "Key": "Owner",
+          "Value": {
+            "Ref": "Owner"
+          },
+          "PropagateAtLaunch": true
+        }, {
+          "Key": "Environment",
+          "Value": {
+            "Ref": "Environment"
+          },
+          "PropagateAtLaunch": true
+        }, {
+          "Key": "KeepAlive",
+          "Value": {
+            "Ref": "KeepAlive"
+          },
+          "PropagateAtLaunch": true
+        }, {
+          "Key": "CostCenter",
+          "Value": {
+            "Ref": "CostCenter"
+          },
+          "PropagateAtLaunch": true
+        }],
+        "LaunchConfigurationName": {
+          "Ref": "RouterCoreOSServerLaunchConfig"
         },
-        "ScalingAdjustment":"1"
-      }
+        "AvailabilityZones": ["us-east-1a", "us-east-1b"]
+      },
+      "Type": "AWS::AutoScaling::AutoScalingGroup"
     },
-    "CoreOSServerAutoScaleDownPolicy":{
-      "Type":"AWS::AutoScaling::ScalingPolicy",
-      "Properties":{
-        "AdjustmentType":"ChangeInCapacity",
-        "AutoScalingGroupName":{
-          "Ref":"CoreOSServerAutoScale"
+    "CoreOSSecurityGroup": {
+      "Properties": {
+        "SecurityGroupIngress": [{
+          "IpProtocol": "-1",
+          "SourceSecurityGroupId": {
+            "Ref": "RouterCoreOSSecurityGroup"
+          },
+          "FromPort": "0",
+          "ToPort": "65535"
+        }],
+        "GroupDescription": "Security Group for microservices CoreOS Auto Scaling Group",
+        "Tags": [{
+          "Key": "Name",
+          "Value": {
+            "Fn::Join": ["-", ["containersg", {
+              "Ref": "AWS::StackName"
+            }]]
+          }
+        }, {
+          "Key": "App",
+          "Value": {
+            "Ref": "App"
+          }
+        }, {
+          "Key": "Group",
+          "Value": {
+            "Ref": "Group"
+          }
+        }, {
+          "Key": "Owner",
+          "Value": {
+            "Ref": "Owner"
+          }
+        }, {
+          "Key": "Environment",
+          "Value": {
+            "Ref": "Environment"
+          }
+        }, {
+          "Key": "KeepAlive",
+          "Value": {
+            "Ref": "KeepAlive"
+          }
+        }, {
+          "Key": "CostCenter",
+          "Value": {
+            "Ref": "CostCenter"
+          }
+        }],
+        "VpcId": {
+          "Ref": "VPC"
+        }
+      },
+      "Type": "AWS::EC2::SecurityGroup"
+    },
+    "CoreOSFromCoreOS": {
+      "Properties": {
+        "GroupId": {
+          "Ref": "CoreOSSecurityGroup"
         },
-        "Cooldown":{
-          "Ref":"AutoScaleCooldown"
+        "ToPort": "65535",
+        "FromPort": "0",
+        "IpProtocol": "-1",
+        "SourceSecurityGroupId": {
+          "Ref": "CoreOSSecurityGroup"
+        }
+      },
+      "Type": "AWS::EC2::SecurityGroupIngress"
+    },
+    "CoreOSServerLaunchConfig": {
+      "Properties": {
+        "ImageId": {
+          "Fn::FindInMap": [{
+            "Ref": "CoreOSChannelAMI"
+          }, {
+            "Ref": "AWS::Region"
+          }, "AMI"]
         },
-        "ScalingAdjustment":"-1"
-      }
+        "UserData": {
+          "Fn::Base64": {
+            "Fn::Join": ["", ["#cloud-config\n\n", "coreos:\n", "  etcd:\n", "    discovery: ", {
+              "Ref": "DiscoveryURL"
+            }, "\n", "    addr: $", {
+              "Ref": "AdvertisedIPAddress"
+            }, "_ipv4:4001\n", "    peer-addr: $", {
+              "Ref": "AdvertisedIPAddress"
+            }, "_ipv4:7001\n", "  units:\n", "    - name: etcd.service\n", "      command: start\n", "    - name: fleet.service\n", "      command: start\n", "    - name: fleet.socket\n", "      command: start\n", "      enable: yes\n", "      content: |\n", "        [Unit]\n", "        Description=Fleet Socket for the API\n", "        [Socket]\n", "        ListenStream=49153\n", "        BindIPv6Only=both\n", "        Service=fleet.service\n\n", "        [Install]\n", "        WantedBy=sockets.target\n", "    - name: consul.service\n", "      command: start\n", "      content: |\n", "        [Unit]\n", "        Description=Consul Server\n", "        After=docker.service\n", "        After=etcd.service\n", "        After=fleet.service\n", "        [Service]\n", "        Restart=on-failure\n", "        RestartSec=240\n", "        ExecStartPre=-/usr/bin/docker kill consul\n", "        ExecStartPre=-/usr/bin/docker rm consul\n", "        ExecStartPre=/usr/bin/docker pull progrium/consul\n", "        ExecStart=/bin/bash -c \"eval $(/usr/bin/docker run --rm progrium/consul cmd:run $", {
+              "Ref": "AdvertisedIPAddress"
+            }, "_ipv4 -e SERVICE_IGNORE=true)\"\n", "        ExecStop=/usr/bin/docker stop consul\n", "    - name: consul-announce.service\n", "      command: start\n", "      content: |\n", "        [Unit]\n", "        Description=Consul Server Announcer\n", "        PartOf=consul.service\n", "        After=consul.service\n", "        [Service]\n", "        ExecStart=/bin/sh -c \"while true; do etcdctl set /consul/bootstrap/machines/$(cat /etc/machine-id) $", {
+              "Ref": "AdvertisedIPAddress"
+            }, "_ipv4 --ttl 60; /usr/bin/docker exec consul consul join $(etcdctl ls /consul/bootstrap/machines | xargs -n 1 etcdctl get | tr '\\n' ' '); sleep 45; done\"\n", "        ExecStop=/bin/sh -c \"/usr/bin/etcdctl rm /consul/bootstrap/machines/$(cat /etc/machine-id)\"\n", "    - name: docker-login.service\n", "      command: start\n", "      content: |\n", "        [Unit]\n", "        Description=Log in to private Docker Registry\n", "        After=docker.service\n", "        [Service]\n", "        Type=oneshot\n", "        RemainAfterExit=yes\n", "        ExecStart=/usr/bin/docker login -e ", {
+              "Ref": "DockerRegistryEmail"
+            }, " -u ", {
+              "Ref": "DockerRegistryUser"
+            }, " -p ", {
+              "Ref": "DockerRegistryPass"
+            }, " ", {
+              "Ref": "DockerRegistryUrl"
+            }, "\n", "        ExecStop=/usr/bin/docker logout ", {
+              "Ref": "DockerRegistryUrl"
+            }, "\n", "# Run registrator\n", "    - name: registrator.service\n", "      command: start\n", "      content: |\n", "        [Unit]\n", "        Description=Run registrator\n", "        After=docker.service\n", "        Requires=docker.service\n\n", "        [Service]\n", "        Restart=always\n", "        ExecStartPre=-/usr/bin/docker kill registrator\n", "        ExecStartPre=-/usr/bin/docker rm registrator\n", "        ExecStartPre=/usr/bin/docker pull gliderlabs/registrator:latest\n", "        ExecStart=/usr/bin/docker run --name registrator -v /var/run/docker.sock:/tmp/docker.sock -h %H gliderlabs/registrator:latest consul://$", {
+              "Ref": "AdvertisedIPAddress"
+            }, "_ipv4:8500\n", "         ExecStop=/usr/bin/docker stop registrator\n", "# Run axon-router\n", "    - name: axon-router.service\n", "      command: start\n", "      content: |\n", "        [Unit]\n", "        Description=Run axon-router\n", "        After=docker.service\n", "        Requires=docker.service\n\n", "        [Service]\n", "        Restart=always\n", "        ExecStartPre=-/usr/bin/docker kill axon-router\n", "        ExecStartPre=-/usr/bin/docker rm axon-router\n", "        ExecStartPre=/usr/bin/docker pull monsantoco/axon-router:latest\n", "        ExecStart=/usr/bin/docker run -t -e \"NS_IP=172.17.42.1\" --name axon-router -p 80:80 monsantoco/axon-router:latest\n", "        ExecStop=/usr/bin/docker stop axon-router\n", "    - name: settimezone.service\n", "      command: start\n", "      content: |\n", "        [Unit]\n", "        Description=Set the timezone\n", "        [Service]\n", "        ExecStart=/usr/bin/timedatectl set-timezone UTC\n", "        RemainAfterExit=yes\n", "        Type=oneshot\n", "write_files:\n", "  - path: /etc/ntp.conf\n", "    content: |\n", "      server 0.pool.ntp.org\n", "      server 1.pool.ntp.org\n", "      server 2.pool.ntp.org\n", "      server 3.pool.ntp.org\n", "      restrict default nomodify nopeer noquery limited kod\n", "      restrict 127.0.0.1\n"]]
+          }
+        },
+        "SecurityGroups": [{
+          "Ref": "CoreOSSecurityGroup"
+        }, {
+          "Ref": "CoreOSFromJumpSecurityGroup"
+        }],
+        "KeyName": {
+          "Ref": "KeyName"
+        },
+        "InstanceType": {
+          "Ref": "DockerInstanceType"
+        }
+      },
+      "Type": "AWS::AutoScaling::LaunchConfiguration"
+    },
+    "CoreOSServerAutoScale": {
+      "Properties": {
+        "HealthCheckType": "EC2",
+        "VPCZoneIdentifier": [{
+          "Ref": "PriSubnet1"
+        }, {
+          "Ref": "PriSubnet2"
+        }],
+        "MaxSize": 12,
+        "MinSize": 2,
+        "DesiredCapacity": {
+          "Ref": "ClusterSize"
+        },
+        "Tags": [{
+          "Key": "Name",
+          "Value": {
+            "Fn::Join": ["-", ["container", {
+              "Ref": "AWS::StackName"
+            }]]
+          },
+          "PropagateAtLaunch": true
+        }, {
+          "Key": "App",
+          "Value": {
+            "Ref": "App"
+          },
+          "PropagateAtLaunch": true
+        }, {
+          "Key": "Group",
+          "Value": {
+            "Ref": "Group"
+          },
+          "PropagateAtLaunch": true
+        }, {
+          "Key": "Owner",
+          "Value": {
+            "Ref": "Owner"
+          },
+          "PropagateAtLaunch": true
+        }, {
+          "Key": "Environment",
+          "Value": {
+            "Ref": "Environment"
+          },
+          "PropagateAtLaunch": true
+        }, {
+          "Key": "KeepAlive",
+          "Value": {
+            "Ref": "KeepAlive"
+          },
+          "PropagateAtLaunch": true
+        }, {
+          "Key": "CostCenter",
+          "Value": {
+            "Ref": "CostCenter"
+          },
+          "PropagateAtLaunch": true
+        }],
+        "LaunchConfigurationName": {
+          "Ref": "CoreOSServerLaunchConfig"
+        },
+        "AvailabilityZones": ["us-east-1a", "us-east-1b"]
+      },
+      "Type": "AWS::AutoScaling::AutoScalingGroup"
+    },
+    "CoreOSServerAutoScaleUpPolicy": {
+      "Properties": {
+        "AutoScalingGroupName": {
+          "Ref": "CoreOSServerAutoScale"
+        },
+        "ScalingAdjustment": "1",
+        "Cooldown": {
+          "Ref": "AutoScaleCooldown"
+        },
+        "AdjustmentType": "ChangeInCapacity"
+      },
+      "Type": "AWS::AutoScaling::ScalingPolicy"
+    },
+    "CoreOSServerAutoScaleDownPolicy": {
+      "Properties": {
+        "AutoScalingGroupName": {
+          "Ref": "CoreOSServerAutoScale"
+        },
+        "ScalingAdjustment": "-1",
+        "Cooldown": {
+          "Ref": "AutoScaleCooldown"
+        },
+        "AdjustmentType": "ChangeInCapacity"
+      },
+      "Type": "AWS::AutoScaling::ScalingPolicy"
     }
   },
-  "Outputs":{
-    "VPCID":{
-      "Description":"VPC Info",
-      "Value":{
-        "Ref":"VPC"
+  "Outputs": {
+    "VPCID": {
+      "Description": "VPC Info",
+      "Value": {
+        "Ref": "VPC"
       }
     },
-    "JumpEIP":{
-      "Description":"Jump Box EIP",
-      "Value":{
-        "Ref":"JumpEIP"
+    "JumpEIP": {
+      "Description": "Jump Box EIP",
+      "Value": {
+        "Ref": "JumpEIP"
       }
     },
-    "NAT1EIP":{
-      "Description":"NAT 1 EIP",
-      "Value":{
-        "Ref":"NAT1EIP"
+    "NAT1EIP": {
+      "Description": "NAT 1 EIP",
+      "Value": {
+        "Ref": "NAT1EIP"
       }
     },
-    "NAT2EIP":{
-      "Description":"NAT 2 EIP",
-      "Value":{
-        "Ref":"NAT2EIP"
+    "NAT2EIP": {
+      "Description": "NAT 2 EIP",
+      "Value": {
+        "Ref": "NAT2EIP"
       }
     },
-    "RouterDNS":{
-      "Description":"ELB DNS Name",
-      "Value":{
-        "Fn::GetAtt":["RouterELB","DNSName"]
+    "RouterDNS": {
+      "Description": "ELB DNS Name",
+      "Value": {
+        "Fn::GetAtt": ["RouterELB", "DNSName"]
       }
     },
-    "PublicSubnet1":{
-      "Description":"Public Subnet #1",
-      "Value":{
-        "Ref":"PubSubnet1"
+    "PublicSubnet1": {
+      "Description": "Public Subnet #1",
+      "Value": {
+        "Ref": "PubSubnet1"
       }
     },
-    "PrivateSubnet1":{
-      "Description":"Private Subnet #1",
-      "Value":{
-        "Ref":"PriSubnet1"
+    "PrivateSubnet1": {
+      "Description": "Private Subnet #1",
+      "Value": {
+        "Ref": "PriSubnet1"
       }
     },
-    "PublicSubnet2":{
-      "Description":"Public Subnet #2",
-      "Value":{
-        "Ref":"PubSubnet2"
+    "PublicSubnet2": {
+      "Description": "Public Subnet #2",
+      "Value": {
+        "Ref": "PubSubnet2"
       }
     },
-    "PrivateSubnet2":{
-      "Description":"Private Subnet #2",
-      "Value":{
-        "Ref":"PriSubnet2"
+    "PrivateSubnet2": {
+      "Description": "Private Subnet #2",
+      "Value": {
+        "Ref": "PriSubnet2"
       }
     }
   }

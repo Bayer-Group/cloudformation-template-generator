@@ -1,16 +1,10 @@
 package com.monsanto.arch.cloudformation.codegen
 
 import java.io.{File, PrintWriter}
-import java.nio.file.Files
-import java.rmi.activation.UnknownObjectException
-import java.util.UUID
-
-import spray.json._
-import DefaultJsonProtocol._
-
 import scala.annotation.tailrec
 import scala.io.Source
 import scala.util.Try
+
 /*
 Use this to generate somewhat accurate type structures
 The result will not likely compile
@@ -18,6 +12,8 @@ This functionality is intended to help prime new types not instantiate them perf
 To run:
 clone the docs repo and and run over this directory:
 https://github.com/awsdocs/aws-cloudformation-user-guide/tree/master/doc_source
+
+see ExampleApp for an example
  */
 case class AWSPropertyDocsElement(name: String, required: Boolean, description: String)
 
@@ -34,12 +30,14 @@ case class AWSDocsProperty(name: String, fieldType: String, reference: String){
 
   val fieldTypeRepr = fieldType match {
     case seqString if fieldType.contains("[String]") => "Seq[String]"
-    case seqString if name.contains("Tags") && fieldType.contains("{StringString...}") => "Seq[AmazonTag]"
-    case seqString if fieldType.startsWith("[[") => attArrayRepr(seqString)
-    case seqString if fieldType.startsWith("[") && fieldType.endsWith("]") =>
+    case tags if name.contains("Tags") && fieldType.contains("{StringString...}") => "Seq[AmazonTag]"
+    case arrType if fieldType.startsWith("[[") => attArrayRepr(arrType)
+    case innerTpe if fieldType.startsWith("[") && fieldType.endsWith("]") =>
       val innerType = fieldType.replace('.',']').replace("[","").replace("]","")
       s"Seq[${innerType}]"
     case seqString if fieldType.contains("{StringString...}") => s"Map[String, String]"
+    case integer if fieldType.equals("Integer") => "Int"
+    case number if fieldType.equals("Number") => "Number"
     case _ => fieldType
   }
 
@@ -226,5 +224,6 @@ object ExampleApp extends App {
     writer.close()
   }
 
-  run(s"/Users/chrisshafer/HubProjects/aws-cloudformation-user-guide/doc_source", "cognito")
+  // directory of raw md docs
+  run(s"/aws-cloudformation-user-guide/doc_source", "cognito")
 }

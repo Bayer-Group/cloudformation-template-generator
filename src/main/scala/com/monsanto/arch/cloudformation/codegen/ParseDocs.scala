@@ -44,7 +44,7 @@ case class AWSDocsProperty(name: String, fieldType: String, reference: String){
   def toScala(opt: Option[AWSPropertyDocsElement]) = {
 
     val propline = if (opt.map(_.required).getOrElse(false)) s"${name} : ${fieldTypeRepr}"
-                    else s"${name} : Option[${fieldTypeRepr}]"
+                    else s"${name} : Option[${fieldTypeRepr}] = None"
 
    opt.map(x => s"   /*${x.description.replace('\\','`').replace("`","")}*/\n").getOrElse("") + "   " + propline
   }

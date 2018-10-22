@@ -1,7 +1,10 @@
 package com.monsanto.arch.cloudformation.model.resource
 
-import spray.json.{DefaultJsonProtocol, JsonFormat}
-
+import com.monsanto.arch.cloudformation.model.{ConditionRef, ResourceRef, Token, `AWS::AccountId`, `AWS::Region`}
+import spray.json.{DefaultJsonProtocol, JsString, JsValue, JsonFormat}
+import com.monsanto.arch.cloudformation.model._
+import spray.json._
+import DefaultJsonProtocol._
 
 //docurl: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-identitypool.html
 case class `AWS::Cognito::IdentityPool`(
@@ -49,7 +52,7 @@ object SmsConfiguration extends DefaultJsonProtocol {
 //docurl: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cognito-identitypool-cognitostreams.html
 case class CognitoStreams(
    /*The Amazon Resource Name (ARN) of the role Amazon Cognito can assume to publish to the stream. This role must grant access to Amazon Cognito (cognito-sync) to invoke PutRecord on your Amazon Cognito stream.  */
-   RoleArn : Option[String],
+   RoleArn : Option[Token[String]],
    /*Status of the Cognito streams. Valid values are: ENABLED or DISABLED.  */
    StreamingStatus : Option[String],
    /*The name of the Amazon Cognito stream to receive updates. This stream must be in the developer's account and in the same region as the identity pool.  */
@@ -70,12 +73,30 @@ case class Policies(
 object Policies extends DefaultJsonProtocol {
   implicit val format: JsonFormat[Policies] = jsonFormat1(Policies.apply)
 }
-     
+
+sealed trait CognitoAttributeType
+case object StringAT extends CognitoAttributeType
+case object NumberAT extends CognitoAttributeType
+case object BinaryAT extends CognitoAttributeType
+case object DateTimeAT extends CognitoAttributeType
+
+object CognitoAttributeType {
+  implicit object format extends JsonFormat[CognitoAttributeType] {
+    override def write(obj: CognitoAttributeType) = JsString(obj match {
+      case StringAT => "String"
+      case NumberAT => "Number"
+      case BinaryAT => "Boolean"
+      case DateTimeAT            => "DateTime"
+    })
+
+    override def read(json: JsValue): CognitoAttributeType = ???
+  }
+}
 
 //docurl: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cognito-userpool-schemaattribute.html
 case class SchemaAttribute(
    /*The attribute data type. Can be one of the following: String, Number, DateTime, or Boolean.  */
-   AttributeDataType : Option[String],
+   AttributeDataType : Option[CognitoAttributeType],
    /*Specifies whether the attribute type is developer only.  */
    DeveloperOnlyAttribute : Option[Boolean],
    /*Specifies whether the attribute can be changed after it has been created. True means mutable and False means immutable.  */
@@ -98,9 +119,9 @@ object SchemaAttribute extends DefaultJsonProtocol {
 //docurl: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cognito-identitypool-pushsync.html
 case class PushSync(
    /*List of Amazon SNS platform application ARNs that could be used by clients.  */
-   ApplicationArns : Option[Seq[String]],
+   ApplicationArns : Option[Seq[Token[String]]],
    /*An IAM role configured to allow Amazon Cognito to call SNS on behalf of the developer.  */
-   RoleArn : Option[String]
+   RoleArn : Option[Token[String]]
 )
 
 object PushSync extends DefaultJsonProtocol {
@@ -262,47 +283,58 @@ object AdminCreateUserConfig extends DefaultJsonProtocol {
 
 //docurl: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-userpool.html
 case class `AWS::Cognito::UserPool`(
+   name: String,
    /*The type of configuration for creating a new user profile.  */
-   AdminCreateUserConfig : Option[AdminCreateUserConfig],
+   AdminCreateUserConfig : Option[AdminCreateUserConfig] = None,
    /*Attributes supported as an alias for this user pool. Possible values: phone_number, email, or preferred_username.   */
-   AliasAttributes : Option[Seq[String]],
+   AliasAttributes : Option[Seq[String]] = None,
    /*The attributes to be auto-verified. Possible values: email or phone_number.   */
-   AutoVerifiedAttributes : Option[Seq[String]],
+   AutoVerifiedAttributes : Option[Seq[String]] = None,
    /*The type of configuration for the user pool's device tracking.  */
-   DeviceConfiguration : Option[DeviceConfiguration],
+   DeviceConfiguration : Option[DeviceConfiguration] = None,
    /*The email configuration.  */
-   EmailConfiguration : Option[EmailConfiguration],
+   EmailConfiguration : Option[EmailConfiguration] = None,
    /*A string representing the email verification message. Must contain {####} in the description.  */
-   EmailVerificationMessage : Option[String],
+   EmailVerificationMessage : Option[String] = None,
    /*A string representing the email verification subject.  */
-   EmailVerificationSubject : Option[String],
+   EmailVerificationSubject : Option[String] = None,
    /*The AWS Lambda trigger configuration information for the Amazon Cognito user pool.  */
-   LambdaConfig : Option[LambdaConfig],
+   LambdaConfig : Option[LambdaConfig] = None,
    /*Specifies multi-factor authentication (MFA) configuration details. Can be one of the following values:  
 OFF - MFA tokens are not required and cannot be specified during user registration.  
 ON - MFA tokens are required for all user registrations. You can only specify required when you are initially creating a user pool.  
 OPTIONAL - Users have the option when registering to create an MFA token.  */
-   MfaConfiguration : Option[String],
+   MfaConfiguration : Option[String] = None,
    /*The policies associated with the Amazon Cognito user pool.  */
-   Policies : Option[Policies],
+   Policies : Option[Policies] = None,
    /*A list of schema attributes for the new user pool. These attributes can be standard or custom attributes.  */
-   Schema : Option[Seq[SchemaAttribute]],
+   Schema : Option[Seq[SchemaAttribute]] = None,
    /*A string representing the SMS authentication message. Must contain {####} in the message.  */
-   SmsAuthenticationMessage : Option[String],
+   SmsAuthenticationMessage : Option[String] = None,
    /*The Short Message Service (SMS) configuration.  */
-   SmsConfiguration : Option[SmsConfiguration],
+   SmsConfiguration : Option[SmsConfiguration] = None,
    /*A string representing the SMS verification message. Must contain {####} in the message.  */
-   SmsVerificationMessage : Option[String],
+   SmsVerificationMessage : Option[String] = None,
    /*Specifies whether email addresses or phone numbers can be specified as usernames when a user signs up. Possible values: phone_number or email.  */
-   UsernameAttributes : Option[Seq[String]],
+   UsernameAttributes : Option[Seq[String]] = None,
    /*A string used to name the user pool.  */
    UserPoolName : String,
    /*The cost allocation tags for the user pool. For more information, see [Adding Cost Allocation Tags to Your User Pool](https://docs.aws.amazon.com//cognito/latest/developerguide/cognito-user-pools-cost-allocation-tagging.html) in the *Amazon Cognito Developer Guide*.  */
-   UserPoolTags : Option[Seq[AmazonTag]]
-)
+   UserPoolTags : Option[Seq[AmazonTag]] = None,
+   override val Condition: Option[ConditionRef] = None,
+   override val DeletionPolicy: Option[DeletionPolicy] = None,
+   override val DependsOn: Option[Seq[String]] = None
+ ) extends Resource[`AWS::Cognito::UserPool`] with HasArn {
+
+  def when(newCondition: Option[ConditionRef]): `AWS::Cognito::UserPool` = copy(Condition = newCondition)
+
+  def poolName: Token[String] = ResourceRef(this)
+
+  override def arn = aws"arn:aws:cognito:${`AWS::Region`}:${`AWS::AccountId`}:userpool/${ResourceRef(this)}"
+}
 
 object `AWS::Cognito::UserPool` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::Cognito::UserPool`] = jsonFormat17(`AWS::Cognito::UserPool`.apply)
+  implicit val format: JsonFormat[`AWS::Cognito::UserPool`] = jsonFormat21(`AWS::Cognito::UserPool`.apply)
 }
      
 

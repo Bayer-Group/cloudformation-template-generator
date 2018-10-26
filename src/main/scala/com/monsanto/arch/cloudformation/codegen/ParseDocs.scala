@@ -6,7 +6,7 @@ import scala.io.Source
 import scala.util.Try
 
 /*
-Use this to generate somewhat accurate type structures
+Use this hot garbage to generate somewhat accurate type structures
 The result will not likely compile
 This functionality is intended to help prime new types not instantiate them perfectly.
 To run:
@@ -20,7 +20,7 @@ case class AWSPropertyDocsElement(name: String, required: Boolean, description: 
 case class AWSDocsProperty(name: String, fieldType: String, reference: String){
 
 
-  def attArrayRepr(string: String) = {
+  def attArrayRepr(string: String): String = {
     val firstIdx = string.indexOf("*")
     val lastIdx = string.lastIndexOf("*")
     val attrType = string.substring(firstIdx + 1, lastIdx)
@@ -28,7 +28,8 @@ case class AWSDocsProperty(name: String, fieldType: String, reference: String){
     s"Seq[$attrType]"
   }
 
-  val fieldTypeRepr = fieldType match {
+  // map field type to scala representation
+  lazy val fieldTypeRepr: String = fieldType match {
     case seqString if fieldType.contains("[String]") => "Seq[String]"
     case tags if name.contains("Tags") && fieldType.contains("{StringString...}") => "Seq[AmazonTag]"
     case arrType if fieldType.startsWith("[[") => attArrayRepr(arrType)
@@ -41,7 +42,7 @@ case class AWSDocsProperty(name: String, fieldType: String, reference: String){
     case _ => fieldType
   }
 
-  def toScala(opt: Option[AWSPropertyDocsElement]) = {
+  def toScala(opt: Option[AWSPropertyDocsElement]): String = {
 
     val propline = if (opt.map(_.required).getOrElse(false)) s"${name} : ${fieldTypeRepr}"
                     else s"${name} : Option[${fieldTypeRepr}] = None"
@@ -55,9 +56,11 @@ case class AWSDocsType(fileName: String,
                        attributes: Seq[AWSDocsProperty],
                        propertyDocs: Seq[AWSPropertyDocsElement]){
 
-  lazy val propertyDocsMap = propertyDocs.map(x => x.name -> x).toMap
+  lazy val propertyDocsMap: Map[String, AWSPropertyDocsElement] = propertyDocs.map(x => x.name -> x).toMap
 
-  def toScala(typeRefMap: Map[String, String], typeNames: Seq[String]) = {
+  //Type ref map is a map markdown file reference to typ names
+  //Type names is a sequence of all detected type names used to fuzzy match to camel case names
+  def toScala(typeRefMap: Map[String, String], typeNames: Seq[String]): String = {
 
     val className: String = name.getOrElse{
       typeRefMap.getOrElse(fileName.replace("aws-properties-","")+".md", {
@@ -79,48 +82,48 @@ case class AWSDocsType(fileName: String,
      """.stripMargin
   }
 }
+
 sealed trait DocType
 case object Properties extends DocType
 case object Resource extends DocType
 case object Unknown extends DocType
-class DocsParser(directory: String) {
 
-  case class FileType(docType: DocType, resourceName: String, file: File)
-  object FileType {
-    def fromFile(file: File) = Try{
-      val arr = file.getName.split("-")
+case class AWSCFDocFileType(docType: DocType, resourceName: String, file: File)
+object AWSCFDocFileType {
+  def fromFile(file: File) = Try{
+    val arr = file.getName.split("-")
 
-      val docType = if(arr(1) == "resource") {
-        Resource
-      } else if(arr(1) == "properties") {
-        Properties
-      } else Unknown
+    val docType = if(arr(1) == "resource") {
+      Resource
+    } else if(arr(1) == "properties") {
+      Properties
+    } else Unknown
 
-      val resourcename = arr(2)
+    val resourcename = arr(2)
 
-      FileType(
-        docType = docType,
-        resourceName = resourcename,
-        file = file
-      )
-    }
+    AWSCFDocFileType(
+      docType = docType,
+      resourceName = resourcename,
+      file = file
+    )
   }
+}
+
+class DocsParser(directory: String) {
 
   lazy val files = new File(directory)
 
-  lazy val docFiles = files.listFiles().filter(x => x.getName.startsWith("aws-properties") || x.getName.startsWith("aws-resource")).map(FileType.fromFile).flatMap(_.toOption)
+  lazy val docFiles = files.listFiles().filter(x => x.getName.startsWith("aws-properties") || x.getName.startsWith("aws-resource")).map(AWSCFDocFileType.fromFile).flatMap(_.toOption)
 
-
-  val mkdownJsonStartKey = "### JSON<a name="
-  val mkdownJsonEndKey = "### YAML<a name=\""
+  val jsonDocsStartKey = "### JSON<a name="
+  val jsonDocsEndKey = "### YAML<a name=\""
 
   val typeJsonKey = "\"Type\" : "
-
-  def parseAndMakeTypes(docFile: FileType): AWSDocsType = parseAndMakeTypes(docFile.docType, docFile.file)
 
   val propertyDocsStartKey = "## Properties<a name="
   val propertyDocsEndKey = "## Return Value"
 
+  def parseAndMakeTypes(docFile: AWSCFDocFileType): AWSDocsType = parseAndMakeTypes(docFile.docType, docFile.file)
 
   @tailrec
   final def splitBySeq(seq: Seq[String], predicate: String => Boolean, accum: Seq[Seq[String]] = Seq()): Seq[Seq[String]] = {
@@ -133,7 +136,7 @@ class DocsParser(directory: String) {
 
   }
 
-  def parsePropertyBlock(seq: Seq[String]) = Try{
+  protected def parsePropertyBlock(seq: Seq[String]) = Try{
     val name: String = seq.head.substring(seq.head.indexOf("`") + 1, seq.head.lastIndexOf("`"))
     val required: Boolean = seq.find(_.startsWith("*Required*")).map{
       case tru if tru.contains("Yes") => true
@@ -148,7 +151,8 @@ class DocsParser(directory: String) {
       required = required
     )
   }
-  def parsePropertyDetails(lines: List[(String, Int)]): Seq[AWSPropertyDocsElement] = {
+
+  protected def parsePropertyDetails(lines: List[(String, Int)]): Seq[AWSPropertyDocsElement] = {
 
     val start = lines.find(_._1.startsWith(propertyDocsStartKey)).get._2
     val end = lines.find(_._1.startsWith(propertyDocsEndKey)).map(_._2).getOrElse(lines.length)
@@ -157,26 +161,21 @@ class DocsParser(directory: String) {
     val blocks = splitBySeq(propertyDocsBlock, x => x == "").map(_.toList)
 
     blocks.map(parsePropertyBlock).flatMap(_.toOption)
-
   }
-  def parseAndMakeTypes(docType: DocType, file: File): AWSDocsType = {
-    println(s"Parsing ${file.getName}")
-    val lines = Source.fromFile(file).getLines().toSeq.zipWithIndex
 
-    val startLine = lines.find(_._1.startsWith(mkdownJsonStartKey)).map(_._2)
-    val endLine = lines.find(_._1.startsWith(mkdownJsonEndKey)).map(_._2)
+  protected def parseJsonPropertiesBlock(lines: Seq[(String, Int)],
+                                         jsonDefBlock: Seq[(String, Int)],
+                                         isBaseType: Boolean ): Seq[AWSDocsProperty] = {
 
-    val mkdown = lines.slice(startLine.get + 1, endLine.get)
+    val jsonPropertiesStart = if(isBaseType) jsonDefBlock.find(_._1.contains("\"Properties\" : {")).get._2
+    else jsonDefBlock.reverse.find(_._1 == "{").get._2
 
-    val typeLine = mkdown.find(_._1.contains(typeJsonKey))
+    val JsonPropertiesEnd = if(isBaseType) jsonDefBlock.reverse.find(_._1.endsWith("}")).get._2
+    else jsonDefBlock.reverse.find(_._1 == "}").get._2 + 1
 
-    val propertiesStart = if(typeLine.isDefined) mkdown.find(_._1.contains("\"Properties\" : {")).get._2 else mkdown.reverse.find(_._1 == "{").get._2
+    val JsonPropertiesBlock = lines.slice(jsonPropertiesStart + 1, JsonPropertiesEnd -1 )
 
-    val propertiesEnd = if(typeLine.isDefined) mkdown.reverse.find(_._1.endsWith("}")).get._2 else mkdown.reverse.find(_._1 == "}").get._2 + 1
-
-    val basetype = typeLine.map(_._1.replace("  \"Type\" : \"","").replace("\",",""))
-
-    val scalaAttributes = lines.slice(propertiesStart + 1, propertiesEnd -1 ).map{ field =>
+    JsonPropertiesBlock.map{ field =>
       val split = field._1.replace("\"","").replace(" ","").split(":")
       val rawfieldName = split(0)
       val nameCamel = rawfieldName.substring(rawfieldName.indexOf('[') + 1, rawfieldName.indexOf(']'))
@@ -184,14 +183,29 @@ class DocsParser(directory: String) {
 
       val typeValue = split.tail.mkString.replace(",","")
       val trueTypeValue = if(typeValue.startsWith("[*")) nameCamel
-                          else typeValue
+      else typeValue
       AWSDocsProperty(
         name = nameCamel,
         fieldType = trueTypeValue,
         reference = reference
       )
-
     }
+  }
+
+  def parseAndMakeTypes(docType: DocType, file: File): AWSDocsType = {
+    val lines = Source.fromFile(file).getLines().toSeq.zipWithIndex
+
+    val startLine = lines.find(_._1.startsWith(jsonDocsStartKey)).map(_._2)
+    val endLine = lines.find(_._1.startsWith(jsonDocsEndKey)).map(_._2)
+
+    val jsonDefBlock = lines.slice(startLine.get + 1, endLine.get)
+
+    val typeLine = jsonDefBlock.find(_._1.contains(typeJsonKey))
+
+    val scalaAttributes = parseJsonPropertiesBlock(lines, jsonDefBlock, typeLine.isDefined)
+
+    val basetype = typeLine.map(_._1.replace("  \"Type\" : \"","")
+      .replace("\",",""))
 
     val properties = parsePropertyDetails(lines.toList.sortBy(_._2))
 
@@ -225,5 +239,5 @@ object ExampleApp extends App {
   }
 
   // directory of raw md docs
-  run(s"/aws-cloudformation-user-guide/doc_source", "cognito")
+  run(s"${"PUT DIR HERE"}/aws-cloudformation-user-guide/doc_source", "cognito")
 }

@@ -5,29 +5,30 @@ import spray.json.{DefaultJsonProtocol, JsString, JsValue, JsonFormat}
 import com.monsanto.arch.cloudformation.model._
 import spray.json._
 import DefaultJsonProtocol._
+import com.monsanto.arch.cloudformation.model.Token.TokenSeq
 
 //docurl: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-identitypool.html
 case class `AWS::Cognito::IdentityPool`(
-   /*The name of your Amazon Cognito identity pool.  */
-   IdentityPoolName : Option[String],
-   /*Specifies whether the identity pool supports unauthenticated logins.  */
-   AllowUnauthenticatedIdentities : Boolean,
-   /*The "domain" by which Amazon Cognito will refer to your users. This name acts as a placeholder that allows your backend and the Amazon Cognito service to communicate about the developer provider. For the DeveloperProviderName, you can use letters and periods (.), underscores (_), and dashes (-).  */
-   DeveloperProviderName : Option[String],
-   /*Key-value pairs that map provider names to provider app IDs.  */
-   SupportedLoginProviders : Option[Map[String, String]],
-   /*An array of Amazon Cognito user pools and their client IDs.  */
-   CognitoIdentityProviders : Option[Seq[CognitoIdentityProvider]],
-   /*A list of Amazon Resource Names (ARNs) of Security Assertion Markup Language (SAML) providers.  */
-   SamlProviderARNs : Option[Seq[String]],
-   /*A list of ARNs for the OpendID Connect provider.  */
-   OpenIdConnectProviderARNs : Option[Seq[String]],
-   /*Configuration options for configuring Amazon Cognito streams.  */
-   CognitoStreams : Option[CognitoStreams],
-   /*Configuration options to be applied to the identity pool.  */
-   PushSync : Option[PushSync],
-   /*The events to configure.  */
-   CognitoEvents : Option[Map[String, String]]
+                                         /*The name of your Amazon Cognito identity pool.  */
+                                         IdentityPoolName : Option[String],
+                                         /*Specifies whether the identity pool supports unauthenticated logins.  */
+                                         AllowUnauthenticatedIdentities : Boolean,
+                                         /*The "domain" by which Amazon Cognito will refer to your users. This name acts as a placeholder that allows your backend and the Amazon Cognito service to communicate about the developer provider. For the DeveloperProviderName, you can use letters and periods (.), underscores (_), and dashes (-).  */
+                                         DeveloperProviderName : Option[String],
+                                         /*Key-value pairs that map provider names to provider app IDs.  */
+                                         SupportedLoginProviders : Option[Map[String, String]],
+                                         /*An array of Amazon Cognito user pools and their client IDs.  */
+                                         CognitoIdentityProviders : Option[Seq[CognitoIdentityProvider]],
+                                         /*A list of Amazon Resource Names (ARNs) of Security Assertion Markup Language (SAML) providers.  */
+                                         SamlProviderARNs : Option[TokenSeq[String]],
+                                         /*A list of ARNs for the OpendID Connect provider.  */
+                                         OpenIdConnectProviderARNs : Option[Seq[String]],
+                                         /*Configuration options for configuring Amazon Cognito streams.  */
+                                         CognitoStreams : Option[CognitoStreams],
+                                         /*Configuration options to be applied to the identity pool.  */
+                                         PushSync : Option[PushSync],
+                                         /*The events to configure.  */
+                                         CognitoEvents : Option[Map[String, String]]
 )
 
 object `AWS::Cognito::IdentityPool` extends DefaultJsonProtocol {
@@ -41,7 +42,7 @@ case class SmsConfiguration(
 For more information about using external IDs, see [How to Use an External ID When Granting Access to Your AWS Resources to a Third Party](http://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-user_externalid.html) in the *AWS Identity and Access Management User Guide*.  */
    ExternalId : Option[String],
    /*The Amazon Resource Name (ARN) of the Amazon Simple Notification Service (SNS) caller.  */
-   SnsCallerArn : String
+   SnsCallerArn : Token[String]
 )
 
 object SmsConfiguration extends DefaultJsonProtocol {
@@ -86,7 +87,7 @@ object CognitoAttributeType {
       case StringAT => "String"
       case NumberAT => "Number"
       case BinaryAT => "Boolean"
-      case DateTimeAT            => "DateTime"
+      case DateTimeAT => "DateTime"
     })
 
     override def read(json: JsValue): CognitoAttributeType = ???
@@ -136,7 +137,7 @@ case class `AWS::Cognito::UserPoolUserToGroupAttachment`(
    /*The user's user name.  */
    Username : String,
    /*The ID of the user pool.  */
-   UserPoolId : String
+   UserPoolId : Token[String]
 )
 
 object `AWS::Cognito::UserPoolUserToGroupAttachment` extends DefaultJsonProtocol {
@@ -164,9 +165,9 @@ object RoleMapping extends DefaultJsonProtocol {
 //docurl: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cognito-userpool-stringattributeconstraints.html
 case class StringAttributeConstraints(
    /*The maximum value of an attribute that is of the string data type.  */
-   MaxLength : Option[String],
+   MaxLength : Option[StringBackedInt],
    /*The minimum value of an attribute that is of the string data type.  */
-   MinLength : Option[String]
+   MinLength : Option[StringBackedInt]
 )
 
 object StringAttributeConstraints extends DefaultJsonProtocol {
@@ -197,7 +198,7 @@ case class MappingRule(
 Valid values are: Equals, Contains, StartsWith, and NotEqual.  */
    MatchType : String,
    /*The Amazon Resource Name (ARN) of the role.  */
-   RoleARN : String,
+   RoleARN : Token[String],
    /*A brief string that the claim must match, for example, "paid" or "yes."  */
    Value : String
 )
@@ -328,9 +329,7 @@ OPTIONAL - Users have the option when registering to create an MFA token.  */
 
   def when(newCondition: Option[ConditionRef]): `AWS::Cognito::UserPool` = copy(Condition = newCondition)
 
-  def poolName: Token[String] = ResourceRef(this)
-
-  override def arn = aws"arn:aws:cognito:${`AWS::Region`}:${`AWS::AccountId`}:userpool/${ResourceRef(this)}"
+  override def arn = aws"arn:aws:cognito:${`AWS::Region`}:${`AWS::AccountId`}:userpool/${UserPoolName}"
 }
 
 object `AWS::Cognito::UserPool` extends DefaultJsonProtocol {
@@ -368,21 +367,21 @@ object `AWS::Cognito::UserPoolUser` extends DefaultJsonProtocol {
 //docurl: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cognito-userpool-lambdaconfig.html
 case class LambdaConfig(
    /*Creates an authentication challenge.  */
-   CreateAuthChallenge : Option[String],
+   CreateAuthChallenge : Option[Token[String]],
    /*A custom Message AWS Lambda trigger.  */
-   CustomMessage : Option[String],
+   CustomMessage : Option[Token[String]],
    /*Defines the authentication challenge.  */
-   DefineAuthChallenge : Option[String],
+   DefineAuthChallenge : Option[Token[String]],
    /*A post-authentication AWS Lambda trigger.  */
-   PostAuthentication : Option[String],
+   PostAuthentication : Option[Token[String]],
    /*A post-confirmation AWS Lambda trigger.  */
-   PostConfirmation : Option[String],
+   PostConfirmation : Option[Token[String]],
    /*A pre-authentication AWS Lambda trigger.  */
-   PreAuthentication : Option[String],
+   PreAuthentication : Option[Token[String]],
    /*A pre-registration AWS Lambda trigger.  */
-   PreSignUp : Option[String],
+   PreSignUp : Option[Token[String]],
    /*Verifies the authentication challenge response.  */
-   VerifyAuthChallengeResponse : Option[String]
+   VerifyAuthChallengeResponse : Option[Token[String]]
 )
 
 object LambdaConfig extends DefaultJsonProtocol {

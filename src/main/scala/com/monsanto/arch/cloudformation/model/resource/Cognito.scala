@@ -10,11 +10,11 @@ import com.monsanto.arch.cloudformation.model.Token.TokenSeq
 //docurl: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-identitypool.html
 case class `AWS::Cognito::IdentityPool`(
                                          /*The name of your Amazon Cognito identity pool.  */
-                                         IdentityPoolName : Option[String],
+                                         IdentityPoolName : Option[Token[String]],
                                          /*Specifies whether the identity pool supports unauthenticated logins.  */
                                          AllowUnauthenticatedIdentities : Boolean,
                                          /*The "domain" by which Amazon Cognito will refer to your users. This name acts as a placeholder that allows your backend and the Amazon Cognito service to communicate about the developer provider. For the DeveloperProviderName, you can use letters and periods (.), underscores (_), and dashes (-).  */
-                                         DeveloperProviderName : Option[String],
+                                         DeveloperProviderName : Option[Token[String]],
                                          /*Key-value pairs that map provider names to provider app IDs.  */
                                          SupportedLoginProviders : Option[Map[String, String]],
                                          /*An array of Amazon Cognito user pools and their client IDs.  */
@@ -133,7 +133,7 @@ object PushSync extends DefaultJsonProtocol {
 //docurl: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-userpoolusertogroupattachment.html
 case class `AWS::Cognito::UserPoolUserToGroupAttachment`(
    /*The name of the group.  */
-   GroupName : String,
+   GroupName : Token[String],
    /*The user's user name.  */
    Username : String,
    /*The ID of the user pool.  */
@@ -178,7 +178,7 @@ object StringAttributeConstraints extends DefaultJsonProtocol {
 //docurl: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-identitypoolroleattachment.html
 case class `AWS::Cognito::IdentityPoolRoleAttachment`(
                                                        /*An identity pool ID in the format REGION:GUID.  */
-                                                       IdentityPoolId : String,
+                                                       IdentityPoolId : Token[String],
                                                        /*How users for a specific identity provider are to mapped to roles. This is a string to RoleMapping object map. The string identifies the identity provider, for example, "graph.facebook.com" or "cognito-idp-east-1.amazonaws.com/us-east-1_abcdefghi:app_client_id"  */
                                                        RoleMappings : Option[RoleMapping],
                                                        /*The map of roles associated with this pool. For a given role, the key will be either "authenticated" or "unauthenticated" and the value will be the Role ARN.  */
@@ -210,8 +210,9 @@ object MappingRule extends DefaultJsonProtocol {
 
 //docurl: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-userpoolclient.html
 case class `AWS::Cognito::UserPoolClient`(
+   name: String,
    /*The client name for the user pool client that you want to create.  */
-   ClientName : Option[String],
+   ClientName : Option[Token[String]],
    /*The explicit authentication flows, which can be one of the following: ADMIN_NO_SRP_AUTH, CUSTOM_AUTH_FLOW_ONLY, or USER_PASSWORD_AUTH.  */
    ExplicitAuthFlows : Option[Seq[String]],
    /*Specifies whether you want to generate a secret for the user pool client being created.  */
@@ -221,13 +222,18 @@ case class `AWS::Cognito::UserPoolClient`(
    /*The time limit, in days, after which the refresh token is no longer valid.  */
    RefreshTokenValidity : Option[Int],
    /*The user pool ID for the user pool where you want to create a client.  */
-   UserPoolId : String,
+   UserPoolId : Token[String],
    /*The write attributes.  */
-   WriteAttributes : Option[Seq[String]]
-)
+   WriteAttributes : Option[Seq[String]],
+   override val Condition:   Option[ConditionRef] = None,
+   override val DependsOn:   Option[Seq[String]] = None
+) extends Resource[`AWS::Cognito::UserPoolClient`] {
+
+  override def when(newCondition: Option[ConditionRef]): `AWS::Cognito::UserPoolClient` = copy(Condition = newCondition)
+}
 
 object `AWS::Cognito::UserPoolClient` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::Cognito::UserPoolClient`] = jsonFormat7(`AWS::Cognito::UserPoolClient`.apply)
+  implicit val format: JsonFormat[`AWS::Cognito::UserPoolClient`] = jsonFormat10(`AWS::Cognito::UserPoolClient`.apply)
 }
 
 
@@ -236,15 +242,15 @@ case class `AWS::Cognito::UserPoolGroup`(
    /*A description of the user group.  */
    Description : Option[String],
    /*The name of the user group. GroupName must be unique.  */
-   GroupName : String,
+   GroupName : Token[String],
    /*A nonnegative Int value that specifies the precedence of this group relative to the other groups that a user can belong to in the user pool. Zero is the highest Precedence value. Groups with lower Precedence values take precedence over groups with higher or null Precedence values. If a user belongs to two or more groups, the role ARN of the group with the lowest precedence value is used in the cognito:roles and cognito:preferred_role claims in the user's tokens.  
 Two groups can have the same Precedence value. If this happens, neither group takes precedence over the other. If two groups with the same Precedence value have the same role ARN, that role is used in the cognito:preferred_role claim in tokens for users in each group. If the two groups have different role ARNs, the cognito:preferred_role claim is not set in users' tokens.  
 The default Precedence value is null.  */
    Precedence : Option[Int],
    /*The role ARN for the group.  */
-   RoleArn : Option[String],
+   RoleArn : Option[Token[String]],
    /*The user pool ID.  */
-   UserPoolId : String
+   UserPoolId : Token[String]
 )
 
 object `AWS::Cognito::UserPoolGroup` extends DefaultJsonProtocol {
@@ -319,7 +325,7 @@ OPTIONAL - Users have the option when registering to create an MFA token.  */
    /*Specifies whether email addresses or phone numbers can be specified as usernames when a user signs up. Possible values: phone_number or email.  */
    UsernameAttributes : Option[Seq[String]] = None,
    /*A string used to name the user pool.  */
-   UserPoolName : String,
+   UserPoolName : Token[String],
    /*The cost allocation tags for the user pool. For more information, see [Adding Cost Allocation Tags to Your User Pool](https://docs.aws.amazon.com//cognito/latest/developerguide/cognito-user-pools-cost-allocation-tagging.html) in the *Amazon Cognito Developer Guide*.  */
    UserPoolTags : Option[Seq[AmazonTag]] = None,
    override val Condition: Option[ConditionRef] = None,
@@ -329,16 +335,24 @@ OPTIONAL - Users have the option when registering to create an MFA token.  */
 
   def when(newCondition: Option[ConditionRef]): `AWS::Cognito::UserPool` = copy(Condition = newCondition)
 
-  override def arn = aws"arn:aws:cognito:${`AWS::Region`}:${`AWS::AccountId`}:userpool/${UserPoolName}"
+  override def arn: Token[String] = ResourceRef(this)
 }
 
 object `AWS::Cognito::UserPool` extends DefaultJsonProtocol {
   implicit val format: JsonFormat[`AWS::Cognito::UserPool`] = jsonFormat21(`AWS::Cognito::UserPool`.apply)
 }
      
+case class UserPoolUserAttributeType(
+                                     Name: String,
+                                     Value: String
+                                    )
 
+object UserPoolUserAttributeType {
+  implicit val formation: JsonFormat[UserPoolUserAttributeType] = jsonFormat2(UserPoolUserAttributeType.apply)
+}
 //docurl: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-userpooluser.html
 case class `AWS::Cognito::UserPoolUser`(
+   name: String,
    /*Specifies how the welcome message will be sent. For email, specify EMAIL. To use a phone number, specify SMS. You can specify more than one value. The default value is SMS.   */
    DesiredDeliveryMediums : Option[Seq[String]],
    /*Use this parameter only if the phone_number_verified attribute or the email_verified attribute is set to True. Otherwise, it is ignored. The default value is False.  
@@ -346,21 +360,25 @@ If this parameter is set to True and the phone number or email address specified
 If this parameter is set to False and the alias already exists, the API throws an AliasExistsException error.   */
    ForceAliasCreation : Option[Boolean],
    /*A list of name-value pairs that contain user attributes and attribute values to be set for the user that you are creating. You can create a user without specifying any attributes other than Username. However, any attributes that you specify as required (in CreateUserPool or in the **Attributes** tab of the console) must be supplied either by you (in your call to AdminCreateUser) or by the user (when signing up in response to your welcome message).  */
-   UserAttributes : Option[Seq[AttributeType]],
+   UserAttributes : Option[Seq[UserPoolUserAttributeType]],
    /*Specifies the action you'd like to take for the message. Valid values are RESEND and SUPPRESS.  
 To resend the invitation message to a user that already exists and reset the expiration limit on the user's account, set this parameter to RESEND. To suppress sending the message, set it to SUPPRESS. You can specify only one value.  */
    MessageAction : Option[String],
    /*The user name for the user. Username must be unique within the user pool. It must be a UTF-8 string between 1 and 128 characters. You can't change the username.  */
-   Username : Option[String],
+   Username : Option[Token[String]],
    /*The ID for the user pool where the user will be created.  */
-   UserPoolId : String,
+   UserPoolId : Token[String],
    /*The user's validation data. This is a list of name-value pairs that contain user attributes and attribute values that you can use for custom validation, such as restricting the types of user accounts that can be registered. For example, you might choose to allow or disallow user sign-up based on the user's domain.  
 To configure custom validation, you must create a Pre Sign-up Lambda trigger for the user pool. The Lambda trigger receives the validation data and uses it in the validation process. For more information, see [Customizing User Pool Workflows by Using AWS Lambda Triggers](http://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html) in the *Amazon Cognito Developer Guide*.  */
-   ValidationData : Option[Seq[AttributeType]]
-)
+   ValidationData : Option[Seq[AttributeType]],
+   override val Condition: Option[ConditionRef] = None,
+   override val DependsOn: Option[Seq[String]] = None
+) extends Resource[`AWS::Cognito::UserPoolUser`] {
+  def when(newCondition: Option[ConditionRef]): `AWS::Cognito::UserPoolUser` = copy(Condition = newCondition)
+}
 
 object `AWS::Cognito::UserPoolUser` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::Cognito::UserPoolUser`] = jsonFormat7(`AWS::Cognito::UserPoolUser`.apply)
+  implicit val format: JsonFormat[`AWS::Cognito::UserPoolUser`] = jsonFormat10(`AWS::Cognito::UserPoolUser`.apply)
 }
      
 
@@ -420,9 +438,9 @@ object DeviceConfiguration extends DefaultJsonProtocol {
 //docurl: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cognito-identitypool-cognitoidentityprovider.html
 case class CognitoIdentityProvider(
    /*The client ID for the Amazon Cognito user pool.  */
-   ClientId : Option[String],
+   ClientId : Option[Token[String]],
    /*The provider name for an Amazon Cognito user pool. For example, cognito-idp.us-east-2.amazonaws.com/us-east-2_123456789.  */
-   ProviderName : Option[String],
+   ProviderName : Option[Token[String]],
    /*TRUE if server-side token validation is enabled for the identity provider’s token.  
 Once you set ServerSideTokenCheck to TRUE for an identity pool, that identity pool will check with the integrated user pools to make sure that the user has not been globally signed out or deleted before the identity pool provides an OIDC token or AWS credentials for the user.  
 If the user is signed out or deleted, the identity pool will return a 400 Not Authorized error.  */
@@ -456,9 +474,9 @@ object PasswordPolicy extends DefaultJsonProtocol {
 //docurl: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cognito-userpool-emailconfiguration.html
 case class EmailConfiguration(
    /*The REPLY-TO email address.  */
-   ReplyToEmailAddress : Option[String],
+   ReplyToEmailAddress : Option[Token[String]],
    /*The Amazon Resource Name (ARN) of the email source.  */
-   SourceArn : Option[String]
+   SourceArn : Option[Token[String]]
 )
 
 object EmailConfiguration extends DefaultJsonProtocol {

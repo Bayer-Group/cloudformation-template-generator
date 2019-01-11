@@ -1,6 +1,7 @@
 package com.monsanto.arch.cloudformation.model.resource
 
 import com.monsanto.arch.cloudformation.model.JsonWritingMatcher
+import com.monsanto.arch.cloudformation.model.resource.BillingMode.PROVISIONED
 import com.monsanto.arch.cloudformation.model.resource.DeletionPolicy.Retain
 import org.scalatest.{FunSpec, Matchers}
 import spray.json.{JsString, JsonWriter}
@@ -15,6 +16,7 @@ class DynamoDBSpec extends FunSpec with Matchers with JsonWritingMatcher {
       AttributeDefinitions = Seq(
         "name" -> StringAttributeType
       ),
+      BillingMode = Some(PROVISIONED),
       GlobalSecondaryIndexes = Seq(GlobalSecondaryIndex(
         IndexName = "globalIndex1",
         KeySchema = Seq(
@@ -77,6 +79,7 @@ class DynamoDBSpec extends FunSpec with Matchers with JsonWritingMatcher {
         |     "AttributeName":"name",
         |     "AttributeType":"S"
         |   }],
+        | "BillingMode":"PROVISIONED",
         | "GlobalSecondaryIndexes":[
         |   {
         |     "IndexName":"globalIndex1",

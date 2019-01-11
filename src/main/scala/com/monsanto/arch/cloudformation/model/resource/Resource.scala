@@ -63,3 +63,11 @@ object DeletionPolicy extends DefaultJsonProtocol {
   val values = Seq(Delete, Retain, Snapshot)
   implicit val format: JsonFormat[DeletionPolicy] = new EnumFormat[DeletionPolicy](values)
 }
+
+sealed trait BillingMode
+object BillingMode extends DefaultJsonProtocol {
+  case object PROVISIONED extends BillingMode
+  case object PAY_PER_REQUEST extends BillingMode
+  val values = Seq(PROVISIONED, PAY_PER_REQUEST)
+  implicit val format: JsonFormat[BillingMode] = new EnumFormat[BillingMode](values)
+}

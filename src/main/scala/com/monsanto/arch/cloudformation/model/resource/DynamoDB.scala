@@ -13,6 +13,7 @@ import scala.language.implicitConversions
 case class `AWS::DynamoDB::Table`(
                                    name: String,
                                    AttributeDefinitions: Seq[AttributeDefinition],
+                                   BillingMode: Option[BillingMode],
                                    GlobalSecondaryIndexes: Seq[GlobalSecondaryIndex],
                                    KeySchema: Seq[KeySchema],
                                    LocalSecondaryIndexes: Seq[LocalSecondaryIndex],
@@ -40,7 +41,7 @@ case class `AWS::DynamoDB::Table`(
 }
 
 object `AWS::DynamoDB::Table` {
-  implicit val format: JsonFormat[`AWS::DynamoDB::Table`] = jsonFormat12(`AWS::DynamoDB::Table`.apply)
+  implicit val format: JsonFormat[`AWS::DynamoDB::Table`] = jsonFormat13(`AWS::DynamoDB::Table`.apply)
 }
 
 sealed abstract class StreamViewType(val name : String)

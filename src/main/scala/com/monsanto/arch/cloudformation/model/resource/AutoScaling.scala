@@ -39,6 +39,7 @@ case class `AWS::AutoScaling::LaunchConfiguration`(
     UserData:           `Fn::Base64`,
     IamInstanceProfile: Option[Token[ResourceRef[`AWS::IAM::InstanceProfile`]]] = None,
     BlockDeviceMappings: Option[Seq[BlockDeviceMapping]] = None,
+    AssociatePublicIpAddress : Option[Token[Boolean]] = None,
     override val Condition: Option[ConditionRef] = None,
     override val DependsOn : Option[Seq[String]] = None
 ) extends Resource[`AWS::AutoScaling::LaunchConfiguration`] {
@@ -46,7 +47,7 @@ case class `AWS::AutoScaling::LaunchConfiguration`(
 }
 
 object `AWS::AutoScaling::LaunchConfiguration` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::AutoScaling::LaunchConfiguration`] = jsonFormat10(`AWS::AutoScaling::LaunchConfiguration`.apply)
+  implicit val format: JsonFormat[`AWS::AutoScaling::LaunchConfiguration`] = jsonFormat11(`AWS::AutoScaling::LaunchConfiguration`.apply)
 }
 case class BlockDeviceMapping private(
   DeviceName:   Token[String],

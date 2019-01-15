@@ -22,6 +22,7 @@ case class `AWS::DynamoDB::Table`(
                                    TimeToLiveSpecification: Option[TimeToLiveSpecification] = None,
                                    PointInTimeRecoverySpecification: Option[PointInTimeRecoverySpecification] = None,
                                    Tags: Option[Seq[AmazonTag]] = None,
+                                   SSESpecification : Option[SSESpecification] = None,
                                    override val Condition: Option[ConditionRef] = None,
                                    override val DeletionPolicy: Option[DeletionPolicy] = None,
                                    override val DependsOn: Option[Seq[String]] = None
@@ -42,7 +43,7 @@ case class `AWS::DynamoDB::Table`(
 }
 
 object `AWS::DynamoDB::Table` {
-  implicit val format: JsonFormat[`AWS::DynamoDB::Table`] = jsonFormat14(`AWS::DynamoDB::Table`.apply)
+  implicit val format: JsonFormat[`AWS::DynamoDB::Table`] = jsonFormat15(`AWS::DynamoDB::Table`.apply)
 }
 
 sealed abstract class StreamViewType(val name : String)
@@ -186,6 +187,12 @@ case class GlobalSecondaryIndex (
 
 object GlobalSecondaryIndex {
   implicit val format: JsonFormat[GlobalSecondaryIndex] = jsonFormat4(GlobalSecondaryIndex.apply)
+}
+
+case class SSESpecification(SSEEnabled: Boolean)
+
+object SSESpecification {
+  implicit val format: RootJsonFormat[SSESpecification] = jsonFormat1(SSESpecification.apply)
 }
 
 case class TimeToLiveSpecification(AttributeName: String, Enabled: Boolean)

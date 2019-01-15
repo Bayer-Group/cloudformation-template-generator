@@ -13,7 +13,7 @@ import scala.language.implicitConversions
 case class `AWS::DynamoDB::Table`(
                                    name: String,
                                    AttributeDefinitions: Seq[AttributeDefinition],
-                                   BillingMode: Option[BillingMode],
+                                   BillingMode: Option[BillingMode] = None,
                                    GlobalSecondaryIndexes: Seq[GlobalSecondaryIndex],
                                    KeySchema: Seq[KeySchema],
                                    LocalSecondaryIndexes: Seq[LocalSecondaryIndex],

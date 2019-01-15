@@ -378,18 +378,19 @@ object `AWS::EC2::RouteTable` extends DefaultJsonProtocol {
 
 case class `AWS::EC2::SecurityGroup`(
   name:                 String,
-  GroupDescription:     String,
+  GroupDescription:     Token[String],
   VpcId:                VpcId,
   SecurityGroupIngress: Option[Seq[IngressSpec]],
   SecurityGroupEgress:  Option[Seq[EgressSpec]] = None,
   Tags:                 Seq[AmazonTag],
+  GroupName:            Option[Token[String]] = None,
   override val DependsOn: Option[Seq[String]] = None,
   override val Condition: Option[ConditionRef] = None
 ) extends Resource[`AWS::EC2::SecurityGroup`]{
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
 }
 object `AWS::EC2::SecurityGroup` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::EC2::SecurityGroup`] = jsonFormat8(`AWS::EC2::SecurityGroup`.apply)
+  implicit val format: JsonFormat[`AWS::EC2::SecurityGroup`] = jsonFormat9(`AWS::EC2::SecurityGroup`.apply)
 }
 
 sealed trait IngressSpec

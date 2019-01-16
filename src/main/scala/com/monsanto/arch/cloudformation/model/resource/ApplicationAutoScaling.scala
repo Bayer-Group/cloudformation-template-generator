@@ -121,7 +121,7 @@ object ApplicationAutoScaling {
 
   case class TargetTrackingScalingPolicyConfiguration(CustomizedMetricSpecification: Option[CustomizedMetricSpecification] = None,
                                                       DisableScaleIn: Option[Boolean] = None,
-                                                      PredefinedMetricSpecification: Option[String] = None,
+                                                      PredefinedMetricSpecification: Option[PredefinedMetricSpecification] = None,
                                                       ScaleInCooldown: Option[Token[Int]] = None,
                                                       ScaleOutCooldown: Option[Token[Int]] = None,
                                                       TargetValue: Double)

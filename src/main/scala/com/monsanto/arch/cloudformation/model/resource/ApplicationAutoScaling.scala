@@ -71,6 +71,64 @@ object ApplicationAutoScaling {
     private type T = StepScalingPolicyConfiguration
     implicit val format: JsonFormat[T] = jsonFormat5(apply)
   }
+
+  case class CustomizedMetricSpecification(Dimensions: Option[Seq[`AWS::CloudWatch::Alarm::Dimension`]] = None,
+                                           MetricName: String,
+                                           Namespace: `AWS::CloudWatch::Alarm::Namespace`,
+                                           Statistic: `AWS::CloudWatch::Alarm::Statistic`,
+                                           Unit: Option[`AWS::CloudWatch::Alarm::Unit`] = None)
+
+  object CustomizedMetricSpecification extends DefaultJsonProtocol {
+    implicit val format: JsonFormat[CustomizedMetricSpecification] = jsonFormat5(apply)
+  }
+
+  sealed trait PredefinedMetricType
+  object PredefinedMetricType extends DefaultJsonProtocol {
+    object DynamoDBReadCapacityUtilization extends PredefinedMetricType
+    object DynamoDBWriteCapacityUtilization extends PredefinedMetricType
+    object ALBRequestCountPerTarget extends PredefinedMetricType
+    object RDSReaderAverageCPUUtilization extends PredefinedMetricType
+    object RDSReaderAverageDatabaseConnections extends PredefinedMetricType
+    object EC2SpotFleetRequestAverageCPUUtilization extends PredefinedMetricType
+    object EC2SpotFleetRequestAverageNetworkIn extends PredefinedMetricType
+    object EC2SpotFleetRequestAverageNetworkOut extends PredefinedMetricType
+    object SageMakerVariantInvocationsPerInstance extends PredefinedMetricType
+    object ECSServiceAverageCPUUtilization extends PredefinedMetricType
+    object ECSServiceAverageMemoryUtilization extends PredefinedMetricType
+
+    val values = Seq(
+      DynamoDBReadCapacityUtilization,
+      DynamoDBWriteCapacityUtilization,
+      ALBRequestCountPerTarget,
+      RDSReaderAverageCPUUtilization,
+      RDSReaderAverageDatabaseConnections,
+      EC2SpotFleetRequestAverageCPUUtilization,
+      EC2SpotFleetRequestAverageNetworkIn,
+      EC2SpotFleetRequestAverageNetworkOut,
+      SageMakerVariantInvocationsPerInstance,
+      ECSServiceAverageCPUUtilization,
+      ECSServiceAverageMemoryUtilization)
+
+    implicit val format: JsonFormat[PredefinedMetricType] = new EnumFormat[PredefinedMetricType](values)
+  }
+
+  case class PredefinedMetricSpecification(PredefinedMetricType: PredefinedMetricType,
+                                           ResourceLabel: Option[Token[String]] = None)
+
+  case object PredefinedMetricSpecification extends DefaultJsonProtocol {
+    implicit val format: JsonFormat[PredefinedMetricSpecification] = jsonFormat2(apply)
+  }
+
+  case class TargetTrackingScalingPolicyConfiguration(CustomizedMetricSpecification: Option[CustomizedMetricSpecification] = None,
+                                                      DisableScaleIn: Option[Boolean] = None,
+                                                      PredefinedMetricSpecification: Option[PredefinedMetricSpecification] = None,
+                                                      ScaleInCooldown: Option[Token[Int]] = None,
+                                                      ScaleOutCooldown: Option[Token[Int]] = None,
+                                                      TargetValue: Double)
+
+  object TargetTrackingScalingPolicyConfiguration extends DefaultJsonProtocol {
+    implicit val format: JsonFormat[TargetTrackingScalingPolicyConfiguration] = jsonFormat6(apply)
+  }
 }
 
 case class `AWS::ApplicationAutoScaling::ScalableTarget`(name: String,
@@ -100,6 +158,7 @@ case class `AWS::ApplicationAutoScaling::ScalingPolicy`(name: String,
                                                         ScalingTargetId: Option[Token[String]] = None,
                                                         ServiceNamespace: Option[`AWS::CloudWatch::Alarm::Namespace`] = None,
                                                         StepScalingPolicyConfiguration: Option[ApplicationAutoScaling.StepScalingPolicyConfiguration] = None,
+                                                        TargetTrackingScalingPolicyConfiguration: Option[ApplicationAutoScaling.TargetTrackingScalingPolicyConfiguration] = None,
                                                         override val Condition:  Option[ConditionRef] = None,
                                                         override val DependsOn : Option[Seq[String]] = None
                                                        )
@@ -113,5 +172,5 @@ case class `AWS::ApplicationAutoScaling::ScalingPolicy`(name: String,
 
 object `AWS::ApplicationAutoScaling::ScalingPolicy` extends DefaultJsonProtocol {
   private type T = `AWS::ApplicationAutoScaling::ScalingPolicy`
-  implicit val format: JsonFormat[T] = jsonFormat10(apply)
+  implicit val format: JsonFormat[T] = jsonFormat11(apply)
 }

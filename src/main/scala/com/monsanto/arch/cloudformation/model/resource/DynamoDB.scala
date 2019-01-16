@@ -3,6 +3,7 @@ package com.monsanto.arch.cloudformation.model.resource
 import com.monsanto.arch.cloudformation.model._
 import spray.json._
 import DefaultJsonProtocol._
+import com.monsanto.arch.cloudformation.model.resource.BillingMode.{PAY_PER_REQUEST, PROVISIONED}
 
 import scala.language.implicitConversions
 
@@ -13,10 +14,11 @@ import scala.language.implicitConversions
 case class `AWS::DynamoDB::Table`(
                                    name: String,
                                    AttributeDefinitions: Seq[AttributeDefinition],
+                                   BillingMode: Option[BillingMode] = None,
                                    GlobalSecondaryIndexes: Seq[GlobalSecondaryIndex],
                                    KeySchema: Seq[KeySchema],
                                    LocalSecondaryIndexes: Seq[LocalSecondaryIndex],
-                                   ProvisionedThroughput: ProvisionedThroughput,
+                                   ProvisionedThroughput: Option[ProvisionedThroughput] = None,
                                    StreamSpecification : Option[StreamSpecification] = None,
                                    TableName: Option[Token[String]],
                                    TimeToLiveSpecification: Option[TimeToLiveSpecification] = None,
@@ -27,6 +29,8 @@ case class `AWS::DynamoDB::Table`(
                                    override val DeletionPolicy: Option[DeletionPolicy] = None,
                                    override val DependsOn: Option[Seq[String]] = None
                                  ) extends Resource[`AWS::DynamoDB::Table`] with HasArn {
+  require((BillingMode.isEmpty || BillingMode.contains(PROVISIONED)) ^ ProvisionedThroughput.isEmpty, "Provisioned Throughput is mandatory if Billing mode is NOT provided or PROVISIONED. Also You cannot specify provisioned throughput for PAY_PER_REQUEST billing mode")
+  require(BillingMode.contains(PAY_PER_REQUEST) ^ ProvisionedThroughput.nonEmpty, "Provisioned Throughput is mandatory if Billing mode is NOT provided or PROVISIONED. Also You cannot specify provisioned throughput for PAY_PER_REQUEST billing mode")
 
   override def arn = aws"arn:aws:dynamodb:${`AWS::Region`}:${`AWS::AccountId`}:table/${ResourceRef(this)}"
 
@@ -43,7 +47,7 @@ case class `AWS::DynamoDB::Table`(
 }
 
 object `AWS::DynamoDB::Table` {
-  implicit val format: JsonFormat[`AWS::DynamoDB::Table`] = jsonFormat15(`AWS::DynamoDB::Table`.apply)
+  implicit val format: JsonFormat[`AWS::DynamoDB::Table`] = jsonFormat16(`AWS::DynamoDB::Table`.apply)
 }
 
 sealed abstract class StreamViewType(val name : String)
@@ -199,6 +203,14 @@ case class TimeToLiveSpecification(AttributeName: String, Enabled: Boolean)
 
 object TimeToLiveSpecification {
   implicit val format: RootJsonFormat[TimeToLiveSpecification] = jsonFormat2(TimeToLiveSpecification.apply)
+}
+
+sealed trait BillingMode
+object BillingMode extends DefaultJsonProtocol {
+  case object PROVISIONED extends BillingMode
+  case object PAY_PER_REQUEST extends BillingMode
+  val values = Seq(PROVISIONED, PAY_PER_REQUEST)
+  implicit val format: JsonFormat[BillingMode] = new EnumFormat[BillingMode](values)
 }
 
 case class PointInTimeRecoverySpecification(PointInTimeRecoveryEnabled: Option[Boolean])

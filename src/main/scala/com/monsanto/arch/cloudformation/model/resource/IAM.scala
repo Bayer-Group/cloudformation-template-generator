@@ -14,7 +14,7 @@ import scala.language.implicitConversions
 case class `AWS::IAM::InstanceProfile`(
   name:  String,
   Path:  Token[String],
-  Roles: Seq[ResourceRef[`AWS::IAM::Role`]],
+  Roles: Seq[Token[ResourceRef[`AWS::IAM::Role`]]],
   InstanceProfileName : Option[Token[String]] = None,
   override val DependsOn: Option[Seq[String]] = None,
   override val Condition: Option[ConditionRef] = None

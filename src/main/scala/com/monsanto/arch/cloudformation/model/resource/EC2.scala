@@ -760,3 +760,19 @@ case class `AWS::EC2::NatGateway`(
 object `AWS::EC2::NatGateway` extends DefaultJsonProtocol {
   implicit val format: JsonFormat[`AWS::EC2::NatGateway`] = jsonFormat5(`AWS::EC2::NatGateway`.apply)
 }
+
+case class `AWS::EC2::VPCEndpoint`(
+  name:                     String,
+  ServiceName:              String,
+  VpcId:                    VpcId,
+  PolicyDocument:           Option[PolicyDocument] = None,
+  RouteTableIds:            Option[Seq[ResourceRef[`AWS::EC2::RouteTable`]]] = None,
+  override val Condition:   Option[ConditionRef] = None,
+  override val DependsOn:   Option[Seq[String]] = None
+) extends Resource[`AWS::EC2::VPCEndpoint`] {
+  def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
+}
+object `AWS::EC2::VPCEndpoint` extends DefaultJsonProtocol {
+  implicit val format: JsonFormat[`AWS::EC2::VPCEndpoint`] = jsonFormat7(`AWS::EC2::VPCEndpoint`.apply)
+}
+

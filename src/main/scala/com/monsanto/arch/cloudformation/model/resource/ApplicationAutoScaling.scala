@@ -3,6 +3,7 @@ package com.monsanto.arch.cloudformation.model.resource
 import java.time.Instant
 
 import com.monsanto.arch.cloudformation.model._
+import com.monsanto.arch.cloudformation.model.resource.ApplicationAutoScaling.ScalableDimension
 import spray.json._
 
 object ApplicationAutoScaling {
@@ -26,10 +27,26 @@ object ApplicationAutoScaling {
     implicit val format: JsonFormat[T] = jsonFormat5(apply)
   }
 
-  sealed trait ScalingType extends Product with Serializable
+  sealed trait ServiceNamespace extends Product with Serializable
 
-  object ScalingType extends DefaultJsonProtocol {
-    private type T = ScalingType
+  object ServiceNamespace extends DefaultJsonProtocol {
+    private type T = ServiceNamespace
+    case object appstream extends T
+    case object `custom-resource` extends T
+    case object dynamodb extends T
+    case object ec2 extends T
+    case object ecs extends T
+    case object elasticmapreduce extends T
+    case object rds extends T
+    case object sagemaker extends T
+    val values = Seq(appstream, `custom-resource`, dynamodb, ec2, ecs, elasticmapreduce, rds, sagemaker)
+    implicit val format: JsonFormat[T] = new EnumFormat[T](values)
+  }
+
+  sealed trait PolicyType extends Product with Serializable
+
+  object PolicyType extends DefaultJsonProtocol {
+    private type T = PolicyType
     case object StepScaling extends T
     case object TargetTrackingScaling extends T
     val values = Seq(StepScaling, TargetTrackingScaling)
@@ -44,6 +61,39 @@ object ApplicationAutoScaling {
     case object ExactCapacity extends T
     case object PercentChangeInCapacity extends T
     val values = Seq(ChangeInCapacity, ExactCapacity, PercentChangeInCapacity)
+    implicit val format: JsonFormat[T] = new EnumFormat[T](values)
+  }
+
+
+  sealed trait ScalableDimension extends Product with Serializable
+
+  object ScalableDimension extends DefaultJsonProtocol {
+    private type T = ScalableDimension
+    case object `ecs:service:DesiredCount`                      extends T
+    case object `ec2:spot-fleet-request:TargetCapacity`         extends T
+    case object `elasticmapreduce:instancegroup:InstanceCount`  extends T
+    case object `appstream:fleet:DesiredCapacity`               extends T
+    case object `dynamodb:table:ReadCapacityUnits`              extends T
+    case object `dynamodb:table:WriteCapacityUnits`             extends T
+    case object `dynamodb:index:ReadCapacityUnits`              extends T
+    case object `dynamodb:index:WriteCapacityUnits`             extends T
+    case object `rds:cluster:ReadReplicaCount`                  extends T
+    case object `sagemaker:variant:DesiredInstanceCount`        extends T
+    case object `custom-resource:ResourceType:Property`         extends T
+
+    val values = Seq(
+      `ecs:service:DesiredCount`,
+      `ec2:spot-fleet-request:TargetCapacity`,
+      `elasticmapreduce:instancegroup:InstanceCount`,
+      `appstream:fleet:DesiredCapacity`,
+      `dynamodb:table:ReadCapacityUnits`,
+      `dynamodb:table:WriteCapacityUnits`,
+      `dynamodb:index:ReadCapacityUnits`,
+      `dynamodb:index:WriteCapacityUnits`,
+      `rds:cluster:ReadReplicaCount`,
+      `sagemaker:variant:DesiredInstanceCount`,
+      `custom-resource:ResourceType:Property`
+    )
     implicit val format: JsonFormat[T] = new EnumFormat[T](values)
   }
 
@@ -136,12 +186,14 @@ case class `AWS::ApplicationAutoScaling::ScalableTarget`(name: String,
                                                          MinCapacity: Token[Int],
                                                          ResourceId: Token[String],
                                                          RoleARN: Token[String],
-                                                         ScalableDimension: Token[String],
+                                                         ScalableDimension: ScalableDimension,
                                                          ScheduledActions: Option[Seq[ScheduledAction]] = None,
-                                                         ServiceNamespace: `AWS::CloudWatch::Alarm::Namespace`,
+                                                         ServiceNamespace: ApplicationAutoScaling.ServiceNamespace,
                                                          override val Condition:  Option[ConditionRef] = None,
                                                          override val DependsOn : Option[Seq[String]] = None)
   extends Resource[`AWS::ApplicationAutoScaling::ScalableTarget`] {
+  assert(ScalableDimension.toString.split(":").head == ServiceNamespace.toString, "ScalableDimension must match the ServiceNamespace")
+
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
 }
 
@@ -152,10 +204,10 @@ object `AWS::ApplicationAutoScaling::ScalableTarget` extends DefaultJsonProtocol
 
 case class `AWS::ApplicationAutoScaling::ScalingPolicy`(name: String,
                                                         PolicyName: Token[String],
-                                                        ScalingType: ApplicationAutoScaling.ScalingType,
+                                                        PolicyType: ApplicationAutoScaling.PolicyType,
                                                         ResourceId: Option[Token[String]] = None,
                                                         ScalableDimension: Option[Token[String]] = None,
-                                                        ScalingTargetId: Option[Token[String]] = None,
+                                                        ScalingTargetId: Option[Token[ResourceRef[`AWS::ApplicationAutoScaling::ScalableTarget`]]] = None,
                                                         ServiceNamespace: Option[`AWS::CloudWatch::Alarm::Namespace`] = None,
                                                         StepScalingPolicyConfiguration: Option[ApplicationAutoScaling.StepScalingPolicyConfiguration] = None,
                                                         TargetTrackingScalingPolicyConfiguration: Option[ApplicationAutoScaling.TargetTrackingScalingPolicyConfiguration] = None,

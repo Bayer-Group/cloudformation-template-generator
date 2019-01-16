@@ -758,18 +758,31 @@ object `AWS::EC2::NatGateway` extends DefaultJsonProtocol {
   implicit val format: JsonFormat[`AWS::EC2::NatGateway`] = jsonFormat5(`AWS::EC2::NatGateway`.apply)
 }
 
+sealed trait VpcEndpointType
+object VpcEndpointType extends DefaultJsonProtocol {
+
+  case object Interface  extends VpcEndpointType
+  case object Gateway    extends VpcEndpointType
+
+  val values = Seq(Interface, Gateway)
+  implicit val format: JsonFormat[VpcEndpointType] = new EnumFormat[VpcEndpointType](values)
+}
+
 case class `AWS::EC2::VPCEndpoint`(
   name:                     String,
   ServiceName:              String,
   VpcId:                    VpcId,
   PolicyDocument:           Option[PolicyDocument] = None,
+  PrivateDnsEnabled:        Option[Boolean] = None,
   RouteTableIds:            Option[Seq[ResourceRef[`AWS::EC2::RouteTable`]]] = None,
+  SecurityGroupIds:         Option[Seq[ResourceRef[`AWS::EC2::SecurityGroup`]]] = None,
+  SubnetIds:                Option[Seq[ResourceRef[`AWS::EC2::Subnet`]]] = None,
+  VpcEndpointType:          Option[VpcEndpointType] = None,
   override val Condition:   Option[ConditionRef] = None,
   override val DependsOn:   Option[Seq[String]] = None
 ) extends Resource[`AWS::EC2::VPCEndpoint`] {
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
 }
 object `AWS::EC2::VPCEndpoint` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::EC2::VPCEndpoint`] = jsonFormat7(`AWS::EC2::VPCEndpoint`.apply)
+  implicit val format: JsonFormat[`AWS::EC2::VPCEndpoint`] = jsonFormat11(`AWS::EC2::VPCEndpoint`.apply)
 }
-

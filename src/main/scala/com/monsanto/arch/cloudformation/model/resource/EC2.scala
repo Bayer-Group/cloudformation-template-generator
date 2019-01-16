@@ -378,18 +378,19 @@ object `AWS::EC2::RouteTable` extends DefaultJsonProtocol {
 
 case class `AWS::EC2::SecurityGroup`(
   name:                 String,
-  GroupDescription:     String,
+  GroupDescription:     Token[String],
   VpcId:                VpcId,
   SecurityGroupIngress: Option[Seq[IngressSpec]],
   SecurityGroupEgress:  Option[Seq[EgressSpec]] = None,
   Tags:                 Seq[AmazonTag],
+  GroupName:            Option[Token[String]] = None,
   override val DependsOn: Option[Seq[String]] = None,
   override val Condition: Option[ConditionRef] = None
 ) extends Resource[`AWS::EC2::SecurityGroup`]{
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
 }
 object `AWS::EC2::SecurityGroup` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::EC2::SecurityGroup`] = jsonFormat8(`AWS::EC2::SecurityGroup`.apply)
+  implicit val format: JsonFormat[`AWS::EC2::SecurityGroup`] = jsonFormat9(`AWS::EC2::SecurityGroup`.apply)
 }
 
 sealed trait IngressSpec
@@ -482,13 +483,14 @@ case class `AWS::EC2::SecurityGroupEgress`(
   ToPort:                     String,
   CidrIp:                     Option[Token[CidrBlock]] = None, // either CidrIp or SourceSecurityGroupId required
   DestinationSecurityGroupId: Option[Token[ResourceRef[`AWS::EC2::SecurityGroup`]]] = None, // either CidrIp or SourceSecurityGroupId required
+  Description:           Option[Token[String]] = None,
   override val DependsOn: Option[Seq[String]] = None,
   override val Condition: Option[ConditionRef] = None
 ) extends Resource[`AWS::EC2::SecurityGroupEgress`]{
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
 }
 object `AWS::EC2::SecurityGroupEgress` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::EC2::SecurityGroupEgress`] = jsonFormat9(`AWS::EC2::SecurityGroupEgress`.apply)
+  implicit val format: JsonFormat[`AWS::EC2::SecurityGroupEgress`] = jsonFormat10(`AWS::EC2::SecurityGroupEgress`.apply)
 }
 
 case class `AWS::EC2::SecurityGroupIngress`(
@@ -499,13 +501,14 @@ case class `AWS::EC2::SecurityGroupIngress`(
   ToPort:                Token[String],
   CidrIp:                Option[Token[CidrBlock]] = None, // either CidrIp or SourceSecurityGroupId required
   SourceSecurityGroupId: Option[Token[ResourceRef[`AWS::EC2::SecurityGroup`]]] = None, // either CidrIp or SourceSecurityGroupId required
+  Description:           Option[Token[String]] = None,
   override val DependsOn: Option[Seq[String]] = None,
   override val Condition: Option[ConditionRef] = None
 ) extends Resource[`AWS::EC2::SecurityGroupIngress`]{
   def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
 }
 object `AWS::EC2::SecurityGroupIngress` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::EC2::SecurityGroupIngress`] = jsonFormat9(`AWS::EC2::SecurityGroupIngress`.apply)
+  implicit val format: JsonFormat[`AWS::EC2::SecurityGroupIngress`] = jsonFormat10(`AWS::EC2::SecurityGroupIngress`.apply)
 }
 
 case class `AWS::EC2::Subnet`(
@@ -756,4 +759,33 @@ case class `AWS::EC2::NatGateway`(
 }
 object `AWS::EC2::NatGateway` extends DefaultJsonProtocol {
   implicit val format: JsonFormat[`AWS::EC2::NatGateway`] = jsonFormat5(`AWS::EC2::NatGateway`.apply)
+}
+
+sealed trait VpcEndpointType
+object VpcEndpointType extends DefaultJsonProtocol {
+
+  case object Interface  extends VpcEndpointType
+  case object Gateway    extends VpcEndpointType
+
+  val values = Seq(Interface, Gateway)
+  implicit val format: JsonFormat[VpcEndpointType] = new EnumFormat[VpcEndpointType](values)
+}
+
+case class `AWS::EC2::VPCEndpoint`(
+  name:                     String,
+  ServiceName:              String,
+  VpcId:                    VpcId,
+  PolicyDocument:           Option[PolicyDocument] = None,
+  PrivateDnsEnabled:        Option[Boolean] = None,
+  RouteTableIds:            Option[Seq[ResourceRef[`AWS::EC2::RouteTable`]]] = None,
+  SecurityGroupIds:         Option[Seq[ResourceRef[`AWS::EC2::SecurityGroup`]]] = None,
+  SubnetIds:                Option[Seq[ResourceRef[`AWS::EC2::Subnet`]]] = None,
+  VpcEndpointType:          Option[VpcEndpointType] = None,
+  override val Condition:   Option[ConditionRef] = None,
+  override val DependsOn:   Option[Seq[String]] = None
+) extends Resource[`AWS::EC2::VPCEndpoint`] {
+  def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
+}
+object `AWS::EC2::VPCEndpoint` extends DefaultJsonProtocol {
+  implicit val format: JsonFormat[`AWS::EC2::VPCEndpoint`] = jsonFormat11(`AWS::EC2::VPCEndpoint`.apply)
 }

@@ -22,6 +22,9 @@ case class `AWS::DynamoDB::Table`(
                                    StreamSpecification : Option[StreamSpecification] = None,
                                    TableName: Option[Token[String]],
                                    TimeToLiveSpecification: Option[TimeToLiveSpecification] = None,
+                                   PointInTimeRecoverySpecification: Option[PointInTimeRecoverySpecification] = None,
+                                   Tags: Option[Seq[AmazonTag]] = None,
+                                   SSESpecification : Option[SSESpecification] = None,
                                    override val Condition: Option[ConditionRef] = None,
                                    override val DeletionPolicy: Option[DeletionPolicy] = None,
                                    override val DependsOn: Option[Seq[String]] = None
@@ -44,7 +47,7 @@ case class `AWS::DynamoDB::Table`(
 }
 
 object `AWS::DynamoDB::Table` {
-  implicit val format: JsonFormat[`AWS::DynamoDB::Table`] = jsonFormat13(`AWS::DynamoDB::Table`.apply)
+  implicit val format: JsonFormat[`AWS::DynamoDB::Table`] = jsonFormat16(`AWS::DynamoDB::Table`.apply)
 }
 
 sealed abstract class StreamViewType(val name : String)
@@ -190,6 +193,12 @@ object GlobalSecondaryIndex {
   implicit val format: JsonFormat[GlobalSecondaryIndex] = jsonFormat4(GlobalSecondaryIndex.apply)
 }
 
+case class SSESpecification(SSEEnabled: Boolean)
+
+object SSESpecification {
+  implicit val format: RootJsonFormat[SSESpecification] = jsonFormat1(SSESpecification.apply)
+}
+
 case class TimeToLiveSpecification(AttributeName: String, Enabled: Boolean)
 
 object TimeToLiveSpecification {
@@ -202,4 +211,10 @@ object BillingMode extends DefaultJsonProtocol {
   case object PAY_PER_REQUEST extends BillingMode
   val values = Seq(PROVISIONED, PAY_PER_REQUEST)
   implicit val format: JsonFormat[BillingMode] = new EnumFormat[BillingMode](values)
+}
+
+case class PointInTimeRecoverySpecification(PointInTimeRecoveryEnabled: Option[Boolean])
+
+object PointInTimeRecoverySpecification {
+  implicit val format: RootJsonFormat[PointInTimeRecoverySpecification] = jsonFormat1(apply)
 }

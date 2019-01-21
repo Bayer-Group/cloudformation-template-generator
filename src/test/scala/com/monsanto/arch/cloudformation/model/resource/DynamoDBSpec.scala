@@ -232,10 +232,6 @@ class DynamoDBSpec extends FunSpec with Matchers with JsonWritingMatcher {
           "gKey1" -> HashKeyType
         ),
         Projection = AllProjection,
-        ProvisionedThroughput = ProvisionedThroughput(
-          ReadCapacityUnits = 1,
-          WriteCapacityUnits = 1
-        )
       )),
       KeySchema = Seq(
         "key1" -> RangeKeyType
@@ -291,10 +287,6 @@ class DynamoDBSpec extends FunSpec with Matchers with JsonWritingMatcher {
         |       }],
         |     "Projection":{
         |       "ProjectionType":"ALL"
-        |     },
-        |     "ProvisionedThroughput":{
-        |       "ReadCapacityUnits":1,
-        |       "WriteCapacityUnits":1
         |     }
         |   }],
         |  "KeySchema":[
@@ -344,6 +336,44 @@ class DynamoDBSpec extends FunSpec with Matchers with JsonWritingMatcher {
           ReadCapacityUnits = 1,
           WriteCapacityUnits = 1
         ),
+        TableName = Some("Table1"),
+        DeletionPolicy = Some(Retain),
+        DependsOn = Some(Seq("myothertable")),
+        TimeToLiveSpecification = Some(TimeToLiveSpecification(AttributeName = "ttl", Enabled = true))
+      )
+
+    }
+    assert(ex.getMessage === "requirement failed: Provisioned Throughput is mandatory if Billing mode is NOT provided or PROVISIONED. Also You cannot specify provisioned throughput for PAY_PER_REQUEST billing mode")
+  }
+  it("should NOT generate policy document if Billing Mode is PAY_PER_REQUEST and has Provisioned Throughput defined in GlobalSecondaryIndexes") {
+    val ex = intercept[IllegalArgumentException] {
+      val dynamoDbTable = `AWS::DynamoDB::Table`(
+        name = "mytable",
+        AttributeDefinitions = Seq(
+          "name" -> StringAttributeType
+        ),
+        BillingMode = Some(PAY_PER_REQUEST),
+        GlobalSecondaryIndexes = Seq(GlobalSecondaryIndex(
+          IndexName = "globalIndex1",
+          KeySchema = Seq(
+            "gKey1" -> HashKeyType
+          ),
+          Projection = AllProjection,
+          ProvisionedThroughput = ProvisionedThroughput(
+            ReadCapacityUnits = 1,
+            WriteCapacityUnits = 1
+          )
+        )),
+        KeySchema = Seq(
+          "key1" -> RangeKeyType
+        ),
+        LocalSecondaryIndexes = Seq(LocalSecondaryIndex(
+          IndexName = "localIndex1",
+          KeySchema = Seq(
+            "key2" -> HashKeyType
+          ),
+          Projection = IncludeProjection(Seq("test1"))
+        )),
         TableName = Some("Table1"),
         DeletionPolicy = Some(Retain),
         DependsOn = Some(Seq("myothertable")),

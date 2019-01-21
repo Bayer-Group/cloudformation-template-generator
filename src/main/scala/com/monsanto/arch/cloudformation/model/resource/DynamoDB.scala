@@ -31,6 +31,7 @@ case class `AWS::DynamoDB::Table`(
                                  ) extends Resource[`AWS::DynamoDB::Table`] with HasArn {
   require((BillingMode.isEmpty || BillingMode.contains(PROVISIONED)) ^ ProvisionedThroughput.isEmpty, "Provisioned Throughput is mandatory if Billing mode is NOT provided or PROVISIONED. Also You cannot specify provisioned throughput for PAY_PER_REQUEST billing mode")
   require(BillingMode.contains(PAY_PER_REQUEST) ^ ProvisionedThroughput.nonEmpty, "Provisioned Throughput is mandatory if Billing mode is NOT provided or PROVISIONED. Also You cannot specify provisioned throughput for PAY_PER_REQUEST billing mode")
+  require(BillingMode.contains(PAY_PER_REQUEST) ^ GlobalSecondaryIndexes.exists(_.ProvisionedThroughput.isDefined), "Provisioned Throughput is mandatory if Billing mode is NOT provided or PROVISIONED. Also You cannot specify provisioned throughput for PAY_PER_REQUEST billing mode")
 
   override def arn = aws"arn:aws:dynamodb:${`AWS::Region`}:${`AWS::AccountId`}:table/${ResourceRef(this)}"
 
@@ -186,7 +187,7 @@ case class GlobalSecondaryIndex (
                                   IndexName: String,
                                   KeySchema: Seq[KeySchema],
                                   Projection: Projection,
-                                  ProvisionedThroughput: ProvisionedThroughput
+                                  ProvisionedThroughput: Option[ProvisionedThroughput] = None
                                 ) extends DynamoIndex
 
 object GlobalSecondaryIndex {

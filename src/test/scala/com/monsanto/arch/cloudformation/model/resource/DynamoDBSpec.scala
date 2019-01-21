@@ -231,7 +231,7 @@ class DynamoDBSpec extends FunSpec with Matchers with JsonWritingMatcher {
         KeySchema = Seq(
           "gKey1" -> HashKeyType
         ),
-        Projection = AllProjection,
+        Projection = AllProjection
       )),
       KeySchema = Seq(
         "key1" -> RangeKeyType

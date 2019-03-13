@@ -210,6 +210,7 @@ object `AWS::KinesisFirehose::DeliveryStream` extends DefaultJsonProtocol{
 
   def s3(name: String,
     ExtendedS3DestinationConfiguration: ExtendedS3DestinationConfiguration,
+    KinesisStreamSourceConfiguration :Option[KinesisStreamSourceConfiguration] = None,
     DeliveryStreamName: Option[String] = None,
     DeliveryStreamType: Option[DeliveryStreamType] = None,
     DependsOn: Option[Seq[String]] = None,
@@ -219,6 +220,7 @@ object `AWS::KinesisFirehose::DeliveryStream` extends DefaultJsonProtocol{
       DeliveryStreamName,
       DeliveryStreamType,
       Some(ExtendedS3DestinationConfiguration),
+      KinesisStreamSourceConfiguration = KinesisStreamSourceConfiguration,
       DependsOn = DependsOn,
       Condition = Condition
     )

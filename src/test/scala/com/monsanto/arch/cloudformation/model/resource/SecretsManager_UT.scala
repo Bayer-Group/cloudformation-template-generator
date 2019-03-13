@@ -43,7 +43,7 @@ class SecretManager_UT extends FunSpec with Matchers{
           "TargetId" -> JsObject(Map("Ref" -> JsString("MyRDSInstance"))),
           "TargetType" -> JsString("AWS::RDS::DBInstance")
         )),
-        "Type" -> JsString("AWS::SecretsManager::SecretTargetAttachment"),
+        "Type" -> JsString("AWS::SecretsManager::SecretTargetAttachment")
       ))
     }
   }

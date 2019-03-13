@@ -118,17 +118,17 @@ object S3DestinationConfiguration extends DefaultJsonProtocol {
   implicit val format: JsonFormat[S3DestinationConfiguration] = jsonFormat7(S3DestinationConfiguration.apply)
 }
 
-sealed trait CompressionForma
+sealed trait CompressionFormat
 
 object CompressionFormat {
 
-  case object UNCOMPRESSED extends CompressionForma
+  case object UNCOMPRESSED extends CompressionFormat
 
-  case object GZIP extends CompressionForma
+  case object GZIP extends CompressionFormat
 
-  case object ZIP extends CompressionForma
+  case object ZIP extends CompressionFormat
 
-  case object Snappy extends CompressionForma
+  case object Snappy extends CompressionFormat
 
   val values = List(UNCOMPRESSED, GZIP, ZIP, Snappy)
   implicit val format: JsonFormat[CompressionFormat] = new EnumFormat[CompressionFormat](values)

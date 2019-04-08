@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.9.2]
+  - Added Kinesis Firehose Delivery Stream S3 support
+  - Added Kinesis Stream Encryption support
+
 ## [3.9.1] - 2018-06-08
   - Added Node 8.10 as a lambda runtime option (see [#254](https://github.com/MonsantoCo/cloudformation-template-generator/pull/254))
   - Added the tags field to Lambda Functions (see [#254](https://github.com/MonsantoCo/cloudformation-template-generator/pull/254))

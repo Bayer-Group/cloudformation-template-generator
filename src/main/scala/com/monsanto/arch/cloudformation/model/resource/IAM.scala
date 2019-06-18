@@ -124,6 +124,7 @@ case class `AWS::IAM::Role`(
   ManagedPolicyArns:        Option[Seq[ManagedPolicyARN]] = None,
   Path:                     Option[Token[String]] = None,
   Policies:                 Option[Seq[Policy]] = None,
+  PermissionsBoundary:      Option[Token[String]] = None,
   RoleName:                 Option[Token[String]] = None,
   override val DependsOn: Option[Seq[String]] = None,
   override val Condition: Option[ConditionRef] = None
@@ -134,7 +135,7 @@ case class `AWS::IAM::Role`(
   override def arn = `Fn::GetAtt`(Seq(name, "Arn"))
 }
 object `AWS::IAM::Role` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::IAM::Role`] = jsonFormat8(`AWS::IAM::Role`.apply)
+  implicit val format: JsonFormat[`AWS::IAM::Role`] = jsonFormat9(`AWS::IAM::Role`.apply)
 }
 
 sealed trait PolicyConditionValue

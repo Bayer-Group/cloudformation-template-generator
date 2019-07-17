@@ -418,13 +418,14 @@ case class DocumentStep (
   inputs:       Option[Map[String, JsValue]],
   maxAttempts:  Option[Int] = None,
   timeoutSeconds: Option[Int] = None,
-  onFailure: Option[String] = None
+  onFailure: Option[String] = None,
+  nextStep: Option[String] = None
 ) {
   require(! name.contains(" "), "The name of the action can't include a space. If a name includes a space, you will receive an InvalidDocumentContent error.")
 }
 
 object DocumentStep extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[DocumentStep] = jsonFormat7(DocumentStep.apply)
+  implicit val format: JsonFormat[DocumentStep] = jsonFormat8(DocumentStep.apply)
 
   /**
     * Install, repair, or uninstall applications on an EC2 instance. This plugin only runs on Microsoft Windows

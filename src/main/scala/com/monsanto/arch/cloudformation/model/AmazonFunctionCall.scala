@@ -260,6 +260,7 @@ object Token extends DefaultJsonProtocol {
         case s: UNSAFEToken[_]             => s.value.toJson
           // its OK to erase the return type of AmazonFunctionCalls b/c they are only used at compile time for checking
           // not for de/serialization logic or JSON representation
+        case f: UNSAFEFunctionCallToken[_]      => implicitly[JsonWriter[AmazonFunctionCall[_]]].write(f.call)
         case f: FunctionCallToken[_]       => implicitly[JsonWriter[AmazonFunctionCall[_]]].write(f.call)
         case f: FunctionCallSeqToken[_]    => implicitly[JsonWriter[AmazonFunctionCall[_]]].write(f.call)
         case p: PseudoParameterRef         => p.toJson
@@ -295,6 +296,8 @@ case class FunctionCallSeqToken[R](call: AmazonFunctionCall[Seq[R]]) extends Tok
 
 @deprecated("use ParameterRef or ResourceRef instead", "Feb 20 2015")
 case class UNSAFEToken[R](value: String) extends Token[R]
+
+case class UNSAFEFunctionCallToken[R](call: AmazonFunctionCall[String]) extends Token[R]
 
 sealed abstract class PseudoParameterRef(val name: String) extends Token[String]
 object PseudoParameterRef extends DefaultJsonProtocol {

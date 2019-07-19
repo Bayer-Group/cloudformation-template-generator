@@ -8,8 +8,8 @@ startYear := Some(2014)
 
 // scala versions and options
 
-scalaVersion := "2.12.4"
-crossScalaVersions := Seq("2.11.11", "2.12.4")
+scalaVersion := "2.12.8"
+crossScalaVersions := Seq("2.11.12", "2.12.8")
 releaseCrossBuild := true
 
 // These options will be used for *all* versions.

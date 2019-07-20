@@ -9,7 +9,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
   - Add support for AWS::EC2::VPCEndpoint (see [#255](https://github.com/MonsantoCo/cloudformation-template-generator/pull/255))
   - add dynamodb SSESpecification (see [#256](https://github.com/MonsantoCo/cloudformation-template-generator/pull/256))
   - Adds support for TargetTrackingScalingPolicyConfiguration (see [#257](https://github.com/MonsantoCo/cloudformation-template-generator/pull/257))
-  - Adds support for PointInTimeRecoverySpecification and Tags (see [#258](Adds support for PointInTimeRecoverySpecification and Tags))
+  - Adds support for PointInTimeRecoverySpecification and Tags (see [#258](https://github.com/MonsantoCo/cloudformation-template-generator/pull/258))
   - Fix errors in ApplicationAutoScaling models (see [#259](https://github.com/MonsantoCo/cloudformation-template-generator/pull/259))
   - Added Description fields. Changed fields to Token[...] (see [#261](https://github.com/MonsantoCo/cloudformation-template-generator/pull/261))
   - Add EKS support and unit test. (see [#263](https://github.com/MonsantoCo/cloudformation-template-generator/pull/263))

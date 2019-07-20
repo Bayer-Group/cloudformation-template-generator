@@ -3,9 +3,26 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [3.9.2]
-  - Added Kinesis Firehose Delivery Stream S3 support
-  - Added Kinesis Stream Encryption support
+## [3.10.0]
+  - Added Kinesis Firehose Delivery Stream S3 support (see [#270](https://github.com/MonsantoCo/cloudformation-template-generator/pull/270))
+  - Added Kinesis Stream Encryption support (see [#270](https://github.com/MonsantoCo/cloudformation-template-generator/pull/270))
+  - Add support for AWS::EC2::VPCEndpoint (see [#255](https://github.com/MonsantoCo/cloudformation-template-generator/pull/255))
+  - add dynamodb SSESpecification (see [#256](https://github.com/MonsantoCo/cloudformation-template-generator/pull/256))
+  - Adds support for TargetTrackingScalingPolicyConfiguration (see [#257](https://github.com/MonsantoCo/cloudformation-template-generator/pull/257))
+  - Adds support for PointInTimeRecoverySpecification and Tags (see [#258](Adds support for PointInTimeRecoverySpecification and Tags))
+  - Fix errors in ApplicationAutoScaling models (see [#259](https://github.com/MonsantoCo/cloudformation-template-generator/pull/259))
+  - Added Description fields. Changed fields to Token[...] (see [#261](https://github.com/MonsantoCo/cloudformation-template-generator/pull/261))
+  - Add EKS support and unit test. (see [#263](https://github.com/MonsantoCo/cloudformation-template-generator/pull/263))
+  - Add GroupName support for security group. (see [#264](https://github.com/MonsantoCo/cloudformation-template-generator/pull/264))
+  - Add AssociatePublicIpAddress field to LaunchConfiguration. (see [#265](https://github.com/MonsantoCo/cloudformation-template-generator/pull/265))
+  - added billing mode (see [#266](https://github.com/MonsantoCo/cloudformation-template-generator/pull/266))
+  - BillingMode PAY_PER_REQUEST validation also for GlobalSecondaryIndexes (see [#269](https://github.com/MonsantoCo/cloudformation-template-generator/pull/269))
+  - Add secrets manager (see [#271](https://github.com/MonsantoCo/cloudformation-template-generator/pull/271))
+  - Fill out more code build stuff. (see [#272](https://github.com/MonsantoCo/cloudformation-template-generator/pull/272))
+  - Added PermissionsBoundary for Role (see [#273](https://github.com/MonsantoCo/cloudformation-template-generator/pull/273))
+  - Added UNSAFEFunctionCallToken to represent cloudformation functions (see [#274](https://github.com/MonsantoCo/cloudformation-template-generator/pull/274))
+  - Update travis to openjdk8 and bump minor Scala versions (see [#276](https://github.com/MonsantoCo/cloudformation-template-generator/pull/276))
+  - Added automation features to SSM Documents (see [#275](https://github.com/MonsantoCo/cloudformation-template-generator/pull/275))
 
 ## [3.9.1] - 2018-06-08
   - Added Node 8.10 as a lambda runtime option (see [#254](https://github.com/MonsantoCo/cloudformation-template-generator/pull/254))

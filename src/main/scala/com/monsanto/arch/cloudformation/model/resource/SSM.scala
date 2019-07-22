@@ -173,6 +173,8 @@ object `AWS::SSM::Document` extends DefaultJsonProtocol {
                     mainSteps:   Option[Seq[DocumentStep]],
                     description: Option[Token[String]] = None,
                     parameters:  Option[Map[String, DocumentParameter]] = None,
+                    outputs:     Option[Seq[Token[String]]] = None,
+                    assumeRole:  Option[Token[String]] = None,
                     Condition:   Option[ConditionRef] = None,
                     DependsOn:   Option[Seq[String]] = None): `AWS::SSM::Document` =
     `AWS::SSM::Document`(
@@ -181,7 +183,9 @@ object `AWS::SSM::Document` extends DefaultJsonProtocol {
         schemaVersion = "0.3",
         description = description,
         parameters = parameters,
-        mainSteps = mainSteps
+        mainSteps = mainSteps,
+        assumeRole = assumeRole,
+        outputs = outputs
       ),
       DocumentType = Some(DocumentType.Automation),
       Condition = Condition,
@@ -380,16 +384,20 @@ case class TagKey(tagName: String) extends TargetKey
   *                  supported plugins and plugin properties, see
   *                  [[http://docs.aws.amazon.com/ssm/latest/APIReference/ssm-plugins.html SSM Plugins]]
   *                  in the Amazon EC2 Systems Manager API Reference.
+  * @param assumeRole The role that is assumed to run the automation
+  * @param outputs   Document outputs (used in automation documents)
   */
 case class DocumentContent(
   schemaVersion: String,
   description: Option[Token[String]],
   parameters:  Option[Map[String, DocumentParameter]],
-  mainSteps:   Option[Seq[DocumentStep]]
+  mainSteps:   Option[Seq[DocumentStep]],
+  assumeRole:  Option[Token[String]] = None,
+  outputs:     Option[Seq[Token[String]]] = None
 )
 
 object DocumentContent extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[DocumentContent] = jsonFormat4(DocumentContent.apply)
+  implicit val format: JsonFormat[DocumentContent] = jsonFormat6(DocumentContent.apply)
 }
 
 
@@ -407,13 +415,16 @@ case class DocumentStep (
   action:       String,
   name:         String,
   precondition: Option[Precondition],
-  inputs:       Option[Map[String, JsValue]]
+  inputs:       Option[Map[String, JsValue]],
+  maxAttempts:  Option[Int] = None,
+  timeoutSeconds: Option[Int] = None,
+  onFailure: Option[String] = None
 ) {
   require(! name.contains(" "), "The name of the action can't include a space. If a name includes a space, you will receive an InvalidDocumentContent error.")
 }
 
 object DocumentStep extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[DocumentStep] = jsonFormat4(DocumentStep.apply)
+  implicit val format: JsonFormat[DocumentStep] = jsonFormat7(DocumentStep.apply)
 
   /**
     * Install, repair, or uninstall applications on an EC2 instance. This plugin only runs on Microsoft Windows

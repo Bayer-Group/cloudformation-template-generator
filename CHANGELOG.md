@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [3.10.0]
+## [3.10.0] 2019-07-22
   - Added Kinesis Firehose Delivery Stream S3 support (see [#270](https://github.com/MonsantoCo/cloudformation-template-generator/pull/270))
   - Added Kinesis Stream Encryption support (see [#270](https://github.com/MonsantoCo/cloudformation-template-generator/pull/270))
   - Add support for AWS::EC2::VPCEndpoint (see [#255](https://github.com/MonsantoCo/cloudformation-template-generator/pull/255))

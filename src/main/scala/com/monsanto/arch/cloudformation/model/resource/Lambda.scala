@@ -9,19 +9,26 @@ class Runtime(val runtime: String)
 @deprecated("Node v0.10.42 is currently marked as deprecated by AWS.", "3.6.3")
 case object NodeJS extends Runtime("nodejs")
 
+@deprecated("Node v4.3 is currently marked as deprecated by AWS.", "3.10.1")
 case object `NodeJS4.3` extends Runtime("nodejs4.3")
 
+@deprecated("Node v4.3 is currently marked as deprecated by AWS.", "3.10.1")
 case object `NodeJS4.3-edge` extends Runtime("nodejs4.3-edge")
 
+@deprecated("Node v6.10 is currently marked as deprecated by AWS.", "3.10.1")
 case object `NodeJS6.10` extends Runtime("nodejs6.10")
 
 case object `NodeJS8.10` extends Runtime("nodejs8.10")
+
+case object NodeJS10 extends Runtime("nodejs10.x")
 
 case object Java8 extends Runtime("java8")
 
 case object Python27 extends Runtime("python2.7")
 
 case object Python36 extends Runtime("python3.6")
+
+case object Python37 extends Runtime("python3.7")
 
 case object DotNetCore10 extends Runtime("dotnetcore-1.0")
 

@@ -27,7 +27,7 @@ and the dependency
 
 ```scala
 libraryDependencies ++= Seq (
-  "com.monsanto.arch" %% "cloud-formation-template-generator" % "3.8.0"
+  "com.monsanto.arch" %% "cloud-formation-template-generator" % "3.10.0"
 ).map(_.force())
 ```
 
@@ -93,22 +93,31 @@ describe("Template Lookup") {
 - AWS::ApiGateway::Stage
 - AWS::ApiGateway::UsagePlan
 - AWS::ApiGateway::UsagePlanKey
+- AWS::ApplicationAutoScaling::ScalableTarget
+- AWS::ApplicationAutoScaling::ScalingPolicy
 - AWS::AutoScaling::AutoScalingGroup
 - AWS::AutoScaling::LaunchConfiguration
 - AWS::AutoScaling::ScalingPolicy
 - AWS::Batch::ComputeEnvironment
 - AWS::Batch::JobDefinition
 - AWS::Batch::JobQueue
+- AWS::CloudFormation::CustomResource
 - AWS::CloudFormation::Stack
 - AWS::CloudFormation::WaitCondition
 - AWS::CloudFormation::WaitConditionHandle
+- AWS::CloudFront::Distribution
 - AWS::CloudTrail::Trail
-- AWS::CloudFront:Distribution:
+- AWS::CloudWatch::Alarm::ComparisonOperator
+- AWS::CloudWatch::Alarm::Dimension
+- AWS::CloudWatch::Alarm::Namespace
+- AWS::CloudWatch::Alarm::Statistic
+- AWS::CloudWatch::Alarm::Unit
 - AWS::CloudWatch::Alarm
 - AWS::CodeBuild::Project
 - AWS::CodeCommit::Repository
 - AWS::CodePipeline::CustomActionType
 - AWS::CodePipeline::Pipeline
+- AWS::DataPipeline::Pipeline
 - AWS::DynamoDB::Table
 - AWS::EC2::CustomerGateway
 - AWS::EC2::EIP
@@ -121,10 +130,6 @@ describe("Template Lookup") {
 - AWS::EC2::NetworkAclEntry
 - AWS::EC2::Route
 - AWS::EC2::RouteTable
-- AWS::SecretsManager::ResourcePolicy
-- AWS::SecretsManager::RotationSchedule
-- AWS::SecretsManager::Secret
-- AWS::SecretsManager::SecretTargetAttachment
 - AWS::EC2::SecurityGroup
 - AWS::EC2::SecurityGroupEgress
 - AWS::EC2::SecurityGroupIngress
@@ -132,6 +137,7 @@ describe("Template Lookup") {
 - AWS::EC2::SubnetNetworkAclAssociation
 - AWS::EC2::SubnetRouteTableAssociation
 - AWS::EC2::VPC
+- AWS::EC2::VPCEndpoint
 - AWS::EC2::VPCGatewayAttachment
 - AWS::EC2::VPCPeeringConnection
 - AWS::EC2::VPNConnection
@@ -140,22 +146,26 @@ describe("Template Lookup") {
 - AWS::EC2::Volume
 - AWS::EC2::VolumeAttachment
 - AWS::ECR::Repository
+- AWS::ECS::Cluster
+- AWS::ECS::Service
+- AWS::ECS::TaskDefinition
 - AWS::EFS::FileSystem
 - AWS::EFS::MountTarget
-- AWS::ElastiCache::CacheCluser
+- AWS::EKS::Cluster
+- AWS::EMR::Cluster
+- AWS::EMR::Step
+- AWS::ElastiCache::CacheCluster
 - AWS::ElastiCache::SubnetGroup
-- AWS::Elasticsearch::Domain
+- AWS::ElasticBeanstalk::Application
+- AWS::ElasticBeanstalk::ApplicationVersion
+- AWS::ElasticBeanstalk::ConfigurationTemplate
+- AWS::ElasticBeanstalk::Environment
 - AWS::ElasticLoadBalancing::LoadBalancer
 - AWS::ElasticLoadBalancingV2::Listener
 - AWS::ElasticLoadBalancingV2::ListenerRule
 - AWS::ElasticLoadBalancingV2::LoadBalancer
 - AWS::ElasticLoadBalancingV2::TargetGroup
-- AWS::ElasticBeanstalk::Application
-- AWS::ElasticBeanstalk::ApplicationVersion
-- AWS::ElasticBeanstalk::ConfigurationTemplate
-- AWS::ElasticBeanstalk::Environment
-- AWS::EMR::Cluster
-- AWS::EMR::Step
+- AWS::Elasticsearch::Domain
 - AWS::Events::Rule
 - AWS::IAM::AccessKey
 - AWS::IAM::Group
@@ -164,10 +174,10 @@ describe("Template Lookup") {
 - AWS::IAM::Policy
 - AWS::IAM::Role
 - AWS::IAM::User
-- AWS::Kinesis::Stream
-- AWS::KinesisFirehose::DeliveryStream
 - AWS::KMS::Alias
 - AWS::KMS::Key
+- AWS::Kinesis::Stream
+- AWS::KinesisFirehose::DeliveryStream
 - AWS::Lambda::Alias
 - AWS::Lambda::EventSourceMapping
 - AWS::Lambda::Function
@@ -178,17 +188,17 @@ describe("Template Lookup") {
 - AWS::Logs::LogStream
 - AWS::Logs::MetricFilter
 - AWS::Logs::SubscriptionFilter
-- AWS::DataPipeline::Pipeline
 - AWS::RDS::DBInstance::Engine
+- AWS::RDS::DBInstance::LicenseModel
 - AWS::RDS::DBInstance::StorageType
 - AWS::RDS::DBInstance
 - AWS::RDS::DBParameterGroup
 - AWS::RDS::DBSecurityGroup
 - AWS::RDS::DBSubnetGroup
 - AWS::Redshift::Cluster
+- AWS::Redshift::ClusterParameterGroup (along with helper RedshiftClusterParameter type)
 - AWS::Redshift::ClusterSecurityGroup
 - AWS::Redshift::ClusterSecurityGroupIngress
-- AWS::Redshift::ClusterParameterGroup (along with helper RedshiftClusterParameter type)
 - AWS::Redshift::ClusterSubnetGroup
 - AWS::Route53::HostedZone
 - AWS::Route53::RecordSet
@@ -202,6 +212,10 @@ describe("Template Lookup") {
 - AWS::SSM::Association
 - AWS::SSM::Document
 - AWS::SSM::Parameter
+- AWS::SecretsManager::ResourcePolicy
+- AWS::SecretsManager::RotationSchedule
+- AWS::SecretsManager::Secret
+- AWS::SecretsManager::SecretTargetAttachment
 
 ### Custom types
 

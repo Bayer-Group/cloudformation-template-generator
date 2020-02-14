@@ -1528,6 +1528,10 @@ Parameters and Mappings.  A Condition is created but not used.
                         <a href="NodeJS$.html" title="">NodeJS</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
+                        <a class="object" href="NodeJS10$.html" title=""></a>
+                        <a href="NodeJS10$.html" title="">NodeJS10</a>
+                      </li><li class="current-entities indented6">
+                        <span class="separator"></span>
                         <a class="object" href="NodeJS4$u002E3$.html" title=""></a>
                         <a href="NodeJS4$u002E3$.html" title="">NodeJS4.3</a>
                       </li><li class="current-entities indented6">
@@ -1706,6 +1710,10 @@ Parameters and Mappings.  A Condition is created but not used.
                         <span class="separator"></span>
                         <a class="object" href="Python36$.html" title=""></a>
                         <a href="Python36$.html" title="">Python36</a>
+                      </li><li class="current-entities indented6">
+                        <span class="separator"></span>
+                        <a class="object" href="Python37$.html" title=""></a>
+                        <a href="Python37$.html" title="">Python37</a>
                       </li><li class="current-entities indented6">
                         <a class="object" href="QueueConfiguration$.html" title=""></a>
                         <a class="class" href="QueueConfiguration.html" title=""></a>
@@ -2247,7 +2255,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <span class="name">DocumentStep</span><span class="params">(<span name="action">action: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="precondition">precondition: <span class="extype" name="scala.Option">Option</span>[<a href="Precondition.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Precondition">Precondition</a>]</span>, <span name="inputs">inputs: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="spray.json.JsValue">JsValue</span>]]</span>, <span name="maxAttempts">maxAttempts: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol">None</span></span>, <span name="timeoutSeconds">timeoutSeconds: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol">None</span></span>, <span name="onFailure">onFailure: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">None</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <span class="name">DocumentStep</span><span class="params">(<span name="action">action: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="precondition">precondition: <span class="extype" name="scala.Option">Option</span>[<a href="Precondition.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Precondition">Precondition</a>]</span>, <span name="inputs">inputs: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="spray.json.JsValue">JsValue</span>]]</span>, <span name="maxAttempts">maxAttempts: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol">None</span></span>, <span name="timeoutSeconds">timeoutSeconds: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol">None</span></span>, <span name="onFailure">onFailure: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">None</span></span>, <span name="nextStep">nextStep: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">None</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
 
@@ -2303,9 +2311,9 @@ Parameters and Mappings.  A Condition is created but not used.
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
               <ol><li name="com.monsanto.arch.cloudformation.model.resource.DocumentStep#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="&lt;init&gt;(action:String,name:String,precondition:Option[com.monsanto.arch.cloudformation.model.resource.Precondition],inputs:Option[Map[String,spray.json.JsValue]],maxAttempts:Option[Int],timeoutSeconds:Option[Int],onFailure:Option[String]):com.monsanto.arch.cloudformation.model.resource.DocumentStep"></a><a id="&lt;init&gt;:DocumentStep"></a>
+      <a id="&lt;init&gt;(action:String,name:String,precondition:Option[com.monsanto.arch.cloudformation.model.resource.Precondition],inputs:Option[Map[String,spray.json.JsValue]],maxAttempts:Option[Int],timeoutSeconds:Option[Int],onFailure:Option[String],nextStep:Option[String]):com.monsanto.arch.cloudformation.model.resource.DocumentStep"></a><a id="&lt;init&gt;:DocumentStep"></a>
       <span class="permalink">
-      <a href="../../../../../../com/monsanto/arch/cloudformation/model/resource/DocumentStep.html#&lt;init&gt;(action:String,name:String,precondition:Option[com.monsanto.arch.cloudformation.model.resource.Precondition],inputs:Option[Map[String,spray.json.JsValue]],maxAttempts:Option[Int],timeoutSeconds:Option[Int],onFailure:Option[String]):com.monsanto.arch.cloudformation.model.resource.DocumentStep" title="Permalink">
+      <a href="../../../../../../com/monsanto/arch/cloudformation/model/resource/DocumentStep.html#&lt;init&gt;(action:String,name:String,precondition:Option[com.monsanto.arch.cloudformation.model.resource.Precondition],inputs:Option[Map[String,spray.json.JsValue]],maxAttempts:Option[Int],timeoutSeconds:Option[Int],onFailure:Option[String],nextStep:Option[String]):com.monsanto.arch.cloudformation.model.resource.DocumentStep" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -2314,7 +2322,7 @@ Parameters and Mappings.  A Condition is created but not used.
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">DocumentStep</span><span class="params">(<span name="action">action: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="precondition">precondition: <span class="extype" name="scala.Option">Option</span>[<a href="Precondition.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Precondition">Precondition</a>]</span>, <span name="inputs">inputs: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="spray.json.JsValue">JsValue</span>]]</span>, <span name="maxAttempts">maxAttempts: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol">None</span></span>, <span name="timeoutSeconds">timeoutSeconds: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol">None</span></span>, <span name="onFailure">onFailure: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">None</span></span>)</span>
+        <span class="name">DocumentStep</span><span class="params">(<span name="action">action: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="precondition">precondition: <span class="extype" name="scala.Option">Option</span>[<a href="Precondition.html" class="extype" name="com.monsanto.arch.cloudformation.model.resource.Precondition">Precondition</a>]</span>, <span name="inputs">inputs: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="spray.json.JsValue">JsValue</span>]]</span>, <span name="maxAttempts">maxAttempts: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol">None</span></span>, <span name="timeoutSeconds">timeoutSeconds: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol">None</span></span>, <span name="onFailure">onFailure: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">None</span></span>, <span name="nextStep">nextStep: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">None</span></span>)</span>
       </span>
       
       
@@ -2569,6 +2577,22 @@ Parameters and Mappings.  A Condition is created but not used.
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="com.monsanto.arch.cloudformation.model.resource.DocumentStep#nextStep" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="nextStep:Option[String]"></a>
+      <span class="permalink">
+      <a href="../../../../../../com/monsanto/arch/cloudformation/model/resource/DocumentStep.html#nextStep:Option[String]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">nextStep</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>
+      </span>
+      
+      
     </li><li name="scala.AnyRef#notify" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="notify():Unit"></a>
       <span class="permalink">

@@ -18,9 +18,15 @@ case object `NodeJS4.3-edge` extends Runtime("nodejs4.3-edge")
 @deprecated("Node v6.10 is currently marked as deprecated by AWS.", "3.10.1")
 case object `NodeJS6.10` extends Runtime("nodejs6.10")
 
+@deprecated("Node v8.10 is currently marked as deprecated by AWS.", "3.10.1")
 case object `NodeJS8.10` extends Runtime("nodejs8.10")
 
-case object NodeJS10 extends Runtime("nodejs10.x")
+@deprecated("Node v10.x is currently marked as deprecated by AWS.", "3.10.1")
+case object NodeJS10 extends Runtime("nodejs1s0.x")
+
+case object NodeJS12 extends Runtime("nodejs12.x")
+
+case object NodeJS14 extends Runtime("nodejs14.x")
 
 case object Java8 extends Runtime("java8")
 

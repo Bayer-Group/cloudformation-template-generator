@@ -6,6 +6,18 @@ import com.monsanto.arch.cloudformation.model.Token.TokenSeq
 
 class Runtime(val runtime: String)
 
+case object Custom extends Runtime("provided")
+
+case object CustomAl2 extends Runtime("provided.al2")
+
+@deprecated(".Net Core 1.0 is deprecated by AWS", "3.10.2")
+case object DotNetCore10 extends Runtime("dotnetcore-1.0")
+
+@deprecated(".Net Core 2.1 is deprecated by AWS as of Aug 23 2021", "3.10.2")
+case object DotNetCore21 extends Runtime("dotnetcore2.1")
+
+case object DotNetCore31 extends Runtime("dotnetcore3.1")
+
 @deprecated("Node v0.10.42 is currently marked as deprecated by AWS.", "3.6.3")
 case object NodeJS extends Runtime("nodejs")
 
@@ -21,22 +33,34 @@ case object `NodeJS6.10` extends Runtime("nodejs6.10")
 @deprecated("Node v8.10 is currently marked as deprecated by AWS.", "3.10.1")
 case object `NodeJS8.10` extends Runtime("nodejs8.10")
 
-@deprecated("Node v10.x is currently marked as deprecated by AWS.", "3.10.1")
+@deprecated("Node v10.x is currently marked as deprecated by AWS.", "3.10.2")
 case object NodeJS10 extends Runtime("nodejs1s0.x")
 
 case object NodeJS12 extends Runtime("nodejs12.x")
 
 case object NodeJS14 extends Runtime("nodejs14.x")
 
+case object Go1 extends Runtime("go1.x")
+
 case object Java8 extends Runtime("java8")
 
+case object Java8Al2 extends Runtime("java8.al2")
+
+case object Java11 extends Runtime("java11")
+
+@deprecated("Python 2.7 is deprecated by AWS as of Jul 15 2021", "3.10.2")
 case object Python27 extends Runtime("python2.7")
 
 case object Python36 extends Runtime("python3.6")
 
 case object Python37 extends Runtime("python3.7")
 
-case object DotNetCore10 extends Runtime("dotnetcore-1.0")
+case object Python38 extends Runtime("python3.8")
+
+@deprecated("Ruby25 is deprecated by AWS as of July 30 2021", "3.10.2")
+case object Ruby25 extends Runtime("ruby2.5")
+
+case object Ruby27 extends Runtime("ruby2.7")
 
 object Runtime {
 

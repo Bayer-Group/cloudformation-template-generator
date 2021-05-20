@@ -47,7 +47,7 @@ libraryDependencies ++= Seq (
 ).map(_.force())
 
 resolvers ++= Seq(
-  "spray repo" at "http://repo.spray.io",
+  "spray repo" at "https://repo.spray.io",
   Resolver.sonatypeRepo("releases"),
   Resolver.sonatypeRepo("snapshots")
 )

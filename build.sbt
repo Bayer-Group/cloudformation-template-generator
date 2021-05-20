@@ -47,35 +47,36 @@ libraryDependencies ++= Seq (
 ).map(_.force())
 
 resolvers ++= Seq(
-  "spray repo" at "http://repo.spray.io",
+  "spray repo" at "https://repo.spray.io",
   Resolver.sonatypeRepo("releases"),
   Resolver.sonatypeRepo("snapshots")
 )
+
+// for sonatype
+
+
+import ReleaseTransformations._
+
+releaseCrossBuild := true // true if you cross-build the project for multiple Scala versions
+releaseProcess := Seq[ReleaseStep](
+  checkSnapshotDependencies,
+  inquireVersions,
+  runClean,
+  runTest,
+  setReleaseVersion,
+  commitReleaseVersion,
+  tagRelease,
+  // For non cross-build projects, use releaseStepCommand("publishSigned")
+  releaseStepCommandAndRemaining("+publishSigned"),
+  releaseStepCommand("sonatypeBundleRelease"),
+  setNextVersion,
+  commitNextVersion,
+  pushChanges
+)
+
 
 // for ghpages
 
 enablePlugins(GhpagesPlugin, SiteScaladocPlugin)
 
 git.remoteRepo := "git@github.com:MonsantoCo/cloudformation-template-generator.git"
-
-// for bintray
-
-bintrayOrganization := Some("monsanto")
-
-licenses += ("BSD", url("http://opensource.org/licenses/BSD-3-Clause"))
-
-bintrayReleaseOnPublish := ! isSnapshot.value
-
-publishTo in ThisBuild := Def.taskDyn[Option[Resolver]] {
-  if (isSnapshot.value)
-    Def.task(Some("Artifactory Realm" at "https://oss.jfrog.org/oss-snapshot-local/"))
-  else
-    Def.task(publishTo.value) /* Value set by bintray-sbt plugin */
-}.value
-
-credentials := Def.taskDyn[Seq[Credentials]] {
-  if (isSnapshot.value)
-    Def.task(List(Path.userHome / ".bintray" / ".artifactory").filter(_.exists).map(Credentials(_)))
-  else
-    Def.task(credentials.value) /* Value set by bintray-sbt plugin */
-}.value

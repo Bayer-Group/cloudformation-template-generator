@@ -14,9 +14,17 @@ lib_managed/
 src_managed/
 project/boot/
 project/plugins/project/
+project/project/
+project/.bloop/
 src/test/resources/cloud-config.generated
 src/test/resources/cloudformation-template-vpc-example.json.generated
 
 # Scala-IDE specific
 .scala_dependencies
 .worksheet
+
+.vscode/
+.metals/
+project/metals.sbt
+.bloop/
+.bsp

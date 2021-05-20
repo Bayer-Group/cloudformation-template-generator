@@ -26,3 +26,5 @@ src/test/resources/cloudformation-template-vpc-example.json.generated
 .vscode/
 .metals/
 project/metals.sbt
+.bloop/
+.bsp

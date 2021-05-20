@@ -1,4 +1,4 @@
-sonatypeProfileName := "com.monsanto.arch"
+sonatypeProfileName := "com.monsanto"
 
 ThisBuild / sonatypeCredentialHost := "s01.oss.sonatype.org"
 sonatypeCredentialHost := "s01.oss.sonatype.org"

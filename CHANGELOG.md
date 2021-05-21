@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.10.3] 2021-05-21
+  - IMPORTANT: With this release, we move to publishing to Maven Central instead of Bintray (since it is gone), and renamed the group ID in Maven Central to `com.bayer`.  But the Scala/Java package names are still monsanto.
+  - Added tags to IAM (see [#280](https://github.com/MonsantoCo/cloudformation-template-generator/pull/280))
+  
+## [3.10.2] 2021-05-20
+  - Changes to add Nodejs14.x runtime (see [#281](https://github.com/MonsantoCo/cloudformation-template-generator/pull/281))
+  - Sonotype switch (see [#282](https://github.com/MonsantoCo/cloudformation-template-generator/pull/282))
+  - NOTE: this was a short lived release...skip along to the next one.
+
 ## [3.10.1] 2020-02-14 (<3)
   - Added automation features to SSM Documents (see [#279](https://github.com/MonsantoCo/cloudformation-template-generator/pull/279))
   - Added new lambda runtimes for Node 10 and Python 3.7 (see [#277](https://github.com/MonsantoCo/cloudformation-template-generator/pull/277))

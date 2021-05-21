@@ -1,6 +1,6 @@
 # CloudFormation Template Generator
 
-[![Build Status](https://travis-ci.org/bayer-group/cloudformation-template-generator.svg?branch=master)](https://travis-ci.org/bayer-group/cloudformation-template-generator) [![Coverage Status](https://coveralls.io/repos/bayer-group/cloudformation-template-generator/badge.svg?branch=master&service=github)](https://coveralls.io/github/bayer-group/cloudformation-template-generator?branch=master)
+[![Build Status](https://travis-ci.com/bayer-group/cloudformation-template-generator.svg?branch=master)](https://travis-ci.com/bayer-group/cloudformation-template-generator) [![Coverage Status](https://coveralls.io/repos/bayer-group/cloudformation-template-generator/badge.svg?branch=master&service=github)](https://coveralls.io/github/bayer-group/cloudformation-template-generator?branch=master)
 
 Scala DSL to create AWS CloudFormation (CFN) templates. The library
 allows for easier creation of the AWS CloudFormation JSON by writing Scala code

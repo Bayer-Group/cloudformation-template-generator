@@ -14,4 +14,4 @@ cache:
 
 script: "sbt +clean +coverage +test && sbt coverageAggregate"
 
-after_success: "sbt +coveralls"
+after_success: "sbt coveralls"

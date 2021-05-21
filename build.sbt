@@ -2,7 +2,7 @@ import sbt.Keys._
 
 name := "cloud-formation-template-generator"
 
-organization := "com.monsanto.arch"
+organization := "com.bayer"
 
 startYear := Some(2014)
 
@@ -79,4 +79,4 @@ releaseProcess := Seq[ReleaseStep](
 
 enablePlugins(GhpagesPlugin, SiteScaladocPlugin)
 
-git.remoteRepo := "git@github.com:MonsantoCo/cloudformation-template-generator.git"
+git.remoteRepo := "git@github.com:bayer-group/cloudformation-template-generator.git"

@@ -1,6 +1,6 @@
 # CloudFormation Template Generator
 
-[![Build Status](https://travis-ci.org/MonsantoCo/cloudformation-template-generator.svg?branch=master)](https://travis-ci.org/MonsantoCo/cloudformation-template-generator) [![Coverage Status](https://coveralls.io/repos/MonsantoCo/cloudformation-template-generator/badge.svg?branch=master&service=github)](https://coveralls.io/github/MonsantoCo/cloudformation-template-generator?branch=master)
+[![Build Status](https://travis-ci.org/bayer-group/cloudformation-template-generator.svg?branch=master)](https://travis-ci.org/bayer-group/cloudformation-template-generator) [![Coverage Status](https://coveralls.io/repos/bayer-group/cloudformation-template-generator/badge.svg?branch=master&service=github)](https://coveralls.io/github/bayer-group/cloudformation-template-generator?branch=master)
 
 Scala DSL to create AWS CloudFormation (CFN) templates. The library
 allows for easier creation of the AWS CloudFormation JSON by writing Scala code
@@ -17,17 +17,17 @@ write all AWS resources in JSON?
 See the intro [blog
 post](http://engineering.monsanto.com/2015/07/10/cloudformation-template-generator/).
 
-To use this library, you must add the following resolver
+This library was previously hosted on BinTray, however, with the sunsetting of this service, it is now
+hosted on Maven Central.  You no longer need to add a resolver to pull it in.
 
-```scala
-resolvers ++= Seq(Resolver.jcenterRepo)
-```
-
-and the dependency
+The library was previously published under the `com.monsanto.arch` group ID.  With Bayer's acquisition of Monsanto
+long ago completed, we have renamed the group ID to `com.bayer` starting with version v3.10.3.  **Note that the
+actual Java packages themselves still use com.monsanto, as that's a more significant breaking change.  Only the
+group ID in SBT has changed.**
 
 ```scala
 libraryDependencies ++= Seq (
-  "com.monsanto.arch" %% "cloud-formation-template-generator" % "3.10.0"
+  "com.bayer" %% "cloud-formation-template-generator" % "3.10.3"
 ).map(_.force())
 ```
 
@@ -224,7 +224,7 @@ tasks that CloudFormation does not natively support.  In order to use them, you 
 to your account and region.  The code for these functions is found in this repo under assets/custom-types.
 
 #### Remote Route 53 entries
-A given domain (or hosted zone, more specifically) must be managed out of a single AWS account.  This poses problems if you want to create resources under that domain in templates that will run out of other accounts.  A CloudFormation template can only work in one given account.  However, with Cloud Formation's custom type functionality, we use custom code to assume a role in the account that owns the hosted zone.  This requires some setup steps for each hosted zone and each account.  For instructions, please see: https://github.com/MonsantoCo/cloudformation-template-generator/blob/master/assets/custom-types/remote-route53/README.md for more.
+A given domain (or hosted zone, more specifically) must be managed out of a single AWS account.  This poses problems if you want to create resources under that domain in templates that will run out of other accounts.  A CloudFormation template can only work in one given account.  However, with Cloud Formation's custom type functionality, we use custom code to assume a role in the account that owns the hosted zone.  This requires some setup steps for each hosted zone and each account.  For instructions, please see: https://github.com/bayer-group/cloudformation-template-generator/blob/master/assets/custom-types/remote-route53/README.md for more.
 
 ## Working with Cloudformation Concatenating
 In the CloudFormation DSL, there is support for concatenating strings, parameters, and function calls together to build strings.
@@ -244,4 +244,4 @@ commands to publish the library and its documentation.
     sbt release
     sbt ghpagesPushSite
 
-After publishing, create a new release under Github [releases](https://github.com/MonsantoCo/cloudformation-template-generator/releases), copying the portion of the change log for this release from CHANGELOG.md.
+After publishing, create a new release under Github [releases](https://github.com/bayer-group/cloudformation-template-generator/releases), copying the portion of the change log for this release from CHANGELOG.md.

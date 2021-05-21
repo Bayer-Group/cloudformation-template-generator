@@ -1,6 +1,6 @@
 # CloudFormation Template Generator
 
-[![Build Status](https://travis-ci.com/bayer-group/cloudformation-template-generator.svg?branch=master)](https://travis-ci.com/bayer-group/cloudformation-template-generator) [![Coverage Status](https://coveralls.io/repos/bayer-group/cloudformation-template-generator/badge.svg?branch=master&service=github)](https://coveralls.io/github/bayer-group/cloudformation-template-generator?branch=master)
+[![Build Status](https://travis-ci.com/bayer-group/cloudformation-template-generator.svg?branch=master)](https://travis-ci.com/bayer-group/cloudformation-template-generator) [![Coverage Status](https://coveralls.io/repos/github/Bayer-Group/cloudformation-template-generator/badge.svg?branch=master)](https://coveralls.io/github/Bayer-Group/cloudformation-template-generator?branch=master)
 
 Scala DSL to create AWS CloudFormation (CFN) templates. The library
 allows for easier creation of the AWS CloudFormation JSON by writing Scala code
@@ -22,8 +22,8 @@ hosted on Maven Central.  You no longer need to add a resolver to pull it in.
 
 The library was previously published under the `com.monsanto.arch` group ID.  With Bayer's acquisition of Monsanto
 long ago completed, we have renamed the group ID to `com.bayer` starting with version v3.10.3.  **Note that the
-actual Java packages themselves still use com.monsanto, as that's a more significant breaking change.  Only the
-group ID in SBT has changed.**
+actual Java/SBT packages themselves still use com.monsanto, as that's a more significant breaking change.  Only the
+group ID in SBT/Maven has changed.**
 
 ```scala
 libraryDependencies ++= Seq (

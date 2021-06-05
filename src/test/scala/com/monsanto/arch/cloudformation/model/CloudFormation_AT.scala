@@ -907,7 +907,7 @@ object StaxTemplate {
 
   private val coreOSServerAutoScaleResource = `AWS::AutoScaling::AutoScalingGroup`(
     "CoreOSServerAutoScale",
-    AvailabilityZones = Seq("us-east-1a", "us-east-1b"),
+    AvailabilityZones = Some(Seq("us-east-1a", "us-east-1b")),
     LaunchConfigurationName = ResourceRef(coreOSServerLaunchConfigResource),
     MinSize = 2,
     MaxSize = 12,
@@ -1085,7 +1085,7 @@ object StaxTemplate {
 
       `AWS::AutoScaling::AutoScalingGroup`(
                                             "RouterCoreOSServerAutoScale",
-                                            AvailabilityZones = Seq("us-east-1a", "us-east-1b"),
+                                            AvailabilityZones = Some(Seq("us-east-1a", "us-east-1b")),
                                             LaunchConfigurationName = ResourceRef(routerCoreOSServerLaunchConfigResource),
                                             LoadBalancerNames = Some(Seq(ResourceRef(routerELBResource))),
                                             MinSize = 2,

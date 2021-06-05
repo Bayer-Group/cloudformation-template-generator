@@ -10,12 +10,13 @@ import spray.json._
 
 case class `AWS::AutoScaling::AutoScalingGroup`(
     name:                    String,
-    AvailabilityZones:       TokenSeq[String],
+    AvailabilityZones:       Option[TokenSeq[String]],
     LaunchConfigurationName: Token[ResourceRef[`AWS::AutoScaling::LaunchConfiguration`]],
     MinSize:                 Token[Int],
     MaxSize:                 Token[Int],
     DesiredCapacity:         Option[Token[Int]],
-    HealthCheckType:         String,
+    HealthCheckType:         Option[String] = None,
+    HealthCheckGracePeriod:  Option[Int] = None,
     VPCZoneIdentifier:       Seq[Token[ResourceRef[`AWS::EC2::Subnet`]]],
     Tags:                    Seq[AmazonTag],
     LoadBalancerNames:       Option[Seq[Token[ResourceRef[`AWS::ElasticLoadBalancing::LoadBalancer`]]]],
@@ -27,7 +28,7 @@ case class `AWS::AutoScaling::AutoScalingGroup`(
 }
 
 object `AWS::AutoScaling::AutoScalingGroup` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::AutoScaling::AutoScalingGroup`] = jsonFormat13(`AWS::AutoScaling::AutoScalingGroup`.apply)
+  implicit val format: JsonFormat[`AWS::AutoScaling::AutoScalingGroup`] = jsonFormat14(`AWS::AutoScaling::AutoScalingGroup`.apply)
 }
 
 case class `AWS::AutoScaling::LaunchConfiguration`(

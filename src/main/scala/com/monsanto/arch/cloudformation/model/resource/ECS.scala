@@ -29,6 +29,7 @@ case class `AWS::ECS::Service`(
                                   TaskDefinition:           Token[String],
                                   PlacementConstraints:     Option[Seq[PlacementConstraint]] = None,
                                   PlacementStrategies:      Option[Seq[PlacementStrategy]] = None,
+                                  ServiceName:              Option[Token[String]] = None,
                                   override val Condition:   Option[ConditionRef] = None,
                                   override val DependsOn:   Option[Seq[String]] = None
                               ) extends Resource[`AWS::ECS::Service`] with HasArn {
@@ -38,7 +39,7 @@ case class `AWS::ECS::Service`(
 }
 
 object `AWS::ECS::Service` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::ECS::Service`] = jsonFormat11(`AWS::ECS::Service`.apply)
+  implicit val format: JsonFormat[`AWS::ECS::Service`] = jsonFormat12(`AWS::ECS::Service`.apply)
 }
 
 case class DeploymentConfiguration(MaximumPercent: Option[Int], MinimumHealthyPercent: Option[Int])

@@ -8,16 +8,13 @@ object AwsStringInterpolation {
   /**
     * Takes a sequence of objects and zips them together such that
     */
-  case class Zipper[A](parts: Seq[A]*) extends Traversable[A] {
-    override def foreach[U](f: (A) => U): Unit = {
-      val i = parts.map(_.iterator)
-      while (i.exists(_.hasNext))
-        i.foreach { v =>
-          if (v.hasNext) {
-            f(v.next)
-          }
-        }
-    }
+  case class Zipper[A](parts: Seq[A]*) extends Iterable[A] {
+
+    override def iterator: Iterator[A] =
+      if (parts.isEmpty)
+        Seq[A]().iterator
+      else  
+        parts.iterator.flatMap(_.headOption) ++ Zipper(parts.flatMap(p => p.headOption.map(_ => p.tail)): _*).iterator
   }
 
   def apply(sc: StringContext, tokens: Seq[Token[String]]): Token[String] = {

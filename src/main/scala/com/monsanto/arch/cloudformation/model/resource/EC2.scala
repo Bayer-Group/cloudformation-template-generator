@@ -335,7 +335,7 @@ object `AWS::EC2::Route` extends DefaultJsonProtocol {
           "VpcPeeringConnectionId" -> writeField(p.VpcPeeringConnectionId),
           "Condition"              -> writeField(p.Condition),
           "DependsOn"              -> writeField(p.DependsOn)
-        ).filter(_._2.isDefined).mapValues(_.get)
+        ).filter(_._2.isDefined).mapValues(_.get).toMap
       )
     }
 
@@ -656,7 +656,7 @@ object `AWS::EC2::VPCGatewayAttachment` extends DefaultJsonProtocol {
           "VpnGatewayId"           -> writeField(p.VpnGatewayId),
           "InternetGatewayId"      -> writeField(p.InternetGatewayId),
           "Condition"              -> writeField(p.Condition)
-        ).filter(_._2.isDefined).mapValues(_.get)
+        ).filter(_._2.isDefined).mapValues(_.get).toMap
       )
     }
 

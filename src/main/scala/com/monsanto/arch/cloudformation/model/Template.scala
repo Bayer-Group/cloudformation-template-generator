@@ -109,7 +109,7 @@ object Template extends DefaultJsonProtocol {
       if(p.Mappings.nonEmpty) fields ++= productElement2Field[Option[Seq[Mapping[_]]]]("Mappings", p, 3)
       fields ++= productElement2Field[Seq[Resource[_]]]("Resources", p, 4)
       if(p.Outputs.nonEmpty) fields ++= productElement2Field[Option[Seq[Output[_]]]]("Outputs", p, 6)
-      JsObject(ListMap(fields: _*))
+      JsObject(ListMap(fields.toSeq: _*))
     }
   }
 

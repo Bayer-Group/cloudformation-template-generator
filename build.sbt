@@ -8,8 +8,8 @@ startYear := Some(2014)
 
 // scala versions and options
 
-scalaVersion := "2.12.13"
-crossScalaVersions := Seq("2.11.12", "2.12.13")
+scalaVersion := "2.13.6"
+crossScalaVersions := Seq("2.11.12", "2.12.13", "2.13.6")
 releaseCrossBuild := true
 
 // These options will be used for *all* versions.
@@ -39,7 +39,7 @@ javacOptions ++= Seq("-Xlint:unchecked", "-Xlint:deprecation")
 
 libraryDependencies ++= Seq (
   // -- testing --
-   "org.scalatest"  %% "scalatest"     % "3.0.4"  % Test
+   "org.scalatest"  %% "scalatest"     % "3.0.8"  % Test
   // -- json --
   ,"io.spray"       %%  "spray-json"   % "1.3.6"
   // -- reflection --

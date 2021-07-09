@@ -86,7 +86,7 @@ object `AWS::CloudFormation::CustomResource` extends spray.json.DefaultJsonProto
     override def write(obj: `AWS::CloudFormation::CustomResource`): JsValue = {
       val st = ("ServiceToken" -> obj.ServiceToken.toJson)
       obj.Parameters match {
-        case Some(p) => JsObject(p.mapValues(v => v.toJson) + st)
+        case Some(p) => JsObject(p.mapValues(v => v.toJson).toMap + st)
         case None => JsObject(st)
       }
     }

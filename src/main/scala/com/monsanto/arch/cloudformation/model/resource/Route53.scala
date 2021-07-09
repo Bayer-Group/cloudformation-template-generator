@@ -67,7 +67,7 @@ object `AWS::Route53::RecordSet` extends DefaultJsonProtocol {
   implicit val format: JsonFormat[`AWS::Route53::RecordSet`] = new JsonFormat[`AWS::Route53::RecordSet`]{
     def write(p: `AWS::Route53::RecordSet`) = {
       JsObject(
-        Route53RecordSetBaseFields.writeCoreFields(p).filter(_._2.isDefined).mapValues(_.get)
+        Route53RecordSetBaseFields.writeCoreFields(p).filter(_._2.isDefined).mapValues(_.get).toMap
       )
     }
 
@@ -142,7 +142,7 @@ object `Custom::RemoteRoute53RecordSet` {
         (Route53RecordSetBaseFields.writeCoreFields(p)
           + ("ServiceToken"            -> writeField(p.ServiceToken))
           + ("DestinationRole"            -> writeField(p.DestinationRole))
-          ).filter(_._2.isDefined).mapValues(_.get)
+          ).filter(_._2.isDefined).mapValues(_.get).toMap
       )
     }
 

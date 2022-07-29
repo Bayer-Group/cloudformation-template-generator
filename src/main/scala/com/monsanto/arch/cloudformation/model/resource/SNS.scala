@@ -16,16 +16,17 @@ case class `AWS::SNS::Topic`(
   DisplayName: Option[Token[String]] = None,
   Subscription: Option[Seq[Token[Subscription]]] = None,
   TopicName: Option[Token[String]] = None,
+  KmsMasterKeyId: Option[String] = None,
   override val DependsOn: Option[Seq[String]] = None,
   override val Condition: Option[ConditionRef] = None)
   extends Resource[`AWS::SNS::Topic`] with HasArn {
   def when(newCondition: Option[ConditionRef] = Condition) =
-    new `AWS::SNS::Topic`(name, DisplayName, Subscription, TopicName, DependsOn, newCondition)
+    new `AWS::SNS::Topic`(name, DisplayName, Subscription, TopicName, KmsMasterKeyId, DependsOn, newCondition)
 
   override def arn = ResourceRef(this)
 }
 object `AWS::SNS::Topic` extends DefaultJsonProtocol {
-  implicit val format: JsonFormat[`AWS::SNS::Topic`] = jsonFormat6(`AWS::SNS::Topic`.apply)
+  implicit val format: JsonFormat[`AWS::SNS::Topic`] = jsonFormat7(`AWS::SNS::Topic`.apply)
 }
 
 case class `AWS::SNS::TopicPolicy`(
